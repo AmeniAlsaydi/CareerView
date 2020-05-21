@@ -3,27 +3,29 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45BC67ACBC278BE7865BCC41 /* Pods_Capstone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */; };
 		B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C2392476832F000811C5 /* AppDelegate.swift */; };
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
-		B725C23E2476832F000811C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23D2476832F000811C5 /* ViewController.swift */; };
-		B725C2412476832F000811C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B725C23F2476832F000811C5 /* Main.storyboard */; };
 		B725C24324768331000811C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B725C24224768331000811C5 /* Assets.xcassets */; };
 		B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B725C24424768331000811C5 /* LaunchScreen.storyboard */; };
+		B7976E0B24768578001AE3B3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B21D1AA2CAE8320224A17FD /* Pods-Capstone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.release.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.release.xcconfig"; sourceTree = "<group>"; };
 		B725C2362476832F000811C5 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B725C2392476832F000811C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B725C23B2476832F000811C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B725C23D2476832F000811C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B725C2402476832F000811C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B725C24224768331000811C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B725C24524768331000811C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B725C24724768331000811C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45BC67ACBC278BE7865BCC41 /* Pods_Capstone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4249468C7066E63C865B619C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5956DD7DDBAFC9F24FDEE2CA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */,
+				0B21D1AA2CAE8320224A17FD /* Pods-Capstone.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B725C22D2476832F000811C5 = {
 			isa = PBXGroup;
 			children = (
 				B725C2382476832F000811C5 /* Capstone */,
 				B725C2372476832F000811C5 /* Products */,
+				5956DD7DDBAFC9F24FDEE2CA /* Pods */,
+				4249468C7066E63C865B619C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +78,70 @@
 		B725C2382476832F000811C5 /* Capstone */ = {
 			isa = PBXGroup;
 			children = (
-				B725C2392476832F000811C5 /* AppDelegate.swift */,
-				B725C23B2476832F000811C5 /* SceneDelegate.swift */,
-				B725C23D2476832F000811C5 /* ViewController.swift */,
-				B725C23F2476832F000811C5 /* Main.storyboard */,
-				B725C24224768331000811C5 /* Assets.xcassets */,
-				B725C24424768331000811C5 /* LaunchScreen.storyboard */,
+				B7976E12247688B2001AE3B3 /* Secrets */,
+				B7976E112476885F001AE3B3 /* Storyboards */,
+				B7976E102476881E001AE3B3 /* Extensions */,
+				B7976E0F24768817001AE3B3 /* Models */,
+				B7976E0E2476880E001AE3B3 /* Views */,
+				B7976E0D24768806001AE3B3 /* Supporting */,
+				B7976E0C247687FB001AE3B3 /* Controllers */,
+				B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */,
 				B725C24724768331000811C5 /* Info.plist */,
 			);
 			path = Capstone;
+			sourceTree = "<group>";
+		};
+		B7976E0C247687FB001AE3B3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B7976E0D24768806001AE3B3 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				B725C2392476832F000811C5 /* AppDelegate.swift */,
+				B725C23B2476832F000811C5 /* SceneDelegate.swift */,
+				B725C24224768331000811C5 /* Assets.xcassets */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
+		B7976E0E2476880E001AE3B3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B7976E0F24768817001AE3B3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B7976E102476881E001AE3B3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B7976E112476885F001AE3B3 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B725C24424768331000811C5 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		B7976E12247688B2001AE3B3 /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Secrets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +151,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B725C24A24768331000811C5 /* Build configuration list for PBXNativeTarget "Capstone" */;
 			buildPhases = (
+				98B6720B481737C229FDF161 /* [CP] Check Pods Manifest.lock */,
 				B725C2322476832F000811C5 /* Sources */,
 				B725C2332476832F000811C5 /* Frameworks */,
 				B725C2342476832F000811C5 /* Resources */,
+				74298BEAE6CEA86EBFE2A1BB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,19 +205,60 @@
 			buildActionMask = 2147483647;
 			files = (
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
+				B7976E0B24768578001AE3B3 /* GoogleService-Info.plist in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
-				B725C2412476832F000811C5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		74298BEAE6CEA86EBFE2A1BB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Capstone/Pods-Capstone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Capstone/Pods-Capstone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Capstone/Pods-Capstone-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		98B6720B481737C229FDF161 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Capstone-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B725C2322476832F000811C5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B725C23E2476832F000811C5 /* ViewController.swift in Sources */,
 				B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */,
 				B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */,
 			);
@@ -147,14 +267,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B725C23F2476832F000811C5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B725C2402476832F000811C5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B725C24424768331000811C5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -282,6 +394,7 @@
 		};
 		B725C24B24768331000811C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +413,7 @@
 		};
 		B725C24C24768331000811C5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B21D1AA2CAE8320224A17FD /* Pods-Capstone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
