@@ -15,6 +15,8 @@
 		B7976E0B24768578001AE3B3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */; };
 		B7976E142476899D001AE3B3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E132476899D001AE3B3 /* Secrets.swift */; };
 		B7976E16247689DE001AE3B3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E15247689DE001AE3B3 /* MainViewController.swift */; };
+		B7976E1824777583001AE3B3 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1724777583001AE3B3 /* Job.swift */; };
+		B7976E1A24777593001AE3B3 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1924777593001AE3B3 /* Application.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7976E132476899D001AE3B3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		B7976E15247689DE001AE3B3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		B7976E1724777583001AE3B3 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		B7976E1924777593001AE3B3 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +127,8 @@
 		B7976E0F24768817001AE3B3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B7976E1724777583001AE3B3 /* Job.swift */,
+				B7976E1924777593001AE3B3 /* Application.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -265,10 +271,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7976E1A24777593001AE3B3 /* Application.swift in Sources */,
 				B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */,
 				B7976E142476899D001AE3B3 /* Secrets.swift in Sources */,
 				B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */,
 				B7976E16247689DE001AE3B3 /* MainViewController.swift in Sources */,
+				B7976E1824777583001AE3B3 /* Job.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
