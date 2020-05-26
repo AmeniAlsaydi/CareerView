@@ -26,6 +26,16 @@
 		B7976E33247D521E001AE3B3 /* InterviewAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E32247D521E001AE3B3 /* InterviewAnswer.swift */; };
 		B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E34247D52A0001AE3B3 /* InterviewData.swift */; };
 		B7976E37247D537A001AE3B3 /* UIViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */; };
+		B7976E39247D57F1001AE3B3 /* JobHistoryMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E38247D57F1001AE3B3 /* JobHistoryMainController.swift */; };
+		B7976E3B247D580A001AE3B3 /* JobEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E3A247D580A001AE3B3 /* JobEntryController.swift */; };
+		B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E3C247D582C001AE3B3 /* StarStoryMainController.swift */; };
+		B7976E3F247D77FA001AE3B3 /* StarStoryEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E3E247D77FA001AE3B3 /* StarStoryEntryController.swift */; };
+		B7976E41247D7834001AE3B3 /* InterviewQuestionsMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E40247D7834001AE3B3 /* InterviewQuestionsMainController.swift */; };
+		B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E42247D8F10001AE3B3 /* InterviewQuestionEntryController.swift */; };
+		B7976E45247D8F40001AE3B3 /* InterviewAnswerDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E44247D8F40001AE3B3 /* InterviewAnswerDetailController.swift */; };
+		B7976E47247D9423001AE3B3 /* ApplicationTrackerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E46247D9423001AE3B3 /* ApplicationTrackerController.swift */; };
+		B7976E49247D9444001AE3B3 /* NewApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E48247D9444001AE3B3 /* NewApplicationController.swift */; };
+		B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E4A247D9A07001AE3B3 /* ApplicationDetailController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +74,16 @@
 		B7976E32247D521E001AE3B3 /* InterviewAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAnswer.swift; sourceTree = "<group>"; };
 		B7976E34247D52A0001AE3B3 /* InterviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewData.swift; sourceTree = "<group>"; };
 		B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExt.swift; sourceTree = "<group>"; };
+		B7976E38247D57F1001AE3B3 /* JobHistoryMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobHistoryMainController.swift; sourceTree = "<group>"; };
+		B7976E3A247D580A001AE3B3 /* JobEntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobEntryController.swift; sourceTree = "<group>"; };
+		B7976E3C247D582C001AE3B3 /* StarStoryMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarStoryMainController.swift; sourceTree = "<group>"; };
+		B7976E3E247D77FA001AE3B3 /* StarStoryEntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarStoryEntryController.swift; sourceTree = "<group>"; };
+		B7976E40247D7834001AE3B3 /* InterviewQuestionsMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionsMainController.swift; sourceTree = "<group>"; };
+		B7976E42247D8F10001AE3B3 /* InterviewQuestionEntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionEntryController.swift; sourceTree = "<group>"; };
+		B7976E44247D8F40001AE3B3 /* InterviewAnswerDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAnswerDetailController.swift; sourceTree = "<group>"; };
+		B7976E46247D9423001AE3B3 /* ApplicationTrackerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTrackerController.swift; sourceTree = "<group>"; };
+		B7976E48247D9444001AE3B3 /* NewApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewApplicationController.swift; sourceTree = "<group>"; };
+		B7976E4A247D9A07001AE3B3 /* ApplicationDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDetailController.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,7 +156,6 @@
 				B7976E112476885F001AE3B3 /* Storyboards */,
 				B7976E102476881E001AE3B3 /* Extensions */,
 				B7976E0F24768817001AE3B3 /* Models */,
-				B7976E0E2476880E001AE3B3 /* Views */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */,
@@ -149,6 +168,16 @@
 			isa = PBXGroup;
 			children = (
 				B7976E15247689DE001AE3B3 /* MainViewController.swift */,
+				B7976E38247D57F1001AE3B3 /* JobHistoryMainController.swift */,
+				B7976E3A247D580A001AE3B3 /* JobEntryController.swift */,
+				B7976E3C247D582C001AE3B3 /* StarStoryMainController.swift */,
+				B7976E3E247D77FA001AE3B3 /* StarStoryEntryController.swift */,
+				B7976E40247D7834001AE3B3 /* InterviewQuestionsMainController.swift */,
+				B7976E42247D8F10001AE3B3 /* InterviewQuestionEntryController.swift */,
+				B7976E44247D8F40001AE3B3 /* InterviewAnswerDetailController.swift */,
+				B7976E46247D9423001AE3B3 /* ApplicationTrackerController.swift */,
+				B7976E48247D9444001AE3B3 /* NewApplicationController.swift */,
+				B7976E4A247D9A07001AE3B3 /* ApplicationDetailController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -161,13 +190,6 @@
 				B725C24224768331000811C5 /* Assets.xcassets */,
 			);
 			path = Supporting;
-			sourceTree = "<group>";
-		};
-		B7976E0E2476880E001AE3B3 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		B7976E0F24768817001AE3B3 /* Models */ = {
@@ -411,18 +433,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
 				B7976E33247D521E001AE3B3 /* InterviewAnswer.swift in Sources */,
 				B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */,
 				B7976E2B247D4AD8001AE3B3 /* DatabaseService.swift in Sources */,
 				B7976E2D247D500B001AE3B3 /* UserJob.swift in Sources */,
+				B7976E45247D8F40001AE3B3 /* InterviewAnswerDetailController.swift in Sources */,
 				B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */,
 				B7976E142476899D001AE3B3 /* Secrets.swift in Sources */,
 				B7976E31247D5169001AE3B3 /* InterviewQuestion.swift in Sources */,
+				B7976E3F247D77FA001AE3B3 /* StarStoryEntryController.swift in Sources */,
+				B7976E49247D9444001AE3B3 /* NewApplicationController.swift in Sources */,
 				B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */,
+				B7976E39247D57F1001AE3B3 /* JobHistoryMainController.swift in Sources */,
 				B7976E16247689DE001AE3B3 /* MainViewController.swift in Sources */,
 				B7976E37247D537A001AE3B3 /* UIViewControllerExt.swift in Sources */,
+				B7976E41247D7834001AE3B3 /* InterviewQuestionsMainController.swift in Sources */,
+				B7976E47247D9423001AE3B3 /* ApplicationTrackerController.swift in Sources */,
+				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
 				B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */,
+				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
 				B7976E2F247D50FF001AE3B3 /* StarSituation.swift in Sources */,
+				B7976E3B247D580A001AE3B3 /* JobEntryController.swift in Sources */,
 				B7976E1824777583001AE3B3 /* TestModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
