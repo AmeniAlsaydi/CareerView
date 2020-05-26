@@ -18,14 +18,14 @@ class DatabaseService {
     
     private let db = Firestore.firestore()
     
-    public func testFirebase(completion: @escaping (Result<[Job], Error>) -> ()) {
+    public func testFirebase(completion: @escaping (Result<[TestModel], Error>) -> ()) {
         
         db.collection(DatabaseService.testCollection).getDocuments { (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
             } else if let snapshot = snapshot {
                 
-                let testJobs = snapshot.documents.map { Job($0.data())}
+                let testJobs = snapshot.documents.map { TestModel($0.data())}
                 completion(.success(testJobs))
             }
         }

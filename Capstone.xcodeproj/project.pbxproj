@@ -16,10 +16,16 @@
 		B7976E0B24768578001AE3B3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */; };
 		B7976E142476899D001AE3B3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E132476899D001AE3B3 /* Secrets.swift */; };
 		B7976E16247689DE001AE3B3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E15247689DE001AE3B3 /* MainViewController.swift */; };
-		B7976E1824777583001AE3B3 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1724777583001AE3B3 /* Job.swift */; };
-		B7976E1A24777593001AE3B3 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1924777593001AE3B3 /* Application.swift */; };
+		B7976E1824777583001AE3B3 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1724777583001AE3B3 /* TestModel.swift */; };
+		B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1924777593001AE3B3 /* JobApplication.swift */; };
 		B7976E22247D4A15001AE3B3 /* CapstoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E21247D4A15001AE3B3 /* CapstoneTests.swift */; };
 		B7976E2B247D4AD8001AE3B3 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E2A247D4AD8001AE3B3 /* DatabaseService.swift */; };
+		B7976E2D247D500B001AE3B3 /* UserJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E2C247D500B001AE3B3 /* UserJob.swift */; };
+		B7976E2F247D50FF001AE3B3 /* StarSituation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E2E247D50FF001AE3B3 /* StarSituation.swift */; };
+		B7976E31247D5169001AE3B3 /* InterviewQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E30247D5169001AE3B3 /* InterviewQuestion.swift */; };
+		B7976E33247D521E001AE3B3 /* InterviewAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E32247D521E001AE3B3 /* InterviewAnswer.swift */; };
+		B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E34247D52A0001AE3B3 /* InterviewData.swift */; };
+		B7976E37247D537A001AE3B3 /* UIViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,12 +52,18 @@
 		B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7976E132476899D001AE3B3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		B7976E15247689DE001AE3B3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		B7976E1724777583001AE3B3 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
-		B7976E1924777593001AE3B3 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		B7976E1724777583001AE3B3 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
+		B7976E1924777593001AE3B3 /* JobApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplication.swift; sourceTree = "<group>"; };
 		B7976E1F247D4A15001AE3B3 /* CapstoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7976E21247D4A15001AE3B3 /* CapstoneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapstoneTests.swift; sourceTree = "<group>"; };
 		B7976E23247D4A15001AE3B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7976E2A247D4AD8001AE3B3 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		B7976E2C247D500B001AE3B3 /* UserJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJob.swift; sourceTree = "<group>"; };
+		B7976E2E247D50FF001AE3B3 /* StarSituation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarSituation.swift; sourceTree = "<group>"; };
+		B7976E30247D5169001AE3B3 /* InterviewQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestion.swift; sourceTree = "<group>"; };
+		B7976E32247D521E001AE3B3 /* InterviewAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAnswer.swift; sourceTree = "<group>"; };
+		B7976E34247D52A0001AE3B3 /* InterviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewData.swift; sourceTree = "<group>"; };
+		B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExt.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,8 +173,13 @@
 		B7976E0F24768817001AE3B3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B7976E1724777583001AE3B3 /* Job.swift */,
-				B7976E1924777593001AE3B3 /* Application.swift */,
+				B7976E1724777583001AE3B3 /* TestModel.swift */,
+				B7976E1924777593001AE3B3 /* JobApplication.swift */,
+				B7976E2C247D500B001AE3B3 /* UserJob.swift */,
+				B7976E2E247D50FF001AE3B3 /* StarSituation.swift */,
+				B7976E30247D5169001AE3B3 /* InterviewQuestion.swift */,
+				B7976E32247D521E001AE3B3 /* InterviewAnswer.swift */,
+				B7976E34247D52A0001AE3B3 /* InterviewData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -170,6 +187,7 @@
 		B7976E102476881E001AE3B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -393,13 +411,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7976E1A24777593001AE3B3 /* Application.swift in Sources */,
+				B7976E33247D521E001AE3B3 /* InterviewAnswer.swift in Sources */,
+				B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */,
 				B7976E2B247D4AD8001AE3B3 /* DatabaseService.swift in Sources */,
+				B7976E2D247D500B001AE3B3 /* UserJob.swift in Sources */,
 				B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */,
 				B7976E142476899D001AE3B3 /* Secrets.swift in Sources */,
+				B7976E31247D5169001AE3B3 /* InterviewQuestion.swift in Sources */,
 				B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */,
 				B7976E16247689DE001AE3B3 /* MainViewController.swift in Sources */,
-				B7976E1824777583001AE3B3 /* Job.swift in Sources */,
+				B7976E37247D537A001AE3B3 /* UIViewControllerExt.swift in Sources */,
+				B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */,
+				B7976E2F247D50FF001AE3B3 /* StarSituation.swift in Sources */,
+				B7976E1824777583001AE3B3 /* TestModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
