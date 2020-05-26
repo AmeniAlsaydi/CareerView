@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+struct Job {
+    var test: String
+}
+
+extension Job {
+    init(_ dictionary: [String: Any]) {
+        self.test = dictionary["test"] as? String ?? "no material type"
+    }
+}
