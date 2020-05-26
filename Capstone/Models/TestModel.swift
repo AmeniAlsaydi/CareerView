@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct Job {
+struct TestModel {
     var test: String
 }
 
-extension Job {
+extension TestModel {
     init(_ dictionary: [String: Any]) {
         self.test = dictionary["test"] as? String ?? "no material type"
     }
