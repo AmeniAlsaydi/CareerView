@@ -10,7 +10,7 @@
         <!--STARS-->
         <scene sceneID="Ptk-jv-Xly">
             <objects>
-                <viewController id="Vca-Xy-UGt" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StarStoryMainController" id="Vca-Xy-UGt" customClass="StarStoryMainController" customModule="Capstone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L84-zq-0uA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +26,7 @@
         <!--Tracker-->
         <scene sceneID="4uP-ua-zx5">
             <objects>
-                <viewController id="z4Z-lQ-18g" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ApplicationTrackerController" id="z4Z-lQ-18g" customClass="ApplicationTrackerController" customModule="Capstone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AJU-zP-08h">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,7 +42,7 @@
         <!--Interview-->
         <scene sceneID="Pcq-l5-mtc">
             <objects>
-                <viewController id="djQ-5O-JQL" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InterviewQuestionsMainController" id="djQ-5O-JQL" customClass="InterviewQuestionsMainController" customModule="Capstone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M24-v9-9GX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,7 +58,7 @@
         <!--Settings-->
         <scene sceneID="hBH-As-fdb">
             <objects>
-                <viewController id="4nS-m4-XVo" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsController" id="4nS-m4-XVo" customClass="SettingsController" customModule="Capstone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f1t-uH-rfU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,7 +74,7 @@
         <!--History-->
         <scene sceneID="EvQ-29-c41">
             <objects>
-                <viewController id="UrT-SA-XQr" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JobHistoryController" id="UrT-SA-XQr" customClass="JobHistoryController" customModule="Capstone" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iSe-Oe-EZm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
