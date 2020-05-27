@@ -16,8 +16,9 @@ struct UserJob {
     var currentEmployer: Bool
     var description: String
     var responsibilities: [String]
-    var starSituations: [StarSituation]
-    var InterviewQuestions: [InterviewQuestion]
-    //var coWorkerReference: [Contact]
+    var starSituationIDs: [String]
+    var interviewQuestionIDs: [String]
+    var contactIDs: [String]
+    var contacts: [Contact]
     
 }

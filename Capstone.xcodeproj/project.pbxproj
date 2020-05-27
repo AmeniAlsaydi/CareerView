@@ -42,6 +42,7 @@
 		B7976E56247EA2D9001AE3B3 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E55247EA2D9001AE3B3 /* EmptyView.swift */; };
 		B7976E58247EA3E7001AE3B3 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E57247EA3E6001AE3B3 /* LoginController.swift */; };
 		B7976E5A247EA404001AE3B3 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E59247EA404001AE3B3 /* SignUpController.swift */; };
+		B7976E5C247EAD84001AE3B3 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E5B247EAD84001AE3B3 /* Contact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		B7976E55247EA2D9001AE3B3 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		B7976E57247EA3E6001AE3B3 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		B7976E59247EA404001AE3B3 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		B7976E5B247EAD84001AE3B3 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,6 +220,7 @@
 				B7976E30247D5169001AE3B3 /* InterviewQuestion.swift */,
 				B7976E32247D521E001AE3B3 /* InterviewAnswer.swift */,
 				B7976E34247D52A0001AE3B3 /* InterviewData.swift */,
+				B7976E5B247EAD84001AE3B3 /* Contact.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				B7976E37247D537A001AE3B3 /* UIViewControllerExt.swift in Sources */,
 				B7976E41247D7834001AE3B3 /* InterviewQuestionsMainController.swift in Sources */,
 				B7976E47247D9423001AE3B3 /* ApplicationTrackerController.swift in Sources */,
+				B7976E5C247EAD84001AE3B3 /* Contact.swift in Sources */,
 				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
 				B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */,
 				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
