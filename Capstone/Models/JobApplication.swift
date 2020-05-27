@@ -17,6 +17,7 @@ struct JobApplication {
     var notes: String
     var hasApplied: Bool
     var applicationDeadline: Date
-    // var dateApplied: [Interview]
+    var dateApplied: Date
+    // var interviews: [Interview]
     
 }
