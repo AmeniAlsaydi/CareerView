@@ -39,6 +39,7 @@
 		B7976E4F247E9A3E001AE3B3 /* LoginView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7976E4E247E9A3E001AE3B3 /* LoginView.storyboard */; };
 		B7976E51247E9D16001AE3B3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E50247E9D16001AE3B3 /* MainTabBarController.swift */; };
 		B7976E53247EA255001AE3B3 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E52247EA255001AE3B3 /* SettingsController.swift */; };
+		B7976E56247EA2D9001AE3B3 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E55247EA2D9001AE3B3 /* EmptyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		B7976E4E247E9A3E001AE3B3 /* LoginView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginView.storyboard; sourceTree = "<group>"; };
 		B7976E50247E9D16001AE3B3 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		B7976E52247EA255001AE3B3 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		B7976E55247EA2D9001AE3B3 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -162,8 +164,9 @@
 				B7976E112476885F001AE3B3 /* Storyboards */,
 				B7976E102476881E001AE3B3 /* Extensions */,
 				B7976E0F24768817001AE3B3 /* Models */,
-				B7976E0D24768806001AE3B3 /* Supporting */,
+				B7976E54247EA2C1001AE3B3 /* Views */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
+				B7976E0D24768806001AE3B3 /* Supporting */,
 				B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */,
 				B725C24724768331000811C5 /* Info.plist */,
 			);
@@ -254,6 +257,14 @@
 				B7976E2A247D4AD8001AE3B3 /* DatabaseService.swift */,
 			);
 			path = "Firebase-Services";
+			sourceTree = "<group>";
+		};
+		B7976E54247EA2C1001AE3B3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B7976E55247EA2D9001AE3B3 /* EmptyView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -465,6 +476,7 @@
 				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
 				B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */,
 				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
+				B7976E56247EA2D9001AE3B3 /* EmptyView.swift in Sources */,
 				B7976E2F247D50FF001AE3B3 /* StarSituation.swift in Sources */,
 				B7976E3B247D580A001AE3B3 /* JobEntryController.swift in Sources */,
 				B7976E1824777583001AE3B3 /* TestModel.swift in Sources */,
