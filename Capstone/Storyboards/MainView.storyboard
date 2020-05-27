@@ -33,7 +33,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="LMs-v9-FnG"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Tracker" image="waveform.path.ecg" catalog="system" id="l3U-Mi-V4v"/>
+                    <tabBarItem key="tabBarItem" title="Tracker" image="chart.bar" catalog="system" selectedImage="chart.bar.fill" id="l3U-Mi-V4v"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LeH-zc-NJA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -110,6 +110,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chart.bar" catalog="system" width="128" height="90"/>
+        <image name="chart.bar.fill" catalog="system" width="128" height="89"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="questionmark.square" catalog="system" width="128" height="114"/>
         <image name="questionmark.square.fill" catalog="system" width="128" height="114"/>
@@ -117,6 +119,5 @@
         <image name="rectangle.grid.1x2.fill" catalog="system" width="128" height="101"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
-        <image name="waveform.path.ecg" catalog="system" width="128" height="124"/>
     </resources>
 </document>
