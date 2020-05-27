@@ -10,8 +10,6 @@ import Foundation
 
 struct InterviewQuestion {
     var question: String
-    var answer: [String]?
-    var starSituations:[StarSituation]
     var suggestion: String
     var id: String
 }

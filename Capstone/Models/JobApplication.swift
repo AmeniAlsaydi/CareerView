@@ -7,17 +7,23 @@
 //
 
 import Foundation
+import Firebase
 
 struct JobApplication {
     var companyName: String
     var positionTitle: String
     var positionURL: String
     var remoteStatus: Bool
-    var location: String //CLLocation?
+    var location: GeoPoint //CLLocation?
     var notes: String
-    var hasApplied: Bool
-    var applicationDeadline: Date
-    var dateApplied: Date
-    // var interviews: [Interview]
+    var applicationDeadline: Timestamp
+    var dateApplied: Timestamp
+    var interviews: [Interview]
+    var interested: Bool
+    var didApply: Bool
+    var currentlyInterviewing: Bool
+    var receivedReply: Bool
+    var receivedOffer: Bool
+    
     
 }

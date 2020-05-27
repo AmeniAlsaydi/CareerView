@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct InterviewData {
+struct Interview {
     var interviewDate: Date
     var thankYouSent: Bool
     var followUpSent: Bool

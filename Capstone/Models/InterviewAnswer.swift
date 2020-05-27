@@ -9,7 +9,8 @@
 import Foundation
 
 struct InterviewAnswer {
-    var answer: String
-    var question: InterviewQuestion
+    var answer: [String]
+    var question: String
     var id: String
+    var starSituationIDs: [String]
 }
