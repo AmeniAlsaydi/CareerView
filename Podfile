@@ -6,12 +6,10 @@ use_frameworks!
 def project_pods
     # Pods for Renew
   pod 'Firebase/Auth'
-  pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Storage'
   pod 'Kingfisher'
-  pod 'MessageKit'
 
 end
 

@@ -36,6 +36,9 @@
 		B7976E47247D9423001AE3B3 /* ApplicationTrackerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E46247D9423001AE3B3 /* ApplicationTrackerController.swift */; };
 		B7976E49247D9444001AE3B3 /* NewApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E48247D9444001AE3B3 /* NewApplicationController.swift */; };
 		B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E4A247D9A07001AE3B3 /* ApplicationDetailController.swift */; };
+		B7976E4D247E9A1C001AE3B3 /* MainView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7976E4C247E9A1C001AE3B3 /* MainView.storyboard */; };
+		B7976E4F247E9A3E001AE3B3 /* LoginView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7976E4E247E9A3E001AE3B3 /* LoginView.storyboard */; };
+		B7976E51247E9D16001AE3B3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E50247E9D16001AE3B3 /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +87,9 @@
 		B7976E46247D9423001AE3B3 /* ApplicationTrackerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTrackerController.swift; sourceTree = "<group>"; };
 		B7976E48247D9444001AE3B3 /* NewApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewApplicationController.swift; sourceTree = "<group>"; };
 		B7976E4A247D9A07001AE3B3 /* ApplicationDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDetailController.swift; sourceTree = "<group>"; };
+		B7976E4C247E9A1C001AE3B3 /* MainView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainView.storyboard; sourceTree = "<group>"; };
+		B7976E4E247E9A3E001AE3B3 /* LoginView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginView.storyboard; sourceTree = "<group>"; };
+		B7976E50247E9D16001AE3B3 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -168,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				B7976E15247689DE001AE3B3 /* MainViewController.swift */,
+				B7976E50247E9D16001AE3B3 /* MainTabBarController.swift */,
 				B7976E38247D57F1001AE3B3 /* JobHistoryMainController.swift */,
 				B7976E3A247D580A001AE3B3 /* JobEntryController.swift */,
 				B7976E3C247D582C001AE3B3 /* StarStoryMainController.swift */,
@@ -218,6 +225,8 @@
 			isa = PBXGroup;
 			children = (
 				B725C24424768331000811C5 /* LaunchScreen.storyboard */,
+				B7976E4C247E9A1C001AE3B3 /* MainView.storyboard */,
+				B7976E4E247E9A3E001AE3B3 /* LoginView.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -334,7 +343,9 @@
 			files = (
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
 				B7976E0B24768578001AE3B3 /* GoogleService-Info.plist in Resources */,
+				B7976E4D247E9A1C001AE3B3 /* MainView.storyboard in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
+				B7976E4F247E9A3E001AE3B3 /* LoginView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +446,7 @@
 			files = (
 				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
 				B7976E33247D521E001AE3B3 /* InterviewAnswer.swift in Sources */,
+				B7976E51247E9D16001AE3B3 /* MainTabBarController.swift in Sources */,
 				B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */,
 				B7976E2B247D4AD8001AE3B3 /* DatabaseService.swift in Sources */,
 				B7976E2D247D500B001AE3B3 /* UserJob.swift in Sources */,

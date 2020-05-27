@@ -9,13 +9,13 @@
 import Foundation
 
 struct UserJob {
-    var jobName: String
+    var title: String
     var companyName: String
     var beginDate: Date
-    var endDate: Date? // might still be working there?
+    var endDate: Date // might still be working there?
     var currentEmployer: Bool
-    var jobDescription: String
-    var jobResponsibilites: [String]
+    var description: String
+    var responsibilities: [String]
     var starSituations: [StarSituation]
     var InterviewQuestions: [InterviewQuestion]
     //var coWorkerReference: [Contact]

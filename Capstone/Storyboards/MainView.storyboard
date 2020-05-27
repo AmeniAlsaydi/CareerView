@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--STARS-->
+        <scene sceneID="Ptk-jv-Xly">
+            <objects>
+                <viewController id="Vca-Xy-UGt" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="L84-zq-0uA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Xsb-fV-bsh"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="STARS" image="star" catalog="system" selectedImage="star.fill" id="79w-ET-2bk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s9C-58-6DQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="-863"/>
+        </scene>
+        <!--Tracker-->
+        <scene sceneID="4uP-ua-zx5">
+            <objects>
+                <viewController id="z4Z-lQ-18g" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AJU-zP-08h">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="LMs-v9-FnG"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Tracker" image="waveform.path.ecg" catalog="system" id="l3U-Mi-V4v"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LeH-zc-NJA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="465"/>
+        </scene>
+        <!--Interview-->
+        <scene sceneID="Pcq-l5-mtc">
+            <objects>
+                <viewController id="djQ-5O-JQL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="M24-v9-9GX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="6mo-RP-g4D"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Interview" image="questionmark.square" catalog="system" selectedImage="questionmark.square.fill" id="I07-GB-XHd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pRO-tN-ePe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="-198"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="hBH-As-fdb">
+            <objects>
+                <viewController id="4nS-m4-XVo" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f1t-uH-rfU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="zZb-gS-DvN"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="FAe-Pm-tOk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JXo-mZ-lyU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="1130"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="EvQ-29-c41">
+            <objects>
+                <viewController id="UrT-SA-XQr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iSe-Oe-EZm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="dY4-K6-VbA"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="History" image="rectangle.grid.1x2" catalog="system" selectedImage="rectangle.grid.1x2.fill" id="yM4-lf-DJp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yft-P2-HWR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26" y="-1534"/>
+        </scene>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="EtY-8z-QOl">
+            <objects>
+                <tabBarController storyboardIdentifier="MainTabBarController" id="gOg-S2-BSK" customClass="MainTabBarController" customModule="Capstone" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cPd-vx-WBA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="UrT-SA-XQr" kind="relationship" relationship="viewControllers" id="sNr-nL-Tgv"/>
+                        <segue destination="Vca-Xy-UGt" kind="relationship" relationship="viewControllers" id="iKu-pV-oyn"/>
+                        <segue destination="djQ-5O-JQL" kind="relationship" relationship="viewControllers" id="G1a-nf-Kwq"/>
+                        <segue destination="z4Z-lQ-18g" kind="relationship" relationship="viewControllers" id="679-R4-3wv"/>
+                        <segue destination="4nS-m4-XVo" kind="relationship" relationship="viewControllers" id="dNc-1N-obX"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J6Z-q1-jnX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1094" y="-198"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="questionmark.square" catalog="system" width="128" height="114"/>
+        <image name="questionmark.square.fill" catalog="system" width="128" height="114"/>
+        <image name="rectangle.grid.1x2" catalog="system" width="128" height="101"/>
+        <image name="rectangle.grid.1x2.fill" catalog="system" width="128" height="101"/>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="waveform.path.ecg" catalog="system" width="128" height="124"/>
+    </resources>
+</document>
