@@ -25,9 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.tintColor = .black
         
-        UIViewController.showViewController(storyBoardName: "MainView", viewControllerId: "MainTabBarController")
+        // UIViewController.showViewController(storyBoardName: "MainView", viewControllerId: "MainTabBarController")
         
-        //window?.rootViewController = MainViewController()
+        window?.rootViewController = MainTabBarController()
         
         window?.makeKeyAndVisible()
     }

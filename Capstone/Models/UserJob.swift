@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import Firebase
 
 struct UserJob {
     var title: String
     var companyName: String
-    var beginDate: Date
-    var endDate: Date // might still be working there?
+    var beginDate: Timestamp
+    var endDate: Timestamp
     var currentEmployer: Bool
     var description: String
     var responsibilities: [String]
