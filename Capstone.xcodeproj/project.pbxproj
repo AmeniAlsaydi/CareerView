@@ -13,8 +13,6 @@
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
 		B725C24324768331000811C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B725C24224768331000811C5 /* Assets.xcassets */; };
 		B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B725C24424768331000811C5 /* LaunchScreen.storyboard */; };
-		B7976E0B24768578001AE3B3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */; };
-		B7976E142476899D001AE3B3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E132476899D001AE3B3 /* Secrets.swift */; };
 		B7976E1824777583001AE3B3 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1724777583001AE3B3 /* TestModel.swift */; };
 		B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1924777593001AE3B3 /* JobApplication.swift */; };
 		B7976E22247D4A15001AE3B3 /* CapstoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E21247D4A15001AE3B3 /* CapstoneTests.swift */; };
@@ -43,6 +41,7 @@
 		B7976E58247EA3E7001AE3B3 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E57247EA3E6001AE3B3 /* LoginController.swift */; };
 		B7976E5A247EA404001AE3B3 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E59247EA404001AE3B3 /* SignUpController.swift */; };
 		B7976E5C247EAD84001AE3B3 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E5B247EAD84001AE3B3 /* Contact.swift */; };
+		C60BDF63248018C900CD9875 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C60BDF62248018C900CD9875 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +65,6 @@
 		B725C24224768331000811C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B725C24524768331000811C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B725C24724768331000811C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B7976E132476899D001AE3B3 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		B7976E1724777583001AE3B3 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		B7976E1924777593001AE3B3 /* JobApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplication.swift; sourceTree = "<group>"; };
 		B7976E1F247D4A15001AE3B3 /* CapstoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +96,7 @@
 		B7976E59247EA404001AE3B3 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		B7976E5B247EAD84001AE3B3 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C60BDF62248018C900CD9875 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,14 +164,13 @@
 			isa = PBXGroup;
 			children = (
 				B7976E29247D4AB1001AE3B3 /* Firebase-Services */,
-				B7976E12247688B2001AE3B3 /* Secrets */,
 				B7976E112476885F001AE3B3 /* Storyboards */,
 				B7976E102476881E001AE3B3 /* Extensions */,
 				B7976E0F24768817001AE3B3 /* Models */,
 				B7976E54247EA2C1001AE3B3 /* Views */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
-				B7976E0A24768578001AE3B3 /* GoogleService-Info.plist */,
+				C60BDF62248018C900CD9875 /* GoogleService-Info.plist */,
 				B725C24724768331000811C5 /* Info.plist */,
 			);
 			path = Capstone;
@@ -241,14 +238,6 @@
 				B7976E4E247E9A3E001AE3B3 /* LoginView.storyboard */,
 			);
 			path = Storyboards;
-			sourceTree = "<group>";
-		};
-		B7976E12247688B2001AE3B3 /* Secrets */ = {
-			isa = PBXGroup;
-			children = (
-				B7976E132476899D001AE3B3 /* Secrets.swift */,
-			);
-			path = Secrets;
 			sourceTree = "<group>";
 		};
 		B7976E20247D4A15001AE3B3 /* CapstoneTests */ = {
@@ -362,8 +351,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
-				B7976E0B24768578001AE3B3 /* GoogleService-Info.plist in Resources */,
 				B7976E4D247E9A1C001AE3B3 /* MainView.storyboard in Resources */,
+				C60BDF63248018C900CD9875 /* GoogleService-Info.plist in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976E4F247E9A3E001AE3B3 /* LoginView.storyboard in Resources */,
 			);
@@ -475,7 +464,6 @@
 				B7976E2D247D500B001AE3B3 /* UserJob.swift in Sources */,
 				B7976E45247D8F40001AE3B3 /* InterviewAnswerDetailController.swift in Sources */,
 				B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */,
-				B7976E142476899D001AE3B3 /* Secrets.swift in Sources */,
 				B7976E31247D5169001AE3B3 /* InterviewQuestion.swift in Sources */,
 				B7976E3F247D77FA001AE3B3 /* StarStoryEntryController.swift in Sources */,
 				B7976E49247D9444001AE3B3 /* NewApplicationController.swift in Sources */,
