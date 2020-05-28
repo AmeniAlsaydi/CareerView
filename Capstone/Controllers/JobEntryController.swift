@@ -8,12 +8,12 @@
 
 import UIKit
 
-class JobEntryController: UIViewController {
+class JobEntryController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+    print("Hello world")
     }
    
 
