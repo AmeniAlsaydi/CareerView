@@ -11,7 +11,8 @@ import UIKit
 class JobEntryController: UIViewController {
 
     @IBOutlet var jobTitleCell: UITableViewCell!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var companyTitleCell: UITableViewCell!
+    @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,18 +36,21 @@ extension JobEntryController: UITableViewDataSource {
          return 1
      }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return 1
+         return 2
      }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         if indexPath.section == 0 {
-             if indexPath.row == 0 {
-                 let cell = tableView.dequeueReusableCell(withIdentifier: "jobTitleCell")!
-                 return cell
-             }
-         }
-         return jobTitleCell
+        switch indexPath.row {
+        case 0:
+           return jobTitleCell
+        case 1:
+            return companyTitleCell
+        default:
+            return jobTitleCell
+        }
+        
+        
      }
 }
 extension JobEntryController: UITableViewDelegate {
-    
+
 }
