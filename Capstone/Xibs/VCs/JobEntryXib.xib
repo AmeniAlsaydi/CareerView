@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -9,16 +9,60 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JobEntryController" customModule="Capstone" customModuleProvider="target">
             <connections>
-                <outlet property="view" destination="iN0-l3-epB" id="ZUS-8T-tHb"/>
+                <outlet property="jobTitleCell" destination="FEN-kl-c5A" id="XOM-KT-CRz"/>
+                <outlet property="tableView" destination="GTG-x9-ezF" id="ACK-wH-bZC"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="139" y="145"/>
-        </view>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="FEN-kl-c5A">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FEN-kl-c5A" id="tgT-jq-NWn">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7G1-fq-th5">
+                        <rect key="frame" x="20" y="11.5" width="71" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fq7-S1-aDc">
+                        <rect key="frame" x="99" y="5" width="295" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Fq7-S1-aDc" secondAttribute="trailing" constant="20" id="Cyb-wb-qqV"/>
+                    <constraint firstItem="7G1-fq-th5" firstAttribute="centerY" secondItem="tgT-jq-NWn" secondAttribute="centerY" id="Nkj-E3-LmI"/>
+                    <constraint firstItem="Fq7-S1-aDc" firstAttribute="centerY" secondItem="7G1-fq-th5" secondAttribute="centerY" id="ltI-fk-pQ6"/>
+                    <constraint firstItem="7G1-fq-th5" firstAttribute="leading" secondItem="tgT-jq-NWn" secondAttribute="leading" constant="20" id="sE0-n2-lTW"/>
+                    <constraint firstItem="Fq7-S1-aDc" firstAttribute="leading" secondItem="7G1-fq-th5" secondAttribute="trailing" constant="8" id="uFJ-23-KnP"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="795.6521739130435" y="-159.375"/>
+        </tableViewCell>
+        <viewController id="BY0-T1-yEo" customClass="JobEntryController" customModule="Capstone" customModuleProvider="target">
+            <view key="view" contentMode="scaleToFill" id="gsZ-QP-BXh">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="GTG-x9-ezF">
+                        <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </tableView>
+                </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                <constraints>
+                    <constraint firstItem="GTG-x9-ezF" firstAttribute="leading" secondItem="rIY-Uh-P2g" secondAttribute="leading" id="1Ae-Nn-wF3"/>
+                    <constraint firstItem="GTG-x9-ezF" firstAttribute="top" secondItem="rIY-Uh-P2g" secondAttribute="top" id="RdV-NZ-VWs"/>
+                    <constraint firstAttribute="bottom" secondItem="GTG-x9-ezF" secondAttribute="bottom" id="WRp-nj-xdU"/>
+                    <constraint firstItem="GTG-x9-ezF" firstAttribute="trailing" secondItem="rIY-Uh-P2g" secondAttribute="trailing" id="lwK-2O-n8i"/>
+                </constraints>
+                <viewLayoutGuide key="safeArea" id="rIY-Uh-P2g"/>
+            </view>
+            <point key="canvasLocation" x="102.89855072463769" y="124.55357142857142"/>
+        </viewController>
     </objects>
 </document>
