@@ -12,11 +12,10 @@ class JobHistoryController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .red
-        let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
-        present(jobEntryController, animated: true)
+        // Do any additional setup after loading the view.
+
     }
     
 
+    
 }
