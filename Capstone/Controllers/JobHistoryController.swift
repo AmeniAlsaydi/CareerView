@@ -12,11 +12,10 @@ class JobHistoryController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet var jobHistoryBasicCell: UITableViewCell! // TODO:- how would this work for configure cell method?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        configureNavBar()
     }
     private func configureTableView() {
         tableView.delegate = self
@@ -28,11 +27,12 @@ class JobHistoryController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
-        
+        let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
+        show(jobEntryController, sender: nil)
     }
     
-
-    
+    //TODO:- Add database function to grab user jobs data from firebase
+   
 }
 extension JobHistoryController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -46,6 +46,7 @@ extension JobHistoryController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //TODO:- Update this function to take in foldable cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "jobHistoryBasicCell", for: indexPath) as? JobHistoryBasicCell else {
             fatalError("could not cast to jobHistoryBasicCell")
         }
