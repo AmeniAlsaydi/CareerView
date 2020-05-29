@@ -12,7 +12,8 @@ class MainTabBarController: UITabBarController {
 
    
     private lazy var jobHistoryController: UINavigationController = {
-       let navController = UINavigationController(rootViewController: JobHistoryController())
+       let navController = UINavigationController(rootViewController: JobHistoryController(nibName: "JobHistoryXib", bundle: nil)
+        )
         
       navController.tabBarItem = UITabBarItem(title: "Job History",
                                                image: UIImage(systemName: "rectangle.grid.1x2"), selectedImage: UIImage(systemName: "rectangle.grid.1x2.fill"))
@@ -20,7 +21,7 @@ class MainTabBarController: UITabBarController {
     }()
     
     private lazy var starSituationController: UINavigationController = {
-       let navController = UINavigationController(rootViewController: StarStoryMainController())
+       let navController = UINavigationController(rootViewController: StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil))
         
       navController.tabBarItem = UITabBarItem(title: "STARS",
                                                image: UIImage(systemName: "star"), selectedImage: UIImage(systemName: "star.fill"))
@@ -28,7 +29,7 @@ class MainTabBarController: UITabBarController {
     }()
     
     private lazy var interviewQuestionsController: UINavigationController = {
-       let navController = UINavigationController(rootViewController: InterviewQuestionsMainController())
+       let navController = UINavigationController(rootViewController: InterviewQuestionsMainController(nibName: "InterviewQuestionsMainXib", bundle: nil))
         
       navController.tabBarItem = UITabBarItem(title: "Interview",
                                                image: UIImage(systemName: "questionmark.square"), selectedImage: UIImage(systemName: "questionmark.square.fill"))
@@ -36,7 +37,7 @@ class MainTabBarController: UITabBarController {
     }()
     
     private lazy var applicationTrackerController: UINavigationController = {
-       let navController = UINavigationController(rootViewController: ApplicationTrackerController())
+       let navController = UINavigationController(rootViewController: ApplicationTrackerController(nibName: "ApplicationTrackerXib", bundle: nil))
         
       navController.tabBarItem = UITabBarItem(title: "Tracker",
                                                image: UIImage(systemName: "chart.bar"), selectedImage: UIImage(systemName: "chart.bar.fill"))
@@ -44,7 +45,7 @@ class MainTabBarController: UITabBarController {
     }()
     
     private lazy var settingsController: UINavigationController = {
-       let navController = UINavigationController(rootViewController: SettingsController())
+       let navController = UINavigationController(rootViewController: SettingsController(nibName: "SettingsXib", bundle: nil))
         
       navController.tabBarItem = UITabBarItem(title: "Settings",
                                                image: UIImage(systemName: "gear"), selectedImage: UIImage(systemName: "gear"))
