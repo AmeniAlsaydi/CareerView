@@ -31,6 +31,10 @@ extension UIViewController {
         
     }
     
+    public static func showMainAppView() {
+        resetWindow(MainTabBarController())
+    }
+    
     public func showAlert(title: String?, message: String) {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
