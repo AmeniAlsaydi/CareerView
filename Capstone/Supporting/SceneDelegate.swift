@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -25,10 +26,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.tintColor = .black
         
-        // UIViewController.showViewController(storyBoardName: "MainView", viewControllerId: "MainTabBarController")
-        
-        window?.rootViewController = MainTabBarController()
-        
+        if let _ = Auth.auth().currentUser {
+            UIViewController.showMainAppView()
+        } else {
+            UIViewController.showViewController(storyBoardName: "LoginView", viewControllerId: "LoginController")
+        }
+                        
         window?.makeKeyAndVisible()
     }
 
