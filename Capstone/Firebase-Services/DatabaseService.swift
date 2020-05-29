@@ -15,6 +15,7 @@ class DatabaseService {
     private init() {}
     
     static let testCollection = "tester"
+    static let userCollection = "users"
     
     private let db = Firestore.firestore()
     
@@ -31,5 +32,21 @@ class DatabaseService {
         }
     }
     
+    
+    public func createDatabaseUser(authDataResult: AuthDataResult, completion: @escaping (Result<Bool, Error>)-> ()) {
+        
+        guard let email = authDataResult.user.email else {
+            return
+        }
+        db.collection(DatabaseService.userCollection).document(authDataResult.user.uid).setData(["email": email, "createdDate": Timestamp(date: Date()), "id": authDataResult.user.uid]) { error in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+            
+        }
+    }
     
 }
