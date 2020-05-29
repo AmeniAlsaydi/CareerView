@@ -18,7 +18,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HUo-KJ-ju9">
                                 <rect key="frame" x="20" y="431" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XH6-T4-qbS">
                                 <rect key="frame" x="20" y="495" width="374" height="30"/>
@@ -48,7 +48,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uf3-Kk-qpA">
                                         <rect key="frame" x="185" y="0.0" width="54" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <state key="normal" title="Sign up"/>
+                                        <state key="normal" title="Sign up">
+                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <segue destination="M3O-lL-If0" kind="presentation" id="Iip-PY-Zbd"/>
                                         </connections>
@@ -102,7 +104,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Rc-d8-euA">
                                 <rect key="frame" x="20" y="431" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MRD-6t-9Zy">
                                 <rect key="frame" x="20" y="377" width="374" height="34"/>
@@ -115,17 +117,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99u-aq-ViE">
-                                <rect key="frame" x="20" y="495" width="374" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Sign up">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginButtonPressed:" destination="M3O-lL-If0" eventType="touchUpInside" id="xDh-uE-jBb"/>
-                                    <action selector="signUpButonPressed:" destination="M3O-lL-If0" eventType="touchUpInside" id="oaM-aR-2sb"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="65a-jL-6LM">
                                 <rect key="frame" x="80" y="732" width="254" height="30"/>
                                 <subviews>
@@ -138,16 +129,35 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebg-Bq-dCS">
                                         <rect key="frame" x="206" y="0.0" width="48" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Log In "/>
+                                        <state key="normal" title="Log In ">
+                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="loginButtonPressed:" destination="M3O-lL-If0" eventType="touchUpInside" id="SOe-Ze-VLZ"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhi-e9-NKV">
+                                <rect key="frame" x="20" y="475" width="374" height="0.0"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99u-aq-ViE">
+                                <rect key="frame" x="20" y="495" width="374" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Sign up">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="signUpButonPressed:" destination="M3O-lL-If0" eventType="touchUpInside" id="Tse-bX-LTI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="dhi-e9-NKV" firstAttribute="leading" secondItem="m7L-qk-hn4" secondAttribute="leading" constant="20" id="3YP-dB-XWy"/>
                             <constraint firstItem="m7L-qk-hn4" firstAttribute="bottom" secondItem="65a-jL-6LM" secondAttribute="bottom" constant="100" id="6dO-cy-54H"/>
                             <constraint firstItem="99u-aq-ViE" firstAttribute="leading" secondItem="m7L-qk-hn4" secondAttribute="leading" constant="20" id="70O-Fq-vH0"/>
                             <constraint firstItem="m7L-qk-hn4" firstAttribute="trailing" secondItem="hfw-hj-nhX" secondAttribute="trailing" constant="20" id="79P-Rf-aGW"/>
@@ -158,22 +168,25 @@
                             <constraint firstItem="m7L-qk-hn4" firstAttribute="trailing" secondItem="5Rc-d8-euA" secondAttribute="trailing" constant="20" id="VQr-Nz-38H"/>
                             <constraint firstItem="MRD-6t-9Zy" firstAttribute="leading" secondItem="m7L-qk-hn4" secondAttribute="leading" constant="20" id="cCg-kg-bvk"/>
                             <constraint firstItem="m7L-qk-hn4" firstAttribute="trailing" secondItem="MRD-6t-9Zy" secondAttribute="trailing" constant="20" id="cFk-Ot-jyJ"/>
-                            <constraint firstItem="99u-aq-ViE" firstAttribute="top" secondItem="5Rc-d8-euA" secondAttribute="bottom" constant="30" id="f4S-9z-E1c"/>
                             <constraint firstItem="65a-jL-6LM" firstAttribute="centerX" secondItem="4Vr-ky-N9a" secondAttribute="centerX" id="frY-oT-nH2"/>
+                            <constraint firstItem="99u-aq-ViE" firstAttribute="top" secondItem="dhi-e9-NKV" secondAttribute="bottom" constant="20" id="nMf-I2-aqh"/>
                             <constraint firstItem="5Rc-d8-euA" firstAttribute="top" secondItem="MRD-6t-9Zy" secondAttribute="bottom" constant="20" id="rBU-2A-PND"/>
+                            <constraint firstItem="m7L-qk-hn4" firstAttribute="trailing" secondItem="dhi-e9-NKV" secondAttribute="trailing" constant="20" id="tcy-Or-Hxn"/>
+                            <constraint firstItem="dhi-e9-NKV" firstAttribute="top" secondItem="5Rc-d8-euA" secondAttribute="bottom" constant="10" id="x2N-2D-E0h"/>
                             <constraint firstItem="MRD-6t-9Zy" firstAttribute="top" secondItem="hfw-hj-nhX" secondAttribute="bottom" constant="80" id="zEz-qj-JFX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="m7L-qk-hn4"/>
                     </view>
                     <connections>
+                        <outlet property="alertLabel" destination="dhi-e9-NKV" id="UNA-p1-vxQ"/>
                         <outlet property="emailTextField" destination="MRD-6t-9Zy" id="hcN-RR-xdj"/>
                         <outlet property="passwordTextField" destination="5Rc-d8-euA" id="xmD-KU-hWj"/>
-                        <outlet property="signUpButton" destination="99u-aq-ViE" id="phb-XA-4ZK"/>
+                        <outlet property="signUpButton" destination="99u-aq-ViE" id="BOa-q2-stk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t6t-jb-nIl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="958" y="115"/>
+            <point key="canvasLocation" x="957.97101449275374" y="114.50892857142857"/>
         </scene>
     </scenes>
 </document>

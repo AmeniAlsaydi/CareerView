@@ -25,9 +25,23 @@ class LoginController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
-        // check user auth
-        // segue to Main View
-        // else display alert of wrong pw / email
+        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+            self.showAlert(title: "Missing feilds", message: "Missing email or password.")
+            return
+        }
+        
+        AuthenticationSession.shared.signExisitingUser(email: email, password: password) { (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error signing in", message: error.localizedDescription)
+                }
+            case .success:
+                DispatchQueue.main.async {
+                    UIViewController.showMainAppView()
+                }
+            }
+        }
     }
     
    
