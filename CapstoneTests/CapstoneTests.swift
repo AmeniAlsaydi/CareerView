@@ -104,5 +104,24 @@ class CapstoneTests: XCTestCase {
         wait(for:[exp], timeout: 5.0)
     }
     
+    func testAddingContactsToUserJob() {
+        
+        let exp = XCTestExpectation(description: "added contact to user job")
+        let userJobId = "27A8243C-47D5-4D8F-A0C0-835373828977"
+        let contact = Contact(id: "12345id", email: "email.com", firstName: "bob", lastName: "bobby", phoneNumber: "1234567")
+        
+        
+        DatabaseService.shared.addContactsToUserJob(userJobId: userJobId, contact: contact) { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error adding contact to user job: \(error.localizedDescription)")
+            case(.success(let result)):
+                 XCTAssert(result)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+        
+    }
     
 }

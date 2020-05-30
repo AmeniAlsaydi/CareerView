@@ -9,6 +9,7 @@
 import Foundation
 
 struct Contact {
+    var id: String
     var email: String
     var firstName: String
     var lastName: String
