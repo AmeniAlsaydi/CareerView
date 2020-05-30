@@ -9,7 +9,7 @@
 import UIKit
 
 class JobEntryController: UIViewController {
-
+    
     @IBOutlet var tableView: UITableView!
     
     //MARK:- Cells
@@ -48,6 +48,7 @@ class JobEntryController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.keyboardDismissMode = .onDrag
     }
     private func setupNavigationBar() {
         navigationItem.title = "Create new Job"
@@ -68,6 +69,26 @@ class JobEntryController: UIViewController {
         endDateMonthTextField.setBottomBorder()
         endDateYearTextField.setPadding()
         endDateYearTextField.setBottomBorder()
+        
+        let toolbar = UIToolbar(frame: CGRect(origin: .zero,
+                                              size: .init(width: view.frame.size.width, height: 30)))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                        target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(doneButtonAction))
+        toolbar.setItems([flexSpace, doneButton], animated: false)
+        toolbar.sizeToFit()
+        jobTitleTextField.inputAccessoryView = toolbar
+        companyNameTextField.inputAccessoryView = toolbar
+        beginDateMonthTextField.inputAccessoryView = toolbar
+        beginDateYearTextField.inputAccessoryView = toolbar
+        endDateMonthTextField.inputAccessoryView = toolbar
+        endDateYearTextField.inputAccessoryView = toolbar
+    }
+    @objc func doneButtonAction() {
+        self.view.endEditing(true)
     }
     private func configureCurrentlyEmployedButton(_ currentlyEmployed: Bool) {
         if let job = userJob {
@@ -89,24 +110,24 @@ class JobEntryController: UIViewController {
 }
 //MARK:- TableViewController Datasource/Delegate
 extension JobEntryController: UITableViewDataSource {
-//     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//         switch section {
-//         case 0:
-//             return "Job Title"
-//         default:
-//             return "What?"
-//         }
-//     }
-      func numberOfSections(in tableView: UITableView) -> Int {
-         return 1
-     }
+    //     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //         switch section {
+    //         case 0:
+    //             return "Job Title"
+    //         default:
+    //             return "What?"
+    //         }
+    //     }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return 5
-     }
+        return 5
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-           return jobTitleCell
+            return jobTitleCell
         case 1:
             return companyTitleCell
         case 2:
@@ -121,7 +142,7 @@ extension JobEntryController: UITableViewDataSource {
         }
         
         
-     }
+    }
 }
 extension JobEntryController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -130,6 +151,14 @@ extension JobEntryController: UITableViewDelegate {
     }
 }
 
+//MARK:- UITextField Delegate
+extension JobEntryController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+//        self.view.endEditing(true)
+        return true
+    }
+}
 
 //MARK:- UITextField Extension
 extension UITextField {
