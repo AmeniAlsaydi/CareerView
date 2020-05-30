@@ -79,8 +79,20 @@ class DatabaseService {
                 completion(.success(true))
             }
         }
+    }
+    
+    public func removeUserJob(userJobId: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
         
-        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(userJobId).delete { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
     }
     
 }

@@ -49,8 +49,9 @@ class CapstoneTests: XCTestCase {
     
     func testAddingToUserJobs() {
         let exp = XCTestExpectation(description: "user job added")
+        let id = UUID().uuidString
         
-        let userJob = UserJob(["id": "testid", "title": "title", "companyName": "companyName", "beginDate": Timestamp(date: Date()), "endDate": Timestamp(date: Date()), "currentEmployer": true, "description": "description", "responsibilities": ["id1", "id2"], "starSituationIDs": ["id1", "id2"], "interviewQuestionIDs": ["id1", "id2"]])
+        let userJob = UserJob(["id": id, "title": "title", "companyName": "companyName", "beginDate": Timestamp(date: Date()), "endDate": Timestamp(date: Date()), "currentEmployer": true, "description": "description", "responsibilities": ["id1", "id2"], "starSituationIDs": ["id1", "id2"], "interviewQuestionIDs": ["id1", "id2"]])
         
         DatabaseService.shared.addToUserJobs(userJob: userJob) { (result) in
             exp.fulfill()
@@ -59,10 +60,30 @@ class CapstoneTests: XCTestCase {
             case(.failure(let error)):
                 print("error adding to user jobs: \(error.localizedDescription)")
             case(.success(let result)):
-                XCTAssert(result) //
+                XCTAssert(result)
             }
             
         }
         wait(for:[exp], timeout: 5.0)
     }
+    
+    
+    func testRemovingUserJob() {
+        let exp = XCTestExpectation(description: "user job removed")
+        let testid = "testid" // add new id here to test another delete
+        
+        DatabaseService.shared.removeUserJob(userJobId: testid) { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                print("error deleting to user jobs: \(error.localizedDescription)")
+            case(.success(let result)):
+                 XCTAssert(result)
+            }
+        }
+        
+         wait(for:[exp], timeout: 5.0)
+    }
+    
+    
 }
