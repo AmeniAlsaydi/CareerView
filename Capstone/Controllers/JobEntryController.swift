@@ -18,6 +18,13 @@ class JobEntryController: UIViewController {
     @IBOutlet var currentEmployerCell: UITableViewCell!
     @IBOutlet var beginEmploymentDateCell: UITableViewCell!
     @IBOutlet var endEmploymentCell: UITableViewCell!
+    @IBOutlet var locationCell: UITableViewCell!
+    @IBOutlet var descriptionCell: UITableViewCell!
+    @IBOutlet var mainResponsiblityCell: UITableViewCell!
+    @IBOutlet var responsiblity2Cell: UITableViewCell!
+    @IBOutlet var responsiblity3Cell: UITableViewCell!
+    @IBOutlet var addStarSituationCell: UITableViewCell!
+    @IBOutlet var addContactCell: UITableViewCell!
     
     @IBOutlet weak var jobTitleTextField: UITextField!
     @IBOutlet weak var companyNameTextField: UITextField!
@@ -28,6 +35,9 @@ class JobEntryController: UIViewController {
     @IBOutlet weak var beginDateYearTextField: UITextField!
     @IBOutlet weak var endDateMonthTextField: UITextField!
     @IBOutlet weak var endDateYearTextField: UITextField!
+    @IBOutlet weak var addResponsibilityButton: UIButton!
+    @IBOutlet weak var addStarSituationButton: UIButton!
+    @IBOutlet weak var addContactButton: UIButton!
     
     //MARK:- Variables
     public var userJob: UserJob?
