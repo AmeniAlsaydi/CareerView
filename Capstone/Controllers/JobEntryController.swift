@@ -10,14 +10,32 @@ import UIKit
 
 class JobEntryController: UIViewController {
 
-    
     @IBOutlet var tableView: UITableView!
     
+    //MARK:- Cells
     @IBOutlet var jobTitleCell: UITableViewCell!
     @IBOutlet var companyTitleCell: UITableViewCell!
+    @IBOutlet var currentEmployerCell: UITableViewCell!
+    @IBOutlet var beginEmploymentDateCell: UITableViewCell!
+    @IBOutlet var endEmploymentCell: UITableViewCell!
     
     @IBOutlet weak var jobTitleTextField: UITextField!
     @IBOutlet weak var companyNameTextField: UITextField!
+    
+    @IBOutlet weak var currentlyEmployedButton: UIButton!
+    
+    @IBOutlet weak var beginDateMonthTextField: UITextField!
+    @IBOutlet weak var beginDateYearTextField: UITextField!
+    @IBOutlet weak var endDateMonthTextField: UITextField!
+    @IBOutlet weak var endDateYearTextField: UITextField!
+    
+    //MARK:- Variables
+    public var userJob: UserJob?
+    private var currentlyEmployed: Bool = false {
+        didSet {
+            configureCurrentlyEmployedButton(currentlyEmployed)
+        }
+    }
     
     //MARK:- ViewDidLoad
     override func viewDidLoad() {
@@ -32,7 +50,7 @@ class JobEntryController: UIViewController {
         self.tableView.dataSource = self
     }
     private func setupNavigationBar() {
-        navigationItem.title = ""
+        navigationItem.title = "Create new Job"
         let rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed(_:)))
         navigationItem.rightBarButtonItem = rightBarButton
     }
@@ -41,10 +59,33 @@ class JobEntryController: UIViewController {
         jobTitleTextField.setBottomBorder()
         companyNameTextField.setPadding()
         companyNameTextField.setBottomBorder()
+        
+        beginDateMonthTextField.setPadding()
+        beginDateMonthTextField.setBottomBorder()
+        beginDateYearTextField.setPadding()
+        beginDateYearTextField.setBottomBorder()
+        endDateMonthTextField.setPadding()
+        endDateMonthTextField.setBottomBorder()
+        endDateYearTextField.setPadding()
+        endDateYearTextField.setBottomBorder()
+    }
+    private func configureCurrentlyEmployedButton(_ currentlyEmployed: Bool) {
+        if let job = userJob {
+            self.currentlyEmployed = job.currentEmployer
+        }
+        if currentlyEmployed {
+            currentlyEmployedButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+        } else {
+            currentlyEmployedButton.setImage(UIImage(systemName: "square"), for: .normal)
+        }
     }
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
         print("save pressed")
     }
+    @IBAction func currentlyEmployedButtonPressed(_ sender: UIButton) {
+        currentlyEmployed.toggle()
+    }
+    
 }
 //MARK:- TableViewController Datasource/Delegate
 extension JobEntryController: UITableViewDataSource {
@@ -60,7 +101,7 @@ extension JobEntryController: UITableViewDataSource {
          return 1
      }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return 2
+         return 5
      }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
@@ -68,6 +109,13 @@ extension JobEntryController: UITableViewDataSource {
            return jobTitleCell
         case 1:
             return companyTitleCell
+        case 2:
+            configureCurrentlyEmployedButton(currentlyEmployed)
+            return currentEmployerCell
+        case 3:
+            return beginEmploymentDateCell
+        case 4:
+            return endEmploymentCell
         default:
             return jobTitleCell
         }
@@ -76,7 +124,10 @@ extension JobEntryController: UITableViewDataSource {
      }
 }
 extension JobEntryController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+            currentlyEmployed.toggle()        }
+    }
 }
 
 
