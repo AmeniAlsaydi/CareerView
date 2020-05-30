@@ -50,11 +50,11 @@ class DatabaseService {
         }
     }
     
-    
+    // fetch current users job
     public func fetchUserJobs(completion: @escaping (Result<[UserJob], Error>)->()) {
         guard let user = Auth.auth().currentUser else { return}
         
-        let userID = user.uid // use this to test -> "LOT6p7nkxfM69CCtjB41" 
+        let userID = user.uid // use this to test -> "LOT6p7nkxfM69CCtjB41"
         
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).getDocuments { (snapshot, error) in
             if let error = error {
@@ -64,6 +64,22 @@ class DatabaseService {
                 completion(.success(userJobs))
             }
         }
+    }
+    
+    // add job to curret users job list
+    public func addToUserJobs(userJob: UserJob, completion: @escaping (Result<Bool, Error>) -> ()){
+        guard let user = Auth.auth().currentUser else {return}
+        
+        let userID = user.uid
+               
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(userJob.id).setData(["id": userJob.id, "title": userJob.title, "companyName": userJob.companyName, "beginDate": userJob.beginDate, "endDate": userJob.endDate, "currentEmployer": userJob.currentEmployer, "description": userJob.description, "responsibilities": userJob.responsibilities, "starSituationIDs": userJob.starSituationIDs, "interviewQuestionIDs": userJob.interviewQuestionIDs]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
         
     }
     

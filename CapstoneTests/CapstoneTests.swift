@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Firebase
 
 @testable import Capstone
 
@@ -45,4 +46,23 @@ class CapstoneTests: XCTestCase {
         wait(for:[exp], timeout: 5.0)
     }
     
+    
+    func testAddingToUserJobs() {
+        let exp = XCTestExpectation(description: "user job added")
+        
+        let userJob = UserJob(["id": "testid", "title": "title", "companyName": "companyName", "beginDate": Timestamp(date: Date()), "endDate": Timestamp(date: Date()), "currentEmployer": true, "description": "description", "responsibilities": ["id1", "id2"], "starSituationIDs": ["id1", "id2"], "interviewQuestionIDs": ["id1", "id2"]])
+        
+        DatabaseService.shared.addToUserJobs(userJob: userJob) { (result) in
+            exp.fulfill()
+            
+            switch result {
+            case(.failure(let error)):
+                print("error adding to user jobs: \(error.localizedDescription)")
+            case(.success(let result)):
+                XCTAssert(result) //
+            }
+            
+        }
+        wait(for:[exp], timeout: 5.0)
+    }
 }
