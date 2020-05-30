@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 struct UserJob {
+    var id: String
     var title: String
     var companyName: String
     var beginDate: Timestamp
@@ -26,6 +27,7 @@ struct UserJob {
 
 extension UserJob {
     init(_ dictionary: [String: Any]) {
+        self.id = dictionary["id"] as? String ?? "Job ID NA"
         self.title = dictionary["title"] as? String ?? "Title NA"
         self.companyName = dictionary["companyName"] as? String ?? "Company name NA "
         self.beginDate = dictionary["beginDate"] as? Timestamp ?? Timestamp(date: Date())
