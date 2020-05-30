@@ -17,6 +17,7 @@ class DatabaseService {
     static let testCollection = "tester"
     static let userCollection = "users"
     static let userJobCollection = "userJobs"
+    static let commonQuestionCollection = "commonInterviewQuestions"
     
     private let db = Firestore.firestore()
     
@@ -91,6 +92,19 @@ class DatabaseService {
                 completion(.failure(error))
             } else {
                 completion(.success(true))
+            }
+        }
+    }
+    
+    public func fetchCommonInterviewQuestions(completion: @escaping (Result<[InterviewQuestion],Error>) -> ()) {
+        
+        db.collection(DatabaseService.commonQuestionCollection).getDocuments { (snapshot, error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let questions = snapshot.documents.map { InterviewQuestion($0.data())}
+                completion(.success(questions))
             }
         }
     }
