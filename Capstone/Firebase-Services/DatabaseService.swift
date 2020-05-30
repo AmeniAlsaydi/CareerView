@@ -18,6 +18,7 @@ class DatabaseService {
     static let userCollection = "users"
     static let userJobCollection = "userJobs"
     static let commonQuestionCollection = "commonInterviewQuestions"
+    static let contactsCollection = "contacts"
     
     private let db = Firestore.firestore()
     
@@ -80,6 +81,20 @@ class DatabaseService {
                 completion(.success(true))
             }
         }
+    }
+    
+    public func addContactsToUserJob(userJobId: String, contact: Contact, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(userJobId).collection(DatabaseService.contactsCollection).document(contact.id).setData(["id": contact.id, "firstName": contact.firstName, "lastName": contact.lastName, "email": contact.email, "phoneNumber": contact.phoneNumber]) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
     }
     
     public func removeUserJob(userJobId: String, completion: @escaping (Result<Bool, Error>) -> ()) {
