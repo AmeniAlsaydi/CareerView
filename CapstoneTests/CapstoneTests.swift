@@ -28,4 +28,21 @@ class CapstoneTests: XCTestCase {
         wait(for:[exp], timeout: 5.0)
     }
     
+    func testFetchUserJobs() {
+        let expectedCount = 1 // current user has one job 
+        let exp = XCTestExpectation(description: "user jobs found")
+        
+        DatabaseService.shared.fetchUserJobs { (result) in
+            exp.fulfill()
+            
+            switch result {
+            case(.failure(let error)):
+                print("error fetching user jobs: \(error.localizedDescription)")
+            case(.success(let userJobs)):
+                XCTAssertEqual(expectedCount, userJobs.count)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+    }
+    
 }
