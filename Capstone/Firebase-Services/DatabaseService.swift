@@ -16,6 +16,7 @@ class DatabaseService {
     
     static let testCollection = "tester"
     static let userCollection = "users"
+    static let userJobCollection = "userJobs"
     
     private let db = Firestore.firestore()
     
@@ -47,6 +48,23 @@ class DatabaseService {
             }
             
         }
+    }
+    
+    
+    public func fetchUserJobs(completion: @escaping (Result<[UserJob], Error>)->()) {
+        guard let user = Auth.auth().currentUser else { return}
+        
+        let userID = user.uid // use this to test -> "LOT6p7nkxfM69CCtjB41" 
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let userJobs = snapshot.documents.map { UserJob($0.data())}
+                completion(.success(userJobs))
+            }
+        }
+        
     }
     
 }
