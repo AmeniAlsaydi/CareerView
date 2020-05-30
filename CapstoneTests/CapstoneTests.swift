@@ -20,7 +20,7 @@ class CapstoneTests: XCTestCase {
         DatabaseService.shared.testFirebase { (results) in
             switch results {
                 case(.failure(let error)):
-                    print("error in test: \(error.localizedDescription)")
+                    XCTFail("error in test: \(error.localizedDescription)")
                 case(.success(let tests)):
                     XCTAssertEqual(expected, tests.first?.test)
                     exp.fulfill()
@@ -38,7 +38,7 @@ class CapstoneTests: XCTestCase {
             
             switch result {
             case(.failure(let error)):
-                print("error fetching user jobs: \(error.localizedDescription)")
+                XCTFail("error fetching user jobs: \(error.localizedDescription)")
             case(.success(let userJobs)):
                 XCTAssertEqual(expectedCount, userJobs.count)
             }
@@ -58,7 +58,7 @@ class CapstoneTests: XCTestCase {
             
             switch result {
             case(.failure(let error)):
-                print("error adding to user jobs: \(error.localizedDescription)")
+                XCTFail("error adding to user jobs: \(error.localizedDescription)")
             case(.success(let result)):
                 XCTAssert(result)
             }
@@ -76,13 +76,32 @@ class CapstoneTests: XCTestCase {
             exp.fulfill()
             switch result {
             case(.failure(let error)):
-                print("error deleting to user jobs: \(error.localizedDescription)")
+                XCTFail("error deleting to user jobs: \(error.localizedDescription)")
+                //print("error deleting to user jobs: \(error.localizedDescription)")
             case(.success(let result)):
                  XCTAssert(result)
             }
         }
         
          wait(for:[exp], timeout: 5.0)
+    }
+    
+    func testFetchingInterviewQuestions() {
+        let expectedCount = 6 // during this test there were 6 common interview questions on database
+        let exp = XCTestExpectation(description: "interview questions found")
+
+        DatabaseService.shared.fetchCommonInterviewQuestions { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error fetching interview questions: \(error.localizedDescription)")
+            case(.success(let questions)):
+                XCTAssertEqual(expectedCount, questions.count)
+
+            }
+        }
+        
+        wait(for:[exp], timeout: 5.0)
     }
     
     
