@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Contacts
+import ContactsUI
 
 class JobEntryController: UIViewController {
     
@@ -60,6 +62,12 @@ class JobEntryController: UIViewController {
             } else {
                 addResponsibilityButton.isEnabled = true
             }
+        }
+    }
+    private var contacts = [CNContact]()
+    private var userContacts = [Contact]() {
+        didSet {
+            dump(userContacts)
         }
     }
     
@@ -125,6 +133,12 @@ class JobEntryController: UIViewController {
     @IBAction func addResponsibilityButtonPressed(_ sender: UIButton) {
         numberOfResponsibilityCells += 1
         addRows(numOfRows: numberOfResponsibilityCells, section: 1)
+    }
+    @IBAction func addContactButtonPressed(_ sender: UIButton) {
+        let contactPicker = CNContactPickerViewController()
+        contactPicker.delegate = self
+//        contactPicker.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0")
+        present(contactPicker, animated: true)
     }
     private func listenForKeyboardEvents() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -293,5 +307,16 @@ extension UITextField {
         self.layer.shadowOpacity = 1.0
         self.layer.shadowRadius = 0.0
         self.layer.backgroundColor = UIColor.white.cgColor
+    }
+}
+//MARK:- CNContactPickerDelegate
+extension JobEntryController: CNContactPickerDelegate {
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
+        let newContacts = contacts.compactMap { Contact(contact: $0) }
+        for contact in newContacts {
+            if !userContacts.contains(contact) {
+                self.userContacts.append(contact)
+            }
+        }
     }
 }
