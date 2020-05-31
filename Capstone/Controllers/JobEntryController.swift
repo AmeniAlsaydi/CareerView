@@ -26,13 +26,11 @@ class JobEntryController: UIViewController {
     @IBOutlet var responsiblity2Cell: UITableViewCell!
     @IBOutlet var responsiblity3Cell: UITableViewCell!
     @IBOutlet var addStarSituationCell: UITableViewCell!
-    @IBOutlet var addContactCell: UITableViewCell!
     @IBOutlet var userContactsCVCell: UITableViewCell!
     //MARK:- Buttons
     @IBOutlet weak var currentlyEmployedButton: UIButton!
     @IBOutlet weak var addResponsibilityButton: UIButton!
     @IBOutlet weak var addStarSituationButton: UIButton!
-    @IBOutlet weak var addContactButton: UIButton!
     @IBOutlet weak var deleteResponsibiltyButton1: UIButton!
     @IBOutlet weak var deleteResponsibiltyButton2: UIButton!
     //MARK:- TextFields
@@ -52,15 +50,25 @@ class JobEntryController: UIViewController {
     
     //MARK:- Variables
     public var userJob: UserJob?
+    public var editingJob = false
     private var currentlyEmployed: Bool = false {
         didSet {
             configureCurrentlyEmployedButton(currentlyEmployed)
         }
     }
+    private var userJobResponsibilities: [String]? {
+        didSet {
+            if userJobResponsibilities?.count == 4 {
+                addResponsibilityButton.isEnabled = false
+            } else {
+                addResponsibilityButton.isEnabled = true
+            }
+        }
+    }
     private var numberOfResponsibilityCells = 2 {
         didSet {
             if numberOfResponsibilityCells == 4 {
-            addResponsibilityButton.isEnabled = false
+                addResponsibilityButton.isEnabled = false
             } else {
                 addResponsibilityButton.isEnabled = true
             }
@@ -69,9 +77,11 @@ class JobEntryController: UIViewController {
     private var contacts = [CNContact]()
     private var userContacts = [Contact]() {
         didSet {
-            userContactsCollectionView.reloadData()
+            self.tableView.reloadData()
+            self.userContactsCollectionView.reloadData()
         }
     }
+    
     
     //MARK:- ViewDidLoad
     override func viewDidLoad() {
@@ -80,6 +90,7 @@ class JobEntryController: UIViewController {
         setupTextFields()
         setupNavigationBar()
         listenForKeyboardEvents()
+        loadUserJob()
     }
     private func configureView() {
         view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
@@ -89,6 +100,23 @@ class JobEntryController: UIViewController {
         self.userContactsCollectionView.delegate = self
         self.userContactsCollectionView.dataSource = self
         self.userContactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
+    }
+    private func loadUserJob() {
+        if editingJob {
+            
+            jobTitleTextField.text = userJob?.title
+            companyNameTextField.text = userJob?.companyName
+            //TODO: Make decision about how to present date. Date picker or formate date with/to textFields?
+//            beginDateMonthTextField.text = userJob?.beginDate
+//            beginDateYearTextField.text = userJob?.beginDate
+//            endDateMonthTextField.text = userJob?.endDate
+//            endDateYearTextField.text = userJob?.endDate
+            //TODO: Update userJob model to contain location
+//            locationTextField.text = userJob?.location
+            descriptionTextField.text = userJob?.description
+            userJobResponsibilities = userJob?.responsibilities
+            //TODO: Add star situations, add contacts
+        }
     }
     private func setupNavigationBar() {
         navigationItem.title = "Create new Job"
@@ -122,7 +150,7 @@ class JobEntryController: UIViewController {
         tableView.endUpdates()
     }
     private func deleteRows(row: Int, section: Int) {
-//        let indexPath = userJob?.responsibilities.firstIndex(of: String)
+        //        let indexPath = userJob?.responsibilities.firstIndex(of: String)
         let indexPath = IndexPath(row: row, section: section)
         tableView.beginUpdates()
         //TODO: Should we make the user confirm delete here with a slide out action?
@@ -142,7 +170,7 @@ class JobEntryController: UIViewController {
     @IBAction func addContactButtonPressed(_ sender: UIButton) {
         let contactPicker = CNContactPickerViewController()
         contactPicker.delegate = self
-//        contactPicker.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0")
+        //        contactPicker.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0")
         present(contactPicker, animated: true)
     }
     private func listenForKeyboardEvents() {
@@ -155,7 +183,7 @@ class JobEntryController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
-
+    
     @objc func doneButtonAction() {
         self.view.endEditing(true)
     }
@@ -179,34 +207,34 @@ class JobEntryController: UIViewController {
         guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-//         Move entire view by height of the keyboard and reset
+        //         Move entire view by height of the keyboard and reset
         if notification.name == UIResponder.keyboardWillShowNotification || notification.name == UIResponder.keyboardWillChangeFrameNotification {
-        view.frame.origin.y = -keyboardRect.height
+            view.frame.origin.y = -keyboardRect.height
         } else {
             view.frame.origin.y = 0
         }
     }
-//    private func scrollToRow(row: Int) {
-//        let indexPath = IndexPath(row: row, section: 0)
-//        self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-//    }
+    //    private func scrollToRow(row: Int) {
+    //        let indexPath = IndexPath(row: row, section: 0)
+    //        self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+    //    }
 }
 //MARK:- TableViewController Datasource/Delegate
 extension JobEntryController: UITableViewDataSource {
-         func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-             switch section {
-             case 0:
-                 return "Details"
-             case 1:
-                return "Description & Responsibilities"
-             case 2:
-                return "STAR Situations"
-             case 3:
-                return "Contacts/Co-workers: \(userContacts.count)"
-             default:
-                 return "What?"
-             }
-         }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Details"
+        case 1:
+            return "Description & Responsibilities"
+        case 2:
+            return "STAR Situations: \(userJob?.starSituationIDs.count ?? 0)"
+        case 3:
+            return "Contacts/Co-workers: \(userContacts.count)"
+        default:
+            return "What?"
+        }
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
@@ -219,7 +247,7 @@ extension JobEntryController: UITableViewDataSource {
         case 2:
             return 1
         case 3:
-            return 2
+            return 1
         default:
             return 1
         }
@@ -267,11 +295,9 @@ extension JobEntryController: UITableViewDataSource {
         case 3:
             switch indexPath.row {
             case 0:
-                return addContactCell
-            case 1:
                 return userContactsCVCell
             default:
-                return addContactCell
+                return userContactsCVCell
             }
         default:
             break
@@ -291,7 +317,7 @@ extension JobEntryController: UITableViewDelegate {
 extension JobEntryController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         let row = textField.tag
-//        scrollToRow(row: row)
+        //        scrollToRow(row: row)
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -316,12 +342,21 @@ extension UITextField {
     }
 }
 //MARK:- CollectionView Extension
+extension JobEntryController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+    }
+}
 extension JobEntryController: UICollectionViewDelegate {
-
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let contact = userContacts[indexPath.row]
+        let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
+        navigationController?.pushViewController(contactViewController, animated: true)
+    }
 }
 extension JobEntryController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return userContacts.count
     }
     
@@ -330,8 +365,6 @@ extension JobEntryController: UICollectionViewDataSource {
             fatalError("failed to dequeue userContactCell")
         }
         let contact = userContacts[indexPath.row]
-        cell.nameLabel.layer.masksToBounds = true
-        cell.nameLabel.layer.cornerRadius = 4
         cell.configureCell(contact: contact)
         return cell
     }

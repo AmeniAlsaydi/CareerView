@@ -9,8 +9,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JobEntryController" customModule="Capstone" customModuleProvider="target">
             <connections>
-                <outlet property="addContactButton" destination="RQv-nL-2Li" id="M2z-y1-XtQ"/>
-                <outlet property="addContactCell" destination="jUa-hw-Gf0" id="XSh-HJ-BvS"/>
                 <outlet property="addResponsibilityButton" destination="8NH-2D-Sgu" id="Kza-4q-jai"/>
                 <outlet property="addStarSituationButton" destination="pup-oD-BVu" id="sLR-Jr-ejb"/>
                 <outlet property="addStarSituationCell" destination="nLf-FM-P5g" id="bMw-sP-rwl"/>
@@ -407,37 +405,15 @@
             </tableViewCellContentView>
             <point key="canvasLocation" x="758" y="237"/>
         </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jUa-hw-Gf0" userLabel="AddContactCell">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jUa-hw-Gf0" id="UVe-SV-tQ1">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQv-nL-2Li">
-                        <rect key="frame" x="20" y="7" width="86" height="30"/>
-                        <state key="normal" title="Add Contact"/>
-                        <connections>
-                            <action selector="addContactButtonPressed:" destination="-1" eventType="touchUpInside" id="HqK-oG-2en"/>
-                        </connections>
-                    </button>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="RQv-nL-2Li" firstAttribute="leading" secondItem="UVe-SV-tQ1" secondAttribute="leading" constant="20" id="7Yr-gF-QOT"/>
-                    <constraint firstItem="RQv-nL-2Li" firstAttribute="centerY" secondItem="UVe-SV-tQ1" secondAttribute="centerY" id="ew7-6w-rxA"/>
-                </constraints>
-            </tableViewCellContentView>
-            <point key="canvasLocation" x="758" y="346"/>
-        </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="61" id="Wt0-eH-MUc" userLabel="ContactsCollectionViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Wt0-eH-MUc" userLabel="ContactsCell">
             <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wt0-eH-MUc" id="DJt-71-SHp">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rYu-v6-a4e">
-                        <rect key="frame" x="20" y="0.0" width="374" height="61"/>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rYu-v6-a4e">
+                        <rect key="frame" x="53" y="0.0" width="361" height="61"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2v0-EZ-XTt">
                             <size key="itemSize" width="128" height="128"/>
@@ -450,15 +426,28 @@
                             <outlet property="delegate" destination="-1" id="wiD-YO-Lct"/>
                         </connections>
                     </collectionView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uiG-Ux-bnf">
+                        <rect key="frame" x="20" y="18" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Dak-et-6iz"/>
+                            <constraint firstAttribute="width" constant="25" id="pRl-ee-Hg4"/>
+                        </constraints>
+                        <state key="normal" image="plus.circle.fill" catalog="system"/>
+                        <connections>
+                            <action selector="addContactButtonPressed:" destination="-1" eventType="touchUpInside" id="YXz-3Y-HgJ"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="rYu-v6-a4e" secondAttribute="bottom" id="17u-dP-f5e"/>
-                    <constraint firstAttribute="trailing" secondItem="rYu-v6-a4e" secondAttribute="trailing" constant="20" id="Oja-xc-nXZ"/>
-                    <constraint firstItem="rYu-v6-a4e" firstAttribute="leading" secondItem="DJt-71-SHp" secondAttribute="leading" constant="20" id="PjF-PU-Ynn"/>
+                    <constraint firstItem="rYu-v6-a4e" firstAttribute="leading" secondItem="uiG-Ux-bnf" secondAttribute="trailing" constant="8" id="3sJ-QI-p5j"/>
+                    <constraint firstItem="uiG-Ux-bnf" firstAttribute="leading" secondItem="DJt-71-SHp" secondAttribute="leading" constant="20" id="IGY-DI-Daa"/>
+                    <constraint firstAttribute="trailing" secondItem="rYu-v6-a4e" secondAttribute="trailing" id="Oja-xc-nXZ"/>
                     <constraint firstItem="rYu-v6-a4e" firstAttribute="top" secondItem="DJt-71-SHp" secondAttribute="top" id="VK3-S7-9aN"/>
+                    <constraint firstItem="uiG-Ux-bnf" firstAttribute="centerY" secondItem="DJt-71-SHp" secondAttribute="centerY" id="w2N-0e-Ikr"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="760.86956521739137" y="423.54910714285711"/>
+            <point key="canvasLocation" x="761" y="379"/>
         </tableViewCell>
     </objects>
     <resources>
