@@ -121,7 +121,25 @@ class CapstoneTests: XCTestCase {
             }
         }
         wait(for:[exp], timeout: 5.0)
+    }
+    
+    func testFetchingJobApplication() {
+        let exp = XCTestExpectation(description: "job applications found")
+        let expectedApplicationCount = 0 // change number to current users number of application
         
+        DatabaseService.shared.fetchApplications { (result) in
+            exp.fulfill()
+            
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error fetching job application: \(error.localizedDescription)")
+            case(.success(let applications)):
+                XCTAssertEqual(applications.count, expectedApplicationCount)
+            }
+        }
+        
+        wait(for:[exp], timeout: 5.0)
+
     }
     
 }

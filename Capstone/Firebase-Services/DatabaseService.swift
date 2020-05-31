@@ -19,6 +19,7 @@ class DatabaseService {
     static let userJobCollection = "userJobs"
     static let commonQuestionCollection = "commonInterviewQuestions"
     static let contactsCollection = "contacts"
+    static let jobApplicationCollection = "jobApplications"
     
     private let db = Firestore.firestore()
     
@@ -120,6 +121,20 @@ class DatabaseService {
             } else if let snapshot = snapshot {
                 let questions = snapshot.documents.map { InterviewQuestion($0.data())}
                 completion(.success(questions))
+            }
+        }
+    }
+    
+    public func fetchApplications(completion: @escaping (Result<[JobApplication], Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let applications = snapshot.documents.map {JobApplication($0.data())}
+                completion(.success(applications))
             }
         }
     }
