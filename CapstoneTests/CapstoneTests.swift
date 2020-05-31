@@ -161,4 +161,23 @@ class CapstoneTests: XCTestCase {
     wait(for:[exp], timeout: 5.0)
     }
     
+    
+    func testAddingApplication() {
+        let exp = XCTestExpectation(description: "added job applications")
+        
+        let application = JobApplication(id: "121212", companyName: "company x", positionTitle: "xxx", positionURL: "url", remoteStatus: true, location: GeoPoint(latitude: 0, longitude: 0), notes: "no notes", applicationDeadline: Timestamp(date: Date()), dateApplied: Timestamp(date: Date()), interested: true, didApply: true, currentlyInterviewing: true, receivedReply: true, receivedOffer: true)
+        
+        
+        DatabaseService.shared.addApplication(application: application) { (result) in
+            exp.fulfill()
+            switch result {
+                case(.failure(let error)):
+                    XCTFail("error adding interview data to application: \(error.localizedDescription)")
+                case(.success(let result)):
+                    XCTAssert(result)
+                }
+            }
+            wait(for:[exp], timeout: 5.0)
+    }
+    
 }

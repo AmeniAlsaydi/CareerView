@@ -140,6 +140,22 @@ class DatabaseService {
         }
     }
     
+    public func addApplication(application: JobApplication, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).document(application.id).setData(["id": application.id, "companyName": application.companyName, "positionTitle": application.positionTitle, "positionURL": application.positionTitle, "remoteStatus": application.remoteStatus, "location": application.location, "notes": application.notes, "applicationDeadline": application.applicationDeadline, "dateApplied": application.dateApplied, "interested": application.interested, "didApply": application.didApply, "currentlyInterviewing": application.currentlyInterviewing, "receivedReply": application.receivedReply, "receivedOffer": application.receivedOffer]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
+        
+    }
+    
     public func addInterviewToApplication(applicationID: String, interview: Interview, completion: @escaping (Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
