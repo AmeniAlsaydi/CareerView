@@ -20,6 +20,7 @@ class DatabaseService {
     static let commonQuestionCollection = "commonInterviewQuestions"
     static let contactsCollection = "contacts"
     static let jobApplicationCollection = "jobApplications"
+    static let interviewCollection = "interviews"
     
     private let db = Firestore.firestore()
     
@@ -139,4 +140,18 @@ class DatabaseService {
         }
     }
     
+    public func addInterviewToApplication(applicationID: String, interview: Interview, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).document(applicationID).collection(DatabaseService.interviewCollection).document(interview.id).setData(["id": interview.id, "interviewDate": interview.interviewDate, "thankYouSent": interview.thankYouSent, "followUpSent": interview.followUpSent, "notes": interview.notes]) { error in
+        if let error = error {
+            completion(.failure(error))
+        } else {
+            completion(.success(true))
+        }
+    }
+    
+}
+
 }
