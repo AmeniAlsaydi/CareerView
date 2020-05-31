@@ -27,6 +27,7 @@ class JobEntryController: UIViewController {
     @IBOutlet var responsiblity3Cell: UITableViewCell!
     @IBOutlet var addStarSituationCell: UITableViewCell!
     @IBOutlet var addContactCell: UITableViewCell!
+    @IBOutlet var userContactsCVCell: UITableViewCell!
     //MARK:- Buttons
     @IBOutlet weak var currentlyEmployedButton: UIButton!
     @IBOutlet weak var addResponsibilityButton: UIButton!
@@ -47,6 +48,7 @@ class JobEntryController: UIViewController {
     @IBOutlet weak var responsibilty2TextField: UITextField!
     @IBOutlet weak var responsibility3TextField: UITextField!
     
+    @IBOutlet weak var userContactsCollectionView: UICollectionView!
     
     //MARK:- Variables
     public var userJob: UserJob?
@@ -67,7 +69,7 @@ class JobEntryController: UIViewController {
     private var contacts = [CNContact]()
     private var userContacts = [Contact]() {
         didSet {
-            dump(userContacts)
+            userContactsCollectionView.reloadData()
         }
     }
     
@@ -84,6 +86,9 @@ class JobEntryController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.keyboardDismissMode = .onDrag
+        self.userContactsCollectionView.delegate = self
+        self.userContactsCollectionView.dataSource = self
+        self.userContactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
     }
     private func setupNavigationBar() {
         navigationItem.title = "Create new Job"
@@ -197,7 +202,7 @@ extension JobEntryController: UITableViewDataSource {
              case 2:
                 return "STAR Situations"
              case 3:
-                return "Contacts/Co-workers"
+                return "Contacts/Co-workers: \(userContacts.count)"
              default:
                  return "What?"
              }
@@ -214,7 +219,7 @@ extension JobEntryController: UITableViewDataSource {
         case 2:
             return 1
         case 3:
-            return 1
+            return 2
         default:
             return 1
         }
@@ -254,15 +259,17 @@ extension JobEntryController: UITableViewDataSource {
             }
         case 2:
             switch indexPath.row {
-                case 0:
-                    return addStarSituationCell
+            case 0:
+                return addStarSituationCell
             default:
                 return addStarSituationCell
             }
         case 3:
             switch indexPath.row {
-                case 0:
-                    return addContactCell
+            case 0:
+                return addContactCell
+            case 1:
+                return userContactsCVCell
             default:
                 return addContactCell
             }
@@ -276,7 +283,6 @@ extension JobEntryController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
             currentlyEmployed.toggle()
-            
         }
     }
 }
@@ -308,6 +314,29 @@ extension UITextField {
         self.layer.shadowRadius = 0.0
         self.layer.backgroundColor = UIColor.white.cgColor
     }
+}
+//MARK:- CollectionView Extension
+extension JobEntryController: UICollectionViewDelegate {
+
+}
+extension JobEntryController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return userContacts.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userContactCell", for: indexPath) as? UserContactCVCell else {
+            fatalError("failed to dequeue userContactCell")
+        }
+        let contact = userContacts[indexPath.row]
+        cell.nameLabel.layer.masksToBounds = true
+        cell.nameLabel.layer.cornerRadius = 4
+        cell.configureCell(contact: contact)
+        return cell
+    }
+    
+    
 }
 //MARK:- CNContactPickerDelegate
 extension JobEntryController: CNContactPickerDelegate {
