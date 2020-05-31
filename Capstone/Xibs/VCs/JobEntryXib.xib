@@ -39,6 +39,8 @@
                 <outlet property="responsiblity2Cell" destination="H97-qk-6wT" id="07H-rO-jCd"/>
                 <outlet property="responsiblity3Cell" destination="scn-ki-INj" id="Bb0-DV-vfb"/>
                 <outlet property="tableView" destination="QiZ-OQ-jMe" id="FXS-US-2Nx"/>
+                <outlet property="userContactsCVCell" destination="Wt0-eH-MUc" id="Qvu-VI-uK8"/>
+                <outlet property="userContactsCollectionView" destination="rYu-v6-a4e" id="hVI-Zh-ET2"/>
                 <outlet property="view" destination="QiZ-OQ-jMe" id="cw0-Sa-Nxe"/>
             </connections>
         </placeholder>
@@ -427,14 +429,36 @@
             </tableViewCellContentView>
             <point key="canvasLocation" x="758" y="346"/>
         </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Wt0-eH-MUc">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="61" id="Wt0-eH-MUc" userLabel="ContactsCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wt0-eH-MUc" id="DJt-71-SHp">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rYu-v6-a4e">
+                        <rect key="frame" x="20" y="0.0" width="374" height="61"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2v0-EZ-XTt">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="-1" id="f9M-JX-Gb4"/>
+                            <outlet property="delegate" destination="-1" id="wiD-YO-Lct"/>
+                        </connections>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="rYu-v6-a4e" secondAttribute="bottom" id="17u-dP-f5e"/>
+                    <constraint firstAttribute="trailing" secondItem="rYu-v6-a4e" secondAttribute="trailing" constant="20" id="Oja-xc-nXZ"/>
+                    <constraint firstItem="rYu-v6-a4e" firstAttribute="leading" secondItem="DJt-71-SHp" secondAttribute="leading" constant="20" id="PjF-PU-Ynn"/>
+                    <constraint firstItem="rYu-v6-a4e" firstAttribute="top" secondItem="DJt-71-SHp" secondAttribute="top" id="VK3-S7-9aN"/>
+                </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="761" y="418"/>
+            <point key="canvasLocation" x="760.86956521739137" y="423.54910714285711"/>
         </tableViewCell>
     </objects>
     <resources>
