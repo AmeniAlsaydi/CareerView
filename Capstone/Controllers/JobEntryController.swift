@@ -30,6 +30,8 @@ class JobEntryController: UIViewController {
     @IBOutlet weak var addResponsibilityButton: UIButton!
     @IBOutlet weak var addStarSituationButton: UIButton!
     @IBOutlet weak var addContactButton: UIButton!
+    @IBOutlet weak var deleteResponsibiltyButton1: UIButton!
+    @IBOutlet weak var deleteResponsibiltyButton2: UIButton!
     //MARK:- TextFields
     @IBOutlet weak var jobTitleTextField: UITextField!
     @IBOutlet weak var companyNameTextField: UITextField!
@@ -51,9 +53,13 @@ class JobEntryController: UIViewController {
             configureCurrentlyEmployedButton(currentlyEmployed)
         }
     }
-    private var numberOfRows = 12 {
+    private var numberOfResponsibilityCells = 2 {
         didSet {
-            
+            if numberOfResponsibilityCells == 4 {
+            addResponsibilityButton.isEnabled = false
+            } else {
+                addResponsibilityButton.isEnabled = true
+            }
         }
     }
     
@@ -96,6 +102,30 @@ class JobEntryController: UIViewController {
             field?.setBottomBorder()
         }
     }
+    private func addRows(numOfRows: Int, section: Int) {
+        let indexPath = IndexPath(row: numOfRows - 1, section: section)
+        tableView.beginUpdates()
+        tableView.insertRows(at: [indexPath], with: .right)
+        tableView.endUpdates()
+    }
+    private func deleteRows(row: Int, section: Int) {
+//        let indexPath = userJob?.responsibilities.firstIndex(of: String)
+        let indexPath = IndexPath(row: row, section: section)
+        tableView.beginUpdates()
+        //TODO: Should we make the user confirm delete here with a slide out action?
+        tableView.reloadRows(at: [indexPath], with: .top)
+        tableView.endUpdates()
+        tableView.reloadData()
+    }
+    @IBAction func deleteResponsibiltyCellButtonPressed(_ sender: UIButton) {
+        deleteRows(row: 2, section: 1)
+        numberOfResponsibilityCells -= 1
+        
+    }
+    @IBAction func addResponsibilityButtonPressed(_ sender: UIButton) {
+        numberOfResponsibilityCells += 1
+        addRows(numOfRows: numberOfResponsibilityCells, section: 1)
+    }
     private func listenForKeyboardEvents() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -130,66 +160,102 @@ class JobEntryController: UIViewController {
         guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-        
+//         Move entire view by height of the keyboard and reset
         if notification.name == UIResponder.keyboardWillShowNotification || notification.name == UIResponder.keyboardWillChangeFrameNotification {
         view.frame.origin.y = -keyboardRect.height
         } else {
             view.frame.origin.y = 0
         }
     }
-    private func scrollToRow(row: Int) {
-        let indexPath = IndexPath(row: row, section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
+//    private func scrollToRow(row: Int) {
+//        let indexPath = IndexPath(row: row, section: 0)
+//        self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+//    }
 }
 //MARK:- TableViewController Datasource/Delegate
 extension JobEntryController: UITableViewDataSource {
-    //     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //         switch section {
-    //         case 0:
-    //             return "Job Title"
-    //         default:
-    //             return "What?"
-    //         }
-    //     }
+         func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+             switch section {
+             case 0:
+                 return "Details"
+             case 1:
+                return "Description & Responsibilities"
+             case 2:
+                return "STAR Situations"
+             case 3:
+                return "Contacts/Co-workers"
+             default:
+                 return "What?"
+             }
+         }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 4
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfRows
+        switch section {
+        case 0:
+            return 6
+        case 1:
+            return numberOfResponsibilityCells
+        case 2:
+            return 1
+        case 3:
+            return 1
+        default:
+            return 1
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            return jobTitleCell
+            switch indexPath.row {
+            case 0:
+                return jobTitleCell
+            case 1:
+                return companyTitleCell
+            case 2:
+                configureCurrentlyEmployedButton(currentlyEmployed)
+                return currentEmployerCell
+            case 3:
+                return beginEmploymentDateCell
+            case 4:
+                return endEmploymentCell
+            case 5:
+                return locationCell
+            default:
+                return jobTitleCell
+            }
         case 1:
-            return companyTitleCell
+            switch indexPath.row {
+            case 0:
+                return descriptionCell
+            case 1:
+                return mainResponsiblityCell
+            case 2:
+                return responsiblity2Cell
+            case 3:
+                return responsiblity3Cell
+            default:
+                return mainResponsiblityCell
+            }
         case 2:
-            configureCurrentlyEmployedButton(currentlyEmployed)
-            return currentEmployerCell
+            switch indexPath.row {
+                case 0:
+                    return addStarSituationCell
+            default:
+                return addStarSituationCell
+            }
         case 3:
-            return beginEmploymentDateCell
-        case 4:
-            return endEmploymentCell
-        case 5:
-            return locationCell
-        case 6:
-            return descriptionCell
-        case 7:
-            return mainResponsiblityCell
-        case 8:
-            return responsiblity2Cell
-        case 9:
-            return responsiblity3Cell
-        case 10:
-            return addStarSituationCell
-        case 11:
-            return addContactCell
+            switch indexPath.row {
+                case 0:
+                    return addContactCell
+            default:
+                return addContactCell
+            }
         default:
-            return jobTitleCell
+            break
         }
-        
-        
+        return jobTitleCell
     }
 }
 extension JobEntryController: UITableViewDelegate {
@@ -205,7 +271,7 @@ extension JobEntryController: UITableViewDelegate {
 extension JobEntryController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         let row = textField.tag
-        scrollToRow(row: row)
+//        scrollToRow(row: row)
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
