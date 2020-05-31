@@ -142,4 +142,23 @@ class CapstoneTests: XCTestCase {
 
     }
     
+    func testAddingInterview() {
+        let exp = XCTestExpectation(description: "interview data added job applications")
+        let applicationID = "BPSDevKLkdCxf1iqAkTl"
+        
+        let interview = Interview(id: "11111", interviewDate: Timestamp(date: Date()), thankYouSent: false, followUpSent: false, notes: "no notes")
+        
+        DatabaseService.shared.addInterviewToApplication(applicationID: applicationID, interview: interview) { (result) in
+            exp.fulfill()
+            
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error adding interview data to application: \(error.localizedDescription)")
+            case(.success(let result)):
+                XCTAssert(result)
+            }
+        }
+    wait(for:[exp], timeout: 5.0)
+    }
+    
 }
