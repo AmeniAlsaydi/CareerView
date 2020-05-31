@@ -415,6 +415,9 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQv-nL-2Li">
                         <rect key="frame" x="20" y="7" width="86" height="30"/>
                         <state key="normal" title="Add Contact"/>
+                        <connections>
+                            <action selector="addContactButtonPressed:" destination="-1" eventType="touchUpInside" id="HqK-oG-2en"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -423,6 +426,15 @@
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="758" y="346"/>
+        </tableViewCell>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Wt0-eH-MUc">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wt0-eH-MUc" id="DJt-71-SHp">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="761" y="418"/>
         </tableViewCell>
     </objects>
     <resources>
