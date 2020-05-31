@@ -21,6 +21,8 @@
                 <outlet property="companyTitleCell" destination="8C3-lb-Era" id="b4k-gJ-K1N"/>
                 <outlet property="currentEmployerCell" destination="A7b-N1-2zM" id="FHm-8e-qVU"/>
                 <outlet property="currentlyEmployedButton" destination="PMp-S1-bNu" id="tnA-bx-wAZ"/>
+                <outlet property="deleteResponsibiltyButton1" destination="O1b-di-Jow" id="9py-Q1-J1M"/>
+                <outlet property="deleteResponsibiltyButton2" destination="TGc-GI-vm3" id="NeN-EX-4h7"/>
                 <outlet property="descriptionCell" destination="Laf-lO-Jtk" id="2Sm-p9-a2M"/>
                 <outlet property="descriptionTextField" destination="1ed-hT-uko" id="jEv-cJ-wIv"/>
                 <outlet property="endDateMonthTextField" destination="6zJ-p3-pN0" id="6tz-jK-R8i"/>
@@ -46,7 +48,7 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QiZ-OQ-jMe">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="607"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <connections>
@@ -277,7 +279,7 @@
                     <constraint firstAttribute="trailing" secondItem="1ed-hT-uko" secondAttribute="trailing" constant="20" id="Lq3-Nn-eAU"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="760.86956521739137" y="-149.33035714285714"/>
+            <point key="canvasLocation" x="761" y="-104"/>
         </tableViewCell>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Gav-bO-HgI" userLabel="ResponsibilitiesCell">
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -286,7 +288,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility #1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7cY-vQ-BpQ">
+                    <textField opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7cY-vQ-BpQ">
                         <rect key="frame" x="53" y="13" width="341" height="18.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -299,6 +301,9 @@
                             <constraint firstAttribute="height" constant="25" id="qpU-dz-6ZS"/>
                         </constraints>
                         <state key="normal" image="plus.circle.fill" catalog="system"/>
+                        <connections>
+                            <action selector="addResponsibilityButtonPressed:" destination="-1" eventType="touchUpInside" id="uZY-lo-Q93"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -309,7 +314,7 @@
                     <constraint firstItem="7cY-vQ-BpQ" firstAttribute="leading" secondItem="8NH-2D-Sgu" secondAttribute="trailing" constant="8" id="yID-aH-M8c"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="760.86956521739137" y="-88.392857142857139"/>
+            <point key="canvasLocation" x="762" y="-39"/>
         </tableViewCell>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="H97-qk-6wT" userLabel="Responsiblity#2Cell">
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -318,20 +323,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility #2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FTc-Fx-1De">
-                        <rect key="frame" x="20" y="13" width="374" height="18.5"/>
+                    <textField opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FTc-Fx-1De">
+                        <rect key="frame" x="53" y="12.5" width="341" height="19"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1b-di-Jow">
+                        <rect key="frame" x="20" y="9.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="7lX-8U-FaE"/>
+                            <constraint firstAttribute="width" constant="25" id="wAy-Kf-idB"/>
+                        </constraints>
+                        <state key="normal" image="minus.circle.fill" catalog="system"/>
+                        <connections>
+                            <action selector="deleteResponsibiltyCellButtonPressed:" destination="-1" eventType="touchUpInside" id="c4W-ZP-dec"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="FTc-Fx-1De" firstAttribute="leading" secondItem="hG3-6X-sFS" secondAttribute="leading" constant="20" id="FN0-vO-zl8"/>
+                    <constraint firstItem="FTc-Fx-1De" firstAttribute="leading" secondItem="O1b-di-Jow" secondAttribute="trailing" constant="8" id="AUS-st-PY3"/>
                     <constraint firstAttribute="trailing" secondItem="FTc-Fx-1De" secondAttribute="trailing" constant="20" id="NsP-ER-vI7"/>
                     <constraint firstItem="FTc-Fx-1De" firstAttribute="centerY" secondItem="hG3-6X-sFS" secondAttribute="centerY" id="OcD-eX-S0n"/>
+                    <constraint firstItem="O1b-di-Jow" firstAttribute="leading" secondItem="hG3-6X-sFS" secondAttribute="leading" constant="20" id="p1J-eF-gDF"/>
+                    <constraint firstItem="O1b-di-Jow" firstAttribute="centerY" secondItem="hG3-6X-sFS" secondAttribute="centerY" id="wVo-bH-9ic"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="758" y="-21"/>
+            <point key="canvasLocation" x="757.97101449275374" y="27.455357142857142"/>
         </tableViewCell>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="scn-ki-INj" userLabel="Responsiblity#3Cell">
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -340,20 +358,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility #3" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kTz-u4-zgJ">
-                        <rect key="frame" x="20" y="13" width="374" height="18.5"/>
+                    <textField opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kTz-u4-zgJ">
+                        <rect key="frame" x="53" y="12.5" width="341" height="19"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGc-GI-vm3">
+                        <rect key="frame" x="20" y="9.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="bav-OG-hvN"/>
+                            <constraint firstAttribute="height" constant="25" id="oAy-J4-DXM"/>
+                        </constraints>
+                        <state key="normal" image="minus.circle.fill" catalog="system"/>
+                        <connections>
+                            <action selector="deleteResponsibiltyCellButtonPressed:" destination="-1" eventType="touchUpInside" id="3Pi-eZ-kAE"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="kTz-u4-zgJ" firstAttribute="centerY" secondItem="hjg-Ad-ULe" secondAttribute="centerY" id="Cep-y9-fpG"/>
+                    <constraint firstItem="kTz-u4-zgJ" firstAttribute="leading" secondItem="TGc-GI-vm3" secondAttribute="trailing" constant="8" id="Hne-oC-oND"/>
+                    <constraint firstItem="TGc-GI-vm3" firstAttribute="centerY" secondItem="hjg-Ad-ULe" secondAttribute="centerY" id="LXa-kQ-FNi"/>
+                    <constraint firstItem="TGc-GI-vm3" firstAttribute="leading" secondItem="hjg-Ad-ULe" secondAttribute="leading" constant="20" id="Qh9-F8-YZe"/>
                     <constraint firstAttribute="trailing" secondItem="kTz-u4-zgJ" secondAttribute="trailing" constant="20" id="gjd-sg-VT6"/>
-                    <constraint firstItem="kTz-u4-zgJ" firstAttribute="leading" secondItem="hjg-Ad-ULe" secondAttribute="leading" constant="20" id="uGj-dR-IJT"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="758" y="37"/>
+            <point key="canvasLocation" x="757.97101449275374" y="85.714285714285708"/>
         </tableViewCell>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="nLf-FM-P5g" userLabel="AddStarSituationCell">
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -372,7 +403,7 @@
                     <constraint firstItem="pup-oD-BVu" firstAttribute="centerY" secondItem="QjO-no-43Y" secondAttribute="centerY" id="tZZ-Ot-0qv"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="758" y="101"/>
+            <point key="canvasLocation" x="758" y="237"/>
         </tableViewCell>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jUa-hw-Gf0" userLabel="AddContactCell">
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -391,10 +422,11 @@
                     <constraint firstItem="RQv-nL-2Li" firstAttribute="centerY" secondItem="UVe-SV-tQ1" secondAttribute="centerY" id="ew7-6w-rxA"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="757.97101449275374" y="160.71428571428569"/>
+            <point key="canvasLocation" x="758" y="346"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="square" catalog="system" width="128" height="114"/>
     </resources>
