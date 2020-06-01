@@ -18,6 +18,7 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     //public var userAnswers = [InterviewAnswer]()
+    //public var userQuestions = [?]
     
     override func viewDidLoad() {
         super.viewDidLoad()
