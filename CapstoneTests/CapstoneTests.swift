@@ -110,8 +110,7 @@ class CapstoneTests: XCTestCase {
         
         let exp = XCTestExpectation(description: "added contact to user job")
         let userJobId = "27A8243C-47D5-4D8F-A0C0-835373828977"
-        let contact = Contact(id: "12345id", email: "email.com", firstName: "bob", lastName: "bobby", phoneNumber: "1234567")
-        
+        let contact = Contact(firstName: "tom", lastName: "tommy", email: "tom.com", id: "12345")
         
         DatabaseService.shared.addContactsToUserJob(userJobId: userJobId, contact: contact) { (result) in
             exp.fulfill()
@@ -182,4 +181,22 @@ class CapstoneTests: XCTestCase {
             wait(for:[exp], timeout: 5.0)
     }
     
+    func testFetchingCustomQuestions() {
+        let exp = XCTestExpectation(description: "custom interview questions found")
+        let expected = "1001"
+        
+        DatabaseService.shared.fetchCustomInterviewQuestions { (result) in
+            exp.fulfill()
+            switch result {
+                case(.failure(let error)):
+                    XCTFail("error adding interview data to application: \(error.localizedDescription)")
+                case(.success(let questions)):
+                    XCTAssertEqual(expected, questions.first?.id)
+                }
+            }
+         wait(for:[exp], timeout: 5.0)
+        }
+        
 }
+    
+

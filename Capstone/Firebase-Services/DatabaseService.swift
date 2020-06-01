@@ -21,6 +21,7 @@ class DatabaseService {
     static let contactsCollection = "contacts"
     static let jobApplicationCollection = "jobApplications"
     static let interviewCollection = "interviews"
+    static let customQuestionsCollection = "customInterviewQuestions"
     
     private let db = Firestore.firestore()
     
@@ -98,7 +99,7 @@ class DatabaseService {
                     }
                 }
         }
-    
+      
     public func removeUserJob(userJobId: String, completion: @escaping (Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
@@ -161,13 +162,34 @@ class DatabaseService {
         let userID = user.uid
         
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).document(applicationID).collection(DatabaseService.interviewCollection).document(interview.id).setData(["id": interview.id, "interviewDate": interview.interviewDate, "thankYouSent": interview.thankYouSent, "followUpSent": interview.followUpSent, "notes": interview.notes]) { error in
-        if let error = error {
-            completion(.failure(error))
-        } else {
-            completion(.success(true))
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
         }
+        
     }
     
-}
+    public func fetchCustomInterviewQuestions(completion: @escaping (Result<[InterviewQuestion], Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = "LOT6p7nkxfM69CCtjB41" //user.uid
+        
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.customQuestionsCollection).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let questions = snapshot.documents.map {InterviewQuestion($0.data())}
+                completion(.success(questions))
+            }
+        }
+        
+    }
+    
+    
+    // to get interview question answers we will filter answeredQuestions collection using the question string
+    
+    
 
 }
