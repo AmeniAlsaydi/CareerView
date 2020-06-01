@@ -8,13 +8,6 @@
 
 import UIKit
 
-class ContactCell: UICollectionViewCell {
-    @IBOutlet weak var contactNameButton: UIButton!
-    
-    @IBAction func contactButtonPressed(_ sender: UIButton) {
-        
-    }
-}
 
 class JobHistoryBasicCell: UITableViewCell {
     @IBOutlet weak var jobTitleLabel: UILabel!
