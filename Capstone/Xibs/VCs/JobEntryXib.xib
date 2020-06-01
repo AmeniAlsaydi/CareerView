@@ -32,8 +32,8 @@
                 <outlet property="locationTextField" destination="XAb-kj-Rgn" id="Cib-e5-Zch"/>
                 <outlet property="mainResponsiblityCell" destination="Gav-bO-HgI" id="XQ3-5q-lFB"/>
                 <outlet property="responsibility1TextField" destination="7cY-vQ-BpQ" id="tSt-pS-Yww"/>
+                <outlet property="responsibility2TextField" destination="FTc-Fx-1De" id="zRc-ni-SMV"/>
                 <outlet property="responsibility3TextField" destination="kTz-u4-zgJ" id="0K9-He-08m"/>
-                <outlet property="responsibilty2TextField" destination="FTc-Fx-1De" id="zRc-ni-SMV"/>
                 <outlet property="responsiblity2Cell" destination="H97-qk-6wT" id="07H-rO-jCd"/>
                 <outlet property="responsiblity3Cell" destination="scn-ki-INj" id="Bb0-DV-vfb"/>
                 <outlet property="tableView" destination="QiZ-OQ-jMe" id="FXS-US-2Nx"/>
@@ -266,8 +266,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1ed-hT-uko">
-                        <rect key="frame" x="20" y="13" width="374" height="18.5"/>
+                    <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="1ed-hT-uko">
+                        <rect key="frame" x="20" y="12.5" width="374" height="19"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
@@ -288,8 +288,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7cY-vQ-BpQ">
-                        <rect key="frame" x="53" y="13" width="341" height="18.5"/>
+                    <textField opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="7cY-vQ-BpQ">
+                        <rect key="frame" x="53" y="12.5" width="341" height="19"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
@@ -314,7 +314,7 @@
                     <constraint firstItem="7cY-vQ-BpQ" firstAttribute="leading" secondItem="8NH-2D-Sgu" secondAttribute="trailing" constant="8" id="yID-aH-M8c"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="762" y="-39"/>
+            <point key="canvasLocation" x="761" y="-3"/>
         </tableViewCell>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="H97-qk-6wT" userLabel="Responsiblity#2Cell">
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -323,7 +323,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FTc-Fx-1De">
+                    <textField opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="FTc-Fx-1De">
                         <rect key="frame" x="53" y="12.5" width="341" height="19"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -349,7 +349,7 @@
                     <constraint firstItem="O1b-di-Jow" firstAttribute="centerY" secondItem="hG3-6X-sFS" secondAttribute="centerY" id="wVo-bH-9ic"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="757.97101449275374" y="27.455357142857142"/>
+            <point key="canvasLocation" x="758" y="64"/>
         </tableViewCell>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="scn-ki-INj" userLabel="Responsiblity#3Cell">
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -358,7 +358,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kTz-u4-zgJ">
+                    <textField opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Responsibility" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="kTz-u4-zgJ">
                         <rect key="frame" x="53" y="12.5" width="341" height="19"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -384,7 +384,7 @@
                     <constraint firstAttribute="trailing" secondItem="kTz-u4-zgJ" secondAttribute="trailing" constant="20" id="gjd-sg-VT6"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="757.97101449275374" y="85.714285714285708"/>
+            <point key="canvasLocation" x="758" y="123"/>
         </tableViewCell>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="nLf-FM-P5g" userLabel="AddStarSituationCell">
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
