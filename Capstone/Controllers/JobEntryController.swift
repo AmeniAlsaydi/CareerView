@@ -88,7 +88,10 @@ class JobEntryController: UIViewController {
             self.userContactsCollectionView.reloadData()
         }
     }
-
+    // IDs from starSituations
+    var linkedStarSituations = [String]()
+    // IDs from interview questions
+    var linkedInterviewQuestions = [String]()
     //MARK:- ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -209,8 +212,17 @@ class JobEntryController: UIViewController {
             currentlyEmployedButton.setImage(UIImage(systemName: "square"), for: .normal)
         }
     }
+    //MARK: Save userJob
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
-        print("save pressed")
+        if editingJob {
+            // Update job on database
+        } else {
+            // Save job on database
+            //TODO: Get dates
+            let beginDate = Timestamp(date: Date())
+            let endDate = Timestamp(date: Date())
+            userJob = UserJob(title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", beginDate: beginDate, endDate: endDate, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: userJobResponsibilities, starSituationIDs: linkedStarSituations, interviewQuestionIDs: linkedInterviewQuestions, contactIDs: [""], contacts: userContacts)
+        }
     }
     @IBAction func currentlyEmployedButtonPressed(_ sender: UIButton) {
         currentlyEmployed.toggle()
