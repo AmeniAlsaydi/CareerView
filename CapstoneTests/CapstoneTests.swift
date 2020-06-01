@@ -7,6 +7,8 @@
 //
 
 import XCTest
+import FirebaseAuth
+import FirebaseFirestore
 import Firebase
 
 @testable import Capstone
