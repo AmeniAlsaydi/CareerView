@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		06F34E0EBED5AAE34DF36446 /* Pods_CapstoneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */; };
 		45BC67ACBC278BE7865BCC41 /* Pods_Capstone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */; };
+		884E555C248408CF00BA180F /* UserContactCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 884E555B248408CF00BA180F /* UserContactCVCell.xib */; };
+		884E555E2484094100BA180F /* UserContactCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E555D2484094100BA180F /* UserContactCVCell.swift */; };
+		884E55602485542100BA180F /* JobHistoryExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */; };
+		88E10F4024819FCF00DC609A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88E10F3F24819FCF00DC609A /* GoogleService-Info.plist */; };
 		B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C2392476832F000811C5 /* AppDelegate.swift */; };
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
 		B725C24324768331000811C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B725C24224768331000811C5 /* Assets.xcassets */; };
@@ -78,6 +82,10 @@
 		17A1C2FB09C24401FFBC99A4 /* Pods-CapstoneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CapstoneTests.debug.xcconfig"; path = "Target Support Files/Pods-CapstoneTests/Pods-CapstoneTests.debug.xcconfig"; sourceTree = "<group>"; };
 		44397EE59E4E94E21F72EA4A /* Pods-CapstoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CapstoneTests.release.xcconfig"; path = "Target Support Files/Pods-CapstoneTests/Pods-CapstoneTests.release.xcconfig"; sourceTree = "<group>"; };
 		65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		884E555B248408CF00BA180F /* UserContactCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserContactCVCell.xib; sourceTree = "<group>"; };
+		884E555D2484094100BA180F /* UserContactCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContactCVCell.swift; sourceTree = "<group>"; };
+		884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobHistoryExpandableCell.swift; sourceTree = "<group>"; };
+		88E10F3F24819FCF00DC609A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		B725C2362476832F000811C5 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B725C2392476832F000811C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B725C23B2476832F000811C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -298,6 +306,8 @@
 			isa = PBXGroup;
 			children = (
 				B7976E55247EA2D9001AE3B3 /* EmptyView.swift */,
+				884E555D2484094100BA180F /* UserContactCVCell.swift */,
+				884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */,
 				C60BDFCD2481B3C200CD9875 /* JobHistoryBasicCell.swift */,
 			);
 			path = Views;
@@ -339,6 +349,7 @@
 				B7976EAA2480609F001AE3B3 /* InterviewQuestionCellXib.xib */,
 				B7976EAC248060B9001AE3B3 /* JobApplicationCellXib.xib */,
 				B7976EAE2480614E001AE3B3 /* QuestionAnswerDetailCellXib.xib */,
+				884E555B248408CF00BA180F /* UserContactCVCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -442,13 +453,13 @@
 				B7976EAD248060B9001AE3B3 /* JobApplicationCellXib.xib in Resources */,
 				B7976E4F247E9A3E001AE3B3 /* LoginView.storyboard in Resources */,
 				B7976EA924806085001AE3B3 /* StarSituationCellXib.xib in Resources */,
+				884E555C248408CF00BA180F /* UserContactCVCell.xib in Resources */,
 				B7976E9524805C9B001AE3B3 /* StarStoryEntryXib.xib in Resources */,
 				B7976E87248051D8001AE3B3 /* JobEntryXib.xib in Resources */,
 				B7976E9724805CDA001AE3B3 /* InterviewQuestionsMainXib.xib in Resources */,
 				B7976E9F24805E21001AE3B3 /* NewApplicationXib.xib in Resources */,
 				B7976EAF2480614E001AE3B3 /* QuestionAnswerDetailCellXib.xib in Resources */,
 				B7976EA124805E4F001AE3B3 /* ApplicationDetailXib.xib in Resources */,
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +558,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				884E555E2484094100BA180F /* UserContactCVCell.swift in Sources */,
 				B7976E53247EA255001AE3B3 /* SettingsController.swift in Sources */,
 				C60BDFCE2481B3C200CD9875 /* JobHistoryBasicCell.swift in Sources */,
 				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
@@ -567,6 +579,7 @@
 				B7976E39247D57F1001AE3B3 /* JobHistoryController.swift in Sources */,
 				B7976E37247D537A001AE3B3 /* UIViewControllerExt.swift in Sources */,
 				B7976E41247D7834001AE3B3 /* InterviewQuestionsMainController.swift in Sources */,
+				884E55602485542100BA180F /* JobHistoryExpandableCell.swift in Sources */,
 				B7976E47247D9423001AE3B3 /* ApplicationTrackerController.swift in Sources */,
 				B7976E5C247EAD84001AE3B3 /* Contact.swift in Sources */,
 				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
@@ -729,7 +742,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WDT827LK75;
+				DEVELOPMENT_TEAM = 26RHXP32FH;
 				INFOPLIST_FILE = Capstone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -748,7 +761,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WDT827LK75;
+				DEVELOPMENT_TEAM = 26RHXP32FH;
 				INFOPLIST_FILE = Capstone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
