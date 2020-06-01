@@ -221,6 +221,19 @@ class JobEntryController: UIViewController {
                     }
                 }
             })
+            for contact in userContacts {
+                DatabaseService.shared.addContactsToUserJob(userJobId: newUserJob.id, contact: contact, completion: { [weak self] (results) in
+                    switch results {
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Error saving contact", message: error.localizedDescription)
+                        }
+                    case .success:
+                        break
+                    }
+                    
+                })
+            }
         }
     }
     @IBAction func currentlyEmployedButtonPressed(_ sender: UIButton) {
