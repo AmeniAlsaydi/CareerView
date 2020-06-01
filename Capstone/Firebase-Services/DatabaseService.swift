@@ -173,7 +173,7 @@ class DatabaseService {
     
     public func fetchCustomInterviewQuestions(completion: @escaping (Result<[InterviewQuestion], Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
-        let userID = "LOT6p7nkxfM69CCtjB41" //user.uid
+        let userID = user.uid
         
         
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.customQuestionsCollection).getDocuments { (snapshot, error) in
@@ -185,6 +185,20 @@ class DatabaseService {
             }
         }
         
+    }
+    
+    public func addCustomInterviewQuestion(customQuestion: InterviewQuestion, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.customQuestionsCollection).document(customQuestion.id).setData(["id": customQuestion.id, "question": customQuestion.question]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
     }
     
     
