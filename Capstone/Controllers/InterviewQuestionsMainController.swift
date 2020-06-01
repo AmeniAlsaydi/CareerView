@@ -47,13 +47,18 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    private func getUserCreatedQuestions() {
+        //TODO: need access to user created interview questions
+    }
     private func getUserAnswers() {
         //TODO: need user answers to populate the interview cell with number of star stories and answers
     }
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
         show(interviewQuestionEntryVC, sender: nil)
+        //TODO: how will this update the collection view?
     }
+    
     
 }
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
@@ -62,6 +67,16 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         let itemWidth: CGFloat = maxsize.width * 0.9
         let itemHeight: CGFloat = maxsize.height * 0.15
         return CGSize(width: itemWidth, height: itemHeight)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let question = interviewQuestions[indexPath.row]
+        
+        let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
+        
+        //TODO: somehow pass the question to the answer vc
+        interviewAnswerVC.navigationItem.title = question.question
+        show(interviewAnswerVC, sender: nil)
     }
 }
 extension InterviewQuestionsMainController: UICollectionViewDataSource {
