@@ -188,15 +188,36 @@ class CapstoneTests: XCTestCase {
         DatabaseService.shared.fetchCustomInterviewQuestions { (result) in
             exp.fulfill()
             switch result {
+            case(.failure(let error)):
+                XCTFail("error adding interview data to application: \(error.localizedDescription)")
+            case(.success(let questions)):
+                XCTAssertEqual(expected, questions.first?.id)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+    }
+        
+    
+    func testAddingCustomQuestion() {
+       // arrange
+        let exp = XCTestExpectation(description: "custom interview question was add")
+        let id = UUID().uuidString
+        let customQ = InterviewQuestion(question: "testing add a custom question?", suggestion: nil, id: id)
+        
+        // act
+        DatabaseService.shared.addCustomInterviewQuestion(customQuestion: customQ) { (result) in
+            exp.fulfill()
+            switch result {
                 case(.failure(let error)):
-                    XCTFail("error adding interview data to application: \(error.localizedDescription)")
-                case(.success(let questions)):
-                    XCTAssertEqual(expected, questions.first?.id)
+                    XCTFail("error adding custom interview question: \(error.localizedDescription)")
+                case(.success(let result)):
+                    XCTAssert(result)
                 }
             }
-         wait(for:[exp], timeout: 5.0)
-        }
+            wait(for:[exp], timeout: 5.0)
         
+        
+    }
 }
     
 
