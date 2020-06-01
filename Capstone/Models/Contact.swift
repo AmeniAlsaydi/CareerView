@@ -14,7 +14,6 @@ class Contact {
     let lastName: String
     let workEmail: String
     var identifier: String?
-    var storedContact: CNMutableContact?
     
     var phoneNumberField: (CNLabeledValue<CNPhoneNumber>)?
     init(firstName: String, lastName: String, workEmail: String) {
