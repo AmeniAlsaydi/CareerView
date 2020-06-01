@@ -10,6 +10,8 @@ import UIKit
 
 class InterviewQuestionsMainController: UIViewController {
 
+    @IBOutlet weak var questionsCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
