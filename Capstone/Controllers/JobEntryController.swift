@@ -51,7 +51,7 @@ class JobEntryController: UIViewController {
     
     //MARK:- Variables
     public var userJob: UserJob?
-    private var testUserJob = UserJob(title: "Retail Employee", companyName: "Sonos", beginDate: Timestamp(date: Date(timeIntervalSince1970: 1464783949)), endDate: Timestamp(date: Date(timeIntervalSince1970: 1509539149)), currentEmployer: true, description: "Assisted customers with making purchase decisions", responsibilities: ["Operated POS for transactions","Helped customers troubleshoot products"], starSituationIDs: [], interviewQuestionIDs: [], contactIDs: [], contacts: [])
+    private var testUserJob = UserJob(id: UUID().uuidString, title: "Retail Employee", companyName: "Sonos", beginDate: Timestamp(date: Date(timeIntervalSince1970: 1464783949)), endDate: Timestamp(date: Date(timeIntervalSince1970: 1509539149)), currentEmployer: true, description: "Assisted customers with making purchase decisions", responsibilities: ["Operated POS for transactions","Helped customers troubleshoot products"], starSituationIDs: [], interviewQuestionIDs: [])
     
     public var editingJob = true
     
@@ -221,7 +221,7 @@ class JobEntryController: UIViewController {
             //TODO: Get dates
             let beginDate = Timestamp(date: Date())
             let endDate = Timestamp(date: Date())
-            userJob = UserJob(title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", beginDate: beginDate, endDate: endDate, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: userJobResponsibilities, starSituationIDs: linkedStarSituations, interviewQuestionIDs: linkedInterviewQuestions, contactIDs: [""], contacts: userContacts)
+            userJob = UserJob(id: UUID().uuidString, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", beginDate: beginDate, endDate: endDate, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: userJobResponsibilities, starSituationIDs: linkedStarSituations, interviewQuestionIDs: linkedInterviewQuestions)
         }
     }
     @IBAction func currentlyEmployedButtonPressed(_ sender: UIButton) {
