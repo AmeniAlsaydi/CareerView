@@ -37,7 +37,7 @@ class JobHistoryController: UIViewController {
 }
 extension JobHistoryController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 200
     }
 }
 extension JobHistoryController: UITableViewDataSource {
