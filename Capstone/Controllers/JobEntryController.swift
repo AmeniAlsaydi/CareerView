@@ -11,6 +11,7 @@ import Firebase
 import Contacts
 import ContactsUI
 
+
 class JobEntryController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
@@ -53,8 +54,7 @@ class JobEntryController: UIViewController {
     public var userJob: UserJob?
     private var testUserJob = UserJob(id: UUID().uuidString, title: "Retail Employee", companyName: "Sonos", beginDate: Timestamp(date: Date(timeIntervalSince1970: 1464783949)), endDate: Timestamp(date: Date(timeIntervalSince1970: 1509539149)), currentEmployer: true, description: "Assisted customers with making purchase decisions", responsibilities: ["Operated POS for transactions","Helped customers troubleshoot products"], starSituationIDs: [], interviewQuestionIDs: [])
     
-    public var editingJob = true
-    
+    public var editingJob = false
     private var currentlyEmployed: Bool = false {
         didSet {
             configureCurrentlyEmployedButton(currentlyEmployed)
@@ -63,6 +63,7 @@ class JobEntryController: UIViewController {
     private var userJobResponsibilities = [String]() {
         didSet {
             // Disable add responsibility button
+            tableView.reloadData()
             if userJobResponsibilities.count == 3 {
                 addResponsibilityButton.isEnabled = false
             } else {
@@ -71,16 +72,6 @@ class JobEntryController: UIViewController {
         }
     }
     
-    //TODO: Change this variable
-    private var numberOfResponsibilityCells = 2 {
-        didSet {
-            if numberOfResponsibilityCells == 4 {
-                addResponsibilityButton.isEnabled = false
-            } else {
-                addResponsibilityButton.isEnabled = true
-            }
-        }
-    }
     private var contacts = [CNContact]()
     private var userContacts = [Contact]() {
         didSet {
@@ -153,33 +144,29 @@ class JobEntryController: UIViewController {
             field?.setBottomBorder()
         }
     }
-    
-    private func addRows(numOfRows: Int, section: Int) {
-        let indexPath = IndexPath(row: numOfRows - 1, section: section)
-        tableView.beginUpdates()
-        tableView.insertRows(at: [indexPath], with: .right)
-        tableView.endUpdates()
-    }
-    private func deleteRows(row: Int, section: Int) {
-        //        let indexPath = userJob?.responsibilities.firstIndex(of: String)
-        let indexPath = IndexPath(row: row, section: section)
-        tableView.beginUpdates()
-        tableView.reloadRows(at: [indexPath], with: .top)
-        tableView.endUpdates()
-        tableView.reloadData()
-    }
+    // Original add/delete functions for rows, leaving in for now in case it becomes necessary to use again
+//    private func addRows(numOfRows: Int, section: Int) {
+//        let indexPath = IndexPath(row: numOfRows - 1, section: section)
+//        tableView.beginUpdates()
+//        tableView.insertRows(at: [indexPath], with: .right)
+//        tableView.endUpdates()
+//    }
+//    private func deleteRows(row: Int, section: Int) {
+//        //        let indexPath = userJob?.responsibilities.firstIndex(of: String)
+//        let indexPath = IndexPath(row: row, section: section)
+//        tableView.beginUpdates()
+//        tableView.reloadRows(at: [indexPath], with: .top)
+//        tableView.endUpdates()
+//        tableView.reloadData()
+//    }
     @IBAction func deleteResponsibiltyCellButtonPressed(_ sender: UIButton) {
-        
-        deleteRows(row: 2, section: 1)
-        
-        numberOfResponsibilityCells -= 1
+        // TODO: Have user confirm the responsibility is going to be deleted before deleting
+//        showAlert(title: "Are you sure?", message: "You are about to delete this resonsibility: \(userJobResponsibilities[sender.tag])")
+        userJobResponsibilities.remove(at: sender.tag)
         
     }
     @IBAction func addResponsibilityButtonPressed(_ sender: UIButton) {
-        
-        numberOfResponsibilityCells += 1
-        
-        addRows(numOfRows: numberOfResponsibilityCells, section: 1)
+        userJobResponsibilities.append("")
     }
     
     @IBAction func addContactButtonPressed(_ sender: UIButton) {
@@ -221,7 +208,19 @@ class JobEntryController: UIViewController {
             //TODO: Get dates
             let beginDate = Timestamp(date: Date())
             let endDate = Timestamp(date: Date())
-            userJob = UserJob(id: UUID().uuidString, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", beginDate: beginDate, endDate: endDate, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: userJobResponsibilities, starSituationIDs: linkedStarSituations, interviewQuestionIDs: linkedInterviewQuestions)
+            let newUserJob = UserJob(id: UUID().uuidString, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", beginDate: beginDate, endDate: endDate, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: userJobResponsibilities, starSituationIDs: linkedStarSituations, interviewQuestionIDs: linkedInterviewQuestions)
+            DatabaseService.shared.addToUserJobs(userJob: newUserJob, completion: { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Failed to save job", message: error.localizedDescription)
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Job Saved!", message: "Success")
+                    }
+                }
+            })
         }
     }
     @IBAction func currentlyEmployedButtonPressed(_ sender: UIButton) {
@@ -359,16 +358,17 @@ extension JobEntryController: UITableViewDataSource {
             return .none
         }
     }
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
-            if indexPath.row > 0 {
-            if editingStyle == UITableViewCell.EditingStyle.delete {
-                userJobResponsibilities.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-                }
-            }
-        }
-    }
+    // Swipe tableview cell for reponsibilities to delete
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if indexPath.section == 2 {
+//            if indexPath.row > 0 {
+//            if editingStyle == UITableViewCell.EditingStyle.delete {
+//                userJobResponsibilities.remove(at: indexPath.row)
+////                tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+//                }
+//            }
+//        }
+//    }
 }
 extension JobEntryController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
