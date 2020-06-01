@@ -62,7 +62,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interview Question" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBe-5f-WTw">
-                        <rect key="frame" x="182.5" y="0.0" width="392.5" height="415"/>
+                        <rect key="frame" x="182.5" y="10" width="382.5" height="395"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -72,11 +72,11 @@
                     <constraint firstItem="VCd-9o-m5O" firstAttribute="width" secondItem="jqw-Ht-Goa" secondAttribute="width" multiplier="0.3" id="UDX-vA-huO"/>
                     <constraint firstItem="VCd-9o-m5O" firstAttribute="top" secondItem="jqw-Ht-Goa" secondAttribute="top" id="Udx-KM-dMD"/>
                     <constraint firstAttribute="bottom" secondItem="VCd-9o-m5O" secondAttribute="bottom" id="Vb9-Hh-T74"/>
-                    <constraint firstAttribute="trailing" secondItem="nBe-5f-WTw" secondAttribute="trailing" id="VnB-5k-gLM"/>
+                    <constraint firstAttribute="trailing" secondItem="nBe-5f-WTw" secondAttribute="trailing" constant="10" id="VnB-5k-gLM"/>
                     <constraint firstItem="nBe-5f-WTw" firstAttribute="leading" secondItem="VCd-9o-m5O" secondAttribute="trailing" constant="10" id="jTn-eG-4dR"/>
-                    <constraint firstAttribute="bottom" secondItem="nBe-5f-WTw" secondAttribute="bottom" id="nNv-Rt-p4l"/>
+                    <constraint firstAttribute="bottom" secondItem="nBe-5f-WTw" secondAttribute="bottom" constant="10" id="nNv-Rt-p4l"/>
                     <constraint firstItem="VCd-9o-m5O" firstAttribute="leading" secondItem="jqw-Ht-Goa" secondAttribute="leading" id="s0L-if-BwN"/>
-                    <constraint firstItem="nBe-5f-WTw" firstAttribute="top" secondItem="jqw-Ht-Goa" secondAttribute="top" id="si5-Rn-kX4"/>
+                    <constraint firstItem="nBe-5f-WTw" firstAttribute="top" secondItem="jqw-Ht-Goa" secondAttribute="top" constant="10" id="si5-Rn-kX4"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="575" height="415"/>

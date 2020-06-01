@@ -22,8 +22,13 @@ class InterviewQuestionsMainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        configureNavBar()
         getInterviewQuestions()
         getUserAnswers()
+    }
+    private func configureNavBar() {
+        navigationItem.title = "CallBack"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
     }
     private func configureCollectionView() {
         questionsCollectionView.delegate = self
@@ -45,7 +50,10 @@ class InterviewQuestionsMainController: UIViewController {
     private func getUserAnswers() {
         //TODO: need user answers to populate the interview cell with number of star stories and answers
     }
-    
+    @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
+        let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
+        show(interviewQuestionEntryVC, sender: nil)
+    }
     
 }
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
