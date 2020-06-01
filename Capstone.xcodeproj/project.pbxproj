@@ -59,6 +59,8 @@
 		B7976EAD248060B9001AE3B3 /* JobApplicationCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976EAC248060B9001AE3B3 /* JobApplicationCellXib.xib */; };
 		B7976EAF2480614E001AE3B3 /* QuestionAnswerDetailCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976EAE2480614E001AE3B3 /* QuestionAnswerDetailCellXib.xib */; };
 
+		C60BDFCE2481B3C200CD9875 /* JobHistoryBasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BDFCD2481B3C200CD9875 /* JobHistoryBasicCell.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,8 +131,9 @@
 		B7976EAA2480609F001AE3B3 /* InterviewQuestionCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterviewQuestionCellXib.xib; sourceTree = "<group>"; };
 		B7976EAC248060B9001AE3B3 /* JobApplicationCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JobApplicationCellXib.xib; sourceTree = "<group>"; };
 		B7976EAE2480614E001AE3B3 /* QuestionAnswerDetailCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionAnswerDetailCellXib.xib; sourceTree = "<group>"; };
-
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C60BDFCB24819D1B00CD9875 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C60BDFCD2481B3C200CD9875 /* JobHistoryBasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobHistoryBasicCell.swift; sourceTree = "<group>"; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -206,7 +209,6 @@
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
 				B725C24724768331000811C5 /* Info.plist */,
-				B7D438132482619B00CDACAC /* GoogleService-Info.plist */,
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -296,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				B7976E55247EA2D9001AE3B3 /* EmptyView.swift */,
+				C60BDFCD2481B3C200CD9875 /* JobHistoryBasicCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7976E53247EA255001AE3B3 /* SettingsController.swift in Sources */,
+				C60BDFCE2481B3C200CD9875 /* JobHistoryBasicCell.swift in Sources */,
 				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
 				B7976E5A247EA404001AE3B3 /* SignUpController.swift in Sources */,
 				B7976E33247D521E001AE3B3 /* InterviewAnswer.swift in Sources */,
