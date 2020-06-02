@@ -14,6 +14,6 @@ struct TestModel {
 
 extension TestModel {
     init(_ dictionary: [String: Any]) {
-        self.test = dictionary["test"] as? String ?? "no material type"
+        self.test = dictionary["test"] as? String ?? "no test data"
     }
 }
