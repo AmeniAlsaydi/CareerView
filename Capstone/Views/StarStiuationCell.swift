@@ -15,8 +15,8 @@ class StarStiuationCell: UICollectionViewCell {
     @IBOutlet weak var situationLabel: UILabel!
     
     public func configureCell(starSituation: StarSituation) {
-        jobTitleLabel.text = starSituation.userJob.title
-        numberOfQuestions.text = "Answers \(starSituation.interviewQuestions.count) questions"
+//        jobTitleLabel.text = starSituation.userJob.title
+//        numberOfQuestions.text = "Answers \(starSituation.interviewQuestions.count) questions"
         situationLabel.text = starSituation.situation
     }
     
