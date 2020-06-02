@@ -76,7 +76,7 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
         
         //TODO: somehow pass the question to the answer vc
-        interviewAnswerVC.navigationItem.title = question.question
+        interviewAnswerVC.question = question
         show(interviewAnswerVC, sender: nil)
     }
 }
