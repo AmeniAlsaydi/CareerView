@@ -219,7 +219,8 @@ class DatabaseService {
         }
     }
     
-
+    
+// FIXME: the following returns an array of AnsweredQuestion, do we want to return just one (the first) ?
     public func fetchAnsweredQuestions(questionString: String, completion: @escaping (Result<[AnsweredQuestion], Error>)->()) {
         
         guard let user = Auth.auth().currentUser else {return}
@@ -247,7 +248,21 @@ class DatabaseService {
                 completion(.success(true))
             }
         }
-  
+    }
+    
+    public func fetchStarSituations(completion: @escaping (Result<[StarSituation], Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let situations = snapshot.documents.map{ StarSituation($0.data()) }
+                completion(.success(situations))
+            }
+        }
     }
 }
 

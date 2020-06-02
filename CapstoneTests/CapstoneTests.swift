@@ -270,6 +270,26 @@ class CapstoneTests: XCTestCase {
         }
          wait(for:[exp], timeout: 5.0)
     }
+    
+    func testFetchingStarSituations() {
+        let exp = XCTestExpectation(description: "situations found")
+        let expectedSituation = "situation test"
+        let expectedTask: String? = nil
+        
+        DatabaseService.shared.fetchStarSituations { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error fetching situations: \(error.localizedDescription)")
+            case(.success(let situations)):
+                XCTAssertEqual(situations.first?.situation, expectedSituation)
+                XCTAssertEqual(situations.first?.task, expectedTask)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+        
+        
+    }
 }
     
 
