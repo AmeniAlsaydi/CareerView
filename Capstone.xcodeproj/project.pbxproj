@@ -69,6 +69,7 @@
 		C6AC379C248592DA00957B61 /* InterviewQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */; };
 		C6AC379E2485DACC00957B61 /* QuestionAnswerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */; };
 		C6AC37A02485EF4200957B61 /* StarStiuationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379F2485EF4200957B61 /* StarStiuationCell.swift */; };
+		C6E214DE2486A3BF0054CC3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6E214DD2486A3BF0054CC3C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,7 +99,7 @@
 		B725C24724768331000811C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B727166F248117F600276478 /* AuthenticationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSession.swift; sourceTree = "<group>"; };
 		B737DF352486A1740052F375 /* AnsweredQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnsweredQuestion.swift; sourceTree = "<group>"; };
-	
+
 		B7976E1724777583001AE3B3 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		B7976E1924777593001AE3B3 /* JobApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplication.swift; sourceTree = "<group>"; };
 		B7976E1F247D4A15001AE3B3 /* CapstoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +151,7 @@
 		C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionCell.swift; sourceTree = "<group>"; };
 		C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnswerDetailCell.swift; sourceTree = "<group>"; };
 		C6AC379F2485EF4200957B61 /* StarStiuationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarStiuationCell.swift; sourceTree = "<group>"; };
+		C6E214DD2486A3BF0054CC3C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
