@@ -110,8 +110,7 @@ class CapstoneTests: XCTestCase {
         
         let exp = XCTestExpectation(description: "added contact to user job")
         let userJobId = "27A8243C-47D5-4D8F-A0C0-835373828977"
-        let contact = Contact(id: "12345id", email: "email.com", firstName: "bob", lastName: "bobby", phoneNumber: "1234567")
-        
+        let contact = Contact(firstName: "tom", lastName: "tommy", email: "tom.com", id: "12345")
         
         DatabaseService.shared.addContactsToUserJob(userJobId: userJobId, contact: contact) { (result) in
             exp.fulfill()
@@ -182,4 +181,113 @@ class CapstoneTests: XCTestCase {
             wait(for:[exp], timeout: 5.0)
     }
     
+    func testFetchingCustomQuestions() {
+        let exp = XCTestExpectation(description: "custom interview questions found")
+        let expected = "1001"
+        
+        DatabaseService.shared.fetchCustomInterviewQuestions { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error adding interview data to application: \(error.localizedDescription)")
+            case(.success(let questions)):
+                XCTAssertEqual(expected, questions.first?.id)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+    }
+        
+    
+    func testAddingCustomQuestion() {
+       // arrange
+        let exp = XCTestExpectation(description: "custom interview question was add")
+        let id = UUID().uuidString
+        let customQ = InterviewQuestion(question: "testing add a custom question?", suggestion: nil, id: id)
+        
+        // act
+        DatabaseService.shared.addCustomInterviewQuestion(customQuestion: customQ) { (result) in
+            exp.fulfill()
+            switch result {
+                case(.failure(let error)):
+                    XCTFail("error adding custom interview question: \(error.localizedDescription)")
+                case(.success(let result)):
+                    XCTAssert(result)
+                }
+            }
+            wait(for:[exp], timeout: 5.0)
+    }
+    
+    func testAddingAnsweredQuestion() {
+        
+        let exp = XCTestExpectation(description: "answered q was added to collection")
+        let id = UUID().uuidString
+        let answerdQ = AnsweredQuestion(id: id, question: "What are your greatest weaknesses?", answers: ["trick question"], starSituationIDs: ["id1", "id2"])
+        
+        DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: answerdQ) { (result) in
+            exp.fulfill()
+            switch result {
+                case(.failure(let error)):
+                    XCTFail("error adding answered question: \(error.localizedDescription)")
+                case(.success(let result)):
+                    XCTAssert(result)
+                }
+            }
+            wait(for:[exp], timeout: 5.0)
+    }
+    
+    func testFetchingAnsweredQuestions() {
+        let exp = XCTestExpectation(description: "answered questions found")
+        let question = "What are your greatest weaknesses?"
+        let expectedAnswer = "trick question"
+        
+        DatabaseService.shared.fetchAnsweredQuestions(questionString: question) { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error fetching answered questions: \(error.localizedDescription)")
+            case(.success(let answeredQuestions)):
+                let firstAnswer = answeredQuestions.first?.answers.first
+                XCTAssertEqual(firstAnswer, expectedAnswer)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+    }
+    
+    func testAddingStarSituation() {
+        
+        let exp = XCTestExpectation(description: "situation was added")
+        let id = UUID().uuidString
+        let starSituation = StarSituation(situation: "situation test", task: nil, action: "action test", result: "result test", id: id, userJobID: "12345", interviewQuestionsIDs: [])
+        
+        DatabaseService.shared.addToStarSituations(starSituation: starSituation) { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error adding a situation: \(error.localizedDescription)")
+            case(.success(let result)):
+                XCTAssert(result)
+            }
+        }
+         wait(for:[exp], timeout: 5.0)
+    }
+    
+    func testFetchingStarSituations() {
+        let exp = XCTestExpectation(description: "situations found")
+        let expectedSituation = "situation test"
+        let expectedTask: String? = nil
+        
+        DatabaseService.shared.fetchStarSituations { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error fetching situations: \(error.localizedDescription)")
+            case(.success(let situations)):
+                XCTAssertEqual(situations.first?.situation, expectedSituation)
+                XCTAssertEqual(situations.first?.task, expectedTask)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+    }
 }
+    
+
