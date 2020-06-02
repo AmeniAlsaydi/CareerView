@@ -234,6 +234,24 @@ class CapstoneTests: XCTestCase {
             }
             wait(for:[exp], timeout: 5.0)
     }
+    
+    func testFetchingAnsweredQuestions() {
+        let exp = XCTestExpectation(description: "answered questions found")
+        let question = "What are your greatest weaknesses?"
+        let expectedAnswer = "trick question"
+        
+        DatabaseService.shared.fetchAnsweredQuestions(questionString: question) { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error fetching answered questions: \(error.localizedDescription)")
+            case(.success(let answeredQuestions)):
+                let firstAnswer = answeredQuestions.first?.answers.first
+                XCTAssertEqual(firstAnswer, expectedAnswer)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+    }
 }
     
 

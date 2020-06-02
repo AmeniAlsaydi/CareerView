@@ -219,4 +219,21 @@ class DatabaseService {
     }
     
 
+    public func fetchAnsweredQuestions(questionString: String, completion: @escaping (Result<[AnsweredQuestion], Error>)->()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).whereField("question", isEqualTo: questionString).getDocuments { (snapShot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapShot = snapShot {
+                let answeredQuestions = snapShot.documents.map { AnsweredQuestion($0.data())}
+                completion(.success(answeredQuestions))
+            }
+        }
+        
+        
+        
+    }
 }
