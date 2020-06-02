@@ -9,7 +9,7 @@
 import UIKit
 
 class InterviewAnswerDetailController: UIViewController {
-
+    
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answersCollectionView: UICollectionView!
     @IBOutlet weak var starStoriesCollectionView: UICollectionView!
@@ -80,7 +80,7 @@ class InterviewAnswerDetailController: UIViewController {
                 print("unable to fetch user STAR stories error: \(error.localizedDescription)")
             case .success(let stars):
                 DispatchQueue.main.async {
-                    self?.starStories = stars
+                    self?.starStories = stars.filter {$0.interviewQuestionsIDs.contains(self?.question?.id ?? "")}
                 }
             }
         }
@@ -93,14 +93,17 @@ class InterviewAnswerDetailController: UIViewController {
         //TODO: add view/or something related where user could search and select their star situation
     }
     
-
+    
 }
 extension InterviewAnswerDetailController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
-        let itemWidth: CGFloat = maxsize.width
-        let itemHeight: CGFloat = maxsize.height * 0.20
-        return CGSize(width: itemWidth, height: itemHeight)
+        let itemWidth: CGFloat = maxsize.width * 0.8
+        return CGSize(width: itemWidth, height: itemWidth * 0.5)
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 }
 extension InterviewAnswerDetailController: UICollectionViewDataSource {

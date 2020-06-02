@@ -21,27 +21,29 @@ class InterviewQuestionCell: UICollectionViewCell {
     }
     public func configureCell(interviewQ: InterviewQuestion) {
         interviewQuestionLabel.text = interviewQ.question
-        
         getUserAnswers(for: interviewQ)
-        
     }
     private func getUserAnswers(for question: InterviewQuestion) {
-        //TODO: need user answers to populate the interview cell with number of star stories and answers
         DatabaseService.shared.fetchAnsweredQuestions(questionString: question.question) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print("unable to fetch user answers for interview question cell error: \(error.localizedDescription)")
             case .success(let answers):
                 DispatchQueue.main.async {
-                    for answer in answers {
-                        if answer.answers.count > 0 {
-                            self?.answerCheckBox.image = UIImage(systemName: "checkmark.rectangle")
-                            self?.numberOfStarsLabel.text = answer.starSituationIDs.count.description
-                        } else {
-                            self?.answerCheckBox.image = UIImage(systemName: "square")
-                            self?.numberOfStarsLabel.text = "0"
-                        }
+                    let answer = answers.first
+                    if answer?.answers.count ?? -1 > 0 {
+                        self?.answerCheckBox.image = UIImage(systemName: "checkmark.rectangle")
+                    } else {
+                        self?.answerCheckBox.image = UIImage(systemName: "square")
                     }
+                    
+                    if answer?.starSituationIDs.count ?? -1 > 0 {
+                        self?.numberOfStarsLabel.text = answer?.starSituationIDs.count.description
+                    } else {
+                        self?.numberOfStarsLabel.text = "0"
+                    }
+                    
+                    
                 }
             }
         }
