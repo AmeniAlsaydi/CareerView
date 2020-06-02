@@ -22,6 +22,7 @@ class DatabaseService {
     static let jobApplicationCollection = "jobApplications"
     static let interviewCollection = "interviews"
     static let customQuestionsCollection = "customInterviewQuestions"
+    static let answeredQuestionsCollection = "answeredQuestions"
     
     private let db = Firestore.firestore()
     
@@ -203,8 +204,18 @@ class DatabaseService {
     
     // to get interview question answers we will filter answeredQuestions collection using the question string
     
-    public func addToAnsweredQuestions() {
+    public func addToAnsweredQuestions(answeredQuestion: AnsweredQuestion, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
         
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answeredQuestion.id).setData(["id": answeredQuestion.id, "question": answeredQuestion.question, "answers": answeredQuestion.answers, "starSituationIDs": answeredQuestion.starSituationIDs ]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
     }
     
 
