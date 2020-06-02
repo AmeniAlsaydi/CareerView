@@ -10,7 +10,7 @@ import Foundation
 
 struct InterviewQuestion {
     var question: String
-    var suggestion: String
+    var suggestion: String?
     var id: String
 }
 
