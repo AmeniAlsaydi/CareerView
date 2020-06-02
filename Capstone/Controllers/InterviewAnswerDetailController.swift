@@ -9,7 +9,7 @@
 import UIKit
 
 class InterviewAnswerDetailController: UIViewController {
-
+    
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answersCollectionView: UICollectionView!
     @IBOutlet weak var starStoriesCollectionView: UICollectionView!
@@ -17,14 +17,26 @@ class InterviewAnswerDetailController: UIViewController {
     
     public var question: InterviewQuestion?
     
-    public var answers = [InterviewAnswer]() {
+    public var answers = [AnsweredQuestion]() {
         didSet {
-            self.answersCollectionView.reloadData()
+            answersCollectionView.reloadData()
+            if answers.isEmpty {
+                answersCollectionView.backgroundView = EmptyView.init(title: "No Answers", message: "Add your answers by pressing the add button", imageName: "plus.circle")
+            } else {
+                answersCollectionView.reloadData()
+                answersCollectionView.backgroundView = nil
+            }
         }
     }
     public var starStories = [StarSituation]() {
         didSet {
-            self.starStoriesCollectionView.reloadData()
+            starStoriesCollectionView.reloadData()
+            if starStories.isEmpty {
+                starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "plus.circle")
+            } else {
+                answersCollectionView.reloadData()
+                answersCollectionView.backgroundView = nil
+            }
         }
     }
     
@@ -32,6 +44,8 @@ class InterviewAnswerDetailController: UIViewController {
         super.viewDidLoad()
         updateUI()
         configureCollectionViews()
+        getUserSTARS()
+        getUserAnswers()
     }
     private func configureCollectionViews() {
         answersCollectionView.delegate = self
@@ -47,10 +61,29 @@ class InterviewAnswerDetailController: UIViewController {
         suggestionLabel.text = question?.suggestion ?? ""
     }
     private func getUserAnswers() {
-        //TODO: get user answers from firebase
+        guard let question = question else {return}
+        DatabaseService.shared.fetchAnsweredQuestions(questionString: question.question) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to fetch user answers error: \(error.localizedDescription)")
+            case .success(let answers):
+                DispatchQueue.main.async {
+                    self?.answers = answers
+                }
+            }
+        }
     }
     private func getUserSTARS() {
-        //TODO: get user star stories for user job
+        DatabaseService.shared.fetchStarSituations { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to fetch user STAR stories error: \(error.localizedDescription)")
+            case .success(let stars):
+                DispatchQueue.main.async {
+                    self?.starStories = stars.filter {$0.interviewQuestionsIDs.contains(self?.question?.id ?? "")}
+                }
+            }
+        }
     }
     
     @IBAction func addAnswerButtonPressed(_ sender: UIButton){
@@ -60,14 +93,17 @@ class InterviewAnswerDetailController: UIViewController {
         //TODO: add view/or something related where user could search and select their star situation
     }
     
-
+    
 }
 extension InterviewAnswerDetailController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
-        let itemWidth: CGFloat = maxsize.width
-        let itemHeight: CGFloat = maxsize.height * 0.20
-        return CGSize(width: itemWidth, height: itemHeight)
+        let itemWidth: CGFloat = maxsize.width * 0.8
+        return CGSize(width: itemWidth, height: itemWidth * 0.5)
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 }
 extension InterviewAnswerDetailController: UICollectionViewDataSource {
@@ -87,7 +123,7 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             }
             
             let answer = answers[indexPath.row]
-            cell.configureCell(answer: answer.answer.first ?? "")
+            cell.configureCell(answer: answer.answers.first ?? "")
             return cell
         } else {
             guard let cell = starStoriesCollectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarStiuationCell else {
