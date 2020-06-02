@@ -215,8 +215,24 @@ class CapstoneTests: XCTestCase {
                 }
             }
             wait(for:[exp], timeout: 5.0)
+    }
+    
+    func testAddingAnsweredQuestion() {
         
+        let exp = XCTestExpectation(description: "answered q was added to collection")
+        let id = UUID().uuidString
+        let answerdQ = AnsweredQuestion(id: id, question: "What are your greatest weaknesses?", answers: ["trick question"], starSituationIDs: ["id1", "id2"])
         
+        DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: answerdQ) { (result) in
+            exp.fulfill()
+            switch result {
+                case(.failure(let error)):
+                    XCTFail("error adding answered question: \(error.localizedDescription)")
+                case(.success(let result)):
+                    XCTAssert(result)
+                }
+            }
+            wait(for:[exp], timeout: 5.0)
     }
 }
     
