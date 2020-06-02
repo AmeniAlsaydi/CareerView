@@ -17,14 +17,26 @@ class InterviewAnswerDetailController: UIViewController {
     
     public var question: InterviewQuestion?
     
-    public var answers = [InterviewAnswer]() {
+    public var answers = [AnsweredQuestion]() {
         didSet {
-            self.answersCollectionView.reloadData()
+            answersCollectionView.reloadData()
+            if answers.isEmpty {
+                answersCollectionView.backgroundView = EmptyView.init(title: "No Answers", message: "Add your answers by pressing the add button", imageName: "plus.circle")
+            } else {
+                answersCollectionView.reloadData()
+                answersCollectionView.backgroundView = nil
+            }
         }
     }
     public var starStories = [StarSituation]() {
         didSet {
-            self.starStoriesCollectionView.reloadData()
+            starStoriesCollectionView.reloadData()
+            if starStories.isEmpty {
+                starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "plus.circle")
+            } else {
+                answersCollectionView.reloadData()
+                answersCollectionView.backgroundView = nil
+            }
         }
     }
     
@@ -32,6 +44,8 @@ class InterviewAnswerDetailController: UIViewController {
         super.viewDidLoad()
         updateUI()
         configureCollectionViews()
+        getUserSTARS()
+        getUserAnswers()
     }
     private func configureCollectionViews() {
         answersCollectionView.delegate = self
@@ -47,10 +61,29 @@ class InterviewAnswerDetailController: UIViewController {
         suggestionLabel.text = question?.suggestion ?? ""
     }
     private func getUserAnswers() {
-        //TODO: get user answers from firebase
+        guard let question = question else {return}
+        DatabaseService.shared.fetchAnsweredQuestions(questionString: question.question) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to fetch user answers error: \(error.localizedDescription)")
+            case .success(let answers):
+                DispatchQueue.main.async {
+                    self?.answers = answers
+                }
+            }
+        }
     }
     private func getUserSTARS() {
-        //TODO: get user star stories for user job
+        DatabaseService.shared.fetchStarSituations { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to fetch user STAR stories error: \(error.localizedDescription)")
+            case .success(let stars):
+                DispatchQueue.main.async {
+                    self?.starStories = stars
+                }
+            }
+        }
     }
     
     @IBAction func addAnswerButtonPressed(_ sender: UIButton){
@@ -87,7 +120,7 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             }
             
             let answer = answers[indexPath.row]
-            cell.configureCell(answer: answer.answer.first ?? "")
+            cell.configureCell(answer: answer.answers.first ?? "")
             return cell
         } else {
             guard let cell = starStoriesCollectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarStiuationCell else {
