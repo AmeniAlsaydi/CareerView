@@ -13,6 +13,7 @@ struct UserJob {
     var id: String
     var title: String
     var companyName: String
+    var location: String
     var beginDate: Timestamp
     var endDate: Timestamp
     var currentEmployer: Bool
@@ -31,6 +32,7 @@ extension UserJob {
         self.title = dictionary["title"] as? String ?? "Title NA"
         self.companyName = dictionary["companyName"] as? String ?? "Company name NA "
         self.beginDate = dictionary["beginDate"] as? Timestamp ?? Timestamp(date: Date())
+        self.location = dictionary["location"] as? String ?? "Location NA"
         self.endDate = dictionary["endDate"] as? Timestamp ?? Timestamp(date: Date())
         self.currentEmployer = dictionary["currentEmployer"] as? Bool ?? true
         self.description = dictionary["description"] as? String ?? "Job description NA"
