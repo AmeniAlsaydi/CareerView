@@ -414,6 +414,18 @@ extension JobEntryController: UITableViewDelegate {
 
 //MARK:- UITextField Delegate
 extension JobEntryController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let monthMaxLength = 2
+        let yearMaxLength = 4
+        let currentString: NSString = textField.text! as NSString
+        let newString: NSString =
+        currentString.replacingCharacters(in: range, with: string) as NSString
+        if textField.tag == 0 {
+        return newString.length <= monthMaxLength
+        } else {
+            return newString.length <= yearMaxLength
+        }
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
