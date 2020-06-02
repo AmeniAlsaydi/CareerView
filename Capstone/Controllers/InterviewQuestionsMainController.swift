@@ -21,7 +21,6 @@ class InterviewQuestionsMainController: UIViewController {
     
     //TODO: public var customQuestions = []
     
-    
     private var searchQuery = String() {
         didSet {
             DispatchQueue.main.async {
