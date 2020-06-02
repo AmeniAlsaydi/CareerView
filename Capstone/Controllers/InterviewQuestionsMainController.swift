@@ -17,15 +17,20 @@ class InterviewQuestionsMainController: UIViewController {
             self.questionsCollectionView.reloadData()
         }
     }
-    //public var userAnswers = [InterviewAnswer]()
-    //public var userQuestions = [?]
+    //public var customQuestions = []
+//    public var userAnswers = [AnsweredQuestion?]() {
+//        didSet {
+//            for question in interviewQuestions {
+//                getUserAnswers(for: question)
+//            }
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         configureNavBar()
         getInterviewQuestions()
-        getUserAnswers()
     }
     private func configureNavBar() {
         navigationItem.title = "CallBack"
@@ -37,13 +42,13 @@ class InterviewQuestionsMainController: UIViewController {
         questionsCollectionView.register(UINib(nibName: "InterviewQuestionCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewQuestionCell")
     }
     private func getInterviewQuestions() {
-        DatabaseService.shared.fetchCommonInterviewQuestions { [] (result) in
+        DatabaseService.shared.fetchCommonInterviewQuestions { [weak self] (result) in
             switch result {
             case .failure(let error) :
                 print("could not fetch common interview questions from firebase error: \(error.localizedDescription)")
             case .success(let questions):
                 DispatchQueue.main.async {
-                    self.interviewQuestions = questions
+                    self?.interviewQuestions = questions
                 }
             }
         }
@@ -51,9 +56,19 @@ class InterviewQuestionsMainController: UIViewController {
     private func getUserCreatedQuestions() {
         //TODO: need access to user created interview questions
     }
-    private func getUserAnswers() {
-        //TODO: need user answers to populate the interview cell with number of star stories and answers
-    }
+//    private func getUserAnswers(for question: InterviewQuestion) {
+//        //TODO: need user answers to populate the interview cell with number of star stories and answers
+//        DatabaseService.shared.fetchAnsweredQuestions(questionString: question.question) { [weak self] (result) in
+//            switch result {
+//            case .failure(let error):
+//                print("unable to fetch user answers for interview question cell error: \(error.localizedDescription)")
+//            case .success(let answers):
+//                DispatchQueue.main.async {
+//                    self?.userAnswers = answers
+//                }
+//            }
+//        }
+//    }
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
         show(interviewQuestionEntryVC, sender: nil)
@@ -70,12 +85,8 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: itemWidth, height: itemHeight)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let question = interviewQuestions[indexPath.row]
-        
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
-        
-        //TODO: somehow pass the question to the answer vc
         interviewAnswerVC.question = question
         show(interviewAnswerVC, sender: nil)
     }
@@ -90,8 +101,8 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
             fatalError("could not cast to interviewquestioncell")
         }
         let question = interviewQuestions[indexPath.row]
-        //let answer = userAnswers[indexPath.row]
         cell.configureCell(interviewQ: question)
+        
         return cell
     }
     
