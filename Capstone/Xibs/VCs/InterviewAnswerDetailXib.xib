@@ -40,7 +40,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dbf-iK-Whd">
-                                    <rect key="frame" x="10" y="97.5" width="394" height="179"/>
+                                    <rect key="frame" x="10" y="97.5" width="394" height="240.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pbH-Et-SSx">
                                         <size key="itemSize" width="128" height="128"/>
@@ -50,27 +50,27 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Bb-ig-QSj">
-                                    <rect key="frame" x="350" y="107.5" width="44" height="44"/>
+                                    <rect key="frame" x="350" y="108" width="44" height="43"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="IpT-6h-wJl"/>
                                         <constraint firstAttribute="width" constant="44" id="aHE-Uu-RQd"/>
                                         <constraint firstAttribute="height" constant="44" id="eCn-X9-Elc"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="gKL-xz-6DZ"/>
                                     </constraints>
-                                    <color key="tintColor" red="0.28340511369999999" green="0.13654978840000001" blue="0.671319797" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    <state key="normal" image="plus.circle.fill" catalog="system"/>
+                                    <color key="tintColor" red="0.69299409460000005" green="0.54682116650000001" blue="0.93335741760000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
                                     <connections>
                                         <action selector="addAnswerButtonPressed:" destination="-1" eventType="touchUpInside" id="wua-3U-mXR"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STAR Stories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5c-hs-Rqv">
-                                    <rect key="frame" x="10" y="296.5" width="394" height="21"/>
+                                    <rect key="frame" x="10" y="358" width="394" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="FvK-Jj-m8Q">
-                                    <rect key="frame" x="10" y="327.5" width="394" height="179.5"/>
+                                    <rect key="frame" x="10" y="389" width="394" height="240.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GF9-aV-sIz">
                                         <size key="itemSize" width="128" height="128"/>
@@ -80,21 +80,21 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3h-w9-3C5">
-                                    <rect key="frame" x="350" y="337.5" width="44" height="44"/>
+                                    <rect key="frame" x="350" y="399.5" width="44" height="43"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="51a-j1-Nzu"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="LdY-K7-Kyj"/>
                                         <constraint firstAttribute="height" constant="44" id="gav-1d-NBz"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="k0r-Jc-4Z4"/>
                                     </constraints>
-                                    <color key="tintColor" red="0.28340511369999999" green="0.13654978840000001" blue="0.671319797" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    <state key="normal" image="plus.circle.fill" catalog="system"/>
+                                    <color key="tintColor" red="0.69299409460000005" green="0.54682116650000001" blue="0.93335741760000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
                                     <connections>
                                         <action selector="addSTARStoryButtonPressed:" destination="-1" eventType="touchUpInside" id="8nk-wp-ZTU"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suggestion:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHb-8a-hHV">
-                                    <rect key="frame" x="10" y="527" width="394" height="20.5"/>
+                                    <rect key="frame" x="10" y="649.5" width="394" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -105,7 +105,7 @@
                                 <constraint firstItem="FKW-dx-599" firstAttribute="top" secondItem="0GE-L5-SBQ" secondAttribute="bottom" constant="20" id="1FP-rA-48j"/>
                                 <constraint firstItem="FHb-8a-hHV" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="10" id="4gZ-sg-39U"/>
                                 <constraint firstItem="FvK-Jj-m8Q" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="10" id="67J-lc-MPN"/>
-                                <constraint firstItem="FvK-Jj-m8Q" firstAttribute="height" secondItem="Kea-oQ-9Ec" secondAttribute="height" multiplier="0.223815" id="DKo-jy-1Ef"/>
+                                <constraint firstItem="FvK-Jj-m8Q" firstAttribute="height" secondItem="Kea-oQ-9Ec" secondAttribute="height" multiplier="0.3" id="DKo-jy-1Ef"/>
                                 <constraint firstItem="d5c-hs-Rqv" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="10" id="GnC-eO-W50"/>
                                 <constraint firstItem="dbf-iK-Whd" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="10" id="Jb7-wZ-S77"/>
                                 <constraint firstItem="FKW-dx-599" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="10" id="Jp2-vX-7qe"/>
@@ -118,7 +118,7 @@
                                 <constraint firstAttribute="trailing" secondItem="8Bb-ig-QSj" secondAttribute="trailing" constant="20" id="bhk-bZ-myR"/>
                                 <constraint firstItem="8Bb-ig-QSj" firstAttribute="top" secondItem="FKW-dx-599" secondAttribute="bottom" constant="20" id="drR-ib-EuS"/>
                                 <constraint firstItem="dbf-iK-Whd" firstAttribute="top" secondItem="FKW-dx-599" secondAttribute="bottom" constant="10" id="ewz-3E-vEe"/>
-                                <constraint firstItem="dbf-iK-Whd" firstAttribute="height" secondItem="Kea-oQ-9Ec" secondAttribute="height" multiplier="0.223192" id="iil-IZ-uki"/>
+                                <constraint firstItem="dbf-iK-Whd" firstAttribute="height" secondItem="Kea-oQ-9Ec" secondAttribute="height" multiplier="0.3" id="iil-IZ-uki"/>
                                 <constraint firstAttribute="trailing" secondItem="FvK-Jj-m8Q" secondAttribute="trailing" constant="10" id="jVg-SM-kyA"/>
                                 <constraint firstItem="d5c-hs-Rqv" firstAttribute="top" secondItem="dbf-iK-Whd" secondAttribute="bottom" constant="20" id="jpY-5Q-Hzb"/>
                                 <constraint firstAttribute="trailing" secondItem="d5c-hs-Rqv" secondAttribute="trailing" constant="10" id="m8E-aS-f9Q"/>

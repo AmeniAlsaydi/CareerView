@@ -18,13 +18,6 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     //public var customQuestions = []
-//    public var userAnswers = [AnsweredQuestion?]() {
-//        didSet {
-//            for question in interviewQuestions {
-//                getUserAnswers(for: question)
-//            }
-//        }
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,19 +49,7 @@ class InterviewQuestionsMainController: UIViewController {
     private func getUserCreatedQuestions() {
         //TODO: need access to user created interview questions
     }
-//    private func getUserAnswers(for question: InterviewQuestion) {
-//        //TODO: need user answers to populate the interview cell with number of star stories and answers
-//        DatabaseService.shared.fetchAnsweredQuestions(questionString: question.question) { [weak self] (result) in
-//            switch result {
-//            case .failure(let error):
-//                print("unable to fetch user answers for interview question cell error: \(error.localizedDescription)")
-//            case .success(let answers):
-//                DispatchQueue.main.async {
-//                    self?.userAnswers = answers
-//                }
-//            }
-//        }
-//    }
+
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
         show(interviewQuestionEntryVC, sender: nil)
@@ -102,7 +83,6 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
         }
         let question = interviewQuestions[indexPath.row]
         cell.configureCell(interviewQ: question)
-        
         return cell
     }
     
