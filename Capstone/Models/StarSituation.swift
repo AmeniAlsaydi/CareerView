@@ -8,6 +8,10 @@
 
 import Foundation
 
+// when user inputs star situation theyll have the option of guided or freeform
+// if freefrom -> only situation
+// if guided -> uses STAR methods 
+
 struct StarSituation {
     var situation: String
     var task: String?
