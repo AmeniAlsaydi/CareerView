@@ -265,5 +265,30 @@ class DatabaseService {
         }
     }
     
+    // must be deleted from the collection as well as the all ids from where star situations are being referenced
+    public func removeStarSituation(situation: StarSituation, completion:  @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        // delete from main star situations collection
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(situation.id).delete { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
+        // delete ids from star situations ids
+        
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(situation.userJobID)
+        
+        
+        // get star ids
+        // remove at index
+        // then update with new feild 
+    }
+    
 }
 
