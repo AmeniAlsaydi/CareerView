@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -88,9 +88,6 @@
                                 <state key="normal" title="#">
                                     <color key="titleColor" red="0.28340511369999999" green="0.13654978840000001" blue="0.671319797" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
-                                <connections>
-                                    <action selector="starSituationButtonPressed:" destination="5IQ-Eq-Puz" eventType="touchUpInside" id="FaL-UZ-KU0"/>
-                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -111,9 +108,6 @@
                         </constraints>
                         <color key="tintColor" red="0.28340511369999999" green="0.13654978840000001" blue="0.671319797" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <state key="normal" backgroundImage="pencil.circle" catalog="system"/>
-                        <connections>
-                            <action selector="editButtonPressed:" destination="5IQ-Eq-Puz" eventType="touchUpInside" id="nth-lu-UmW"/>
-                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -141,19 +135,7 @@
                     <constraint firstAttribute="trailing" secondItem="2qt-xl-rXd" secondAttribute="trailing" constant="10" id="xsg-TP-2dC"/>
                 </constraints>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="companyNameLabel" destination="9Cf-iY-7D2" id="XrZ-Mw-Be9"/>
-                <outlet property="datesLabel" destination="E10-8g-jWu" id="wek-v9-73w"/>
-                <outlet property="jobDescriptionLabel" destination="4aM-bM-G6d" id="M1j-u4-D29"/>
-                <outlet property="jobTitleLabel" destination="rrf-kl-TPD" id="Lvc-09-upP"/>
-                <outlet property="responsibilitiesLabel1" destination="13T-sq-f7h" id="88F-3Y-YWp"/>
-                <outlet property="responsibilitiesLabel2" destination="nlC-e9-wKl" id="Bqy-gW-zsA"/>
-                <outlet property="responsibilitiesLabel3" destination="rQe-4F-AXW" id="scM-3Z-27M"/>
-                <outlet property="responsibilitiesLabel4" destination="PkO-Le-uH5" id="jaw-92-XpJ"/>
-                <outlet property="responsibilitiesLabel5" destination="HLz-mK-O3F" id="f5e-i3-ESc"/>
-                <outlet property="starSituationsButton" destination="hUU-wF-tBu" id="ZPS-aq-TZj"/>
-            </connections>
-            <point key="canvasLocation" x="-557.97101449275362" y="-42.522321428571423"/>
+            <point key="canvasLocation" x="-791" y="-77"/>
         </tableViewCell>
     </objects>
     <resources>

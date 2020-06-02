@@ -21,6 +21,9 @@ class DatabaseService {
     static let contactsCollection = "contacts"
     static let jobApplicationCollection = "jobApplications"
     static let interviewCollection = "interviews"
+    static let customQuestionsCollection = "customInterviewQuestions"
+    static let answeredQuestionsCollection = "answeredQuestions"
+    static let starSituationsCollection = "starSituations"
     
     private let db = Firestore.firestore()
     
@@ -98,7 +101,7 @@ class DatabaseService {
                     }
                 }
         }
-    
+      
     public func removeUserJob(userJobId: String, completion: @escaping (Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
@@ -161,13 +164,106 @@ class DatabaseService {
         let userID = user.uid
         
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).document(applicationID).collection(DatabaseService.interviewCollection).document(interview.id).setData(["id": interview.id, "interviewDate": interview.interviewDate, "thankYouSent": interview.thankYouSent, "followUpSent": interview.followUpSent, "notes": interview.notes]) { error in
-        if let error = error {
-            completion(.failure(error))
-        } else {
-            completion(.success(true))
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
+    }
+    
+    public func fetchCustomInterviewQuestions(completion: @escaping (Result<[InterviewQuestion], Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.customQuestionsCollection).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let questions = snapshot.documents.map {InterviewQuestion($0.data())}
+                completion(.success(questions))
+            }
+        }
+        
+    }
+    
+    public func addCustomInterviewQuestion(customQuestion: InterviewQuestion, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.customQuestionsCollection).document(customQuestion.id).setData(["id": customQuestion.id, "question": customQuestion.question]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    // to get interview question answers we will filter answeredQuestions collection using the question string
+    
+    public func addToAnsweredQuestions(answeredQuestion: AnsweredQuestion, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answeredQuestion.id).setData(["id": answeredQuestion.id, "question": answeredQuestion.question, "answers": answeredQuestion.answers, "starSituationIDs": answeredQuestion.starSituationIDs ]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    
+// FIXME: the following returns an array of AnsweredQuestion, do we want to return just one (the first) ?
+    public func fetchAnsweredQuestions(questionString: String, completion: @escaping (Result<[AnsweredQuestion], Error>)->()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).whereField("question", isEqualTo: questionString).getDocuments { (snapShot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapShot = snapShot {
+                let answeredQuestions = snapShot.documents.map { AnsweredQuestion($0.data())}
+                completion(.success(answeredQuestions))
+            }
+        }
+    }
+    
+    public func addToStarSituations(starSituation: StarSituation, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(starSituation.id).setData(["id": starSituation.id, "situation": starSituation.situation, "task": starSituation.task as Any, "action": starSituation.action as Any, "result": starSituation.result as Any, "userJobID": starSituation.userJobID, "interviewQuestionsIDs": starSituation.interviewQuestionsIDs]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    public func fetchStarSituations(completion: @escaping (Result<[StarSituation], Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let situations = snapshot.documents.map{ StarSituation($0.data()) }
+                completion(.success(situations))
+            }
         }
     }
     
 }
 
-}
