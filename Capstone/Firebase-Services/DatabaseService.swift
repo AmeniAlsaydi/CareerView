@@ -201,9 +201,11 @@ class DatabaseService {
         }
     }
     
-    
     // to get interview question answers we will filter answeredQuestions collection using the question string
     
+    public func addToAnsweredQuestions() {
+        
+    }
     
 
 }
