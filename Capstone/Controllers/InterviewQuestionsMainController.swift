@@ -9,24 +9,36 @@
 import UIKit
 
 class InterviewQuestionsMainController: UIViewController {
-
+    
     @IBOutlet weak var questionsCollectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     private var interviewQuestions = [InterviewQuestion]() {
         didSet {
             self.questionsCollectionView.reloadData()
         }
     }
-    //public var customQuestions = []
+    
+    //TODO: public var customQuestions = []
+    
+    
+    private var searchQuery = String() {
+        didSet {
+            DispatchQueue.main.async {
+                self.interviewQuestions = self.interviewQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         configureCollectionView()
         configureNavBar()
         getInterviewQuestions()
     }
     private func configureNavBar() {
-        navigationItem.title = "CallBack"
+        navigationItem.title = "Interview Questions"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
     }
     private func configureCollectionView() {
@@ -49,11 +61,10 @@ class InterviewQuestionsMainController: UIViewController {
     private func getUserCreatedQuestions() {
         //TODO: need access to user created interview questions
     }
-
+    
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
         show(interviewQuestionEntryVC, sender: nil)
-        //TODO: how will this update the collection view?
     }
     
     
@@ -87,4 +98,16 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
     }
     
     
+}
+extension InterviewQuestionsMainController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchBar.text?.isEmpty ?? false) {
+            getInterviewQuestions()
+        } else {
+            searchQuery = searchBar.text ?? ""
+        }
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
