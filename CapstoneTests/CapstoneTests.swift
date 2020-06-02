@@ -252,6 +252,24 @@ class CapstoneTests: XCTestCase {
         }
         wait(for:[exp], timeout: 5.0)
     }
+    
+    func testAddingStarSituation() {
+        
+        let exp = XCTestExpectation(description: "situation was added")
+        let id = UUID().uuidString
+        let starSituation = StarSituation(situation: "situation test", task: nil, action: "action test", result: "result test", id: id, userJobID: "12345", interviewQuestionsIDs: [])
+        
+        DatabaseService.shared.addToStarSituations(starSituation: starSituation) { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error adding a situation: \(error.localizedDescription)")
+            case(.success(let result)):
+                XCTAssert(result)
+            }
+        }
+         wait(for:[exp], timeout: 5.0)
+    }
 }
     
 
