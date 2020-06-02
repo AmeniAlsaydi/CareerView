@@ -22,13 +22,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQP-0F-ntl">
-                    <rect key="frame" x="10" y="64" width="394" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="10" y="64" width="394" height="26.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-pA-53J">
-                    <rect key="frame" x="10" y="135.5" width="394" height="179"/>
+                    <rect key="frame" x="10" y="141.5" width="394" height="179"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dHP-2S-Stk">
                         <size key="itemSize" width="128" height="128"/>
@@ -38,19 +38,19 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cad-gJ-bsq">
-                    <rect key="frame" x="10" y="104.5" width="394" height="21"/>
+                    <rect key="frame" x="10" y="110.5" width="394" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STAR Stories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEp-ZZ-rrp">
-                    <rect key="frame" x="10" y="334.5" width="394" height="21"/>
+                    <rect key="frame" x="10" y="340.5" width="394" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="riy-y8-Efa">
-                    <rect key="frame" x="10" y="365.5" width="394" height="179.5"/>
+                    <rect key="frame" x="10" y="371.5" width="394" height="179.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ven-vS-cIo">
                         <size key="itemSize" width="128" height="128"/>
@@ -59,14 +59,14 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suggestion:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8R-DM-Mmn">
-                    <rect key="frame" x="10" y="565" width="394" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suggestion:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8R-DM-Mmn">
+                    <rect key="frame" x="10" y="571" width="394" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fy5-w3-fn0">
-                    <rect key="frame" x="350" y="145.5" width="44" height="44"/>
+                    <rect key="frame" x="350" y="151.5" width="44" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="Ez7-NG-P9R"/>
                         <constraint firstAttribute="width" constant="44" id="wD6-J7-Xkb"/>
@@ -78,7 +78,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jv-We-no0">
-                    <rect key="frame" x="350" y="375.5" width="44" height="44"/>
+                    <rect key="frame" x="350" y="381.5" width="44" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="FCh-Pw-8xX"/>
                         <constraint firstAttribute="width" constant="44" id="ICC-id-ceb"/>
