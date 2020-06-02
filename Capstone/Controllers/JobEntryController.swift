@@ -145,9 +145,6 @@ class JobEntryController: UIViewController {
         default:
             break
         }
-        print("Sender Tag: \(sender.tag)")
-        print(responsibilities.count)
-        print(responsibilities[sender.tag])
         responsibilities.remove(at: sender.tag)
     }
     @IBAction func addResponsibilityButtonPressed(_ sender: UIButton) {
