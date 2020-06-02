@@ -61,18 +61,18 @@ class JobEntryController: UIViewController {
             configureCurrentlyEmployedButton(currentlyEmployed)
         }
     }
-    private var responsibilityCells = [String]() {
+    private var responsibilityCells = 1 {
         didSet {
             // Disable add responsibility button
             tableView.reloadData()
-            if responsibilityCells.count == 3 {
+            if responsibilityCells == 3 {
                 addResponsibilityButton.isEnabled = false
             } else {
                 addResponsibilityButton.isEnabled = true
             }
         }
     }
-    private var responsibilities = [String]()
+    private var responsibilities = [""]
     private var contacts = [CNContact]()
     private var userContacts = [Contact]() {
         didSet {
@@ -116,7 +116,7 @@ class JobEntryController: UIViewController {
             endDateYearTextField.text = testUserJob.endDate.dateValue().description
             locationTextField.text = userJob?.location
             descriptionTextField.text = testUserJob.description
-            responsibilityCells = testUserJob.responsibilities
+            responsibilities = testUserJob.responsibilities
             //TODO: Add star situations, add contacts
         }
     }
@@ -136,7 +136,7 @@ class JobEntryController: UIViewController {
     @IBAction func deleteResponsibiltyCellButtonPressed(_ sender: UIButton) {
         // TODO: Have user confirm the responsibility is going to be deleted before deleting
         //        showAlert(title: "Are you sure?", message: "You are about to delete this resonsibility: \(userJobResponsibilities[sender.tag])")
-        responsibilityCells.remove(at: sender.tag)
+        responsibilityCells -= 1
         switch sender.tag {
         case 1:
             responsibility2TextField.text = ""
@@ -148,7 +148,8 @@ class JobEntryController: UIViewController {
         responsibilities.remove(at: sender.tag)
     }
     @IBAction func addResponsibilityButtonPressed(_ sender: UIButton) {
-        responsibilityCells.append("")
+        responsibilityCells += 1
+        responsibilities.append("")
     }
     @IBAction func addContactButtonPressed(_ sender: UIButton) {
         let contactPicker = CNContactPickerViewController()
@@ -305,11 +306,7 @@ extension JobEntryController: UITableViewDataSource {
         case 1:
             return 1
         case 2:
-            if responsibilityCells.count == 0 {
-                return 1
-            } else {
-                return responsibilityCells.count
-            }
+            return responsibilityCells
         case 3:
             return 1
         case 4:
@@ -344,22 +341,22 @@ extension JobEntryController: UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 if editingJob {
-                    responsibility1TextField.text = responsibilityCells[indexPath.row]
+                    responsibility1TextField.text = responsibilities[indexPath.row]
                 }
                 return mainResponsiblityCell
             case 1:
                 if editingJob {
-                    responsibility2TextField.text = responsibilityCells[indexPath.row]
+                    responsibility2TextField.text = responsibilities[indexPath.row]
                 }
                 return responsiblity2Cell
             case 2:
                 if editingJob {
-                    responsibility3TextField.text = responsibilityCells[indexPath.row]
+                    responsibility3TextField.text = responsibilities[indexPath.row]
                 }
                 return responsiblity3Cell
             default:
                 if editingJob {
-                    responsibility1TextField.text = responsibilityCells[indexPath.row]
+                    responsibility1TextField.text = responsibilities[indexPath.row]
                 }
                 return mainResponsiblityCell
             }
