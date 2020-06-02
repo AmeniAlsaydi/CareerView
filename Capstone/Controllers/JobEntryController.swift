@@ -237,10 +237,9 @@ class JobEntryController: UIViewController {
         let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
         self.tableView.contentInset = contentInsets
         self.tableView.scrollIndicatorInsets = contentInsets
-        
         var rect = self.view.frame
         rect.size.height -= keyboardSize.height
-        let textFields = [jobTitleTextField, companyNameTextField, beginDateYearTextField, beginDateMonthTextField, endDateYearTextField, endDateMonthTextField, locationTextField, descriptionTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
+        let textFields = [jobTitleTextField, companyNameTextField, beginDateMonthTextField, beginDateYearTextField, endDateMonthTextField, endDateYearTextField,  locationTextField, descriptionTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
         for textField in textFields {
             if let activeTextField = textField,
                 !rect.contains(activeTextField.frame.origin) {
@@ -260,10 +259,6 @@ class JobEntryController: UIViewController {
          view.frame.origin.y = 0
          }
          */
-    }
-    private func scrollToRow(row: Int) {
-        //        let indexPath = IndexPath(row: row, section: )
-        //            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
     private func formatDates(month: String, year: String) -> Date? {
@@ -422,12 +417,6 @@ extension JobEntryController: UITableViewDelegate {
 
 //MARK:- UITextField Delegate
 extension JobEntryController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        let row = textField.tag
-        //TODO: How to get section?
-        // Keyboard handling: Is scrolling the view what we want here?
-        scrollToRow(row: row)
-    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -502,7 +491,7 @@ extension UIViewController {
             toolbar.sizeToFit()
             var items = [UIBarButtonItem]()
             if previousNextable {
-                let previousButton = UIBarButtonItem(image: UIImage(named: "arrowtriangle.up.fill"), style: .plain, target: nil, action: nil)
+                let previousButton = UIBarButtonItem(title: "Prev", style: .plain, target: nil, action: nil)
                 previousButton.width = 30
                 if textField == textFields.first {
                     previousButton.isEnabled = false
@@ -510,7 +499,7 @@ extension UIViewController {
                     previousButton.target = textFields[index - 1]
                     previousButton.action = #selector(UITextField.becomeFirstResponder)
                 }
-                let nextButton = UIBarButtonItem(image: UIImage(named: "arrowtriangle.down.fill"), style: .plain, target: nil, action: nil)
+                let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: nil, action: nil)
                 nextButton.width = 30
                 if textField == textFields.last {
                     nextButton.isEnabled = false
