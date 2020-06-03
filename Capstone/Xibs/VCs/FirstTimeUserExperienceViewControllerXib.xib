@@ -10,7 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FirstTimeUserExperienceViewController" customModule="Capstone" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="ldW-o1-cap" id="HXF-Tc-kCz"/>
-                <outlet property="pageControl" destination="2ZP-XS-Uml" id="pjW-XI-4cE"/>
+                <outlet property="pageControl" destination="lLF-bz-5eS" id="yIQ-NP-aNc"/>
                 <outlet property="view" destination="iN0-l3-epB" id="1iL-N7-n1N"/>
             </connections>
         </placeholder>
@@ -19,10 +19,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ldW-o1-cap">
-                    <rect key="frame" x="0.0" y="52" width="414" height="772"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ldW-o1-cap">
+                    <rect key="frame" x="0.0" y="52" width="414" height="727"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JUR-wu-GCh">
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JUR-wu-GCh">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -36,22 +36,21 @@
                         <action selector="skipForNowButtonPressed:" destination="-1" eventType="touchUpInside" id="k48-9t-NTV"/>
                     </connections>
                 </button>
-                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="2ZP-XS-Uml">
-                    <rect key="frame" x="187.5" y="787" width="39" height="37"/>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="lLF-bz-5eS">
+                    <rect key="frame" x="179.5" y="787" width="55" height="37"/>
                     <color key="pageIndicatorTintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </pageControl>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="2ZP-XS-Uml" firstAttribute="centerX" secondItem="ldW-o1-cap" secondAttribute="centerX" id="3oD-8h-jMu"/>
-                <constraint firstItem="gWt-Gy-eDY" firstAttribute="top" secondItem="ldW-o1-cap" secondAttribute="bottom" constant="8" id="7Ev-4S-vrS"/>
+                <constraint firstItem="lLF-bz-5eS" firstAttribute="top" secondItem="ldW-o1-cap" secondAttribute="bottom" constant="8" id="1Lc-1n-mWc"/>
+                <constraint firstItem="lLF-bz-5eS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DQm-mG-e09"/>
                 <constraint firstItem="ldW-o1-cap" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="LJD-So-YFT"/>
                 <constraint firstItem="ldW-o1-cap" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="T2M-gd-4De"/>
-                <constraint firstItem="gWt-Gy-eDY" firstAttribute="top" secondItem="2ZP-XS-Uml" secondAttribute="bottom" constant="8" id="VPJ-id-gGi"/>
                 <constraint firstItem="gWt-Gy-eDY" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="ZvB-Fy-aEM"/>
                 <constraint firstItem="ldW-o1-cap" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="i4w-gR-TZb"/>
                 <constraint firstItem="gWt-Gy-eDY" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oF0-z9-8vD"/>
+                <constraint firstItem="gWt-Gy-eDY" firstAttribute="top" secondItem="lLF-bz-5eS" secondAttribute="bottom" constant="8" id="y4g-8F-jSP"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="137.68115942028987" y="106.47321428571428"/>
