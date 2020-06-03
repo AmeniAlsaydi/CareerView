@@ -28,6 +28,9 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
+    private var newAnswers = [String]()
+    private var newStarStorieIDs = [String]()
+    
     public var starStories = [StarSituation]() {
         didSet {
             starStoriesCollectionView.reloadData()
@@ -88,11 +91,13 @@ class InterviewAnswerDetailController: UIViewController {
     
     @IBAction func addAnswerButtonPressed(_ sender: UIButton){
         //TODO: add view/or something related where user could add their answer into a textfield and save
+        let child = ChildViewController()
+        self.addChild(child, frame: UIScreen.main.bounds)
+        child.delegate = self
     }
     @IBAction func addSTARStoryButtonPressed(_ sender: UIButton) {
         //TODO: add view/or something related where user could search and select their star situation
     }
-    
     
 }
 extension InterviewAnswerDetailController: UICollectionViewDelegateFlowLayout {
@@ -132,6 +137,71 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             let story = starStories[indexPath.row]
             cell.configureCell(starSituation: story)
             return cell
+        }
+        
+    }
+    
+    
+}
+extension InterviewAnswerDetailController {
+    //TODO: Move this to its own file for other vc's needing a child view controller
+    
+    func addChild(_ childController: UIViewController, frame: CGRect? = nil) {
+        //add child view controller
+        addChild(childController)
+        
+        //set the size of the child view controller's frame to half the parent view controller's height
+        //frame = UIScreen.main.bounds
+        if let frame = frame {
+            let height: CGFloat = frame.height * 0.5
+            let width: CGFloat = frame.width
+            let x: CGFloat = frame.minX
+            let y: CGFloat = frame.midY
+            childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
+        }
+        
+        //add the childcontroller's view as the parent view controller's subview
+        view.addSubview(childController.view)
+        //pass child to parent
+        childController.didMove(toParent: self)
+    }
+    func removeChild() {
+        //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
+        willMove(toParent: nil)
+        
+        //remove the child view controller's view from parent's view
+        view.removeFromSuperview()
+        
+        //remove child view controller from parent view controller
+        removeFromParent()
+    }
+}
+extension InterviewAnswerDetailController: ChildViewControllerActions {
+    func userEnteredAnswer(childViewController: ChildViewController, answer: String) {
+        //1. append answer to newAnswers array
+        //2. check if AnsweredQuestion has answers or star stories for this question
+            //a. if it does, use update function
+            //b. if it doesn't, use create function -> repeat for star story child
+        newAnswers.append(answer)
+        
+        if answers.count < 1 && starStories.count < 0 {
+            let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question?.question ?? "could not pass question", answers: newAnswers, starSituationIDs: newStarStorieIDs)
+            DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: newAnswer) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Error", message: "Unable to add answer at this time error: \(error.localizedDescription)")
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Answer Submitted!", message: "")
+                    }
+                    self?.removeChild()
+                }
+            }
+            
+        } else {
+            //TODO: Update AnsweredQuestion
         }
         
     }
