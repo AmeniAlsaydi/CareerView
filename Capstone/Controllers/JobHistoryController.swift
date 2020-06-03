@@ -66,10 +66,18 @@ class JobHistoryController: UIViewController {
         }
     }
     private func checkFirstTimeLogin() {
-        
         guard let user = userData else { return }
             if user.firstTimeLogin {
                 print("First time logging in")
+                //Eventually move this to the viewcontroller file once the user has completed the on boarding experience
+                DatabaseService.shared.updateUserFirstTimeLogin(firstTimeLogin: false) { (result) in
+                    switch result {
+                    case.failure(let error):
+                        print("error updating user first time login: \(error.localizedDescription)")
+                    case .success:
+                        print("User first time login update successfully")
+                    }
+                }
             } else {
                 print("User has logged in before")
             }

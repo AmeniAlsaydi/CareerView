@@ -70,7 +70,16 @@ class DatabaseService {
             }
         }
     }
-    public func updateUserData(completion: @escaping (Result<Bool, Error>)-> ()) {
+    public func updateUserFirstTimeLogin(firstTimeLogin: Bool, completion: @escaping (Result<Bool, Error>)-> ()) {
+        guard let user = Auth.auth().currentUser else { return }
+        let userID = user.uid
+        db.collection(DatabaseService.userCollection).document(userID).updateData(["firstTimeLogin": firstTimeLogin]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
         
     }
     // fetch current users job
