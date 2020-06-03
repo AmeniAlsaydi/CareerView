@@ -26,6 +26,7 @@ class JobHistoryController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureNavBar()
+        checkFirstTimeLogin()
     }
     private func configureTableView() {
         tableView.delegate = self
@@ -45,7 +46,30 @@ class JobHistoryController: UIViewController {
         let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
         show(jobEntryController, sender: nil)
     }
-    
+    private var userData: User?
+    private func getUserData() {
+        DatabaseService.shared.fetchUserData { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print("Error fetching user Data: \(error.localizedDescription)")
+                }
+            case .success(let userData):
+                DispatchQueue.main.async {
+                    self?.userData = userData
+                }
+            }
+        }
+    }
+    private func checkFirstTimeLogin() {
+        getUserData()
+        guard let user = userData else { return }
+            if user.firstTimeLogin {
+                print("First time logging in")
+            } else {
+                print("User has logged in before")
+            }
+    }
     //TODO:- Add database function to grab user jobs data from firebase
     
 }

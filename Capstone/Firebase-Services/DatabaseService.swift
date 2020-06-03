@@ -46,7 +46,7 @@ class DatabaseService {
         guard let email = authDataResult.user.email else {
             return
         }
-        db.collection(DatabaseService.userCollection).document(authDataResult.user.uid).setData(["email": email, "createdDate": Timestamp(date: Date()), "id": authDataResult.user.uid]) { error in
+        db.collection(DatabaseService.userCollection).document(authDataResult.user.uid).setData(["email": email, "createdDate": Timestamp(date: Date()), "id": authDataResult.user.uid, "firstTimeLogin": true]) { error in
             
             if let error = error {
                 completion(.failure(error))
@@ -56,10 +56,22 @@ class DatabaseService {
             
         }
     }
-    
+    public func fetchUserData(completion: @escaping (Result<User, Error>)->()) {
+        guard let user = Auth.auth().currentUser else { return }
+        let userID = user.uid
+        let documentRef = db.collection(DatabaseService.userCollection).document(userID)
+        documentRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let userData = document.data().map { User($0) }
+                completion(.success(userData ?? User(createdDate: Date(), email: "N/N", firstTimeLogin: false, id: "")))
+            } else if let error = error {
+                completion(.failure(error))
+            }
+        }
+    }
     // fetch current users job
     public func fetchUserJobs(completion: @escaping (Result<[UserJob], Error>)->()) {
-        guard let user = Auth.auth().currentUser else { return}
+        guard let user = Auth.auth().currentUser else { return }
         
         let userID = user.uid // use this to test -> "LOT6p7nkxfM69CCtjB41"
         
