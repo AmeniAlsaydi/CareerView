@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChildViewController" customModule="Capstone" customModuleProvider="target">
             <connections>
-                <outlet property="answerTextfield" destination="sF5-in-MTA" id="Mqu-cD-Xeg"/>
+                <outlet property="answerTextfield" destination="sF5-in-MTA" id="JLb-i9-uiJ"/>
                 <outlet property="doneButton" destination="U7x-Ew-sVS" id="Glf-aY-Z4Z"/>
                 <outlet property="view" destination="iN0-l3-epB" id="XaC-2k-0AW"/>
             </connections>
@@ -24,7 +24,7 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <connections>
-                        <outlet property="delegate" destination="-1" id="oxM-pS-wvd"/>
+                        <outlet property="delegate" destination="-1" id="sxD-7j-k1p"/>
                     </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your answer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rS3-6w-z1L">

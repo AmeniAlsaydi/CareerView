@@ -21,9 +21,9 @@ class ChildViewController: UIViewController {
     public var delegate: ChildViewControllerActions?
     
     override func viewDidLoad() {
-       // answerTextfield.delegate = self
+        answerTextfield.delegate = self
         //TODO: Keyboard handeling
-        view.backgroundColor = .purple
+        view.backgroundColor = .systemBackground
     }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
