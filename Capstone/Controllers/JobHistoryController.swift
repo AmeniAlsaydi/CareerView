@@ -12,6 +12,8 @@ class JobHistoryController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    private var userData: User?
+    
     private let numberOfjobs = 5
     
     enum Const {
@@ -26,8 +28,8 @@ class JobHistoryController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureNavBar()
-        checkFirstTimeLogin()
         getUserData()
+        checkFirstTimeLogin()
     }
     private func configureTableView() {
         tableView.delegate = self
@@ -47,7 +49,7 @@ class JobHistoryController: UIViewController {
         let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
         show(jobEntryController, sender: nil)
     }
-    private var userData: User?
+
     private func getUserData() {
         DatabaseService.shared.fetchUserData { [weak self] (result) in
             switch result {

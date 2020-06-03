@@ -14,6 +14,8 @@
 		884E55602485542100BA180F /* JobHistoryExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */; };
 		884E556E2487384200BA180F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 884E556D2487384200BA180F /* GoogleService-Info.plist */; };
 		884E557024873F3700BA180F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E556F24873F3700BA180F /* User.swift */; };
+		884E5572248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 884E5571248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib */; };
+		884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */; };
 		B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C2392476832F000811C5 /* AppDelegate.swift */; };
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
 		B725C24324768331000811C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B725C24224768331000811C5 /* Assets.xcassets */; };
@@ -90,6 +92,8 @@
 		884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobHistoryExpandableCell.swift; sourceTree = "<group>"; };
 		884E556D2487384200BA180F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		884E556F24873F3700BA180F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		884E5571248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstTimeUserExperienceViewControllerXib.xib; sourceTree = "<group>"; };
+		884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeUserExperienceViewController.swift; sourceTree = "<group>"; };
 		B725C2362476832F000811C5 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B725C2392476832F000811C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B725C23B2476832F000811C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 				B7976E48247D9444001AE3B3 /* NewApplicationController.swift */,
 				B7976E4A247D9A07001AE3B3 /* ApplicationDetailController.swift */,
 				B7976E52247EA255001AE3B3 /* SettingsController.swift */,
+				884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 				B7976E9E24805E21001AE3B3 /* NewApplicationXib.xib */,
 				B7976EA024805E4F001AE3B3 /* ApplicationDetailXib.xib */,
 				B7976EA224805EA2001AE3B3 /* SettingsXib.xib */,
+				884E5571248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -472,6 +478,7 @@
 				B7976E9724805CDA001AE3B3 /* InterviewQuestionsMainXib.xib in Resources */,
 				B7976E9F24805E21001AE3B3 /* NewApplicationXib.xib in Resources */,
 				884E556E2487384200BA180F /* GoogleService-Info.plist in Resources */,
+				884E5572248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib in Resources */,
 				B7976EAF2480614E001AE3B3 /* QuestionAnswerDetailCellXib.xib in Resources */,
 				B7976EA124805E4F001AE3B3 /* ApplicationDetailXib.xib in Resources */,
 			);
@@ -602,6 +609,7 @@
 				B7976E5C247EAD84001AE3B3 /* Contact.swift in Sources */,
 				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
 				B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */,
+				884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */,
 				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
 				B7976E56247EA2D9001AE3B3 /* EmptyView.swift in Sources */,
 				884E557024873F3700BA180F /* User.swift in Sources */,

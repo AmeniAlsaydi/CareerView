@@ -56,7 +56,8 @@ class DatabaseService {
             
         }
     }
-    public func fetchUserData(completion: @escaping (Result<User, Error>)->()) {
+    // Get data associated with a user
+    public func fetchUserData(completion: @escaping (Result<User, Error>)-> ()) {
         guard let user = Auth.auth().currentUser else { return }
         let userID = user.uid
         let documentRef = db.collection(DatabaseService.userCollection).document(userID)
@@ -68,6 +69,9 @@ class DatabaseService {
                 completion(.failure(error))
             }
         }
+    }
+    public func updateUserData(completion: @escaping (Result<Bool, Error>)-> ()) {
+        
     }
     // fetch current users job
     public func fetchUserJobs(completion: @escaping (Result<[UserJob], Error>)->()) {
