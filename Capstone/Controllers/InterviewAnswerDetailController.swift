@@ -91,8 +91,9 @@ class InterviewAnswerDetailController: UIViewController {
     
     @IBAction func addAnswerButtonPressed(_ sender: UIButton){
         //TODO: add view/or something related where user could add their answer into a textfield and save
-        let child = ChildViewController()
+        let child = ChildViewController(nibName: "ChildViewControllerXib", bundle: nil)
         self.addChild(child, frame: UIScreen.main.bounds)
+//        child.answerTextfield.delegate = self
         child.delegate = self
     }
     @IBAction func addSTARStoryButtonPressed(_ sender: UIButton) {
