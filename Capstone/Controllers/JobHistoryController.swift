@@ -27,6 +27,7 @@ class JobHistoryController: UIViewController {
         configureTableView()
         configureNavBar()
         checkFirstTimeLogin()
+        getUserData()
     }
     private func configureTableView() {
         tableView.delegate = self
@@ -57,12 +58,13 @@ class JobHistoryController: UIViewController {
             case .success(let userData):
                 DispatchQueue.main.async {
                     self?.userData = userData
+                    self?.checkFirstTimeLogin()
                 }
             }
         }
     }
     private func checkFirstTimeLogin() {
-        getUserData()
+        
         guard let user = userData else { return }
             if user.firstTimeLogin {
                 print("First time logging in")
