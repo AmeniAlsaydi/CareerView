@@ -320,5 +320,29 @@ class DatabaseService {
         }
     }
     
+    // Function to update a star situation with a user job id if its selected to be be added to a list of starSituationIDs
+        // takes in the current userjob (or just the id)
+        // takes in a situation
+        // updates the userJobID field wit the passed userjob id info
+    // this would be called when a user job is created or updated
+    
+    public func updateStarSituationWithUserJobId(userJobID: String, starSitutationID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(starSitutationID).updateData(["userJobID": userJobID]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
+    }
+    
+    
+    
 }
 
