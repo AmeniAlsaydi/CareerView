@@ -91,22 +91,39 @@ extension FirstTimeUserExperienceViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "screenshotCell", for: indexPath) as? ScreenshotCollectionViewCell else {
             fatalError("failed to dequeue screenshot cell")
         }
+        cell.screenshotImageView.layer.cornerRadius = 4
         switch indexPath.section {
         case 0:
             let currentScreenshot = screenshots[0]
             cell.configureCell(screenshot: currentScreenshot)
+            cell.infoLabel.text = """
+                                Welcome to CallBack!
+                                Browse your Job History
+                                """
             return cell
         case 1:
             let currentScreenshot = screenshots[1]
             cell.configureCell(screenshot: currentScreenshot)
+            cell.infoLabel.text = """
+                                Welcome to CallBack!
+                                Practice Interview Questions
+                                """
             return cell
         case 2:
             let currentScreenshot = screenshots[2]
             cell.configureCell(screenshot: currentScreenshot)
+            cell.infoLabel.text = """
+                                Welcome to CallBack!
+                                Enter your "S.T.A.R" Stories
+                                """
             return cell
         case 3:
             let currentScreenshot = screenshots[3]
             cell.configureCell(screenshot: currentScreenshot)
+            cell.infoLabel.text = """
+                                Welcome to CallBack!
+                                Keep Track of your Job Applications
+                                """
             return cell
         default:
             let currentScreenshot = screenshots[0]

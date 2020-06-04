@@ -26,11 +26,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.tintColor = .black
         
-//        if let _ = Auth.auth().currentUser {
-//            UIViewController.showMainAppView()
-//        } else {
+        if let _ = Auth.auth().currentUser {
+            UIViewController.showMainAppView()
+        } else {
             UIViewController.showViewController(storyBoardName: "LoginView", viewControllerId: "LoginController")
-//        }
+        }
                         
         window?.makeKeyAndVisible()
     }
