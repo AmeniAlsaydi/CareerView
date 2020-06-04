@@ -12,12 +12,16 @@ class JobHistoryController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+
+    private var userData: User?
+
     var userJobHistory = [UserJob]() {
         didSet {
             self.tableView.reloadData()
             self.setup()
         }
     }
+
     
     enum Const {
         static let closeCellHeight: CGFloat = 180
@@ -30,8 +34,13 @@ class JobHistoryController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureNavBar()
+
+        getUserData()
+        checkFirstTimeLogin()
+
         loadUserJobs()
         setup()
+
     }
     private func configureTableView() {
         tableView.delegate = self
@@ -51,7 +60,33 @@ class JobHistoryController: UIViewController {
         let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
         show(jobEntryController, sender: nil)
     }
-    
+
+    private func getUserData() {
+        DatabaseService.shared.fetchUserData { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print("Error fetching user Data: \(error.localizedDescription)")
+                }
+            case .success(let userData):
+                DispatchQueue.main.async {
+                    self?.userData = userData
+                    self?.checkFirstTimeLogin()
+                }
+            }
+        }
+    }
+    private func checkFirstTimeLogin() {
+        guard let user = userData else { return }
+            if user.firstTimeLogin {
+                print("First time logging in")
+                //Eventually move this to the viewcontroller file once the user has completed the on boarding experience
+                let firstTimeUserExperienceViewController = FirstTimeUserExperienceViewController(nibName: "FirstTimeUserExperienceViewControllerXib", bundle: nil)
+                show(firstTimeUserExperienceViewController, sender: nil)
+            } else {
+                print("User has logged in before")
+            }
+    }
     //TODO:- Add database function to grab user jobs data from firebase
     private func loadUserJobs() {
         DatabaseService.shared.fetchUserJobs { (result) in
