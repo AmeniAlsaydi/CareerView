@@ -278,17 +278,51 @@ class DatabaseService {
                 completion(.success(true))
             }
         }
-        
-        // delete ids from star situations ids
-        
-        
-        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(situation.userJobID)
-        
-        
-        // get star ids
-        // remove at index
-        // then update with new feild 
     }
     
+    public func removeStarSituationfromUserJob(situation: StarSituation, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        // situation.userJobID is needed here to remove the id reference from its array of star situations
+        // if its nil then the star situation has not been associated with a job and probably doesnt exsit in as an id reference is any job
+        guard let jobID = situation.userJobID else {
+            completion(.success(false))
+            return
+        }
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(jobID).updateData(["starSituationIDs": FieldValue.arrayRemove(["\(situation.id)"])]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
+    }
+    
+    
+    public func getUserJob(situation: StarSituation, completion: @escaping (Result<UserJob?, Error>) -> ()) {
+    
+    guard let user = Auth.auth().currentUser else {return}
+    let userID = user.uid
+
+    guard let jobID = situation.userJobID else {
+        completion(.success(nil))
+        return
+    }
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(jobID).getDocument { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let dictData = snapshot?.data() {
+                let job = UserJob(dictData)
+                completion(.success(job))
+            }
+        }
+        
+        
+    }
 }
 
