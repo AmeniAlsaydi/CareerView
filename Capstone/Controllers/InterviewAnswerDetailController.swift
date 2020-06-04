@@ -91,10 +91,11 @@ class InterviewAnswerDetailController: UIViewController {
     
     @IBAction func addAnswerButtonPressed(_ sender: UIButton){
         //TODO: add view/or something related where user could add their answer into a textfield and save
-        let child = ChildViewController(nibName: "ChildViewControllerXib", bundle: nil)
+        let answerQuestionXib = "AnswerQuestionChildViewXib"
+        let child = ChildViewController(nibName: answerQuestionXib, bundle: nil)
         self.addChild(child, frame: UIScreen.main.bounds)
-//        child.answerTextfield.delegate = self
         child.delegate = self
+        //need keyboard handeling :(
     }
     @IBAction func addSTARStoryButtonPressed(_ sender: UIButton) {
         //TODO: add view/or something related where user could search and select their star situation
@@ -166,18 +167,23 @@ extension InterviewAnswerDetailController {
         //pass child to parent
         childController.didMove(toParent: self)
     }
-    func removeChild() {
+    func removeChild(childController: UIViewController) {
         //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
         willMove(toParent: nil)
         
         //remove the child view controller's view from parent's view
-        view.removeFromSuperview()
+        childController.view.removeFromSuperview()
         
         //remove child view controller from parent view controller
         removeFromParent()
     }
 }
 extension InterviewAnswerDetailController: ChildViewControllerActions {
+    func userPressedCancel(childViewController: ChildViewController) {
+        removeChild(childController: childViewController)
+        //dismiss(animated: true)
+    }
+    
     func userEnteredAnswer(childViewController: ChildViewController, answer: String) {
         //1. append answer to newAnswers array
         //2. check if AnsweredQuestion has answers or star stories for this question
@@ -197,7 +203,7 @@ extension InterviewAnswerDetailController: ChildViewControllerActions {
                     DispatchQueue.main.async {
                         self?.showAlert(title: "Answer Submitted!", message: "")
                     }
-                    self?.removeChild()
+                    self?.removeChild(childController: childViewController)
                 }
             }
             
