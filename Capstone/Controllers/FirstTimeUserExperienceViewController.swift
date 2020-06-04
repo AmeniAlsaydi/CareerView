@@ -35,6 +35,7 @@ class FirstTimeUserExperienceViewController: UIViewController {
         
         self.pageControl.currentPage = 0
         self.pageControl.numberOfPages = screenshots.count
+        
     }
     private func updateUserFirstTimeLogin() {
         DatabaseService.shared.updateUserFirstTimeLogin(firstTimeLogin: false) { (result) in
@@ -65,9 +66,18 @@ extension FirstTimeUserExperienceViewController: UICollectionViewDelegateFlowLay
 //        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 //    }
 }
+extension FirstTimeUserExperienceViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+}
 extension FirstTimeUserExperienceViewController: UICollectionViewDelegate {
     
 }
+
 extension FirstTimeUserExperienceViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return screenshots.count
@@ -105,6 +115,6 @@ extension FirstTimeUserExperienceViewController: UICollectionViewDataSource {
         }
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        pageControl.currentPage = indexPath.section
+//        pageControl.currentPage = indexPath.section
     }
 }
