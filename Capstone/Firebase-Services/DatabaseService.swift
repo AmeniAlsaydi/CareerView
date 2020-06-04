@@ -103,7 +103,7 @@ class DatabaseService {
         guard let user = Auth.auth().currentUser else {return}
         
         let userID = user.uid
-               
+        
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(userJob.id).setData(["id": userJob.id, "title": userJob.title, "companyName": userJob.companyName, "beginDate": userJob.beginDate, "endDate": userJob.endDate, "currentEmployer": userJob.currentEmployer, "description": userJob.description, "responsibilities": userJob.responsibilities, "starSituationIDs": userJob.starSituationIDs, "interviewQuestionIDs": userJob.interviewQuestionIDs]) { (error) in
             if let error = error {
                 completion(.failure(error))
@@ -119,14 +119,14 @@ class DatabaseService {
         
         
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(userJobId).collection(DatabaseService.contactsCollection).document(contact.id).setData(["id": contact.id, "firstName": contact.firstName, "lastName": contact.lastName, "email": contact.email, "phoneNumber": contact.phoneNumber]) { error in
-                    if let error = error {
-                        completion(.failure(error))
-                    } else {
-                        completion(.success(true))
-                    }
-                }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
         }
-      
+    }
+    
     public func removeUserJob(userJobId: String, completion: @escaping (Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
@@ -245,7 +245,7 @@ class DatabaseService {
     }
     
     
-// FIXME: the following returns an array of AnsweredQuestion, do we want to return just one (the first) ?
+    // FIXME: the following returns an array of AnsweredQuestion, do we want to return just one (the first) ?
     public func fetchAnsweredQuestions(questionString: String, completion: @escaping (Result<[AnsweredQuestion], Error>)->()) {
         
         guard let user = Auth.auth().currentUser else {return}
@@ -330,7 +330,7 @@ class DatabaseService {
         
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
-       
+        
         guard let jobID = situation.userJobID else {
             completion(.success(false))
             return
@@ -346,9 +346,9 @@ class DatabaseService {
     }
     
     // Function to update a star situation with a user job id if its selected to be be added to a list of starSituationIDs
-        // takes in the current userjob (or just the id)
-        // takes in a situation
-        // updates the userJobID field wit the passed userjob id info
+    // takes in the current userjob (or just the id)
+    // takes in a situation
+    // updates the userJobID field wit the passed userjob id info
     // this would be called when a user job is created or updated
     
     public func updateStarSituationWithUserJobId(userJobID: String, starSitutationID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
@@ -399,5 +399,36 @@ class DatabaseService {
         }
     }
     
+    
+    public func addAnswerToAnswersArray(answerID: String, answerString: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["answers" : FieldValue.arrayUnion(["\(answerString)"])]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    public func removeAnswerFromAnswersArray(answerID: String, answerString: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["answers" : FieldValue.arrayRemove(["\(answerString)"])]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
 }
+
 
