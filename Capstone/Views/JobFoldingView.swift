@@ -13,6 +13,10 @@ class FoldingCell: UITableViewCell {
     @IBOutlet weak var foregroundView: RotatedView!
     @IBOutlet weak var foregroundViewTop: NSLayoutConstraint!
     
+    @IBOutlet weak var thirdView: UIView!
+    @IBOutlet weak var secondView: UIView!
+    @IBOutlet weak var forthView: UIView!
+    @IBOutlet weak var firstView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var containerViewTop: NSLayoutConstraint!
     
@@ -23,7 +27,7 @@ class FoldingCell: UITableViewCell {
     @IBInspectable open var itemCount: NSInteger = 4
     
     /// The color of the back cell
-    @IBInspectable open var backViewColor: UIColor = UIColor.systemPurple
+    @IBInspectable open var backViewColor: UIColor = UIColor.white
     
     var animationItemViews: [RotatedView]?
     
@@ -45,11 +49,26 @@ class FoldingCell: UITableViewCell {
      */
     @objc open func commonInit() {
         configureDefaultState()
-        
+   
         selectionStyle = .none
         
         containerView.layer.cornerRadius = foregroundView.layer.cornerRadius
         containerView.layer.masksToBounds = true
+        
+        foregroundView.layer.borderWidth = 1.0
+        foregroundView.layer.borderColor = UIColor.black.cgColor
+        
+        firstView.layer.borderWidth = 1.0
+        firstView.layer.borderColor = UIColor.black.cgColor
+        
+        secondView.layer.borderWidth = 1.0
+        secondView.layer.borderColor = UIColor.black.cgColor
+        
+        thirdView.layer.borderWidth = 1.0
+        thirdView.layer.borderColor = UIColor.black.cgColor
+        
+        forthView.layer.borderWidth = 1.0
+        forthView.layer.borderColor = UIColor.black.cgColor
     }
     
     // MARK: configure
@@ -482,6 +501,3 @@ fileprivate func convertFromCAMediaTimingFunctionName(_ input: CAMediaTimingFunc
 fileprivate func convertToCAMediaTimingFunctionName(_ input: String) -> CAMediaTimingFunctionName {
     return CAMediaTimingFunctionName(rawValue: input)
 }
-
-
-

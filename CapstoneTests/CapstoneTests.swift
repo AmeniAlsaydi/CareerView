@@ -32,7 +32,7 @@ class CapstoneTests: XCTestCase {
     }
     
     func testFetchUserJobs() {
-        let expectedCount = 1 // current user has one job 
+        let expectedCount = 16 // current user has one job 
         let exp = XCTestExpectation(description: "user jobs found")
         
         DatabaseService.shared.fetchUserJobs { (result) in
