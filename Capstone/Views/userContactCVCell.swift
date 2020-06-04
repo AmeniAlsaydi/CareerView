@@ -15,6 +15,5 @@ class UserContactCVCell: UICollectionViewCell {
         bkgdview.layer.masksToBounds = true
         bkgdview.layer.cornerRadius = 4
         nameLabel.text = (" \(contact.firstName) \(contact.lastName) ")
-        nameLabel.isUserInteractionEnabled = true
     }
 }

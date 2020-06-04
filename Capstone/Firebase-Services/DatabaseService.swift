@@ -46,7 +46,7 @@ class DatabaseService {
         guard let email = authDataResult.user.email else {
             return
         }
-        db.collection(DatabaseService.userCollection).document(authDataResult.user.uid).setData(["email": email, "createdDate": Timestamp(date: Date()), "id": authDataResult.user.uid]) { error in
+        db.collection(DatabaseService.userCollection).document(authDataResult.user.uid).setData(["email": email, "createdDate": Timestamp(date: Date()), "id": authDataResult.user.uid, "firstTimeLogin": true]) { error in
             
             if let error = error {
                 completion(.failure(error))
@@ -56,10 +56,35 @@ class DatabaseService {
             
         }
     }
-    
+    // Get data associated with a user
+    public func fetchUserData(completion: @escaping (Result<User, Error>)-> ()) {
+        guard let user = Auth.auth().currentUser else { return }
+        let userID = user.uid
+        let documentRef = db.collection(DatabaseService.userCollection).document(userID)
+        documentRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let userData = document.data().map { User($0) }
+                completion(.success(userData ?? User(createdDate: Date(), email: "N/N", firstTimeLogin: false, id: "")))
+            } else if let error = error {
+                completion(.failure(error))
+            }
+        }
+    }
+    public func updateUserFirstTimeLogin(firstTimeLogin: Bool, completion: @escaping (Result<Bool, Error>)-> ()) {
+        guard let user = Auth.auth().currentUser else { return }
+        let userID = user.uid
+        db.collection(DatabaseService.userCollection).document(userID).updateData(["firstTimeLogin": firstTimeLogin]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
+    }
     // fetch current users job
     public func fetchUserJobs(completion: @escaping (Result<[UserJob], Error>)->()) {
-        guard let user = Auth.auth().currentUser else { return}
+        guard let user = Auth.auth().currentUser else { return }
         
         let userID = user.uid // use this to test -> "LOT6p7nkxfM69CCtjB41"
         
@@ -261,6 +286,115 @@ class DatabaseService {
             } else if let snapshot = snapshot {
                 let situations = snapshot.documents.map{ StarSituation($0.data()) }
                 completion(.success(situations))
+            }
+        }
+    }
+    
+    // must be deleted from the collection as well as the all ids from where star situations are being referenced
+    public func removeStarSituation(situation: StarSituation, completion:  @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        // delete from main star situations collection
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(situation.id).delete { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    public func removeStarSituationfromUserJob(situation: StarSituation, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        // situation.userJobID is needed here to remove the id reference from its array of star situations
+        // if its nil then the star situation has not been associated with a job and probably doesnt exsit in as an id reference is any job
+        guard let jobID = situation.userJobID else {
+            completion(.success(false))
+            return
+        }
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(jobID).updateData(["starSituationIDs": FieldValue.arrayRemove(["\(situation.id)"])]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    public func addStarSituationToUserJob(situation: StarSituation, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+       
+        guard let jobID = situation.userJobID else {
+            completion(.success(false))
+            return
+        }
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(jobID).updateData(["starSituationIDs": FieldValue.arrayUnion(["\(situation.id)"])]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    // Function to update a star situation with a user job id if its selected to be be added to a list of starSituationIDs
+        // takes in the current userjob (or just the id)
+        // takes in a situation
+        // updates the userJobID field wit the passed userjob id info
+    // this would be called when a user job is created or updated
+    
+    public func updateStarSituationWithUserJobId(userJobID: String, starSitutationID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(starSitutationID).updateData(["userJobID": userJobID]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+        
+    }
+    
+    
+    public func removeStarSituationFromAnswer(answerID: String, starSolutionID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["starSituationIDs" : FieldValue.arrayRemove(["\(starSolutionID)"])]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    
+    public func addStarSituationToAnswer(answerID: String, starSolutionID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["starSituationIDs" : FieldValue.arrayUnion(["\(starSolutionID)"])]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
             }
         }
     }

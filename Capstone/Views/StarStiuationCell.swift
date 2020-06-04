@@ -14,9 +14,15 @@ class StarStiuationCell: UICollectionViewCell {
     @IBOutlet weak var numberOfQuestions: UILabel!
     @IBOutlet weak var situationLabel: UILabel!
     
+    override func layoutSubviews() {
+        self.layer.borderWidth = 2
+        //let purple = #colorLiteral(red: 0.305962503, green: 0.1264642179, blue: 0.6983457208, alpha: 1)
+        //self.layer.borderColor = purple as! CGColor
+        self.layer.cornerRadius = 13
+    }
     public func configureCell(starSituation: StarSituation) {
-//        jobTitleLabel.text = starSituation.userJob.title
-//        numberOfQuestions.text = "Answers \(starSituation.interviewQuestions.count) questions"
+        jobTitleLabel.text = starSituation.userJobID
+        numberOfQuestions.text = "\(starSituation.interviewQuestionsIDs.count) questions"
         situationLabel.text = starSituation.situation
     }
     

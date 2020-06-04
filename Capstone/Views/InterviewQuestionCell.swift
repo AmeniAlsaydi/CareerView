@@ -19,13 +19,33 @@ class InterviewQuestionCell: UICollectionViewCell {
         //self.layer.borderColor = purple as! CGColor
         self.layer.cornerRadius = 13
     }
-    public func configureCell(interviewQ: InterviewQuestion, answer: InterviewAnswer? = nil) {
+    public func configureCell(interviewQ: InterviewQuestion) {
         interviewQuestionLabel.text = interviewQ.question
-        numberOfStarsLabel.text = answer?.starSituationIDs.count.description ?? "0"
-        if answer == nil {
-            answerCheckBox.image = UIImage(systemName: "square")
-        } else {
-            answerCheckBox.image = UIImage(systemName: "checkmark.rectangle")
+        getUserAnswers(for: interviewQ)
+    }
+    private func getUserAnswers(for question: InterviewQuestion) {
+        DatabaseService.shared.fetchAnsweredQuestions(questionString: question.question) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to fetch user answers for interview question cell error: \(error.localizedDescription)")
+            case .success(let answers):
+                DispatchQueue.main.async {
+                    let answer = answers.first
+                    if answer?.answers.count ?? -1 > 0 {
+                        self?.answerCheckBox.image = UIImage(systemName: "checkmark.rectangle")
+                    } else {
+                        self?.answerCheckBox.image = UIImage(systemName: "square")
+                    }
+                    
+                    if answer?.starSituationIDs.count ?? -1 > 0 {
+                        self?.numberOfStarsLabel.text = answer?.starSituationIDs.count.description
+                    } else {
+                        self?.numberOfStarsLabel.text = "0"
+                    }
+                    
+                    
+                }
+            }
         }
     }
     
