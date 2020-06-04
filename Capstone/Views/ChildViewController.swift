@@ -7,10 +7,13 @@
 //
 
 import UIKit
-
+enum ViewState: String {
+    case answerQuestionView = "AnswerQuestionChildViewXib"
+    case addStarStoryView = "AddSTARStoryChildViewXib"
+}
 protocol ChildViewControllerActions {
     func userEnteredAnswer(childViewController: ChildViewController, answer: String)
-    //func userPressedCancel()
+    func userPressedCancel(childViewController: ChildViewController)
 }
 
 class ChildViewController: UIViewController {
@@ -19,7 +22,7 @@ class ChildViewController: UIViewController {
     @IBOutlet weak var answerTextfield: UITextField!
     
     public var delegate: ChildViewControllerActions?
-    
+        
     override func viewDidLoad() {
         answerTextfield.delegate = self
         //TODO: Keyboard handeling
@@ -39,6 +42,7 @@ class ChildViewController: UIViewController {
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         //dismiss child view controller
         //dismiss(animated: true)???
+        delegate?.userPressedCancel(childViewController: self)
     }
 
 }
