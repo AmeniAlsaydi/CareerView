@@ -378,6 +378,38 @@ class CapstoneTests: XCTestCase {
         wait(for:[exp], timeout: 5.0)
     }
     
+    func testAddingAnswerToAnswersArray() {
+        let exp = XCTestExpectation(description: "situation was added")
+        let answerID = "C8465E3A-1E63-4F44-8C49-EEDD7D96C221"
+        
+        DatabaseService.shared.addAnswerToAnswersArray(answerID: answerID, answerString: "this is my answer - testing add an answer") { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error updating a situation user job id: \(error.localizedDescription)")
+            case(.success(let result)):
+                XCTAssertTrue(result)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+    }
+
+    func testRemovingAnswerToAnswersArray() {
+        let exp = XCTestExpectation(description: "situation was remove")
+        let answerID = "C8465E3A-1E63-4F44-8C49-EEDD7D96C221"
+        
+        DatabaseService.shared.removeAnswerFromAnswersArray(answerID: answerID, answerString: "trick question") { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error updating a situation user job id: \(error.localizedDescription)")
+            case(.success(let result)):
+                XCTAssertTrue(result)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+    }
+    
 }
 
 
