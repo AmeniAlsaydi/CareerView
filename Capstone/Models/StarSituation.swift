@@ -18,7 +18,7 @@ struct StarSituation {
     var action: String?
     var result: String?
     var id: String
-    var userJobID: String
+    var userJobID: String?
     var interviewQuestionsIDs: [String]
 }
 
@@ -29,7 +29,7 @@ extension StarSituation {
         self.action = dictionary["action"] as? String ?? nil
         self.result = dictionary["result"] as? String ?? nil
         self.id = dictionary["id"] as? String ?? "No ID found"
-        self.userJobID = dictionary["userJobID"] as? String ?? "No userJob ID found"
+        self.userJobID = dictionary["userJobID"] as? String ?? nil
         self.interviewQuestionsIDs = dictionary["interviewQuestionsIDs"] as? [String] ?? ["No interview questions ID found"]
     }
 }
