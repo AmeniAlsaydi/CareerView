@@ -47,9 +47,15 @@ class InterviewAnswerDetailController: UIViewController {
         super.viewDidLoad()
         updateUI()
         configureCollectionViews()
+        configureNavBar()
         getUserSTARS()
         getUserAnswers()
     }
+    
+    private func updateUI() {
+        questionLabel.text = question?.question
+    }
+    
     private func configureCollectionViews() {
         answersCollectionView.delegate = self
         answersCollectionView.dataSource = self
@@ -59,10 +65,17 @@ class InterviewAnswerDetailController: UIViewController {
         starStoriesCollectionView.dataSource = self
         starStoriesCollectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
     }
-    private func updateUI() {
-        questionLabel.text = question?.question
-        suggestionLabel.text = question?.suggestion ?? ""
+    
+    private func configureNavBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "lightbulb"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
     }
+    
+    @objc private func suggestionButtonPressed(_ sender: UIBarButtonItem) {
+        let interviewQuestionSuggestionViewController = InterviewAnswerSuggestionViewController(nibName: "InterviewAnswerSuggestionXib", bundle: nil)
+        interviewQuestionSuggestionViewController.interviewQuestion = question
+        present(interviewQuestionSuggestionViewController, animated: true)
+    }
+    
     private func getUserAnswers() {
         guard let question = question else {return}
         DatabaseService.shared.fetchAnsweredQuestions(questionString: question.question) { [weak self] (result) in
@@ -76,6 +89,7 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
+    
     private func getUserSTARS() {
         DatabaseService.shared.fetchStarSituations { [weak self] (result) in
             switch result {
@@ -128,10 +142,10 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             guard let cell = answersCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewAnswerCell", for: indexPath) as? QuestionAnswerDetailCell else {
                 fatalError("could not cast to QuestionAnswerDetailCell")
             }
-            
             let answer = answers[indexPath.row]
             cell.configureCell(answer: answer.answers.first ?? "")
             return cell
+            
         } else {
             guard let cell = starStoriesCollectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarStiuationCell else {
                 fatalError("could not cast to StarSituationCell")
