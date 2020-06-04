@@ -12,33 +12,39 @@ class JobHistoryController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private let numberOfjobs = 5
-    
-    enum Const {
-        static let closeCellHeight: CGFloat = 200
-        static let openCellHeight: CGFloat = 800
-        static let rowsCount = 5
+    var userJobHistory = [UserJob]() {
+        didSet {
+            self.tableView.reloadData()
+            self.setup()
+        }
     }
     
-    var cellHeights: [CGFloat] = []
+    enum Const {
+        static let closeCellHeight: CGFloat = 180
+        static let openCellHeight: CGFloat = 620
+    }
+    
+    var cellHeights = [CGFloat]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         configureNavBar()
+        loadUserJobs()
+        setup()
     }
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        
-        for _ in 0...Const.rowsCount {
-            cellHeights.append(Const.closeCellHeight)
-        }
-        
         tableView.register(UINib(nibName: "UserJobFoldingCellXib", bundle: nil), forCellReuseIdentifier: "foldingCell")
     }
+    
+    private func setup() {
+        cellHeights = Array(repeating: Const.closeCellHeight, count: userJobHistory.count)
+    }
+
     private func configureNavBar() {
-        navigationItem.title = "Job History: \(numberOfjobs) jobs"
+         navigationItem.title = "CallBack"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
@@ -47,12 +53,42 @@ class JobHistoryController: UIViewController {
     }
     
     //TODO:- Add database function to grab user jobs data from firebase
-    
-}
-extension JobHistoryController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return cellHeights[indexPath.row]
+    private func loadUserJobs() {
+        DatabaseService.shared.fetchUserJobs { (result) in
+            switch result {
+            case .failure(let error):
+                print("error fetching user jobs\(error.localizedDescription)")
+            case .success(let userJobHistory):
+                DispatchQueue.main.async {
+                    self.userJobHistory = userJobHistory
+                }
+            }
+        }
     }
+}
+
+extension JobHistoryController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // TODO:- add data count
+        return userJobHistory.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //TODO:- Update this function to take in foldable cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "foldingCell", for: indexPath) as? FoldingCell else {
+            fatalError("could not cast to jobHistoryBasicCell")
+        }
+        let durations: [TimeInterval] = [0.26, 0.3, 0.3]
+        cell.durationsForExpandedState = durations
+        cell.durationsForCollapsedState = durations
+        return cell
+    }
+}
+
+extension JobHistoryController: UITableViewDelegate {
+     func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+         return cellHeights[indexPath.row]
+     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! FoldingCell
@@ -87,31 +123,17 @@ extension JobHistoryController: UITableViewDelegate {
         guard case let cell as JobHistoryExpandableCell = cell else {
             return
         }
-
+        
         cell.backgroundColor = .clear
-    
+       
         if cellHeights[indexPath.row] == Const.closeCellHeight {
             cell.unfold(false, animated: false, completion: nil)
         } else {
             cell.unfold(true, animated: false, completion: nil)
         }
+        
+        let aUserJobHistory = userJobHistory[indexPath.row]
+        cell.updateGeneralInfo(userJob: aUserJobHistory)
     }
 }
-extension JobHistoryController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO:- add data count
-        return Const.rowsCount
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //TODO:- Update this function to take in foldable cell
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "foldingCell", for: indexPath) as? FoldingCell else {
-            fatalError("could not cast to jobHistoryBasicCell")
-        }
-        let durations: [TimeInterval] = [0.26, 0.2, 0.2]
-        cell.durationsForExpandedState = durations
-        cell.durationsForCollapsedState = durations
-        return cell
-    }
-    
-}
+
