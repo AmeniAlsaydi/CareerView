@@ -302,27 +302,5 @@ class DatabaseService {
         
     }
     
-    
-    public func getUserJob(situation: StarSituation, completion: @escaping (Result<UserJob?, Error>) -> ()) {
-    
-    guard let user = Auth.auth().currentUser else {return}
-    let userID = user.uid
-
-    guard let jobID = situation.userJobID else {
-        completion(.success(nil))
-        return
-    }
-        
-        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(jobID).getDocument { (snapshot, error) in
-            if let error = error {
-                completion(.failure(error))
-            } else if let dictData = snapshot?.data() {
-                let job = UserJob(dictData)
-                completion(.success(job))
-            }
-        }
-        
-        
-    }
 }
 
