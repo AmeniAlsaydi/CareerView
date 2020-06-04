@@ -39,7 +39,7 @@ class EmptyView: UIView {
             super.init(frame: UIScreen.main.bounds)
             titleLabel.text = title
             msgLabel.text = message
-            image.image = UIImage(named: imageName)
+            image.image = UIImage(systemName: imageName)
             
             commonInit()
         }
