@@ -299,7 +299,25 @@ class DatabaseService {
                 completion(.success(true))
             }
         }
+    }
+    
+    public func addStarSituationToUserJob(situation: StarSituation, completion: @escaping (Result<Bool, Error>) -> ()) {
         
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+       
+        guard let jobID = situation.userJobID else {
+            completion(.success(false))
+            return
+        }
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.userJobCollection).document(jobID).updateData(["starSituationIDs": FieldValue.arrayUnion(["\(situation.id)"])]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
     }
     
 }

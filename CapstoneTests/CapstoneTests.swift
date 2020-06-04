@@ -289,7 +289,7 @@ class CapstoneTests: XCTestCase {
         wait(for:[exp], timeout: 5.0)
     }
     
-    func testRemovingStarSituation() {
+    func testRemovingStarSituationFromUserJob() {
         
         let exp = XCTestExpectation(description: "situation removed")
         let situation = StarSituation(situation: "", task: "", action: "", result: "", id: "id2", userJobID: "FE96D016-6C7D-439A-B71F-50215DDF017C", interviewQuestionsIDs: [])
@@ -305,6 +305,24 @@ class CapstoneTests: XCTestCase {
         }
          wait(for:[exp], timeout: 5.0)
     
+    }
+    
+    func testAddingStarSituationToUserJob() {
+        let exp = XCTestExpectation(description: "situation added")
+        let situation = StarSituation(situation: "", task: "", action: "", result: "", id: "id2", userJobID: "FE96D016-6C7D-439A-B71F-50215DDF017C", interviewQuestionsIDs: [])
+        
+        DatabaseService.shared.addStarSituationToUserJob(situation: situation) { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error removing a situation from user job: \(error.localizedDescription)")
+            case(.success(let result)):
+                XCTAssert(result)
+            }
+        }
+         wait(for:[exp], timeout: 5.0)
+        
+        
     }
     
 }
