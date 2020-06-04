@@ -342,6 +342,24 @@ class CapstoneTests: XCTestCase {
         
     }
     
+    func testRemovingStarSituationFromAnswer() {
+        let exp = XCTestExpectation(description: "situation was removed")
+        let situationID = "id1"
+        let answerID = "C8465E3A-1E63-4F44-8C49-EEDD7D96C221"
+        
+        DatabaseService.shared.removeStarSituationFromAnswer(answerID: answerID, starSolutionID: situationID) { (result) in
+            exp.fulfill()
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error updating a situation user job id: \(error.localizedDescription)")
+            case(.success(let result)):
+                XCTAssertTrue(result)
+            }
+        }
+        wait(for:[exp], timeout: 5.0)
+        
+    }
+    
 }
 
 
