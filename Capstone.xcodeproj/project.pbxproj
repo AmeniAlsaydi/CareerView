@@ -13,6 +13,7 @@
 		884E555C248408CF00BA180F /* UserContactCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 884E555B248408CF00BA180F /* UserContactCVCell.xib */; };
 		884E555E2484094100BA180F /* UserContactCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E555D2484094100BA180F /* UserContactCVCell.swift */; };
 		884E55602485542100BA180F /* JobHistoryExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */; };
+
 		B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C2392476832F000811C5 /* AppDelegate.swift */; };
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
 		B725C24324768331000811C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B725C24224768331000811C5 /* Assets.xcassets */; };
@@ -95,6 +96,7 @@
 		884E555B248408CF00BA180F /* UserContactCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserContactCVCell.xib; sourceTree = "<group>"; };
 		884E555D2484094100BA180F /* UserContactCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContactCVCell.swift; sourceTree = "<group>"; };
 		884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobHistoryExpandableCell.swift; sourceTree = "<group>"; };
+
 		B725C2362476832F000811C5 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B725C2392476832F000811C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B725C23B2476832F000811C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				B7976E832480504C001AE3B3 /* Xibs */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
+
 				B725C24724768331000811C5 /* Info.plist */,
 			);
 			path = Capstone;
@@ -489,7 +492,7 @@
 				B7976E9724805CDA001AE3B3 /* InterviewQuestionsMainXib.xib in Resources */,
 				C6E214E824893B510054CC3C /* AddSTARStoryChildViewXib.xib in Resources */,
 				B7976E9F24805E21001AE3B3 /* NewApplicationXib.xib in Resources */,
-
+				884E55682486FF8A00BA180F /* GoogleService-Info.plist in Resources */,
 				B7976EAF2480614E001AE3B3 /* QuestionAnswerDetailCellXib.xib in Resources */,
 				B7976EA124805E4F001AE3B3 /* ApplicationDetailXib.xib in Resources */,
 			);
