@@ -28,6 +28,9 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
+    private var newAnswers = [String]()
+    private var newStarStorieIDs = [String]()
+    
     public var starStories = [StarSituation]() {
         didSet {
             starStoriesCollectionView.reloadData()
@@ -44,9 +47,15 @@ class InterviewAnswerDetailController: UIViewController {
         super.viewDidLoad()
         updateUI()
         configureCollectionViews()
+        configureNavBar()
         getUserSTARS()
         getUserAnswers()
     }
+    
+    private func updateUI() {
+        questionLabel.text = question?.question
+    }
+    
     private func configureCollectionViews() {
         answersCollectionView.delegate = self
         answersCollectionView.dataSource = self
@@ -56,10 +65,17 @@ class InterviewAnswerDetailController: UIViewController {
         starStoriesCollectionView.dataSource = self
         starStoriesCollectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
     }
-    private func updateUI() {
-        questionLabel.text = question?.question
-        suggestionLabel.text = question?.suggestion ?? ""
+    
+    private func configureNavBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "lightbulb"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
     }
+    
+    @objc private func suggestionButtonPressed(_ sender: UIBarButtonItem) {
+        let interviewQuestionSuggestionViewController = InterviewAnswerSuggestionViewController(nibName: "InterviewAnswerSuggestionXib", bundle: nil)
+        interviewQuestionSuggestionViewController.interviewQuestion = question
+        present(interviewQuestionSuggestionViewController, animated: true)
+    }
+    
     private func getUserAnswers() {
         guard let question = question else {return}
         DatabaseService.shared.fetchAnsweredQuestions(questionString: question.question) { [weak self] (result) in
@@ -73,6 +89,7 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
+    
     private func getUserSTARS() {
         DatabaseService.shared.fetchStarSituations { [weak self] (result) in
             switch result {
@@ -88,11 +105,15 @@ class InterviewAnswerDetailController: UIViewController {
     
     @IBAction func addAnswerButtonPressed(_ sender: UIButton){
         //TODO: add view/or something related where user could add their answer into a textfield and save
+        let answerQuestionXib = "AnswerQuestionChildViewXib"
+        let child = ChildViewController(nibName: answerQuestionXib, bundle: nil)
+        self.addChild(child, frame: UIScreen.main.bounds)
+        child.delegate = self
+        //need keyboard handeling :(
     }
     @IBAction func addSTARStoryButtonPressed(_ sender: UIButton) {
         //TODO: add view/or something related where user could search and select their star situation
     }
-    
     
 }
 extension InterviewAnswerDetailController: UICollectionViewDelegateFlowLayout {
@@ -121,10 +142,10 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             guard let cell = answersCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewAnswerCell", for: indexPath) as? QuestionAnswerDetailCell else {
                 fatalError("could not cast to QuestionAnswerDetailCell")
             }
-            
             let answer = answers[indexPath.row]
             cell.configureCell(answer: answer.answers.first ?? "")
             return cell
+            
         } else {
             guard let cell = starStoriesCollectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarStiuationCell else {
                 fatalError("could not cast to StarSituationCell")
@@ -132,6 +153,76 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             let story = starStories[indexPath.row]
             cell.configureCell(starSituation: story)
             return cell
+        }
+        
+    }
+    
+    
+}
+extension InterviewAnswerDetailController {
+    //TODO: Move this to its own file for other vc's needing a child view controller
+    
+    func addChild(_ childController: UIViewController, frame: CGRect? = nil) {
+        //add child view controller
+        addChild(childController)
+        
+        //set the size of the child view controller's frame to half the parent view controller's height
+        //frame = UIScreen.main.bounds
+        if let frame = frame {
+            let height: CGFloat = frame.height * 0.5
+            let width: CGFloat = frame.width
+            let x: CGFloat = frame.minX
+            let y: CGFloat = frame.midY
+            childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
+        }
+        
+        //add the childcontroller's view as the parent view controller's subview
+        view.addSubview(childController.view)
+        //pass child to parent
+        childController.didMove(toParent: self)
+    }
+    func removeChild(childController: UIViewController) {
+        //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
+        willMove(toParent: nil)
+        
+        //remove the child view controller's view from parent's view
+        childController.view.removeFromSuperview()
+        
+        //remove child view controller from parent view controller
+        removeFromParent()
+    }
+}
+extension InterviewAnswerDetailController: ChildViewControllerActions {
+    func userPressedCancel(childViewController: ChildViewController) {
+        removeChild(childController: childViewController)
+        //dismiss(animated: true)
+    }
+    
+    func userEnteredAnswer(childViewController: ChildViewController, answer: String) {
+        //1. append answer to newAnswers array
+        //2. check if AnsweredQuestion has answers or star stories for this question
+            //a. if it does, use update function
+            //b. if it doesn't, use create function -> repeat for star story child
+        newAnswers.append(answer)
+        
+        if answers.count < 1 && starStories.count < 0 {
+            let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question?.question ?? "could not pass question", answers: newAnswers, starSituationIDs: newStarStorieIDs)
+            DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: newAnswer) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Error", message: "Unable to add answer at this time error: \(error.localizedDescription)")
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Answer Submitted!", message: "")
+                    }
+                    self?.removeChild(childController: childViewController)
+                }
+            }
+            
+        } else {
+            //TODO: Update AnsweredQuestion
         }
         
     }
