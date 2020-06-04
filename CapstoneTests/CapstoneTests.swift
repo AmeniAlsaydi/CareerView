@@ -303,30 +303,10 @@ class CapstoneTests: XCTestCase {
                 XCTAssert(result)
             }
         }
-         wait(for:[exp], timeout: 9.0)
+         wait(for:[exp], timeout: 5.0)
     
     }
     
-    
-    func testgetingUser() {
-        
-        let exp = XCTestExpectation(description: "user job found")
-        let situation = StarSituation(situation: "", task: "", action: "", result: "", id: "id2", userJobID: "FE96D016-6C7D-439A-B71F-50215DDF017C", interviewQuestionsIDs: [])
-        let expectedIDs = ["id1", "id2"]
-        
-        DatabaseService.shared.getUserJob(situation: situation) { (result) in
-            exp.fulfill()
-            switch result {
-            case(.failure(let error)):
-                 XCTFail("error getting user job from situation: \(error.localizedDescription)")
-            case(.success(let userJob)):
-                XCTAssertEqual(expectedIDs, userJob?.starSituationIDs)
-                
-            }
-        }
-        
-        wait(for:[exp], timeout: 5.0)
-    }
 }
     
 
