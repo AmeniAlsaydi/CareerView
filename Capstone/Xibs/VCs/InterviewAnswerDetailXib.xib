@@ -12,7 +12,6 @@
                 <outlet property="answersCollectionView" destination="dbf-iK-Whd" id="zMK-bE-6Fj"/>
                 <outlet property="questionLabel" destination="0GE-L5-SBQ" id="out-1E-7gQ"/>
                 <outlet property="starStoriesCollectionView" destination="FvK-Jj-m8Q" id="wRK-Dm-iz1"/>
-                <outlet property="suggestionLabel" destination="FHb-8a-hHV" id="Vbw-Me-TEu"/>
                 <outlet property="view" destination="N40-64-mQx" id="Ng3-1f-krt"/>
             </connections>
         </placeholder>
@@ -28,19 +27,19 @@
                             <rect key="frame" x="0.0" y="52" width="414" height="802"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GE-L5-SBQ">
-                                    <rect key="frame" x="10" y="0.0" width="394" height="26.5"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                    <rect key="frame" x="10" y="0.0" width="394" height="33.5"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKW-dx-599">
-                                    <rect key="frame" x="10" y="77" width="394" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your answers:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKW-dx-599">
+                                    <rect key="frame" x="10" y="63.5" width="394" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dbf-iK-Whd">
-                                    <rect key="frame" x="10" y="108" width="394" height="240.5"/>
+                                    <rect key="frame" x="10" y="94.5" width="394" height="240.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pbH-Et-SSx">
                                         <size key="itemSize" width="128" height="128"/>
@@ -50,7 +49,7 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Bb-ig-QSj">
-                                    <rect key="frame" x="350" y="118.5" width="44" height="43"/>
+                                    <rect key="frame" x="350" y="105" width="44" height="43"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="IpT-6h-wJl"/>
                                         <constraint firstAttribute="width" constant="44" id="aHE-Uu-RQd"/>
@@ -63,14 +62,14 @@
                                         <action selector="addAnswerButtonPressed:" destination="-1" eventType="touchUpInside" id="wua-3U-mXR"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STAR Stories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5c-hs-Rqv">
-                                    <rect key="frame" x="10" y="368.5" width="394" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your STAR Stories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5c-hs-Rqv">
+                                    <rect key="frame" x="10" y="355" width="394" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="FvK-Jj-m8Q">
-                                    <rect key="frame" x="10" y="399.5" width="394" height="240.5"/>
+                                    <rect key="frame" x="10" y="386" width="394" height="240.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GF9-aV-sIz">
                                         <size key="itemSize" width="128" height="128"/>
@@ -80,7 +79,7 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3h-w9-3C5">
-                                    <rect key="frame" x="350" y="410" width="44" height="43"/>
+                                    <rect key="frame" x="350" y="396.5" width="44" height="43"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="51a-j1-Nzu"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="LdY-K7-Kyj"/>
@@ -93,35 +92,26 @@
                                         <action selector="addSTARStoryButtonPressed:" destination="-1" eventType="touchUpInside" id="8nk-wp-ZTU"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suggestion:" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHb-8a-hHV">
-                                    <rect key="frame" x="20" y="36.5" width="374" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstItem="FvK-Jj-m8Q" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="10" id="67J-lc-MPN"/>
-                                <constraint firstAttribute="trailing" secondItem="FHb-8a-hHV" secondAttribute="trailing" constant="20" id="6ES-G3-A4G"/>
                                 <constraint firstItem="FvK-Jj-m8Q" firstAttribute="height" secondItem="Kea-oQ-9Ec" secondAttribute="height" multiplier="0.3" id="DKo-jy-1Ef"/>
                                 <constraint firstItem="d5c-hs-Rqv" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="10" id="GnC-eO-W50"/>
                                 <constraint firstItem="dbf-iK-Whd" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="10" id="Jb7-wZ-S77"/>
                                 <constraint firstItem="FKW-dx-599" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="10" id="Jp2-vX-7qe"/>
-                                <constraint firstItem="FHb-8a-hHV" firstAttribute="leading" secondItem="Kea-oQ-9Ec" secondAttribute="leading" constant="20" id="L44-cP-5aY"/>
                                 <constraint firstItem="FvK-Jj-m8Q" firstAttribute="top" secondItem="d5c-hs-Rqv" secondAttribute="bottom" constant="10" id="QDa-dh-QvO"/>
-                                <constraint firstItem="FHb-8a-hHV" firstAttribute="top" secondItem="0GE-L5-SBQ" secondAttribute="bottom" constant="10" id="QzY-cE-q7K"/>
                                 <constraint firstAttribute="trailing" secondItem="Z3h-w9-3C5" secondAttribute="trailing" constant="20" id="Rhm-ER-FRd"/>
                                 <constraint firstAttribute="trailing" secondItem="FKW-dx-599" secondAttribute="trailing" constant="10" id="RpS-Ya-f2W"/>
                                 <constraint firstItem="0GE-L5-SBQ" firstAttribute="top" secondItem="Kea-oQ-9Ec" secondAttribute="top" id="VSr-uA-NxD"/>
                                 <constraint firstAttribute="trailing" secondItem="dbf-iK-Whd" secondAttribute="trailing" constant="10" id="VXL-vQ-mIg"/>
-                                <constraint firstItem="FKW-dx-599" firstAttribute="top" secondItem="FHb-8a-hHV" secondAttribute="bottom" constant="20" id="XZh-cC-ozO"/>
                                 <constraint firstAttribute="trailing" secondItem="8Bb-ig-QSj" secondAttribute="trailing" constant="20" id="bhk-bZ-myR"/>
                                 <constraint firstItem="8Bb-ig-QSj" firstAttribute="top" secondItem="FKW-dx-599" secondAttribute="bottom" constant="20" id="drR-ib-EuS"/>
                                 <constraint firstItem="dbf-iK-Whd" firstAttribute="top" secondItem="FKW-dx-599" secondAttribute="bottom" constant="10" id="ewz-3E-vEe"/>
                                 <constraint firstItem="dbf-iK-Whd" firstAttribute="height" secondItem="Kea-oQ-9Ec" secondAttribute="height" multiplier="0.3" id="iil-IZ-uki"/>
                                 <constraint firstAttribute="trailing" secondItem="FvK-Jj-m8Q" secondAttribute="trailing" constant="10" id="jVg-SM-kyA"/>
                                 <constraint firstItem="d5c-hs-Rqv" firstAttribute="top" secondItem="dbf-iK-Whd" secondAttribute="bottom" constant="20" id="jpY-5Q-Hzb"/>
+                                <constraint firstItem="FKW-dx-599" firstAttribute="top" secondItem="0GE-L5-SBQ" secondAttribute="bottom" constant="30" id="lEW-PO-twn"/>
                                 <constraint firstAttribute="trailing" secondItem="d5c-hs-Rqv" secondAttribute="trailing" constant="10" id="m8E-aS-f9Q"/>
                                 <constraint firstAttribute="trailing" secondItem="0GE-L5-SBQ" secondAttribute="trailing" constant="10" id="nti-Xr-iNu"/>
                                 <constraint firstItem="Z3h-w9-3C5" firstAttribute="top" secondItem="d5c-hs-Rqv" secondAttribute="bottom" constant="20" id="qmM-lR-bzc"/>
