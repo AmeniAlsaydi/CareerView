@@ -50,6 +50,7 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
+    //MARK:- ViewDidLoad/ViewWillAppear/ViewDidDisappear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         listener = Firestore.firestore().collection(DatabaseService.userCollection).addSnapshotListener({ [weak self] (snapshot, error) in

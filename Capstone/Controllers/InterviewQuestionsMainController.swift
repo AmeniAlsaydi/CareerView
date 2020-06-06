@@ -18,9 +18,6 @@ class InterviewQuestionsMainController: UIViewController {
             self.questionsCollectionView.reloadData()
         }
     }
-    
-    //TODO: public var customQuestions = []
-    
     private var searchQuery = String() {
         didSet {
             DispatchQueue.main.async {
@@ -28,7 +25,6 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -36,15 +32,26 @@ class InterviewQuestionsMainController: UIViewController {
         configureNavBar()
         getInterviewQuestions()
     }
+    //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(filterQuestionsButtonPressed(_:)))
     }
+    @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
+        let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
+        show(interviewQuestionEntryVC, sender: nil)
+    }
+    @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {
+        //TODO: add a way for user to filter
+    }
+    //MARK:- Config Collection View
     private func configureCollectionView() {
         questionsCollectionView.delegate = self
         questionsCollectionView.dataSource = self
         questionsCollectionView.register(UINib(nibName: "InterviewQuestionCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewQuestionCell")
     }
+    //MARK:- Get Data
     private func getInterviewQuestions() {
         DatabaseService.shared.fetchCommonInterviewQuestions { [weak self] (result) in
             switch result {
@@ -58,16 +65,19 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     private func getUserCreatedQuestions() {
-        //TODO: need access to user created interview questions
+        DatabaseService.shared.fetchCustomInterviewQuestions { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to retrieve custom questions error: \(error.localizedDescription)")
+            case .success(let customQuestions):
+                DispatchQueue.main.async {
+                    self?.interviewQuestions.append(contentsOf: customQuestions)
+                }
+            }
+        }
     }
-    
-    @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
-        let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
-        show(interviewQuestionEntryVC, sender: nil)
-    }
-    
-    
 }
+//MARK:- COllectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
@@ -86,7 +96,6 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return interviewQuestions.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = questionsCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewQuestionCell", for: indexPath) as? InterviewQuestionCell else {
             fatalError("could not cast to interviewquestioncell")
@@ -95,9 +104,8 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
         cell.configureCell(interviewQ: question)
         return cell
     }
-    
-    
 }
+//MARK:- Search Bar Delegate
 extension InterviewQuestionsMainController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if (searchBar.text?.isEmpty ?? false) {
