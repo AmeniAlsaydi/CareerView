@@ -11,7 +11,7 @@ import UIKit
 enum FilterState {
     case common
     case custom
-    case favorited //TODO: Add user favorite questions
+    case saved //TODO: Add user favorite questions
     case all
 }
 
@@ -20,7 +20,7 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private var filterState: FilterState = .all
+    public var filterState: FilterState = .all
     
     private var commonInterviewQuestions = [InterviewQuestion]() {
         didSet {
@@ -74,6 +74,8 @@ class InterviewQuestionsMainController: UIViewController {
     }
     @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {
         //TODO: add a way for user to filter
+        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
+        present(filterMenuVC, animated: true)
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
