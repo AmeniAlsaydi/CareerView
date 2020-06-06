@@ -13,7 +13,7 @@
                 <outlet property="answersCollectionView" destination="dbf-iK-Whd" id="zMK-bE-6Fj"/>
                 <outlet property="cancelAnswerButton" destination="vgv-3d-onP" id="U2G-yO-uV6"/>
                 <outlet property="confirmAddAnswerButton" destination="tB6-B4-ydu" id="VmA-HK-JrW"/>
-                <outlet property="enterAnswerTextfield" destination="sHD-Sd-JwC" id="5Ly-fk-PW7"/>
+                <outlet property="enterAnswerTextfield" destination="sHD-Sd-JwC" id="yao-hc-U0H"/>
                 <outlet property="questionLabel" destination="0GE-L5-SBQ" id="out-1E-7gQ"/>
                 <outlet property="starStoriesCollectionView" destination="FvK-Jj-m8Q" id="wRK-Dm-iz1"/>
                 <outlet property="view" destination="N40-64-mQx" id="Ng3-1f-krt"/>
@@ -105,7 +105,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
-                                        <outlet property="delegate" destination="-1" id="D87-ZO-p9T"/>
+                                        <outlet property="delegate" destination="-1" id="HdK-4a-iEa"/>
                                     </connections>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-3d-onP">
@@ -131,7 +131,6 @@
                                     <color key="tintColor" red="0.1150386602" green="0.054188097349999999" blue="0.28289578050000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <state key="normal" title="Button" image="checkmark" catalog="system"/>
                                     <connections>
-                                        <action selector="cancelAddAnswerButtonPressed:" destination="-1" eventType="touchUpInside" id="dDx-go-gmt"/>
                                         <action selector="confirmAddAnswerButtonPressed:" destination="-1" eventType="touchUpInside" id="w3H-jW-8tD"/>
                                     </connections>
                                 </button>
