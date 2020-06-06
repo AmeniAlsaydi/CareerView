@@ -12,8 +12,9 @@ class StarStoryEntryController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureView()
     }
-
+    private func configureView() {
+        navigationItem.backBarButtonItem?.title = "Back"
+    }
 }

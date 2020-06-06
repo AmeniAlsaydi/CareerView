@@ -43,7 +43,8 @@ class StarStoryMainController: UIViewController {
         }
     }
     @objc private func segueToAddStarStoryViewController(_ sender: UIBarButtonItem) {
-        print("Segue pressed")
+        let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
+        show(destinationViewController, sender: nil)
     }
 }
 //MARK:- Extensions on view controller
