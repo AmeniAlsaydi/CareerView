@@ -8,20 +8,49 @@
 
 import UIKit
 
+enum FilterState {
+    case common
+    case custom
+    case favorited //TODO: Add user favorite questions
+    case all
+}
+
 class InterviewQuestionsMainController: UIViewController {
     
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private var interviewQuestions = [InterviewQuestion]() {
+    private var filterState: FilterState = .all
+    
+    private var commonInterviewQuestions = [InterviewQuestion]() {
         didSet {
-            self.questionsCollectionView.reloadData()
+            if filterState == .all {
+                allQuestions.append(contentsOf: commonInterviewQuestions)
+            } else if filterState == .common {
+                self.questionsCollectionView.reloadData()
+            }
+        }
+    }
+    private var customQuestions = [InterviewQuestion]() {
+        didSet {
+            if filterState == .all {
+                allQuestions.append(contentsOf: customQuestions)
+            } else if filterState == .custom {
+                self.questionsCollectionView.reloadData()
+            }
+        }
+    }
+    private var allQuestions = [InterviewQuestion]() {
+        didSet {
+            if filterState == .all {
+                self.questionsCollectionView.reloadData()
+            }
         }
     }
     private var searchQuery = String() {
         didSet {
             DispatchQueue.main.async {
-                self.interviewQuestions = self.interviewQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+                self.commonInterviewQuestions = self.commonInterviewQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
             }
         }
     }
@@ -31,6 +60,7 @@ class InterviewQuestionsMainController: UIViewController {
         configureCollectionView()
         configureNavBar()
         getInterviewQuestions()
+        getUserCreatedQuestions()
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
@@ -59,7 +89,7 @@ class InterviewQuestionsMainController: UIViewController {
                 print("could not fetch common interview questions from firebase error: \(error.localizedDescription)")
             case .success(let questions):
                 DispatchQueue.main.async {
-                    self?.interviewQuestions = questions
+                    self?.commonInterviewQuestions = questions
                 }
             }
         }
@@ -71,7 +101,7 @@ class InterviewQuestionsMainController: UIViewController {
                 print("unable to retrieve custom questions error: \(error.localizedDescription)")
             case .success(let customQuestions):
                 DispatchQueue.main.async {
-                    self?.interviewQuestions.append(contentsOf: customQuestions)
+                    self?.customQuestions = customQuestions
                 }
             }
         }
@@ -86,7 +116,7 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: itemWidth, height: itemHeight)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let question = interviewQuestions[indexPath.row]
+        let question = commonInterviewQuestions[indexPath.row]
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
         interviewAnswerVC.question = question
         show(interviewAnswerVC, sender: nil)
@@ -94,14 +124,28 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
 }
 extension InterviewQuestionsMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return interviewQuestions.count
+        if filterState == .all {
+            return allQuestions.count
+        } else if filterState == .common {
+            return commonInterviewQuestions.count
+        } else {
+            return customQuestions.count
+        } //TODO: favorites
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = questionsCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewQuestionCell", for: indexPath) as? InterviewQuestionCell else {
             fatalError("could not cast to interviewquestioncell")
         }
-        let question = interviewQuestions[indexPath.row]
-        cell.configureCell(interviewQ: question)
+        if filterState == .all {
+            let question = allQuestions[indexPath.row]
+            cell.configureCell(interviewQ: question)
+        } else if filterState == .common {
+            let question = commonInterviewQuestions[indexPath.row]
+            cell.configureCell(interviewQ: question)
+        } else if filterState == .custom {
+            let question = customQuestions[indexPath.row]
+            cell.configureCell(interviewQ: question)
+        } //TODO: favorites
         return cell
     }
 }

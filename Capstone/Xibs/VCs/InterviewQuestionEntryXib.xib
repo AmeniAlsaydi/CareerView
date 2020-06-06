@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InterviewQuestionEntryController" customModule="Capstone" customModuleProvider="target">
             <connections>
+                <outlet property="questionTextfield" destination="bhr-wB-2Pp" id="H4e-zB-0z1"/>
                 <outlet property="view" destination="iN0-l3-epB" id="TGl-6D-WPO"/>
             </connections>
         </placeholder>
@@ -16,7 +17,32 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter An Interview Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmH-1b-5dA">
+                    <rect key="frame" x="20" y="64" width="374" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bhr-wB-2Pp">
+                    <rect key="frame" x="20" y="95" width="374" height="89.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="UIs-wc-ftj"/>
+                    </connections>
+                </textField>
+            </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CmH-1b-5dA" secondAttribute="trailing" constant="20" id="1kx-Ct-O4j"/>
+                <constraint firstItem="CmH-1b-5dA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="ElC-1Z-JR4"/>
+                <constraint firstItem="bhr-wB-2Pp" firstAttribute="top" secondItem="CmH-1b-5dA" secondAttribute="bottom" constant="10" id="cTV-cF-1iB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bhr-wB-2Pp" secondAttribute="trailing" constant="20" id="iDr-LC-WyA"/>
+                <constraint firstItem="bhr-wB-2Pp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="iPU-KZ-pDi"/>
+                <constraint firstItem="bhr-wB-2Pp" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.1" id="skr-c1-bnx"/>
+                <constraint firstItem="CmH-1b-5dA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="vMs-an-aY8"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="139" y="145"/>
         </view>
