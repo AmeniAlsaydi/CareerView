@@ -28,9 +28,11 @@ class InterviewAnswerDetailController: UIViewController {
             } else {
                 answersCollectionView.reloadData()
                 answersCollectionView.backgroundView = nil
+                answerStrings = answers.first?.answers ?? []
             }
         }
     }
+    public var answerStrings = [String]()
     private var newAnswers = [String]()
     private var newStarStorieIDs = [String]()
     
@@ -48,9 +50,10 @@ class InterviewAnswerDetailController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
         getUserSTARS()
         getUserAnswers()
+        updateUI()
+        enterAnswerTextfield.delegate = self
     }
     private func hideAddAnswerElements() {
         cancelAnswerButton.isHidden = true
@@ -85,13 +88,18 @@ class InterviewAnswerDetailController: UIViewController {
     }
     
     private func configureNavBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "lightbulb"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
+        let suggestionButton = UIBarButtonItem(image: UIImage(systemName: "lightbulb"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
+        let saveQuestionButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
+        navigationItem.rightBarButtonItems = [suggestionButton, saveQuestionButton]
     }
     
     @objc private func suggestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionSuggestionViewController = InterviewAnswerSuggestionViewController(nibName: "InterviewAnswerSuggestionXib", bundle: nil)
         interviewQuestionSuggestionViewController.interviewQuestion = question
         present(interviewQuestionSuggestionViewController, animated: true)
+    }
+    @objc private func addQuestionToSavedQuestionsButtonPressed(_ sender: UIBarButtonItem) {
+        //TODO: Save question to a user's collection of saved questions
     }
     
     private func getUserAnswers() {
@@ -128,13 +136,13 @@ class InterviewAnswerDetailController: UIViewController {
         hideAddAnswerElements()
     }
     @IBAction func confirmAddAnswerButtonPressed(_ sender: UIButton) {
-        guard let answer = enterAnswerTextfield.text, !answer.isEmpty else {
-            confirmAddAnswerButton.isEnabled = false
+        guard let answer = enterAnswerTextfield.text else {
+            //confirmAddAnswerButton.isEnabled = false
             return
         }
         newAnswers.append(answer)
         
-        if answers.count < 1 && starStories.count < 0 {
+        if answers.count == 0 {
             let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question?.question ?? "could not pass question", answers: newAnswers, starSituationIDs: newStarStorieIDs)
             DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: newAnswer) { [weak self] (result) in
                 switch result {
@@ -151,13 +159,29 @@ class InterviewAnswerDetailController: UIViewController {
             }
             
         } else {
-            //TODO: Update AnsweredQuestion
+            let answerId = answers.first?.id ?? ""
+            DatabaseService.shared.addAnswerToAnswersArray(answerID: answerId, answerString: answer) { [weak self] (result) in
+                switch result {
+                case .failure(let error) :
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Error", message: "Unable to add answer error: \(error.localizedDescription)")
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Answer Submitted!", message: "")
+                    }
+                    self?.hideAddAnswerElements()
+                }
+            }
         }
         
     }
     @IBAction func addSTARStoryButtonPressed(_ sender: UIButton) {
         //TODO: add view/or something related where user could search and select their star situation
     }
+    
+}
+extension InterviewAnswerDetailController: UITextFieldDelegate {
     
 }
 extension InterviewAnswerDetailController: UICollectionViewDelegateFlowLayout {
@@ -174,7 +198,7 @@ extension InterviewAnswerDetailController: UICollectionViewDelegateFlowLayout {
 extension InterviewAnswerDetailController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == answersCollectionView {
-            return answers.count
+            return answerStrings.count
         } else if collectionView == starStoriesCollectionView {
             return starStories.count
         }
@@ -186,8 +210,8 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             guard let cell = answersCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewAnswerCell", for: indexPath) as? QuestionAnswerDetailCell else {
                 fatalError("could not cast to QuestionAnswerDetailCell")
             }
-            let answer = answers[indexPath.row]
-            cell.configureCell(answer: answer.answers.first ?? "")
+            let answer = answerStrings[indexPath.row]
+            cell.configureCell(answer: answer)
             return cell
             
         } else {
