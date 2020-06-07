@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="freeFormButton" destination="bKC-WY-elg" id="3pY-6C-WAh"/>
                 <outlet property="inputOptionView" destination="uem-N7-VN9" id="nkD-5i-Om0"/>
+                <outlet property="saveAsDefaultButton" destination="ayn-O8-VCt" id="tql-B1-bVd"/>
                 <outlet property="starStoryButton" destination="b1i-AJ-V1k" id="eXd-th-CbY"/>
                 <outlet property="view" destination="iN0-l3-epB" id="NJZ-Mm-3zk"/>
             </connections>
@@ -20,7 +21,36 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uem-N7-VN9">
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDn-v1-nBd">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="MNw-hZ-fQJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Kx-V1-xsi">
+                                <rect key="frame" x="0.0" y="0.0" width="174" height="768"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="geH-cH-kj0">
+                                    <rect key="frame" x="0.0" y="0.0" width="174" height="768"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <vibrancyEffect>
+                                    <blurEffect style="regular"/>
+                                </vibrancyEffect>
+                            </visualEffectView>
+                        </subviews>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZv-fx-BUS">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="DWk-Rr-KvG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uem-N7-VN9" userLabel="InputOptionView">
                     <rect key="frame" x="72.5" y="157" width="269" height="582"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRS-s8-W6S">
@@ -48,15 +78,30 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3DQ-7Y-Jkk">
-                            <rect key="frame" x="8" y="506" width="253" height="68"/>
+                            <rect key="frame" x="8" y="476" width="253" height="98"/>
                             <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayn-O8-VCt">
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="22"/>
+                                    <state key="normal" title="Save choice as default" image="square" catalog="system">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="saveAsDefaultButtonPressed:" destination="-1" eventType="touchUpInside" id="G5d-iS-zKn"/>
+                                    </connections>
+                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKC-WY-elg">
-                                    <rect key="frame" x="0.0" y="0.0" width="253" height="30"/>
+                                    <rect key="frame" x="0.0" y="30" width="253" height="30"/>
                                     <state key="normal" title="Free form"/>
+                                    <connections>
+                                        <action selector="freeFormButtonPressed:" destination="-1" eventType="touchUpInside" id="oKB-ig-4zN"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1i-AJ-V1k">
-                                    <rect key="frame" x="0.0" y="38" width="253" height="30"/>
+                                    <rect key="frame" x="0.0" y="68" width="253" height="30"/>
                                     <state key="normal" title="STAR Story"/>
+                                    <connections>
+                                        <action selector="starStoryButtonPressed:" destination="-1" eventType="touchUpInside" id="clu-yw-c6P"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </stackView>
@@ -92,17 +137,26 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="nZv-fx-BUS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0uf-cM-nXd"/>
                 <constraint firstItem="uem-N7-VN9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="1d1-mB-bE4"/>
+                <constraint firstItem="mDn-v1-nBd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="9E1-Fi-dau"/>
                 <constraint firstItem="uem-N7-VN9" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.65" id="JNw-xY-pO6"/>
                 <constraint firstItem="uem-N7-VN9" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.65" id="Joj-LF-qM5"/>
+                <constraint firstAttribute="bottom" secondItem="mDn-v1-nBd" secondAttribute="bottom" id="f6I-Os-KkT"/>
+                <constraint firstItem="mDn-v1-nBd" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="h9Z-nz-S8l"/>
+                <constraint firstItem="mDn-v1-nBd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kqA-an-MVK"/>
+                <constraint firstItem="nZv-fx-BUS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="l9W-sp-FEK"/>
+                <constraint firstAttribute="bottom" secondItem="nZv-fx-BUS" secondAttribute="bottom" id="lxx-M3-ghF"/>
                 <constraint firstItem="uem-N7-VN9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nGj-xx-vmg"/>
+                <constraint firstItem="nZv-fx-BUS" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="yVj-fk-ZsU"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <variation key="default">
                 <mask key="subviews">
-                    <exclude reference="uem-N7-VN9"/>
+                    <exclude reference="mDn-v1-nBd"/>
+                    <exclude reference="nZv-fx-BUS"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="137.68115942028987" y="144.64285714285714"/>
@@ -110,5 +164,6 @@
     </objects>
     <resources>
         <image name="lightbulb.fill" catalog="system" width="113" height="128"/>
+        <image name="square" catalog="system" width="128" height="114"/>
     </resources>
 </document>
