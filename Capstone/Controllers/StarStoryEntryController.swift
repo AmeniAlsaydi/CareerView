@@ -91,7 +91,27 @@ class StarStoryEntryController: UIViewController {
         resultTextViewHeightConstraint.constant = resultTextView.contentSize.height
     }
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
-        print("Save pressed")
+        guard let situationText = situationTextView.text else {
+            return
+        }
+        let taskText = taskTextView.text
+        let actionText = actionTextView.text
+        let resultText = resultTextView.text
+        let id = UUID().uuidString
+        let starSituationTosave = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: id, userJobID: nil, interviewQuestionsIDs: [""])
+        
+        DatabaseService.shared.addToStarSituations(starSituation: starSituationTosave, completion: { (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
+            case .success:
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Star Story Saved!", message: "Success")
+                }
+            }
+        })
     }
     private func transitionFromOptionToMainView() {
         let duration = 1.0
