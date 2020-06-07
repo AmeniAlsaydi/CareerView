@@ -9,6 +9,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StarStoryEntryController" customModule="Capstone" customModuleProvider="target">
             <connections>
+                <outlet property="freeFormButton" destination="bKC-WY-elg" id="3pY-6C-WAh"/>
+                <outlet property="inputOptionView" destination="uem-N7-VN9" id="nkD-5i-Om0"/>
+                <outlet property="starStoryButton" destination="b1i-AJ-V1k" id="eXd-th-CbY"/>
                 <outlet property="view" destination="iN0-l3-epB" id="NJZ-Mm-3zk"/>
             </connections>
         </placeholder>
@@ -16,9 +19,96 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uem-N7-VN9">
+                    <rect key="frame" x="72.5" y="157" width="269" height="582"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRS-s8-W6S">
+                            <rect key="frame" x="0.0" y="0.0" width="269" height="87"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightbulb.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xje-1D-v7S">
+                                    <rect key="frame" x="125" y="6.5" width="19" height="21.5"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STAR Story Input" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iu-os-Q3F">
+                                    <rect key="frame" x="8" y="36" width="253" height="20.5"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.28340511369999999" green="0.13654978840000001" blue="0.671319797" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <constraints>
+                                <constraint firstItem="Xje-1D-v7S" firstAttribute="top" secondItem="qRS-s8-W6S" secondAttribute="top" constant="8" id="6tD-ZV-FIp"/>
+                                <constraint firstItem="Xje-1D-v7S" firstAttribute="centerX" secondItem="qRS-s8-W6S" secondAttribute="centerX" id="V9i-oR-Imi"/>
+                                <constraint firstItem="8iu-os-Q3F" firstAttribute="leading" secondItem="qRS-s8-W6S" secondAttribute="leading" constant="8" id="d07-3s-iL6"/>
+                                <constraint firstItem="8iu-os-Q3F" firstAttribute="top" secondItem="Xje-1D-v7S" secondAttribute="bottom" constant="8" id="qKS-To-iE9"/>
+                                <constraint firstAttribute="trailing" secondItem="8iu-os-Q3F" secondAttribute="trailing" constant="8" id="rbq-0e-aix"/>
+                            </constraints>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3DQ-7Y-Jkk">
+                            <rect key="frame" x="8" y="506" width="253" height="68"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKC-WY-elg">
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="30"/>
+                                    <state key="normal" title="Free form"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1i-AJ-V1k">
+                                    <rect key="frame" x="0.0" y="38" width="253" height="30"/>
+                                    <state key="normal" title="STAR Story"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmW-qr-yhf">
+                            <rect key="frame" x="8" y="95" width="253" height="122"/>
+                            <string key="text">The STAR story  interview technique offers a straightforward way to answer behavioral interview questions. You can keep track of these STAR stories here</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like assistance in entering your STAR stories, or enter them free form?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COh-Ke-7n9">
+                            <rect key="frame" x="8" y="233" width="253" height="61"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="3DQ-7Y-Jkk" secondAttribute="trailing" constant="8" id="0H3-gh-Vn2"/>
+                        <constraint firstItem="3DQ-7Y-Jkk" firstAttribute="leading" secondItem="uem-N7-VN9" secondAttribute="leading" constant="8" id="0Tn-Tw-qVy"/>
+                        <constraint firstItem="COh-Ke-7n9" firstAttribute="top" secondItem="mmW-qr-yhf" secondAttribute="bottom" constant="16" id="DN6-Wh-jRl"/>
+                        <constraint firstItem="mmW-qr-yhf" firstAttribute="leading" secondItem="uem-N7-VN9" secondAttribute="leading" constant="8" id="JDC-Bk-EEh"/>
+                        <constraint firstItem="qRS-s8-W6S" firstAttribute="height" secondItem="uem-N7-VN9" secondAttribute="height" multiplier="0.15" id="PFO-nQ-5Zn"/>
+                        <constraint firstAttribute="trailing" secondItem="qRS-s8-W6S" secondAttribute="trailing" id="VDA-eN-hf8"/>
+                        <constraint firstAttribute="trailing" secondItem="COh-Ke-7n9" secondAttribute="trailing" constant="8" id="ZBb-QZ-4ZP"/>
+                        <constraint firstItem="mmW-qr-yhf" firstAttribute="top" secondItem="qRS-s8-W6S" secondAttribute="bottom" constant="8" id="bB4-yL-u84"/>
+                        <constraint firstItem="COh-Ke-7n9" firstAttribute="leading" secondItem="uem-N7-VN9" secondAttribute="leading" constant="8" id="nwP-3B-8l1"/>
+                        <constraint firstItem="qRS-s8-W6S" firstAttribute="top" secondItem="uem-N7-VN9" secondAttribute="top" id="pyP-V2-UGO"/>
+                        <constraint firstAttribute="bottom" secondItem="3DQ-7Y-Jkk" secondAttribute="bottom" constant="8" id="tHe-Xp-0xe"/>
+                        <constraint firstItem="qRS-s8-W6S" firstAttribute="leading" secondItem="uem-N7-VN9" secondAttribute="leading" id="vPM-CD-t0E"/>
+                        <constraint firstAttribute="trailing" secondItem="mmW-qr-yhf" secondAttribute="trailing" constant="8" id="zaP-tP-M5g"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="uem-N7-VN9" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="1d1-mB-bE4"/>
+                <constraint firstItem="uem-N7-VN9" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.65" id="JNw-xY-pO6"/>
+                <constraint firstItem="uem-N7-VN9" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.65" id="Joj-LF-qM5"/>
+                <constraint firstItem="uem-N7-VN9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nGj-xx-vmg"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="139" y="145"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="uem-N7-VN9"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="137.68115942028987" y="144.64285714285714"/>
         </view>
     </objects>
+    <resources>
+        <image name="lightbulb.fill" catalog="system" width="113" height="128"/>
+    </resources>
 </document>
