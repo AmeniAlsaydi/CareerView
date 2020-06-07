@@ -19,9 +19,11 @@ class ApplicationTrackerController: UIViewController {
     }
     
     private func configureCollectionView() {
-        collectionView.backgroundView = EmptyView(title: "hello", message: "test", imageName: "mic")
+       // collectionView.backgroundView = EmptyView(title: "hello", message: "test", imageName: "mic")
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        collectionView.register(UINib(nibName: "JobApplicationCellXib", bundle: nil), forCellWithReuseIdentifier: "applicationCell")
         
     }
     
@@ -31,11 +33,18 @@ class ApplicationTrackerController: UIViewController {
 
 extension ApplicationTrackerController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "applicationCell", for: indexPath) as? JobApplicationCell else {
+            fatalError("could not down cast to application cell")
+        }
+        
+        
+        return cell
+        
     }
     
     
@@ -44,6 +53,11 @@ extension ApplicationTrackerController: UICollectionViewDataSource {
 
 extension ApplicationTrackerController: UICollectionViewDelegateFlowLayout {
     
-    // height and width
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let maxsize: CGSize = UIScreen.main.bounds.size
+        let itemWidth: CGFloat = maxsize.width * 0.9
+        let itemHeight: CGFloat = maxsize.height * 0.15
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
     
 }
