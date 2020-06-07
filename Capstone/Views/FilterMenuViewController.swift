@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol FilterStateDelegate {
+    func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController)
+    func pressedCancel(child: FilterMenuViewController)
+}
+
 class FilterMenuViewController: UIViewController {
     
     @IBOutlet weak var allButton: UIButton!
@@ -16,9 +21,11 @@ class FilterMenuViewController: UIViewController {
     @IBOutlet weak var customButton: UIButton!
     
     public var filterState: FilterState = .all
+    public var delegate: FilterStateDelegate?
     
     override func viewDidLoad() {
         updateUI()
+        view.backgroundColor = .systemGray3
     }
     private func updateUI() {
         if filterState == .all {
@@ -57,11 +64,9 @@ class FilterMenuViewController: UIViewController {
         filterState = .custom
     }
     @IBAction func setFilterButtonPressed(_ sender: UIButton) {
-        let interviewQuestionsVC = InterviewQuestionsMainController(nibName: "InterviewQuestionsMainXib", bundle: nil)
-        interviewQuestionsVC.filterState = filterState
-        dismiss(animated: true)
+        delegate?.didAddFilter(filterState, child: self)
     }
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
-        dismiss(animated: true)
+        delegate?.pressedCancel(child: self)
     }
 }

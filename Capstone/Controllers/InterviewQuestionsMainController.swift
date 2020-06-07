@@ -76,6 +76,7 @@ class InterviewQuestionsMainController: UIViewController {
         //TODO: add a way for user to filter
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
         self.addChild(filterMenuVC, frame: view.frame)
+        filterMenuVC.delegate = self
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -193,5 +194,15 @@ extension InterviewQuestionsMainController {
         
         //remove child view controller from parent view controller
         removeFromParent()
+    }
+}
+extension InterviewQuestionsMainController: FilterStateDelegate {
+    func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController) {
+        self.filterState = filterState
+        removeChild(childController: child)
+    }
+    
+    func pressedCancel(child: FilterMenuViewController) {
+        removeChild(childController: child)
     }
 }
