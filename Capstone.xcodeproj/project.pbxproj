@@ -18,6 +18,7 @@
 		884E557A2488298B00BA180F /* ScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */; };
 		886B5134248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */; };
 		B7226CD22489964D00D7F207 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7226CD12489964D00D7F207 /* GoogleService-Info.plist */; };
+		B7226CF8248DACA900D7F207 /* JobApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */; };
 		B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C2392476832F000811C5 /* AppDelegate.swift */; };
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
 		B725C24324768331000811C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B725C24224768331000811C5 /* Assets.xcassets */; };
@@ -104,6 +105,7 @@
 		884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
 		886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshotCollectionViewCellXib.xib; sourceTree = "<group>"; };
 		B7226CD12489964D00D7F207 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationCell.swift; sourceTree = "<group>"; };
 		B725C2362476832F000811C5 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B725C2392476832F000811C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B725C23B2476832F000811C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */,
 				C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */,
 				C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */,
+				B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */,
 				C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */,
 				C6AC379F2485EF4200957B61 /* StarStiuationCell.swift */,
 				884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */,
@@ -610,6 +613,7 @@
 				884E555E2484094100BA180F /* UserContactCVCell.swift in Sources */,
 				B7976E53247EA255001AE3B3 /* SettingsController.swift in Sources */,
 				884E557A2488298B00BA180F /* ScreenshotCollectionViewCell.swift in Sources */,
+				B7226CF8248DACA900D7F207 /* JobApplicationCell.swift in Sources */,
 				C6AC37A02485EF4200957B61 /* StarStiuationCell.swift in Sources */,
 				C60BDFCE2481B3C200CD9875 /* JobFoldingView.swift in Sources */,
 				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
