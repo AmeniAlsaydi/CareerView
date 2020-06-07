@@ -75,7 +75,7 @@ class InterviewQuestionsMainController: UIViewController {
     @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {
         //TODO: add a way for user to filter
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        present(filterMenuVC, animated: true)
+        self.addChild(filterMenuVC, frame: view.frame)
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -162,5 +162,36 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+}
+//MARK:- Extenstion For Child View
+extension InterviewQuestionsMainController {
+    func addChild(_ childController: UIViewController, frame: CGRect? = nil) {
+        //add child view controller
+        addChild(childController)
+        
+        //set the size of the child view controller's frame to half the parent view controller's height
+        if let frame = frame {
+            let height: CGFloat = frame.height * 0.55
+            let width: CGFloat = frame.width / 2
+            let x: CGFloat = frame.minX
+            let y: CGFloat = frame.minY
+            childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
+        }
+        
+        //add the childcontroller's view as the parent view controller's subview
+        view.addSubview(childController.view)
+        //pass child to parent
+        childController.didMove(toParent: self)
+    }
+    func removeChild(childController: UIViewController) {
+        //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
+        willMove(toParent: nil)
+        
+        //remove the child view controller's view from parent's view
+        childController.view.removeFromSuperview()
+        
+        //remove child view controller from parent view controller
+        removeFromParent()
     }
 }

@@ -19,11 +19,6 @@ class FilterMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         updateUI()
-        halfFrame()
-    }
-    private func halfFrame() {
-        let width = view.frame.width / 2
-        view.frame = CGRect(x: view.frame.minX, y: view.frame.minY, width: width, height: view.frame.height)
     }
     private func updateUI() {
         if filterState == .all {
@@ -48,7 +43,7 @@ class FilterMenuViewController: UIViewController {
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
         }
     }
-    
+    //MARK:- IBAction functions
     @IBAction func allButtonPressed(_ sender: UIButton) {
         filterState = .all
     }
@@ -62,7 +57,7 @@ class FilterMenuViewController: UIViewController {
         filterState = .custom
     }
     @IBAction func setFilterButtonPressed(_ sender: UIButton) {
-        let interviewQuestionsVC = InterviewQuestionsMainController()
+        let interviewQuestionsVC = InterviewQuestionsMainController(nibName: "InterviewQuestionsMainXib", bundle: nil)
         interviewQuestionsVC.filterState = filterState
         dismiss(animated: true)
     }
