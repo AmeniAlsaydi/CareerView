@@ -15,12 +15,24 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var saveAsDefaultButton: UIButton!
     
     @IBOutlet weak var inputOptionView: UIView!
+    @IBOutlet weak var blurEffect: UIVisualEffectView!
+    
+    @IBOutlet weak var situationTextView: UITextView!
+    @IBOutlet weak var taskTextView: UITextView!
+    @IBOutlet weak var actionTextView: UITextView!
+    @IBOutlet weak var resultTextView: UITextView!
+    
+    @IBOutlet weak var situationTextViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var taskTextViewHeightContraint: NSLayoutConstraint!
+    @IBOutlet weak var actionTextViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var resultTextViewHeightConstraint: NSLayoutConstraint!
     
     private var saveChoiceAsDefault = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        setTextViewHeights()
     }
     private func configureView() {
         navigationController?.navigationBar.topItem?.title = "Back"
@@ -34,17 +46,54 @@ class StarStoryEntryController: UIViewController {
         freeFormButton.layer.masksToBounds = true
         inputOptionView.layer.cornerRadius = 4
         inputOptionView.layer.masksToBounds = true
+        
+        situationTextView.delegate = self
+        taskTextView.delegate = self
+        actionTextView.delegate = self
+        resultTextView.delegate = self
+        
+        situationTextView.layer.cornerRadius = 4
+        taskTextView.layer.cornerRadius = 4
+        actionTextView.layer.cornerRadius = 4
+        resultTextView.layer.cornerRadius = 4
+        situationTextView.layer.masksToBounds = true
+        taskTextView.layer.masksToBounds = true
+        resultTextView.layer.masksToBounds = true
+        resultTextView.layer.masksToBounds = true
+
+
+    }
+    private func setTextViewHeights() {
+        situationTextView.sizeToFit()
+        situationTextViewHeightConstraint.constant = situationTextView.contentSize.height
+        
+        taskTextView.sizeToFit()
+        taskTextViewHeightContraint.constant = taskTextView.contentSize.height
+        
+        actionTextView.sizeToFit()
+        actionTextViewHeightConstraint.constant = actionTextView.contentSize.height
+        
+        resultTextView.sizeToFit()
+        resultTextViewHeightConstraint.constant = resultTextView.contentSize.height
     }
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
         print("Save pressed")
     }
+    private func transitionFromOptionToMainView() {
+        let duration = 1.0
+        UIView.animate(withDuration: duration, delay: 0.0, options: [], animations: {
+            self.inputOptionView.isHidden = true
+            self.blurEffect.isHidden = true
+            self.view.layoutIfNeeded()
+        })
+    }
     @IBAction func freeFormButtonPressed(_ sender: UIButton) {
         print("Free form button pressed")
-        inputOptionView.isHidden = true
+        transitionFromOptionToMainView()
     }
     @IBAction func starStoryButtonPressed(_ sender: UIButton) {
         print("Star story button pressed")
-        inputOptionView.isHidden = true
+        transitionFromOptionToMainView()
     }
     @IBAction func saveAsDefaultButtonPressed(_ sender: UIButton) {
         saveChoiceAsDefault.toggle()
@@ -55,4 +104,10 @@ class StarStoryEntryController: UIViewController {
         }
     }
     
+}
+
+extension StarStoryEntryController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        setTextViewHeights()
+    }
 }
