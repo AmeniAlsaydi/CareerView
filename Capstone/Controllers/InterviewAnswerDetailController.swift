@@ -31,14 +31,11 @@ class InterviewAnswerDetailController: UIViewController {
             } else {
                 answersCollectionView.reloadData()
                 answersCollectionView.backgroundView = nil
+                answerStrings = answers.first?.answers ?? []
             }
         }
     }
-    public var answerStrings = [String]() {
-        didSet {
-            answerStrings = answers.first?.answers ?? []
-        }
-    }
+    public var answerStrings = [String]()
     private var newAnswers = [String]()
     //MARK:- Star Stories
     private var newStarStoryIDs = [String]()
@@ -62,8 +59,8 @@ class InterviewAnswerDetailController: UIViewController {
             } else if let snapshot = snapshot {
                 let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data())}
                 self?.answers = userAnswers
-                self?.answerStrings = userAnswers.first?.answers ?? []
-                self?.answersCollectionView.reloadData()
+                //self?.answerStrings = userAnswers.first?.answers ?? []
+                //self?.answersCollectionView.reloadData()
                 self?.updateUI()
             }
         })
