@@ -73,15 +73,12 @@ class InterviewQuestionsMainController: UIViewController {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
         show(interviewQuestionEntryVC, sender: nil)
     }
+    //MARK:- FilterMenu
     @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        if filterMenuIsVisible {
-            removeChild(childController: filterMenuVC)
-        } else {
-            self.addChild(filterMenuVC, frame: view.frame)
-            filterMenuVC.delegate = self
-        }
-        
+        filterMenuVC.delegate = self
+        //filterState = filterMenuVC.filterState
+        self.addChild(filterMenuVC, frame: view.frame)
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -115,7 +112,7 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
 }
-//MARK:- COllectionView Delegate and DataSource
+//MARK:- CollectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
@@ -198,18 +195,15 @@ extension InterviewQuestionsMainController {
         childController.view.removeFromSuperview()
         
         //remove child view controller from parent view controller
-        removeFromParent()
+        childController.removeFromParent()
     }
 }
 extension InterviewQuestionsMainController: FilterStateDelegate {
     func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController) {
         self.filterState = filterState
         removeChild(childController: child)
-        filterMenuIsVisible = false
     }
-    
     func pressedCancel(child: FilterMenuViewController) {
         removeChild(childController: child)
-        filterMenuIsVisible = false
     }
 }
