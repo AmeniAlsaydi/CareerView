@@ -32,7 +32,11 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var actionBkgdView: UIView!
     @IBOutlet weak var resultBkgdView: UIView!
     
+    @IBOutlet weak var situationLabel: UILabel!
+    
     private var saveChoiceAsDefault = true
+    //TODO: Add datapersistence to save guidedEntry if user chooses to
+    private var guidedEntry = false
     
     private var starSituation: StarSituation?
     
@@ -92,26 +96,42 @@ class StarStoryEntryController: UIViewController {
     }
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
         guard let situationText = situationTextView.text else {
+            showAlert(title: "Missing Field", message: "Please enter a situation to save")
             return
         }
         let taskText = taskTextView.text
         let actionText = actionTextView.text
         let resultText = resultTextView.text
         let id = UUID().uuidString
-        let starSituationTosave = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: id, userJobID: nil, interviewQuestionsIDs: [""])
-        
-        DatabaseService.shared.addToStarSituations(starSituation: starSituationTosave, completion: { (result) in
-            switch result {
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showAlert(title: "Error", message: error.localizedDescription)
+        let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: id, userJobID: nil, interviewQuestionsIDs: [""])
+        let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: UUID().uuidString, userJobID: nil, interviewQuestionsIDs: [""])
+        if guidedEntry {
+            DatabaseService.shared.addToStarSituations(starSituation: guidedStarSituation, completion: { (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Error", message: error.localizedDescription)
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Star Story Saved!", message: "Success")
+                    }
                 }
-            case .success:
-                DispatchQueue.main.async {
-                    self.showAlert(title: "Star Story Saved!", message: "Success")
+            })
+        } else {
+            DatabaseService.shared.addToStarSituations(starSituation: freeFormStarSituation, completion: { (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Error", message: error.localizedDescription)
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Star Story Saved!", message: "Success")
+                    }
                 }
-            }
-        })
+            })
+        }
     }
     private func transitionFromOptionToMainView() {
         let duration = 1.0
@@ -123,7 +143,15 @@ class StarStoryEntryController: UIViewController {
     }
     @IBAction func freeFormButtonPressed(_ sender: UIButton) {
         print("Free form button pressed")
+//        taskTextView.isHidden = true
+//        actionTextView.isHidden = true
+//        resultTextView.isHidden = true
+        taskBkgdView.isHidden = true
+        actionBkgdView.isHidden = true
+        resultBkgdView.isHidden = true
+        situationLabel.text = "STAR Story"
         transitionFromOptionToMainView()
+        
     }
     @IBAction func starStoryButtonPressed(_ sender: UIButton) {
         print("Star story button pressed")
