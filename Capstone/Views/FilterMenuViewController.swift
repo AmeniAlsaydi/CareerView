@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol FilterStateDelegate {
+protocol FilterStateDelegate: NSObject {
     func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController)
     func pressedCancel(child: FilterMenuViewController)
 }
@@ -21,11 +21,10 @@ class FilterMenuViewController: UIViewController {
     @IBOutlet weak var customButton: UIButton!
     
     public var filterState: FilterState = .all
-    public var delegate: FilterStateDelegate?
+    public weak var delegate: FilterStateDelegate?
     
     override func viewDidLoad() {
         updateUI()
-        view.backgroundColor = .systemGray3
     }
     private func updateUI() {
         if filterState == .all {
@@ -53,12 +52,14 @@ class FilterMenuViewController: UIViewController {
     //MARK:- IBAction functions
     @IBAction func allButtonPressed(_ sender: UIButton) {
         filterState = .all
+        
     }
     @IBAction func savedButtonPressed(_ sender: UIButton){
         filterState = .saved
     }
     @IBAction func commonButtonPressed(_ sender: UIButton) {
         filterState = .common
+        updateUI()
     }
     @IBAction func customButtonPressed(_ sender: UIButton) {
         filterState = .custom
