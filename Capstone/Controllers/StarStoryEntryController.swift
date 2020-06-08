@@ -34,13 +34,14 @@ class StarStoryEntryController: UIViewController {
     
     @IBOutlet weak var situationLabel: UILabel!
     
-    private var saveChoiceAsDefault = true
+    private var saveChoiceAsDefault = false
 
     private var guidedEntryPreference = GuidedStarSitutionInput.guided
     private var showUserOption = ShowUserStarInputOption.on {
         didSet {
             if showUserOption.rawValue == ShowUserStarInputOption.off.rawValue {
                 transitionFromOptionToMainView()
+                
                 if guidedEntryPreference.rawValue == GuidedStarSitutionInput.freeForm.rawValue {
                     loadFreeFormView()
                 }
