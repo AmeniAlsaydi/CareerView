@@ -26,6 +26,7 @@
 		B7271670248117F600276478 /* AuthenticationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727166F248117F600276478 /* AuthenticationSession.swift */; };
 		B7304DAA248817E900490DF1 /* UserJobsDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7304DA9248817E900490DF1 /* UserJobsDataTests.swift */; };
 		B737DF362486A1740052F375 /* AnsweredQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B737DF352486A1740052F375 /* AnsweredQuestion.swift */; };
+		B74108C1248E120900EEFBA8 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74108C0248E120900EEFBA8 /* ProgressBar.swift */; };
 		B7976E1824777583001AE3B3 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1724777583001AE3B3 /* TestModel.swift */; };
 		B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1924777593001AE3B3 /* JobApplication.swift */; };
 		B7976E22247D4A15001AE3B3 /* CapstoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E21247D4A15001AE3B3 /* CapstoneTests.swift */; };
@@ -115,6 +116,7 @@
 		B727166F248117F600276478 /* AuthenticationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSession.swift; sourceTree = "<group>"; };
 		B7304DA9248817E900490DF1 /* UserJobsDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserJobsDataTests.swift; sourceTree = "<group>"; };
 		B737DF352486A1740052F375 /* AnsweredQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnsweredQuestion.swift; sourceTree = "<group>"; };
+		B74108C0248E120900EEFBA8 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		B7976E1724777583001AE3B3 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		B7976E1924777593001AE3B3 /* JobApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplication.swift; sourceTree = "<group>"; };
 		B7976E1F247D4A15001AE3B3 /* CapstoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -341,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				B7976E55247EA2D9001AE3B3 /* EmptyView.swift */,
+				B74108C0248E120900EEFBA8 /* ProgressBar.swift */,
 				884E555D2484094100BA180F /* UserContactCVCell.swift */,
 				884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */,
 				C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */,
@@ -644,6 +647,7 @@
 				B7976E5C247EAD84001AE3B3 /* Contact.swift in Sources */,
 				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
 				B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */,
+				B74108C1248E120900EEFBA8 /* ProgressBar.swift in Sources */,
 				884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */,
 				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
 				B7976E56247EA2D9001AE3B3 /* EmptyView.swift in Sources */,
