@@ -21,6 +21,7 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     public var filterState: FilterState = .all
+    private var filterMenuIsVisible = false
     
     private var commonInterviewQuestions = [InterviewQuestion]() {
         didSet {
@@ -73,10 +74,14 @@ class InterviewQuestionsMainController: UIViewController {
         show(interviewQuestionEntryVC, sender: nil)
     }
     @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {
-        //TODO: add a way for user to filter
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        self.addChild(filterMenuVC, frame: view.frame)
-        filterMenuVC.delegate = self
+        if filterMenuIsVisible {
+            removeChild(childController: filterMenuVC)
+        } else {
+            self.addChild(filterMenuVC, frame: view.frame)
+            filterMenuVC.delegate = self
+        }
+        
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -122,7 +127,7 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         let question = commonInterviewQuestions[indexPath.row]
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
         interviewAnswerVC.question = question
-        show(interviewAnswerVC, sender: nil)
+        navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
 }
 extension InterviewQuestionsMainController: UICollectionViewDataSource {
@@ -200,9 +205,11 @@ extension InterviewQuestionsMainController: FilterStateDelegate {
     func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController) {
         self.filterState = filterState
         removeChild(childController: child)
+        filterMenuIsVisible = false
     }
     
     func pressedCancel(child: FilterMenuViewController) {
         removeChild(childController: child)
+        filterMenuIsVisible = false
     }
 }
