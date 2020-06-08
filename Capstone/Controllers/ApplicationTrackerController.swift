@@ -12,14 +12,43 @@ class ApplicationTrackerController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    private var jobApplications = [JobApplication] () {
+        didSet {
+            if jobApplications.count == 0 {
+                 collectionView.backgroundView = EmptyView(title: "No Applications yet", message: "Click on the add button on the top right and start keeping track of progress!", imageName: "square.and.pencil")
+            } else {
+                collectionView.backgroundView = nil
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        getApplications()
         
     }
     
+    private func getApplications() {
+        DatabaseService.shared.fetchApplications { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("error getting applications: \(error)")
+            case .success(let jobApplications):
+                self?.jobApplications = jobApplications
+            }
+        }
+    }
+    
+    
     private func configureCollectionView() {
-       // collectionView.backgroundView = EmptyView(title: "hello", message: "test", imageName: "mic")
+       
+        collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -33,7 +62,7 @@ class ApplicationTrackerController: UIViewController {
 
 extension ApplicationTrackerController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return jobApplications.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
