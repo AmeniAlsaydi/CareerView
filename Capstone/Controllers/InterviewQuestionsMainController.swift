@@ -62,6 +62,7 @@ class InterviewQuestionsMainController: UIViewController {
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
         filterMenuVC.delegate = self
         self.addChild(filterMenuVC, frame: view.frame)
+        filterMenuVC.filterState = filterState
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
