@@ -8,43 +8,88 @@
 
 import UIKit
 
+enum FilterState {
+    case common
+    case custom
+    case saved //TODO: Add user favorite questions
+    case all
+}
+
 class InterviewQuestionsMainController: UIViewController {
     
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private var interviewQuestions = [InterviewQuestion]() {
-        didSet {
-            self.questionsCollectionView.reloadData()
-        }
-    }
+    public var filterState: FilterState = .all
+    private var filterMenuIsVisible = false
     
-    //TODO: public var customQuestions = []
-    
-    private var searchQuery = String() {
+    private var commonInterviewQuestions = [InterviewQuestion]() {
         didSet {
-            DispatchQueue.main.async {
-                self.interviewQuestions = self.interviewQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+            if filterState == .all {
+                allQuestions.append(contentsOf: commonInterviewQuestions)
+            } else if filterState == .common {
+                self.questionsCollectionView.reloadData()
             }
         }
     }
-    
+    private var customQuestions = [InterviewQuestion]() {
+        didSet {
+            if filterState == .all {
+                allQuestions.append(contentsOf: customQuestions)
+            } else if filterState == .custom {
+                self.questionsCollectionView.reloadData()
+            }
+        }
+    }
+    private var allQuestions = [InterviewQuestion]() {
+        didSet {
+            if filterState == .all {
+                self.questionsCollectionView.reloadData()
+            }
+        }
+    }
+    private var searchQuery = String() {
+        didSet {
+            DispatchQueue.main.async {
+                self.commonInterviewQuestions = self.commonInterviewQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
         configureCollectionView()
         configureNavBar()
         getInterviewQuestions()
+        getUserCreatedQuestions()
     }
+    //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(filterQuestionsButtonPressed(_:)))
     }
+    @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
+        let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
+        show(interviewQuestionEntryVC, sender: nil)
+    }
+    @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {
+        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
+        if filterMenuIsVisible {
+            removeChild(childController: filterMenuVC)
+        } else {
+            self.addChild(filterMenuVC, frame: view.frame)
+            filterMenuVC.delegate = self
+        }
+        
+    }
+    //MARK:- Config Collection View
     private func configureCollectionView() {
         questionsCollectionView.delegate = self
         questionsCollectionView.dataSource = self
         questionsCollectionView.register(UINib(nibName: "InterviewQuestionCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewQuestionCell")
     }
+    //MARK:- Get Data
     private func getInterviewQuestions() {
         DatabaseService.shared.fetchCommonInterviewQuestions { [weak self] (result) in
             switch result {
@@ -52,22 +97,25 @@ class InterviewQuestionsMainController: UIViewController {
                 print("could not fetch common interview questions from firebase error: \(error.localizedDescription)")
             case .success(let questions):
                 DispatchQueue.main.async {
-                    self?.interviewQuestions = questions
+                    self?.commonInterviewQuestions = questions
                 }
             }
         }
     }
     private func getUserCreatedQuestions() {
-        //TODO: need access to user created interview questions
+        DatabaseService.shared.fetchCustomInterviewQuestions { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to retrieve custom questions error: \(error.localizedDescription)")
+            case .success(let customQuestions):
+                DispatchQueue.main.async {
+                    self?.customQuestions = customQuestions
+                }
+            }
+        }
     }
-    
-    @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
-        let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
-        show(interviewQuestionEntryVC, sender: nil)
-    }
-    
-    
 }
+//MARK:- COllectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
@@ -76,28 +124,40 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: itemWidth, height: itemHeight)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let question = interviewQuestions[indexPath.row]
+        let question = commonInterviewQuestions[indexPath.row]
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
         interviewAnswerVC.question = question
-        show(interviewAnswerVC, sender: nil)
+        navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
 }
 extension InterviewQuestionsMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return interviewQuestions.count
+        if filterState == .all {
+            return allQuestions.count
+        } else if filterState == .common {
+            return commonInterviewQuestions.count
+        } else {
+            return customQuestions.count
+        } //TODO: favorites
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = questionsCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewQuestionCell", for: indexPath) as? InterviewQuestionCell else {
             fatalError("could not cast to interviewquestioncell")
         }
-        let question = interviewQuestions[indexPath.row]
-        cell.configureCell(interviewQ: question)
+        if filterState == .all {
+            let question = allQuestions[indexPath.row]
+            cell.configureCell(interviewQ: question)
+        } else if filterState == .common {
+            let question = commonInterviewQuestions[indexPath.row]
+            cell.configureCell(interviewQ: question)
+        } else if filterState == .custom {
+            let question = customQuestions[indexPath.row]
+            cell.configureCell(interviewQ: question)
+        } //TODO: favorites
         return cell
     }
-    
-    
 }
+//MARK:- Search Bar Delegate
 extension InterviewQuestionsMainController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if (searchBar.text?.isEmpty ?? false) {
@@ -108,5 +168,48 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+}
+//MARK:- Extenstion For Child View
+extension InterviewQuestionsMainController {
+    func addChild(_ childController: UIViewController, frame: CGRect? = nil) {
+        //add child view controller
+        addChild(childController)
+        
+        //set the size of the child view controller's frame to half the parent view controller's height
+        if let frame = frame {
+            let height: CGFloat = frame.height * 0.55
+            let width: CGFloat = frame.width / 2
+            let x: CGFloat = frame.minX
+            let y: CGFloat = frame.minY
+            childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
+        }
+        
+        //add the childcontroller's view as the parent view controller's subview
+        view.addSubview(childController.view)
+        //pass child to parent
+        childController.didMove(toParent: self)
+    }
+    func removeChild(childController: UIViewController) {
+        //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
+        willMove(toParent: nil)
+        
+        //remove the child view controller's view from parent's view
+        childController.view.removeFromSuperview()
+        
+        //remove child view controller from parent view controller
+        removeFromParent()
+    }
+}
+extension InterviewQuestionsMainController: FilterStateDelegate {
+    func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController) {
+        self.filterState = filterState
+        removeChild(childController: child)
+        filterMenuIsVisible = false
+    }
+    
+    func pressedCancel(child: FilterMenuViewController) {
+        removeChild(childController: child)
+        filterMenuIsVisible = false
     }
 }
