@@ -31,11 +31,14 @@ class InterviewAnswerDetailController: UIViewController {
             } else {
                 answersCollectionView.reloadData()
                 answersCollectionView.backgroundView = nil
-                answerStrings = answers.first?.answers ?? []
             }
         }
     }
-    public var answerStrings = [String]()
+    public var answerStrings = [String]() {
+        didSet {
+            answerStrings = answers.first?.answers ?? []
+        }
+    }
     private var newAnswers = [String]()
     //MARK:- Star Stories
     private var newStarStoryIDs = [String]()
@@ -53,13 +56,14 @@ class InterviewAnswerDetailController: UIViewController {
     //MARK:- ViewDidLoad/ViewWillAppear/ViewDidDisappear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        listener = Firestore.firestore().collection(DatabaseService.userCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+        listener = Firestore.firestore().collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
             if let error = error {
                 print("listener could not recieve changes error: \(error.localizedDescription)")
             } else if let snapshot = snapshot {
                 let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data())}
                 self?.answers = userAnswers
                 self?.answerStrings = userAnswers.first?.answers ?? []
+                self?.answersCollectionView.reloadData()
                 self?.updateUI()
             }
         })

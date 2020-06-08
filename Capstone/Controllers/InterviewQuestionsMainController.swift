@@ -107,9 +107,17 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: itemWidth, height: itemHeight)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let question = commonInterviewQuestions[indexPath.row]
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
-        interviewAnswerVC.question = question
+        if filterState == .all {
+            let question = allQuestions[indexPath.row]
+            interviewAnswerVC.question = question
+        } else if filterState == .common {
+            let question = commonInterviewQuestions[indexPath.row]
+            interviewAnswerVC.question = question
+        } else {
+            let question = customQuestions[indexPath.row]
+            interviewAnswerVC.question = question
+        } //TODO: add favorites
         navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
 }
@@ -167,6 +175,7 @@ extension InterviewQuestionsMainController {
             let y: CGFloat = frame.minY
             childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
         }
+        view.layer.shadowOpacity = 0.3
         //view.layer.shadowColor =
         
         //add the childcontroller's view as the parent view controller's subview
