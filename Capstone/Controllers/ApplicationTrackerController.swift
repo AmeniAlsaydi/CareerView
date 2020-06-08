@@ -48,7 +48,7 @@ class ApplicationTrackerController: UIViewController {
     
     private func configureCollectionView() {
        
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .systemGroupedBackground
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -71,6 +71,8 @@ extension ApplicationTrackerController: UICollectionViewDataSource {
             fatalError("could not down cast to application cell")
         }
         
+        let application = jobApplications[indexPath.row]
+        cell.configureCell(application: application)
         
         return cell
         
@@ -88,5 +90,9 @@ extension ApplicationTrackerController: UICollectionViewDelegateFlowLayout {
         let itemHeight: CGFloat = maxsize.height * 0.15
         return CGSize(width: itemWidth, height: itemHeight)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+           return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+       }
     
 }

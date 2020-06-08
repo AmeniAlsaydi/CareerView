@@ -14,13 +14,20 @@ class JobApplicationCell: UICollectionViewCell {
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var submittedDateLabel: UILabel!
     
+    override func layoutSubviews() {
+        backgroundColor = .white
+        layer.cornerRadius = 12
+    }
+    
     
     // FIXME: understand public - private - internal
     public func configureCell(application: JobApplication) {
         
-        positionLabel.text = application.positionTitle
-        companyNameLabel.text = application.companyName
-        submittedDateLabel.text = application.dateApplied.description
+        
+        
+        positionLabel.text = application.positionTitle.capitalized
+        companyNameLabel.text = application.companyName.capitalized
+        submittedDateLabel.text = application.dateApplied.dateValue().dateString("mm/dd/yyyy")
     }
     
 }

@@ -16,9 +16,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="638" height="193"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a4e-nD-XCM">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a4e-nD-XCM" customClass="ProgressBar" customModule="Capstone" customModuleProvider="target">
                         <rect key="frame" x="464" y="31" width="154" height="131"/>
-                        <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="a4e-nD-XCM" secondAttribute="height" multiplier="154:131" id="vXU-52-4YK"/>
                         </constraints>
@@ -41,20 +41,29 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrj-i6-v8Q">
+                        <rect key="frame" x="20" y="141.5" width="424" height="20.5"/>
+                        <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                        <color key="textColor" red="0.21051180362701416" green="0.065200045704841614" blue="0.28192910552024841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="a4e-nD-XCM" firstAttribute="centerY" secondItem="Hdt-XS-5Ul" secondAttribute="centerY" id="4VH-H3-r2z"/>
                     <constraint firstItem="a4e-nD-XCM" firstAttribute="leading" secondItem="VCt-Zw-WOK" secondAttribute="trailing" constant="20" id="6NN-iI-LEj"/>
                     <constraint firstItem="a4e-nD-XCM" firstAttribute="height" secondItem="Hdt-XS-5Ul" secondAttribute="height" multiplier="0.678756" id="7Kg-Z7-i6v"/>
                     <constraint firstItem="KH8-zK-jLg" firstAttribute="top" secondItem="VCt-Zw-WOK" secondAttribute="bottom" constant="10" id="M5B-AX-8Yg"/>
                     <constraint firstItem="VCt-Zw-WOK" firstAttribute="centerY" secondItem="Hdt-XS-5Ul" secondAttribute="centerY" id="N25-kw-iV0"/>
+                    <constraint firstItem="a4e-nD-XCM" firstAttribute="leading" secondItem="hrj-i6-v8Q" secondAttribute="trailing" constant="20" id="ZgP-Oe-O2M"/>
                     <constraint firstItem="a4e-nD-XCM" firstAttribute="leading" secondItem="D0q-Mk-FxT" secondAttribute="trailing" constant="20" id="aM1-vS-jlq"/>
                     <constraint firstAttribute="trailing" secondItem="a4e-nD-XCM" secondAttribute="trailing" constant="20" id="c5T-rm-PPW"/>
+                    <constraint firstItem="hrj-i6-v8Q" firstAttribute="top" secondItem="KH8-zK-jLg" secondAttribute="bottom" constant="8" id="d2N-2w-Ci0"/>
                     <constraint firstItem="VCt-Zw-WOK" firstAttribute="leading" secondItem="Hdt-XS-5Ul" secondAttribute="leading" constant="20" id="dbg-uw-LGS"/>
                     <constraint firstItem="a4e-nD-XCM" firstAttribute="leading" secondItem="KH8-zK-jLg" secondAttribute="trailing" constant="20" id="faW-XV-hd0"/>
                     <constraint firstItem="VCt-Zw-WOK" firstAttribute="top" secondItem="D0q-Mk-FxT" secondAttribute="bottom" constant="20" id="krD-Yr-6kf"/>
-                    <constraint firstItem="a4e-nD-XCM" firstAttribute="centerY" secondItem="Hdt-XS-5Ul" secondAttribute="centerY" id="mRr-e5-aYv"/>
                     <constraint firstItem="KH8-zK-jLg" firstAttribute="leading" secondItem="Hdt-XS-5Ul" secondAttribute="leading" constant="20" id="tA9-nC-PT4"/>
                     <constraint firstItem="D0q-Mk-FxT" firstAttribute="leading" secondItem="Hdt-XS-5Ul" secondAttribute="leading" constant="20" id="uxy-gz-eiG"/>
+                    <constraint firstItem="hrj-i6-v8Q" firstAttribute="leading" secondItem="Hdt-XS-5Ul" secondAttribute="leading" constant="20" id="yhm-KQ-UNe"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="638" height="193"/>
