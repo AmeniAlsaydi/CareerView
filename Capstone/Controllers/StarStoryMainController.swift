@@ -9,15 +9,82 @@
 import UIKit
 
 class StarStoryMainController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        view.backgroundColor = .purple
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    private var starSituations = [StarSituation]() {
+        didSet {
+            collectionView.reloadData()
+        }
     }
     
-
-
+    //MARK:- ViewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureView()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "STAR Stories: \(starSituations.count)"
+        loadStarSituations()
+    }
+    private func configureView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
+        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
+    }
+    
+    private func loadStarSituations() {
+        DatabaseService.shared.fetchStarSituations { [weak self] (results) in
+            switch results {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                self?.showAlert(title: "Failed to load STAR Situations", message: error.localizedDescription)
+                }
+            case .success(let starSituationsData):
+                DispatchQueue.main.async {
+                print("Star situation load successful")
+                self?.starSituations = starSituationsData
+                self?.navigationItem.title = "STAR Stories: \(self?.starSituations.count ?? 0)"
+                }
+            }
+        }
+    }
+    @objc private func segueToAddStarStoryViewController(_ sender: UIBarButtonItem) {
+        let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
+        show(destinationViewController, sender: nil)
+    }
+}
+//MARK:- Extensions on view controller
+extension StarStoryMainController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return starSituations.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarStiuationCell else {
+            fatalError("Failed to dequeue starSituationCell")
+        }
+        let starSituation = starSituations[indexPath.row]
+        cell.configureCell(starSituation: starSituation)
+        return cell
+    }
+    
+    
+}
+extension StarStoryMainController: UICollectionViewDelegate {
+    
+}
+extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let maxWidth = view.frame.width
+        let maxHeight = view.frame.height
+        let adjustedWidth = CGFloat(maxWidth * 0.95)
+        let adjustedHeight = CGFloat(maxHeight / 4)
+        return CGSize(width: adjustedWidth, height: adjustedHeight)
+    }
 }
