@@ -35,14 +35,25 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var situationLabel: UILabel!
     
     private var saveChoiceAsDefault = true
-    //TODO: Add datapersistence to save guidedEntry if user chooses to
-    private var guidedEntry = false
+
+    private var guidedEntryPreference = GuidedStarSitutionInput.guided
+    private var showUserOption = ShowUserStarInputOption.on {
+        didSet {
+            if showUserOption.rawValue == ShowUserStarInputOption.off.rawValue {
+                transitionFromOptionToMainView()
+                if guidedEntryPreference.rawValue == GuidedStarSitutionInput.freeForm.rawValue {
+                    loadFreeFormView()
+                }
+            }
+        }
+    }
     
     private var starSituation: StarSituation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        loadGuidedStarSituationPreference()
     }
     private func configureView() {
         navigationController?.navigationBar.topItem?.title = "Back"
@@ -94,6 +105,15 @@ class StarStoryEntryController: UIViewController {
         resultTextView.sizeToFit()
         resultTextViewHeightConstraint.constant = resultTextView.contentSize.height
     }
+    private func loadGuidedStarSituationPreference() {
+        if let userOptionPreference = UserPreference.shared.getPreferenceShowInputOption() {
+            showUserOption = userOptionPreference
+        }
+        if let guidedPreference = UserPreference.shared.getGuidedSituationInputPreference() {
+            guidedEntryPreference = guidedPreference
+        }
+    }
+    //MARK:- Save STAR Situation Function
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
         guard let situationText = situationTextView.text else {
             showAlert(title: "Missing Field", message: "Please enter a situation to save")
@@ -105,7 +125,7 @@ class StarStoryEntryController: UIViewController {
         let id = UUID().uuidString
         let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: id, userJobID: nil, interviewQuestionsIDs: [""])
         let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: UUID().uuidString, userJobID: nil, interviewQuestionsIDs: [""])
-        if guidedEntry {
+        if guidedEntryPreference.rawValue == GuidedStarSitutionInput.guided.rawValue {
             DatabaseService.shared.addToStarSituations(starSituation: guidedStarSituation, completion: { (result) in
                 switch result {
                 case .failure(let error):
@@ -133,6 +153,12 @@ class StarStoryEntryController: UIViewController {
             })
         }
     }
+    private func loadFreeFormView() {
+        taskBkgdView.isHidden = true
+        actionBkgdView.isHidden = true
+        resultBkgdView.isHidden = true
+        situationLabel.text = "STAR Story"
+    }
     private func transitionFromOptionToMainView() {
         let duration = 1.0
         UIView.animate(withDuration: duration, delay: 0.0, options: [], animations: {
@@ -141,15 +167,12 @@ class StarStoryEntryController: UIViewController {
             self.view.layoutIfNeeded()
         })
     }
+    
     @IBAction func freeFormButtonPressed(_ sender: UIButton) {
-        print("Free form button pressed")
-//        taskTextView.isHidden = true
-//        actionTextView.isHidden = true
-//        resultTextView.isHidden = true
-        taskBkgdView.isHidden = true
-        actionBkgdView.isHidden = true
-        resultBkgdView.isHidden = true
-        situationLabel.text = "STAR Story"
+        if saveChoiceAsDefault {
+            UserPreference.shared.updatePreferenceShowUserInputOption(with: ShowUserStarInputOption.off)
+        }
+        loadFreeFormView()
         transitionFromOptionToMainView()
         
     }
@@ -183,7 +206,7 @@ class StarStoryEntryController: UIViewController {
     }
     
 }
-
+//MARK:- TextView Delegate
 extension StarStoryEntryController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         setTextViewHeights()

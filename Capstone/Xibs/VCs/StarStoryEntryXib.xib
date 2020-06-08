@@ -263,26 +263,27 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3DQ-7Y-Jkk">
-                            <rect key="frame" x="8" y="476" width="253" height="98"/>
+                            <rect key="frame" x="8" y="479.5" width="253" height="94.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayn-O8-VCt">
-                                    <rect key="frame" x="0.0" y="0.0" width="253" height="22"/>
-                                    <state key="normal" title="Save choice as default" image="square" catalog="system">
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="18.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" title="Do not show this message again" image="square" catalog="system">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
-                                        <action selector="saveAsDefaultButtonPressed:" destination="-1" eventType="touchUpInside" id="G5d-iS-zKn"/>
+                                        <action selector="saveAsDefaultButtonPressed:" destination="-1" eventType="touchUpInside" id="CYC-FV-RFX"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKC-WY-elg">
-                                    <rect key="frame" x="0.0" y="30" width="253" height="30"/>
+                                    <rect key="frame" x="0.0" y="26.5" width="253" height="30"/>
                                     <state key="normal" title="Free form"/>
                                     <connections>
                                         <action selector="freeFormButtonPressed:" destination="-1" eventType="touchUpInside" id="oKB-ig-4zN"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1i-AJ-V1k">
-                                    <rect key="frame" x="0.0" y="68" width="253" height="30"/>
+                                    <rect key="frame" x="0.0" y="64.5" width="253" height="30"/>
                                     <state key="normal" title="STAR Story"/>
                                     <connections>
                                         <action selector="starStoryButtonPressed:" destination="-1" eventType="touchUpInside" id="clu-yw-c6P"/>

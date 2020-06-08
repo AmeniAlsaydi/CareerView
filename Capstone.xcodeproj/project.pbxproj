@@ -3,13 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		06F34E0EBED5AAE34DF36446 /* Pods_CapstoneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */; };
 		45BC67ACBC278BE7865BCC41 /* Pods_Capstone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */; };
 		8838A4CF248AD9BC00217DA1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8838A4CE248AD9BB00217DA1 /* GoogleService-Info.plist */; };
+		8838A4D1248E60D400217DA1 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */; };
+		8838A4D3248E60E100217DA1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D2248E60E100217DA1 /* UserDefaults.swift */; };
+		8838A4DB248E648800217DA1 /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = 8838A4DA248E648800217DA1 /* DataPersistence */; };
 		884E555C248408CF00BA180F /* UserContactCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 884E555B248408CF00BA180F /* UserContactCVCell.xib */; };
 		884E555E2484094100BA180F /* UserContactCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E555D2484094100BA180F /* UserContactCVCell.swift */; };
 		884E55602485542100BA180F /* JobHistoryExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */; };
@@ -96,6 +99,8 @@
 		44397EE59E4E94E21F72EA4A /* Pods-CapstoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CapstoneTests.release.xcconfig"; path = "Target Support Files/Pods-CapstoneTests/Pods-CapstoneTests.release.xcconfig"; sourceTree = "<group>"; };
 		65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8838A4CE248AD9BB00217DA1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
+		8838A4D2248E60E100217DA1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		884E555B248408CF00BA180F /* UserContactCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserContactCVCell.xib; sourceTree = "<group>"; };
 		884E555D2484094100BA180F /* UserContactCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContactCVCell.swift; sourceTree = "<group>"; };
 		884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobHistoryExpandableCell.swift; sourceTree = "<group>"; };
@@ -177,6 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8838A4DB248E648800217DA1 /* DataPersistence in Frameworks */,
 				45BC67ACBC278BE7865BCC41 /* Pods_Capstone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +216,15 @@
 				44397EE59E4E94E21F72EA4A /* Pods-CapstoneTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8838A4D4248E615200217DA1 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */,
+				8838A4D2248E60E100217DA1 /* UserDefaults.swift */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		B725C22D2476832F000811C5 = {
@@ -278,6 +293,7 @@
 				B725C2392476832F000811C5 /* AppDelegate.swift */,
 				B725C23B2476832F000811C5 /* SceneDelegate.swift */,
 				B725C24224768331000811C5 /* Assets.xcassets */,
+				8838A4D4248E615200217DA1 /* Persistence */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -415,6 +431,9 @@
 			dependencies = (
 			);
 			name = Capstone;
+			packageProductDependencies = (
+				8838A4DA248E648800217DA1 /* DataPersistence */,
+			);
 			productName = Capstone;
 			productReference = B725C2362476832F000811C5 /* Capstone.app */;
 			productType = "com.apple.product-type.application";
@@ -467,6 +486,9 @@
 				Base,
 			);
 			mainGroup = B725C22D2476832F000811C5;
+			packageReferences = (
+				8838A4D9248E648800217DA1 /* XCRemoteSwiftPackageReference "DataPersistence" */,
+			);
 			productRefGroup = B725C2372476832F000811C5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -608,6 +630,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				884E555E2484094100BA180F /* UserContactCVCell.swift in Sources */,
+				8838A4D1248E60D400217DA1 /* PersistenceHelper.swift in Sources */,
 				B7976E53247EA255001AE3B3 /* SettingsController.swift in Sources */,
 				884E557A2488298B00BA180F /* ScreenshotCollectionViewCell.swift in Sources */,
 				C6AC37A02485EF4200957B61 /* StarStiuationCell.swift in Sources */,
@@ -632,6 +655,7 @@
 				B7976E49247D9444001AE3B3 /* NewApplicationController.swift in Sources */,
 				B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */,
 				B7976E39247D57F1001AE3B3 /* JobHistoryController.swift in Sources */,
+				8838A4D3248E60E100217DA1 /* UserDefaults.swift in Sources */,
 				B7976E37247D537A001AE3B3 /* UIViewControllerExt.swift in Sources */,
 				B7976E41247D7834001AE3B3 /* InterviewQuestionsMainController.swift in Sources */,
 				884E55602485542100BA180F /* JobHistoryExpandableCell.swift in Sources */,
@@ -906,6 +930,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8838A4D9248E648800217DA1 /* XCRemoteSwiftPackageReference "DataPersistence" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexpaul/DataPersistence";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8838A4DA248E648800217DA1 /* DataPersistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8838A4D9248E648800217DA1 /* XCRemoteSwiftPackageReference "DataPersistence" */;
+			productName = DataPersistence;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B725C22E2476832F000811C5 /* Project object */;
 }
