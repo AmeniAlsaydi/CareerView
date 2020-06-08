@@ -167,7 +167,7 @@ class CapstoneTests: XCTestCase {
     func testAddingApplication() {
         let exp = XCTestExpectation(description: "added job applications")
         
-        let application = JobApplication(id: "121212", companyName: "company x", positionTitle: "xxx", positionURL: "url", remoteStatus: true, location: GeoPoint(latitude: 0, longitude: 0), notes: "no notes", applicationDeadline: Timestamp(date: Date()), dateApplied: Timestamp(date: Date()), interested: true, didApply: true, currentlyInterviewing: true, receivedReply: true, receivedOffer: true)
+        let application = JobApplication(id: "121212", companyName: "company x", positionTitle: "boss", positionURL: "url", remoteStatus: true, location: GeoPoint(latitude: 0, longitude: 0), notes: "no notes", applicationDeadline: Timestamp(date: Date()), dateApplied: Timestamp(date: Date()), interested: true, didApply: true, currentlyInterviewing: true, receivedReply: true, receivedOffer: true)
         
         
         DatabaseService.shared.addApplication(application: application) { (result) in
