@@ -12,7 +12,7 @@ import Foundation
 // if freefrom -> only situation
 // if guided -> uses STAR methods 
 
-struct StarSituation {
+struct StarSituation: Equatable {
     var situation: String
     var task: String?
     var action: String?

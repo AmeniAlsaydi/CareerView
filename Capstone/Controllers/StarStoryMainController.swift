@@ -10,11 +10,13 @@ import UIKit
 
 class StarStoryMainController: UIViewController {
     
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     private var starSituations = [StarSituation]() {
         didSet {
             collectionView.reloadData()
+            navigationItem.title = "STAR Stories: \(starSituations.count)"
         }
     }
     
@@ -34,7 +36,6 @@ class StarStoryMainController: UIViewController {
         collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
     }
     
@@ -43,13 +44,13 @@ class StarStoryMainController: UIViewController {
             switch results {
             case .failure(let error):
                 DispatchQueue.main.async {
-                self?.showAlert(title: "Failed to load STAR Situations", message: error.localizedDescription)
+                    self?.showAlert(title: "Failed to load STAR Situations", message: error.localizedDescription)
                 }
             case .success(let starSituationsData):
                 DispatchQueue.main.async {
-                print("Star situation load successful")
-                self?.starSituations = starSituationsData
-                self?.navigationItem.title = "STAR Stories: \(self?.starSituations.count ?? 0)"
+                    print("Star situation load successful")
+                    self?.starSituations = starSituationsData
+                    self?.navigationItem.title = "STAR Stories: \(self?.starSituations.count ?? 0)"
                 }
             }
         }
@@ -66,14 +67,14 @@ extension StarStoryMainController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarStiuationCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarSituationCell else {
             fatalError("Failed to dequeue starSituationCell")
         }
         let starSituation = starSituations[indexPath.row]
         cell.configureCell(starSituation: starSituation)
+        cell.delegate = self
         return cell
     }
-    
     
 }
 extension StarStoryMainController: UICollectionViewDelegate {
@@ -86,5 +87,31 @@ extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
         let adjustedWidth = CGFloat(maxWidth * 0.95)
         let adjustedHeight = CGFloat(maxHeight / 4)
         return CGSize(width: adjustedWidth, height: adjustedHeight)
+    }
+}
+//MARK:- StarSituationCell Delegate
+extension StarStoryMainController: StarSituationCellDelegate {
+    
+    func longPressOnStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell) }
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    private func deleteStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        guard let index = starSituations.firstIndex(of: starSituation) else { return }
+        DispatchQueue.main.async {
+            DatabaseService.shared.removeStarSituation(situation: starSituation) { (result) in
+                switch result {
+                case .failure(let error):
+                    self.showAlert(title: "Failed to delete STAR Situation", message: error.localizedDescription)
+                case .success:
+                    self.showAlert(title: "Success", message: "STAR Situation deleted")
+                    self.starSituations.remove(at: index)
+                }
+            }
+        }
     }
 }
