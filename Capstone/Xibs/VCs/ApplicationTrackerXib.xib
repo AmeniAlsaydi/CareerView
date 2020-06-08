@@ -32,7 +32,7 @@
             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
             <constraints>
                 <constraint firstItem="oRV-pj-Sou" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="8KJ-Ib-Hp6"/>
-                <constraint firstItem="oRV-pj-Sou" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ldp-Dc-RNB"/>
+                <constraint firstItem="oRV-pj-Sou" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="-44" id="Ldp-Dc-RNB"/>
                 <constraint firstAttribute="bottom" secondItem="oRV-pj-Sou" secondAttribute="bottom" id="cho-n7-jFg"/>
                 <constraint firstItem="oRV-pj-Sou" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="x5h-vk-qck"/>
             </constraints>
