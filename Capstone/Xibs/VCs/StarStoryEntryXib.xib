@@ -20,6 +20,7 @@
                 <outlet property="resultTextViewHeightConstraint" destination="DVt-iF-rmi" id="Lak-xj-2C8"/>
                 <outlet property="saveAsDefaultButton" destination="ayn-O8-VCt" id="tql-B1-bVd"/>
                 <outlet property="situationBkgdView" destination="BHW-54-Kp8" id="v9D-3a-VO3"/>
+                <outlet property="situationLabel" destination="ef2-tn-Wj0" id="QJs-fs-z5D"/>
                 <outlet property="situationTextView" destination="Xr7-YU-UeQ" id="xaN-Qy-ErV"/>
                 <outlet property="situationTextViewHeightConstraint" destination="vYk-ia-ZnK" id="c0H-XM-TER"/>
                 <outlet property="starStoryButton" destination="b1i-AJ-V1k" id="eXd-th-CbY"/>
@@ -337,12 +338,6 @@
                 <constraint firstItem="3SD-By-Oku" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="vUn-WW-VHK"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="mDn-v1-nBd"/>
-                    <exclude reference="uem-N7-VN9"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="137.68115942028987" y="144.64285714285714"/>
         </view>
     </objects>
