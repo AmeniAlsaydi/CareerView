@@ -30,7 +30,10 @@ extension UIViewController {
         resetWindow(newVC)
         
     }
-    
+    public static func showLoginView() {
+        showViewController(storyBoardName: "LoginView", viewControllerId: "LoginController")
+        
+    }
     public static func showMainAppView() {
         resetWindow(MainTabBarController())
     }

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "DataPersistence",
+        "repositoryURL": "https://github.com/alexpaul/DataPersistence",
+        "state": {
+          "branch": null,
+          "revision": "69c4bc41c4185db8a200e486e22c666dbddaee17",
+          "version": "1.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
