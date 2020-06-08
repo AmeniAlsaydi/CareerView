@@ -30,13 +30,22 @@
                         <action selector="starSituationInputOptionToggled:" destination="-1" eventType="valueChanged" id="ZWO-ph-lgg"/>
                     </connections>
                 </switch>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJa-rF-2ad">
+                    <rect key="frame" x="183" y="832" width="48" height="30"/>
+                    <state key="normal" title="Logout"/>
+                    <connections>
+                        <action selector="logoutButtonPressed:" destination="-1" eventType="touchUpInside" id="4oh-6a-lKx"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="PLd-3S-WvZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Cxy-fV-6d2"/>
                 <constraint firstItem="PLd-3S-WvZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="EQB-g8-30a"/>
+                <constraint firstItem="SJa-rF-2ad" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="XFn-iZ-Uz7"/>
                 <constraint firstItem="J6p-ce-7lQ" firstAttribute="centerY" secondItem="PLd-3S-WvZ" secondAttribute="centerY" id="bFU-Bj-55I"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="J6p-ce-7lQ" secondAttribute="trailing" constant="20" id="diI-ZM-0Hr"/>
+                <constraint firstItem="SJa-rF-2ad" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dr0-BL-PcE"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="139" y="145"/>
