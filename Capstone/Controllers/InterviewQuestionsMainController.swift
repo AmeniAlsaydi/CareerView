@@ -20,32 +20,16 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    public var filterState: FilterState = .all
-    private var filterMenuIsVisible = false
-    
-    private var commonInterviewQuestions = [InterviewQuestion]() {
+    public var filterState: FilterState = .all {
         didSet {
-            if filterState == .all {
-                allQuestions.append(contentsOf: commonInterviewQuestions)
-            } else if filterState == .common {
-                self.questionsCollectionView.reloadData()
-            }
+            self.questionsCollectionView.reloadData()
         }
     }
-    private var customQuestions = [InterviewQuestion]() {
-        didSet {
-            if filterState == .all {
-                allQuestions.append(contentsOf: customQuestions)
-            } else if filterState == .custom {
-                self.questionsCollectionView.reloadData()
-            }
-        }
-    }
+    private var commonInterviewQuestions = [InterviewQuestion]()
+    private var customQuestions = [InterviewQuestion]()
     private var allQuestions = [InterviewQuestion]() {
         didSet {
-            if filterState == .all {
-                self.questionsCollectionView.reloadData()
-            }
+            self.questionsCollectionView.reloadData()
         }
     }
     private var searchQuery = String() {
@@ -77,7 +61,6 @@ class InterviewQuestionsMainController: UIViewController {
     @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
         filterMenuVC.delegate = self
-        //filterState = filterMenuVC.filterState
         self.addChild(filterMenuVC, frame: view.frame)
     }
     //MARK:- Config Collection View
@@ -95,6 +78,7 @@ class InterviewQuestionsMainController: UIViewController {
             case .success(let questions):
                 DispatchQueue.main.async {
                     self?.commonInterviewQuestions = questions
+                    self?.allQuestions.append(contentsOf: questions)
                 }
             }
         }
@@ -107,6 +91,8 @@ class InterviewQuestionsMainController: UIViewController {
             case .success(let customQuestions):
                 DispatchQueue.main.async {
                     self?.customQuestions = customQuestions
+                    self?.allQuestions.append(contentsOf: customQuestions)
+
                 }
             }
         }
@@ -175,12 +161,13 @@ extension InterviewQuestionsMainController {
         
         //set the size of the child view controller's frame to half the parent view controller's height
         if let frame = frame {
-            let height: CGFloat = frame.height * 0.55
+            let height: CGFloat = frame.height
             let width: CGFloat = frame.width / 2
             let x: CGFloat = frame.minX
             let y: CGFloat = frame.minY
             childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
         }
+        //view.layer.shadowColor =
         
         //add the childcontroller's view as the parent view controller's subview
         view.addSubview(childController.view)
