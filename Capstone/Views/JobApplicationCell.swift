@@ -13,6 +13,7 @@ class JobApplicationCell: UICollectionViewCell {
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var submittedDateLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
     override func layoutSubviews() {
         backgroundColor = .white
@@ -23,11 +24,11 @@ class JobApplicationCell: UICollectionViewCell {
     // FIXME: understand public - private - internal
     public func configureCell(application: JobApplication) {
         
-        
-        
         positionLabel.text = application.positionTitle.capitalized
         companyNameLabel.text = application.companyName.capitalized
-        submittedDateLabel.text = application.dateApplied.dateValue().dateString("mm/dd/yyyy")
+        let submittedDate = application.dateApplied.dateValue().dateString("mm/dd/yyyy")
+        submittedDateLabel.text = "Date Applied: \(submittedDate)"
+        statusLabel.text = "Interviewing 🗣"
     }
     
 }
