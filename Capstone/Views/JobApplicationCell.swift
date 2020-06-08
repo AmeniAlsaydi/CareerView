@@ -27,7 +27,7 @@ class JobApplicationCell: UICollectionViewCell {
         
         positionLabel.text = application.positionTitle.capitalized
         companyNameLabel.text = application.companyName.capitalized
-        let submittedDate = application.dateApplied.dateValue().dateString("mm/dd/yyyy")
+        let submittedDate = application.dateApplied.dateValue().dateString("MMM d, yyyy")
         submittedDateLabel.text = "Date Applied: \(submittedDate)"
         
         
