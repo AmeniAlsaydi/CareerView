@@ -9,22 +9,37 @@
 import UIKit
 
 class InterviewQuestionEntryController: UIViewController {
+    
+    @IBOutlet weak var questionTextfield: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureNavBar()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func configureNavBar() {
+        navigationItem.title = "Add A Custom Question"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(createQuestionButtonPressed(_:)))
     }
-    */
-
+    @objc private func createQuestionButtonPressed(_ sender: UIBarButtonItem){
+        guard let questionText = questionTextfield.text, !questionText.isEmpty else {
+            DispatchQueue.main.async {
+                self.showAlert(title: "Missing Fields", message: "You will need to enter a question first")
+            }
+            return
+        }
+        let newQuestion = InterviewQuestion(question: questionText, suggestion: nil, id: UUID().uuidString)
+        DatabaseService.shared.addCustomInterviewQuestion(customQuestion: newQuestion) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Error", message: "Could not create your custom question at this time error: \(error.localizedDescription)")
+                }
+            case .success:
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Your question has been created!", message: "You can now add an answer and/or attach a STAR Story to the question")
+                    self?.questionTextfield.text = ""
+                }
+            }
+        }
+    }
 }
