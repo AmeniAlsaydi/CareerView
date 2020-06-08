@@ -14,6 +14,7 @@ class JobApplicationCell: UICollectionViewCell {
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var submittedDateLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var progressBar: ProgressBar!
     
     override func layoutSubviews() {
         backgroundColor = .white
@@ -28,7 +29,29 @@ class JobApplicationCell: UICollectionViewCell {
         companyNameLabel.text = application.companyName.capitalized
         let submittedDate = application.dateApplied.dateValue().dateString("mm/dd/yyyy")
         submittedDateLabel.text = "Date Applied: \(submittedDate)"
-        statusLabel.text = "Interviewing 🗣"
+        
+        
+        if application.receivedOffer {
+            progressBar.progress = 1.0
+            statusLabel.text = "Recieved Offer 💵 🥳"
+        } else if application.currentlyInterviewing {
+            progressBar.progress = 0.8
+            statusLabel.text = "Interviewing 🗣"
+        } else if application.receivedReply {
+            progressBar.progress = 0.6
+            statusLabel.text = "Rcieved Reply 📨"
+        } else if application.didApply {
+            progressBar.progress = 0.4
+            statusLabel.text = "Applied 📝"
+        } else if application.interested {
+            progressBar.progress = 0.2
+            statusLabel.text = "Interested 👀"
+        } else {
+            progressBar.progress = 0.0
+        }
+        
     }
+    
+    
     
 }

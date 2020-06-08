@@ -29,12 +29,13 @@ class ProgressBar: UIView {
         let width = rect.width
         let height = rect.height
         
-        let lineWidth = 0.1 * min(width, height)
+        let lineWidth = 0.18 * min(width, height)
         
-        backgroundLayer = createCircularLayer(strokeColor: UIColor.lightGray.cgColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
+        backgroundLayer = createCircularLayer(strokeColor: UIColor.systemGroupedBackground.cgColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
         
         // aka progress layer
         foregroundLayer = createCircularLayer(strokeColor: UIColor.purple.cgColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
+        foregroundLayer.strokeEnd = progress // this is what i will use to display the progress of the application - incrementing or decrementing by 0.2
         
         textLayer = createTextLayer(textColor: UIColor.white)
         gradientLayer = CAGradientLayer()
@@ -45,9 +46,6 @@ class ProgressBar: UIView {
         gradientLayer.colors = [UIColor.systemBackground.cgColor, UIColor.systemPurple.cgColor]
         gradientLayer.frame = rect
         gradientLayer.mask = foregroundLayer
-        
-        progress = 0.8
-        //foregroundLayer.strokeEnd = 0.3 // this is what i will use to display the progress of the application - incrementing or decrementing by 0.2
         
         layer.addSublayer(backgroundLayer)
         layer.addSublayer(gradientLayer) // this was changed from forgroundLayer to gradientLayer after gradient was added
