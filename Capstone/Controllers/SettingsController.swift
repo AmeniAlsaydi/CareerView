@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SettingsController: UIViewController {
     
@@ -41,6 +42,12 @@ class SettingsController: UIViewController {
             UserPreference.shared.updatePreferenceShowUserInputOption(with: showUserStarSituationInputOption)
         }
         print("Star Situation Input option: \(showUserStarSituationInputOption.rawValue)")
+    }
+    @IBAction func logoutButtonPressed(_ sender: UIButton) {
+        DispatchQueue.main.async {
+        try? FirebaseAuth.Auth.auth().signOut()
+        }
+        UIViewController.showLoginView()
     }
     
 }
