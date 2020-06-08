@@ -12,7 +12,7 @@ class ApplicationTrackerController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var jobApplications = [JobApplication] () {
+    private var jobApplications = [JobApplication]() {
         didSet {
             if jobApplications.count == 0 {
                  collectionView.backgroundView = EmptyView(title: "No Applications yet", message: "Click on the add button on the top right and start keeping track of progress!", imageName: "square.and.pencil")
@@ -31,6 +31,8 @@ class ApplicationTrackerController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         getApplications()
+//        jobApplications = [JobApplication]()
+        configureNavBar()
         
     }
     
@@ -43,6 +45,11 @@ class ApplicationTrackerController: UIViewController {
                 self?.jobApplications = jobApplications
             }
         }
+    }
+    
+    private func configureNavBar() {
+        navigationItem.title = "Tracked Applications"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: nil)
     }
     
     
