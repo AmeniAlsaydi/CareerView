@@ -49,12 +49,18 @@ class StarStoryEntryController: UIViewController {
         }
     }
     
-    private var starSituation: StarSituation?
+    var starSituation: StarSituation? {
+        didSet {
+
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateStarSiuation()
         configureView()
         loadGuidedStarSituationPreference()
+        
     }
     private func configureView() {
         navigationController?.navigationBar.topItem?.title = "Back"
@@ -112,6 +118,14 @@ class StarStoryEntryController: UIViewController {
         }
         if let guidedPreference = UserPreference.shared.getGuidedSituationInputPreference() {
             guidedEntryPreference = guidedPreference
+        }
+    }
+    private func updateStarSiuation() {
+        situationTextView.text = starSituation?.situation
+        if starSituation?.task != nil && starSituation?.action != nil && starSituation?.result != nil {
+            taskTextView.text = starSituation?.task
+            actionTextView.text = starSituation?.action
+            resultTextView.text = starSituation?.result
         }
     }
     //MARK:- Save STAR Situation Function
