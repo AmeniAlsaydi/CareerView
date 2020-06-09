@@ -201,7 +201,11 @@ class InterviewAnswerDetailController: UIViewController {
         hideAddAnswerElements()
     }
     @IBAction func addSTARStoryButtonPressed(_ sender: UIButton) {
-        //TODO: add view/or something related where user could search and select their star situation
+        let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        starStoryVC.isAddingToAnswer = true
+        starStoryVC.answerId = answers.first?.id
+        starStoryVC.question = question?.question
+        present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
 }
 //MARK:- Textfield Delegate
