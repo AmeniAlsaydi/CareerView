@@ -346,8 +346,8 @@
 			isa = PBXGroup;
 			children = (
 				B7976E21247D4A15001AE3B3 /* CapstoneTests.swift */,
-				B74108C6248EDC8200EEFBA8 /* JobApplicationTests.swift */,
 				B7304DA9248817E900490DF1 /* UserJobsDataTests.swift */,
+				B74108C6248EDC8200EEFBA8 /* JobApplicationTests.swift */,
 				B7976E23247D4A15001AE3B3 /* Info.plist */,
 			);
 			path = CapstoneTests;
