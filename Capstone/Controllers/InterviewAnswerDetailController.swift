@@ -53,14 +53,14 @@ class InterviewAnswerDetailController: UIViewController {
     //MARK:- ViewDidLoad/ViewWillAppear/ViewDidDisappear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        listener = Firestore.firestore().collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+        guard let user = Auth.auth().currentUser else {return}
+        listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
             if let error = error {
-                print("listener could not recieve changes error: \(error.localizedDescription)")
+                print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
             } else if let snapshot = snapshot {
                 let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data())}
-                self?.answers = userAnswers
-                //self?.answerStrings = userAnswers.first?.answers ?? []
-                //self?.answersCollectionView.reloadData()
+                self?.answers = userAnswers.filter {$0.question == self?.question?.question}
+                
                 self?.updateUI()
             }
         })
@@ -148,7 +148,6 @@ class InterviewAnswerDetailController: UIViewController {
                         if self?.answers.first?.starSituationIDs.contains(star.id) ?? false {
                             results.append(star)
                         }
-                        
                     }
                     self?.starStories = results
                 }
