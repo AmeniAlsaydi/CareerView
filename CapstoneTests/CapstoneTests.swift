@@ -10,6 +10,8 @@ import XCTest
 import FirebaseAuth
 import FirebaseFirestore
 import Firebase
+import FirebaseFirestoreSwift
+
 
 @testable import Capstone
 
@@ -408,6 +410,28 @@ class CapstoneTests: XCTestCase {
             }
         }
         wait(for:[exp], timeout: 5.0)
+    }
+    
+    func testCreateWorkout() {
+        // arrange
+        let workoutTimeStamp = Timestamp(date: Date())
+        let workoutType = "Running"
+        let workoutTitle = "Foreset Park Run"
+        let workoutDict: [String: Any ] = ["workoutTimeStamp": workoutTimeStamp,
+                                           "workoutType": workoutType,
+                                           "workoutTitle": workoutTitle
+        ]
+        let exp = XCTestExpectation(description: "workout created")
+        // act
+        Firestore.firestore().collection("workouts").document(UUID().uuidString).setData(workoutDict) { (error) in
+            // assert
+            exp.fulfill()
+            if let error = error {
+                XCTFail("failed to create workout with error: \(error.localizedDescription)")
+            }
+            XCTAssert(true)
+        }
+        wait(for: [exp], timeout: 3.0)
     }
     
 }
