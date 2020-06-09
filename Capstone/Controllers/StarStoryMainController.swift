@@ -92,6 +92,12 @@ extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
 //MARK:- StarSituationCell Delegate
 extension StarStoryMainController: StarSituationCellDelegate {
     
+    func editStarSituationPressed(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
+        destinationViewController.starSituation = starSituation
+        show(destinationViewController, sender: nil)
+    }
+    
     func longPressOnStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
