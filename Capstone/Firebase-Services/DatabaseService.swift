@@ -26,6 +26,9 @@ class DatabaseService {
     
     internal let db = Firestore.firestore()
     
+    // TODO: create CRUD functions for interview data to application (is its own collection
+     
+    
 }
 
 

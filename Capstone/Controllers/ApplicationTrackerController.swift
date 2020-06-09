@@ -49,7 +49,7 @@ class ApplicationTrackerController: UIViewController {
     
     private func configureNavBar() {
         navigationItem.title = "Tracked Applications"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addJobApplicationButtonPressed(_:)))
     }
     
     
@@ -63,6 +63,10 @@ class ApplicationTrackerController: UIViewController {
         
     }
     
+    @objc func addJobApplicationButtonPressed(_ sender: UIBarButtonItem) {
+        let newApplicationVC = NewApplicationController(nibName: "NewApplicationXib", bundle: nil)
+        show(newApplicationVC, sender: nil)
+    }
 
 
 }
