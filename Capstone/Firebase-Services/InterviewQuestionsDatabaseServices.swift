@@ -12,7 +12,7 @@ import FirebaseAuth
 
 extension DatabaseService {
     
-    // common
+    //MARK: Common Interview Questions
     public func fetchCommonInterviewQuestions(completion: @escaping (Result<[InterviewQuestion],Error>) -> ()) {
         
         db.collection(DatabaseService.commonQuestionCollection).getDocuments { (snapshot, error) in
@@ -26,7 +26,7 @@ extension DatabaseService {
         }
     }
     
-    // custom
+    //MARK: Custom Interview Questions 
     public func fetchCustomInterviewQuestions(completion: @escaping (Result<[InterviewQuestion], Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
