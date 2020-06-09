@@ -35,6 +35,7 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var situationLabel: UILabel!
     
     private var saveChoiceAsDefault = false
+    var isEditingStarSituation = false
 
     private var guidedEntryPreference = GuidedStarSitutionInput.guided
     private var showUserOption = ShowUserStarInputOption.on {
@@ -49,11 +50,7 @@ class StarStoryEntryController: UIViewController {
         }
     }
     
-    var starSituation: StarSituation? {
-        didSet {
-
-        }
-    }
+    var starSituation: StarSituation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,9 +134,16 @@ class StarStoryEntryController: UIViewController {
         let taskText = taskTextView.text
         let actionText = actionTextView.text
         let resultText = resultTextView.text
-        let id = UUID().uuidString
-        let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: id, userJobID: nil, interviewQuestionsIDs: [""])
-        let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: UUID().uuidString, userJobID: nil, interviewQuestionsIDs: [""])
+        var starSituationID = UUID().uuidString
+        if isEditingStarSituation {
+            guard let starID = starSituation?.id else {
+                return
+            }
+            starSituationID = starID
+        }
+            
+        let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: starSituationID, userJobID: nil, interviewQuestionsIDs: [""])
+        let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: starSituationID, userJobID: nil, interviewQuestionsIDs: [""])
         if guidedEntryPreference.rawValue == GuidedStarSitutionInput.guided.rawValue {
             DatabaseService.shared.addToStarSituations(starSituation: guidedStarSituation, completion: { (result) in
                 switch result {
@@ -167,6 +171,9 @@ class StarStoryEntryController: UIViewController {
                 }
             })
         }
+        //TODO: Activity Indicator
+        let destinationViewController = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        show(destinationViewController, sender: nil)
     }
     private func loadFreeFormView() {
         taskBkgdView.isHidden = true
