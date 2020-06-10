@@ -23,24 +23,13 @@ class NewApplicationController: UIViewController {
         
 
     }
-    
-    
     private func styleAllTextFields() {
-        styleTextField(companyNameTextField)
-        styleTextField(jobTitleTextField)
-        styleTextField(linkTextField)
-        styleTextField(locationTextField)
-        styleTextField(notesLabel)
-    }
-    
-    
-    private func styleTextField(_ textfield: UITextField) {
         
-        let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x: 0, y: textfield.frame.height - 2, width: textfield.frame.width, height: 1)
-        bottomLine.backgroundColor = UIColor.lightGray.cgColor
-        textfield.borderStyle = .none
-        textfield.layer.addSublayer(bottomLine)
+        let textFields = [companyNameTextField, jobTitleTextField, linkTextField, locationTextField, notesLabel]
+        
+        for field in textFields {
+            field?.styleTextField()
+        }
     }
     
     @IBAction func hasAppliedButtonChecked(_ sender: UIButton) {
