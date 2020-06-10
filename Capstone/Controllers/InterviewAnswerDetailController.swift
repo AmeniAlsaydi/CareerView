@@ -22,6 +22,8 @@ class InterviewAnswerDetailController: UIViewController {
     
     private var listener: ListenerRegistration?
     public var question: InterviewQuestion?
+    private var isAddingAnswer = false
+    private var isAddingSTAR = false
     //MARK:- User Answer
     public var answers = [AnsweredQuestion]() {
         didSet {
@@ -46,24 +48,27 @@ class InterviewAnswerDetailController: UIViewController {
                 starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "plus.circle")
             } else {
                 answersCollectionView.reloadData()
+                //updateUI()
                 answersCollectionView.backgroundView = nil
             }
         }
     }
     //MARK:- ViewDidLoad/ViewWillAppear/ViewDidDisappear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        getUserSTARS()
+        
         guard let user = Auth.auth().currentUser else {return}
-        listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
-            if let error = error {
-                print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
-            } else if let snapshot = snapshot {
-                let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data())}
-                self?.answers = userAnswers.filter {$0.question == self?.question?.question}
-                
-                self?.updateUI()
-            }
-        })
+//        if isAddingAnswer {
+            listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+                if let error = error {
+                    print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
+                } else if let snapshot = snapshot {
+                    let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data()) }
+                    self?.answers = userAnswers.filter {$0.question == self?.question?.question}
+                    self?.getUserSTARS()
+                }
+            })
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,6 +148,7 @@ class InterviewAnswerDetailController: UIViewController {
                 print("unable to fetch user STAR stories error: \(error.localizedDescription)")
             case .success(let stars):
                 DispatchQueue.main.async {
+                    self?.starStories = stars
                     var results = [StarSituation]()
                     for star in stars {
                         if self?.answers.first?.starSituationIDs.contains(star.id) ?? false {
@@ -160,8 +166,10 @@ class InterviewAnswerDetailController: UIViewController {
     }
     @IBAction func cancelAddAnswerButtonPressed(_ sender: UIButton) {
         hideAddAnswerElements()
+        isAddingAnswer = false
     }
     @IBAction func confirmAddAnswerButtonPressed(_ sender: UIButton) {
+        isAddingAnswer = true
         guard let answer = enterAnswerTextfield.text, !answer.isEmpty else {
             confirmAddAnswerButton.isEnabled = false
             return
@@ -205,6 +213,7 @@ class InterviewAnswerDetailController: UIViewController {
         starStoryVC.answerId = answers.first?.id
         starStoryVC.question = question?.question
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
+        isAddingSTAR = true
     }
 }
 //MARK:- Textfield Delegate
@@ -229,10 +238,9 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == answersCollectionView {
             return answerStrings.count
-        } else if collectionView == starStoriesCollectionView {
+        } else {
             return starStories.count
         }
-        return 10
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == answersCollectionView {
