@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AnsweredQuestion {
+struct AnsweredQuestion { // FIXME: Should we rename this to InterviewAnswer ???
     var id: String
     var question: String
     var answers: [String]

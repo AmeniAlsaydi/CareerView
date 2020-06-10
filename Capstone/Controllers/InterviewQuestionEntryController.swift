@@ -19,6 +19,10 @@ class InterviewQuestionEntryController: UIViewController {
     private func configureNavBar() {
         navigationItem.title = "Add A Custom Question"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(createQuestionButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
+    }
+    @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
     @objc private func createQuestionButtonPressed(_ sender: UIBarButtonItem){
         guard let questionText = questionTextfield.text, !questionText.isEmpty else {
