@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol FilterStateDelegate {
+protocol FilterStateDelegate: NSObject {
     func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController)
     func pressedCancel(child: FilterMenuViewController)
 }
@@ -19,14 +19,19 @@ class FilterMenuViewController: UIViewController {
     @IBOutlet weak var savedButton: UIButton!
     @IBOutlet weak var commonButton: UIButton!
     @IBOutlet weak var customButton: UIButton!
+    @IBOutlet weak var setFilterButton: UIButton!
     
-    public var filterState: FilterState = .all
-    public var delegate: FilterStateDelegate?
+    public var filterState: FilterState? {
+        didSet {
+            updateUI()
+        }
+    }
+    public weak var delegate: FilterStateDelegate?
     
     override func viewDidLoad() {
         updateUI()
-        view.backgroundColor = .systemGray3
     }
+    
     private func updateUI() {
         if filterState == .all {
             allButton.setImage(UIImage(systemName: "checkmark.rectangle.fill"), for: .normal)
@@ -52,19 +57,26 @@ class FilterMenuViewController: UIViewController {
     }
     //MARK:- IBAction functions
     @IBAction func allButtonPressed(_ sender: UIButton) {
+        setFilterButton.isEnabled = true
         filterState = .all
     }
     @IBAction func savedButtonPressed(_ sender: UIButton){
+        setFilterButton.isEnabled = true
         filterState = .saved
     }
     @IBAction func commonButtonPressed(_ sender: UIButton) {
+        setFilterButton.isEnabled = true
         filterState = .common
     }
     @IBAction func customButtonPressed(_ sender: UIButton) {
+        setFilterButton.isEnabled = true
         filterState = .custom
     }
     @IBAction func setFilterButtonPressed(_ sender: UIButton) {
-        delegate?.didAddFilter(filterState, child: self)
+        guard let filter = filterState else {
+            return
+        }
+        delegate?.didAddFilter(filter, child: self)
     }
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         delegate?.pressedCancel(child: self)
