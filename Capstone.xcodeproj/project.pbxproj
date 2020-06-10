@@ -80,6 +80,7 @@
 		B79F4B48248F64AF009523EE /* AnsweredQuestionDatabaseServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79F4B47248F64AF009523EE /* AnsweredQuestionDatabaseServices.swift */; };
 		B79F4B4A248F6573009523EE /* StarSituationDatabaseServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79F4B49248F6573009523EE /* StarSituationDatabaseServices.swift */; };
 		B79F4B8324905536009523EE /* HairlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79F4B8224905536009523EE /* HairlineView.swift */; };
+		B7A865BE2490D60F00AC456F /* UITextFieldExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A865BD2490D60F00AC456F /* UITextFieldExt.swift */; };
 		C60BDFCE2481B3C200CD9875 /* JobFoldingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */; };
 		C6AC379C248592DA00957B61 /* InterviewQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */; };
 		C6AC379E2485DACC00957B61 /* QuestionAnswerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */; };
@@ -179,6 +180,7 @@
 		B79F4B47248F64AF009523EE /* AnsweredQuestionDatabaseServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweredQuestionDatabaseServices.swift; sourceTree = "<group>"; };
 		B79F4B49248F6573009523EE /* StarSituationDatabaseServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarSituationDatabaseServices.swift; sourceTree = "<group>"; };
 		B79F4B8224905536009523EE /* HairlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HairlineView.swift; sourceTree = "<group>"; };
+		B7A865BD2490D60F00AC456F /* UITextFieldExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExt.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFoldingView.swift; sourceTree = "<group>"; };
 		C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionCell.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */,
+				B7A865BD2490D60F00AC456F /* UITextFieldExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
 				B7976E56247EA2D9001AE3B3 /* EmptyView.swift in Sources */,
 				B79F4B44248F62F7009523EE /* InterviewQuestionsDatabaseServices.swift in Sources */,
+				B7A865BE2490D60F00AC456F /* UITextFieldExt.swift in Sources */,
 				884E557024873F3700BA180F /* User.swift in Sources */,
 				B7976E2F247D50FF001AE3B3 /* StarSituation.swift in Sources */,
 				B79F4B42248F6281009523EE /* UserJobsDatabaseServices.swift in Sources */,
