@@ -59,13 +59,13 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pre-Interview Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utz-wf-tbd">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pre-Interview Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utz-wf-tbd">
                                     <rect key="frame" x="20" y="506" width="374" height="21.5"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                     <color key="textColor" red="0.21051180362701416" green="0.065200045704841614" blue="0.28192910552024841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MNa-uu-FRG">
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MNa-uu-FRG" userLabel="date1Stack">
                                     <rect key="frame" x="190" y="578" width="204" height="34"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="MM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gh7-aU-gpu">
@@ -166,7 +166,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dEN-Hx-o5E">
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dEN-Hx-o5E" userLabel="date2Stack">
                                     <rect key="frame" x="190" y="627" width="204" height="34"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="MM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Im9-ts-6UC">
@@ -210,9 +210,44 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5bb-nj-ZZ4" userLabel="addInterviewButtonStack">
+                                    <rect key="frame" x="20" y="732.5" width="128" height="30"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h4m-66-tJb">
+                                            <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" image="plus.circle.fill" catalog="system">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addInterviewButtonPressed:" destination="-1" eventType="touchUpInside" id="Iw6-pk-9U8"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cve-pc-zbd">
+                                            <rect key="frame" x="30" y="0.0" width="98" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Iox-kd-XIY"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                            <state key="normal" title="add Interview">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addInterviewButtonPressed:" destination="-1" eventType="touchUpInside" id="dPH-oH-5WO"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interview Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBI-S2-zcW">
+                                    <rect key="frame" x="20" y="691" width="374" height="21.5"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                    <color key="textColor" red="0.21051180359999999" green="0.065200045700000001" blue="0.2819291055" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
+                                <constraint firstItem="5bb-nj-ZZ4" firstAttribute="top" secondItem="zBI-S2-zcW" secondAttribute="bottom" constant="20" id="10e-bU-blL"/>
                                 <constraint firstItem="6az-Pm-Slj" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="2Uo-9r-YjZ"/>
                                 <constraint firstItem="TM4-Nz-7mR" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="32Q-ak-Ag7"/>
                                 <constraint firstAttribute="trailing" secondItem="D0r-JB-rI5" secondAttribute="trailing" constant="20" id="4KV-JV-uBc"/>
@@ -225,9 +260,11 @@
                                 <constraint firstItem="c9D-U3-bqx" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="EGB-k8-Cpp"/>
                                 <constraint firstItem="iXe-1p-Ltr" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="EgU-1j-8nE"/>
                                 <constraint firstItem="TM4-Nz-7mR" firstAttribute="top" secondItem="fXr-G6-EGZ" secondAttribute="bottom" constant="20" id="Ffq-e7-mG0"/>
+                                <constraint firstItem="5bb-nj-ZZ4" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="Gfj-MD-l3D"/>
                                 <constraint firstItem="ss2-lD-jYt" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="KWW-hA-6tZ"/>
                                 <constraint firstAttribute="trailing" secondItem="utz-wf-tbd" secondAttribute="trailing" constant="20" id="L4q-Dn-xuL"/>
                                 <constraint firstItem="utz-wf-tbd" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="LK5-a9-T39"/>
+                                <constraint firstAttribute="trailing" secondItem="zBI-S2-zcW" secondAttribute="trailing" constant="20" id="N0d-rr-ZUh"/>
                                 <constraint firstAttribute="trailing" secondItem="sRR-Rf-gqU" secondAttribute="trailing" constant="20" id="Pdi-gz-Bg0"/>
                                 <constraint firstAttribute="trailing" secondItem="6az-Pm-Slj" secondAttribute="trailing" constant="20" id="Poz-sP-Mq2"/>
                                 <constraint firstItem="dEN-Hx-o5E" firstAttribute="top" secondItem="MNa-uu-FRG" secondAttribute="bottom" constant="15" id="RQe-Cj-IsZ"/>
@@ -239,11 +276,13 @@
                                 <constraint firstAttribute="trailing" secondItem="pfd-LL-FcK" secondAttribute="trailing" constant="20" id="Z8c-g0-LGE"/>
                                 <constraint firstItem="pfd-LL-FcK" firstAttribute="top" secondItem="sRR-Rf-gqU" secondAttribute="bottom" constant="25" id="cwY-6R-fR0"/>
                                 <constraint firstAttribute="trailing" secondItem="VUz-fQ-HdT" secondAttribute="trailing" constant="20" id="czG-9E-c0z"/>
+                                <constraint firstItem="zBI-S2-zcW" firstAttribute="top" secondItem="dEN-Hx-o5E" secondAttribute="bottom" constant="30" id="dGh-nJ-xdr"/>
                                 <constraint firstItem="aB0-bY-ybp" firstAttribute="top" secondItem="utz-wf-tbd" secondAttribute="bottom" constant="20" id="ehp-MM-OCF"/>
                                 <constraint firstItem="utz-wf-tbd" firstAttribute="top" secondItem="VUz-fQ-HdT" secondAttribute="bottom" constant="30" id="gUQ-xI-9mT"/>
                                 <constraint firstAttribute="trailing" secondItem="iXe-1p-Ltr" secondAttribute="trailing" constant="20" id="gbu-er-aWf"/>
                                 <constraint firstItem="sRR-Rf-gqU" firstAttribute="top" secondItem="iXe-1p-Ltr" secondAttribute="bottom" constant="25" id="jHf-Ad-cRs"/>
                                 <constraint firstAttribute="trailing" secondItem="TM4-Nz-7mR" secondAttribute="trailing" constant="20" id="jjb-sD-Wnb"/>
+                                <constraint firstItem="zBI-S2-zcW" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="kYZ-UL-Ycn"/>
                                 <constraint firstItem="yVe-Ve-qy1" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="nP1-5u-47i"/>
                                 <constraint firstItem="VUz-fQ-HdT" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="o7b-hc-hra"/>
                                 <constraint firstItem="6az-Pm-Slj" firstAttribute="centerY" secondItem="dEN-Hx-o5E" secondAttribute="centerY" id="ohA-ss-vog"/>
@@ -281,6 +320,7 @@
         </view>
     </objects>
     <resources>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="square" catalog="system" width="128" height="114"/>
     </resources>
 </document>
