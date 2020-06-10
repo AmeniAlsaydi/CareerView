@@ -22,8 +22,6 @@ class InterviewAnswerDetailController: UIViewController {
     
     private var listener: ListenerRegistration?
     public var question: InterviewQuestion?
-    private var isAddingAnswer = false
-    private var isAddingSTAR = false
     //MARK:- User Answer
     public var answers = [AnsweredQuestion]() {
         didSet {
@@ -48,7 +46,6 @@ class InterviewAnswerDetailController: UIViewController {
                 starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "plus.circle")
             } else {
                 answersCollectionView.reloadData()
-                //updateUI()
                 answersCollectionView.backgroundView = nil
             }
         }
@@ -59,7 +56,6 @@ class InterviewAnswerDetailController: UIViewController {
         getUserSTARS()
         
         guard let user = Auth.auth().currentUser else {return}
-//        if isAddingAnswer {
             listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
                 if let error = error {
                     print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
@@ -166,10 +162,8 @@ class InterviewAnswerDetailController: UIViewController {
     }
     @IBAction func cancelAddAnswerButtonPressed(_ sender: UIButton) {
         hideAddAnswerElements()
-        isAddingAnswer = false
     }
     @IBAction func confirmAddAnswerButtonPressed(_ sender: UIButton) {
-        isAddingAnswer = true
         guard let answer = enterAnswerTextfield.text, !answer.isEmpty else {
             confirmAddAnswerButton.isEnabled = false
             return
@@ -213,7 +207,6 @@ class InterviewAnswerDetailController: UIViewController {
         starStoryVC.answerId = answers.first?.id
         starStoryVC.question = question?.question
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
-        isAddingSTAR = true
     }
 }
 //MARK:- Textfield Delegate

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 enum FilterState {
     case common
@@ -20,6 +22,7 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    private var listener: ListenerRegistration?
     public var filterState: FilterState = .all {
         didSet {
             self.questionsCollectionView.reloadData()
@@ -39,6 +42,18 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        guard let user = Auth.auth().currentUser else {return}
+        listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+            if let error = error {
+                print("listener could not recieve changes for custom questions error: \(error.localizedDescription)")
+            } else if let snapshot = snapshot {
+                let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
+                self?.customQuestions = customQs
+            }
+        })
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -46,6 +61,9 @@ class InterviewQuestionsMainController: UIViewController {
         configureNavBar()
         getInterviewQuestions()
         getUserCreatedQuestions()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        listener?.remove()
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
