@@ -29,7 +29,7 @@ class ProgressBar: UIView {
         let width = rect.width
         let height = rect.height
         
-        let lineWidth = 0.18 * min(width, height)
+        let lineWidth = 0.10 * min(width, height)
         
         backgroundLayer = createCircularLayer(strokeColor: UIColor.systemGroupedBackground.cgColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
         
@@ -49,7 +49,7 @@ class ProgressBar: UIView {
         
         layer.addSublayer(backgroundLayer)
         layer.addSublayer(gradientLayer) // this was changed from forgroundLayer to gradientLayer after gradient was added
-        layer.addSublayer(textLayer)
+       // layer.addSublayer(textLayer)
         
         
     }
