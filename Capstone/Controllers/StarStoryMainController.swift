@@ -12,6 +12,11 @@ class StarStoryMainController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    public var isAddingToAnswer = false
+    public var selectedSTARStory: StarSituation?
+    public var answerId: String?
+    public var question: String?
+    
     private var starSituations = [StarSituation]() {
         didSet {
             collectionView.reloadData()
@@ -22,9 +27,6 @@ class StarStoryMainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "STAR Stories: \(starSituations.count)"
         loadStarSituations()
     }
     private func configureView() {
@@ -34,8 +36,14 @@ class StarStoryMainController: UIViewController {
         collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
+        if isAddingToAnswer {
+            navigationItem.title = "Add STAR Story to your answer"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
+        } else {
+            navigationItem.title = "STAR Stories: \(starSituations.count)"
+          navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
+        }
     }
     
     private func loadStarSituations() {
@@ -58,6 +66,46 @@ class StarStoryMainController: UIViewController {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
         show(destinationViewController, sender: nil)
     }
+    @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
+        //When a user selects a star story, save it to db function
+        if selectedSTARStory == nil {
+            sender.isEnabled = false
+        } else {
+            if let answerID = answerId {
+                DatabaseService.shared.addStarSituationToAnswer(answerID: answerID, starSolutionID: selectedSTARStory?.id ?? "") { [weak self] (result) in
+                    switch result {
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Error", message: "Could not add STAR Story at this time error: \(error.localizedDescription)")
+                        }
+                    case .success:
+                        DispatchQueue.main.async {
+                            self?.dismiss(animated: true)
+                        }
+                       
+                    }
+                }
+            } else {
+                let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question ?? "", answers: [], starSituationIDs: [selectedSTARStory?.id ?? ""])
+                DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: newAnswer) { [weak self] (result) in
+                    switch result {
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Error", message: "Unable to create a new answer error: \(error.localizedDescription)")
+                        }
+                    case .success:
+                        DispatchQueue.main.async {
+                            self?.dismiss(animated: true)
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
 }
 //MARK:- Extensions on view controller
 extension StarStoryMainController: UICollectionViewDataSource {
@@ -73,7 +121,14 @@ extension StarStoryMainController: UICollectionViewDataSource {
         cell.configureCell(starSituation: starSituation)
         return cell
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isAddingToAnswer {
+            let starStory = starSituations[indexPath.row]
+            let cell = collectionView.cellForItem(at: indexPath)
+            cell?.backgroundColor = .red //TODO: refactor! Make a button with a checkmark image to show the cell was selected
+            selectedSTARStory = starStory
+        }
+    }
     
 }
 extension StarStoryMainController: UICollectionViewDelegate {

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 enum FilterState {
     case common
@@ -20,32 +22,17 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    public var filterState: FilterState = .all
-    private var filterMenuIsVisible = false
-    
-    private var commonInterviewQuestions = [InterviewQuestion]() {
+    private var listener: ListenerRegistration?
+    public var filterState: FilterState = .all {
         didSet {
-            if filterState == .all {
-                allQuestions.append(contentsOf: commonInterviewQuestions)
-            } else if filterState == .common {
-                self.questionsCollectionView.reloadData()
-            }
+            self.questionsCollectionView.reloadData()
         }
     }
-    private var customQuestions = [InterviewQuestion]() {
-        didSet {
-            if filterState == .all {
-                allQuestions.append(contentsOf: customQuestions)
-            } else if filterState == .custom {
-                self.questionsCollectionView.reloadData()
-            }
-        }
-    }
+    private var commonInterviewQuestions = [InterviewQuestion]()
+    private var customQuestions = [InterviewQuestion]()
     private var allQuestions = [InterviewQuestion]() {
         didSet {
-            if filterState == .all {
-                self.questionsCollectionView.reloadData()
-            }
+            self.questionsCollectionView.reloadData()
         }
     }
     private var searchQuery = String() {
@@ -55,6 +42,18 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        guard let user = Auth.auth().currentUser else {return}
+        listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+            if let error = error {
+                print("listener could not recieve changes for custom questions error: \(error.localizedDescription)")
+            } else if let snapshot = snapshot {
+                let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
+                self?.customQuestions = customQs
+            }
+        })
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -62,6 +61,9 @@ class InterviewQuestionsMainController: UIViewController {
         configureNavBar()
         getInterviewQuestions()
         getUserCreatedQuestions()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        listener?.remove()
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
@@ -71,17 +73,14 @@ class InterviewQuestionsMainController: UIViewController {
     }
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
-        show(interviewQuestionEntryVC, sender: nil)
+        present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
     }
+    //MARK:- FilterMenu
     @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        if filterMenuIsVisible {
-            removeChild(childController: filterMenuVC)
-        } else {
-            self.addChild(filterMenuVC, frame: view.frame)
-            filterMenuVC.delegate = self
-        }
-        
+        filterMenuVC.delegate = self
+        self.addChild(filterMenuVC, frame: view.frame)
+        filterMenuVC.filterState = filterState
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -98,6 +97,7 @@ class InterviewQuestionsMainController: UIViewController {
             case .success(let questions):
                 DispatchQueue.main.async {
                     self?.commonInterviewQuestions = questions
+                    self?.allQuestions.append(contentsOf: questions)
                 }
             }
         }
@@ -110,12 +110,14 @@ class InterviewQuestionsMainController: UIViewController {
             case .success(let customQuestions):
                 DispatchQueue.main.async {
                     self?.customQuestions = customQuestions
+                    self?.allQuestions.append(contentsOf: customQuestions)
+
                 }
             }
         }
     }
 }
-//MARK:- COllectionView Delegate and DataSource
+//MARK:- CollectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
@@ -124,9 +126,17 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: itemWidth, height: itemHeight)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let question = commonInterviewQuestions[indexPath.row]
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
-        interviewAnswerVC.question = question
+        if filterState == .all {
+            let question = allQuestions[indexPath.row]
+            interviewAnswerVC.question = question
+        } else if filterState == .common {
+            let question = commonInterviewQuestions[indexPath.row]
+            interviewAnswerVC.question = question
+        } else {
+            let question = customQuestions[indexPath.row]
+            interviewAnswerVC.question = question
+        } //TODO: add favorites
         navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
 }
@@ -178,12 +188,14 @@ extension InterviewQuestionsMainController {
         
         //set the size of the child view controller's frame to half the parent view controller's height
         if let frame = frame {
-            let height: CGFloat = frame.height * 0.55
+            let height: CGFloat = frame.height
             let width: CGFloat = frame.width / 2
             let x: CGFloat = frame.minX
             let y: CGFloat = frame.minY
             childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
         }
+        view.layer.shadowOpacity = 0.3
+        //view.layer.shadowColor =
         
         //add the childcontroller's view as the parent view controller's subview
         view.addSubview(childController.view)
@@ -198,18 +210,15 @@ extension InterviewQuestionsMainController {
         childController.view.removeFromSuperview()
         
         //remove child view controller from parent view controller
-        removeFromParent()
+        childController.removeFromParent()
     }
 }
 extension InterviewQuestionsMainController: FilterStateDelegate {
     func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController) {
         self.filterState = filterState
         removeChild(childController: child)
-        filterMenuIsVisible = false
     }
-    
     func pressedCancel(child: FilterMenuViewController) {
         removeChild(childController: child)
-        filterMenuIsVisible = false
     }
 }
