@@ -244,7 +244,7 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             cell.configureCell(answer: answer)
             return cell
         } else {
-            guard let cell = starStoriesCollectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarStiuationCell else {
+            guard let cell = starStoriesCollectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarSituationCell else {
                 fatalError("could not cast to StarSituationCell")
             }
             let story = starStories[indexPath.row]

@@ -10,6 +10,7 @@ import UIKit
 
 class StarStoryMainController: UIViewController {
     
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     public var isAddingToAnswer = false
@@ -20,6 +21,7 @@ class StarStoryMainController: UIViewController {
     private var starSituations = [StarSituation]() {
         didSet {
             collectionView.reloadData()
+            navigationItem.title = "STAR Stories: \(starSituations.count)"
         }
     }
     
@@ -35,7 +37,6 @@ class StarStoryMainController: UIViewController {
         collectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
         collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
         if isAddingToAnswer {
             navigationItem.title = "Add STAR Story to your answer"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
@@ -44,6 +45,7 @@ class StarStoryMainController: UIViewController {
             navigationItem.title = "STAR Stories: \(starSituations.count)"
           navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
         }
+
     }
     
     private func loadStarSituations() {
@@ -51,13 +53,13 @@ class StarStoryMainController: UIViewController {
             switch results {
             case .failure(let error):
                 DispatchQueue.main.async {
-                self?.showAlert(title: "Failed to load STAR Situations", message: error.localizedDescription)
+                    self?.showAlert(title: "Failed to load STAR Situations", message: error.localizedDescription)
                 }
             case .success(let starSituationsData):
                 DispatchQueue.main.async {
-                print("Star situation load successful")
-                self?.starSituations = starSituationsData
-                self?.navigationItem.title = "STAR Stories: \(self?.starSituations.count ?? 0)"
+                    print("Star situation load successful")
+                    self?.starSituations = starSituationsData
+                    self?.navigationItem.title = "STAR Stories: \(self?.starSituations.count ?? 0)"
                 }
             }
         }
@@ -114,11 +116,12 @@ extension StarStoryMainController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarStiuationCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarSituationCell else {
             fatalError("Failed to dequeue starSituationCell")
         }
         let starSituation = starSituations[indexPath.row]
         cell.configureCell(starSituation: starSituation)
+        cell.delegate = self
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -141,5 +144,38 @@ extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
         let adjustedWidth = CGFloat(maxWidth * 0.95)
         let adjustedHeight = CGFloat(maxHeight / 4)
         return CGSize(width: adjustedWidth, height: adjustedHeight)
+    }
+}
+//MARK:- StarSituationCell Delegate
+extension StarStoryMainController: StarSituationCellDelegate {
+    
+    func editStarSituationPressed(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
+        destinationViewController.starSituation = starSituation
+        destinationViewController.isEditingStarSituation = true
+        navigationController?.pushViewController(destinationViewController, animated: true)
+    }
+    
+    func longPressOnStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell) }
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    private func deleteStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        guard let index = starSituations.firstIndex(of: starSituation) else { return }
+        DispatchQueue.main.async {
+            DatabaseService.shared.removeStarSituation(situation: starSituation) { (result) in
+                switch result {
+                case .failure(let error):
+                    self.showAlert(title: "Failed to delete STAR Situation", message: error.localizedDescription)
+                case .success:
+                    self.showAlert(title: "Success", message: "STAR Situation deleted")
+                    self.starSituations.remove(at: index)
+                }
+            }
+        }
     }
 }
