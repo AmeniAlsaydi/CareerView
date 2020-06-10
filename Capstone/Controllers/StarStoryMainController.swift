@@ -96,7 +96,7 @@ extension StarStoryMainController: StarSituationCellDelegate {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
         destinationViewController.starSituation = starSituation
         destinationViewController.isEditingStarSituation = true
-        show(destinationViewController, sender: nil)
+        navigationController?.pushViewController(destinationViewController, animated: true)
     }
     
     func longPressOnStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
