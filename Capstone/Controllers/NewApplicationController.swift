@@ -9,17 +9,19 @@
 import UIKit
 
 class NewApplicationController: UIViewController {
-
-    @IBOutlet weak var companyNameTextField: UITextField!
-    @IBOutlet weak var jobTitleTextField: UITextField!
-    @IBOutlet weak var linkTextField: UITextField!
-    @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var notesLabel: UITextField!
+    
+    @IBOutlet weak var companyNameTextField: FloatingLabelInput!
+    
+    @IBOutlet weak var jobTitleTextField: FloatingLabelInput!
+    @IBOutlet weak var linkTextField: FloatingLabelInput!
+    @IBOutlet weak var locationTextField: FloatingLabelInput!
+    @IBOutlet weak var notesLabel: FloatingLabelInput!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         styleAllTextFields()
+        configureNavBar()
         
 
     }
@@ -30,9 +32,9 @@ class NewApplicationController: UIViewController {
     }
     
     private func styleAllTextFields() {
-        
+
         let textFields = [companyNameTextField, jobTitleTextField, linkTextField, locationTextField, notesLabel]
-        
+
         for field in textFields {
             field?.styleTextField()
         }
