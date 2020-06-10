@@ -27,9 +27,6 @@ class StarStoryMainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "STAR Stories: \(starSituations.count)"
         loadStarSituations()
     }
     private func configureView() {
@@ -44,6 +41,7 @@ class StarStoryMainController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
             navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
         } else {
+            navigationItem.title = "STAR Stories: \(starSituations.count)"
           navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
         }
     }
