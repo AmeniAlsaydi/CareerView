@@ -51,18 +51,20 @@ class InterviewAnswerDetailController: UIViewController {
         }
     }
     //MARK:- ViewDidLoad/ViewWillAppear/ViewDidDisappear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        listener = Firestore.firestore().collection(DatabaseService.userCollection).addSnapshotListener({ [weak self] (snapshot, error) in
-            if let error = error {
-                print("listener could not recieve changes error: \(error.localizedDescription)")
-            } else if let snapshot = snapshot {
-                let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data())}
-                self?.answers = userAnswers
-                self?.answerStrings = userAnswers.first?.answers ?? []
-                self?.updateUI()
-            }
-        })
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        getUserSTARS()
+        
+        guard let user = Auth.auth().currentUser else {return}
+            listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+                if let error = error {
+                    print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
+                } else if let snapshot = snapshot {
+                    let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data()) }
+                    self?.answers = userAnswers.filter {$0.question == self?.question?.question}
+                    self?.getUserSTARS()
+                }
+            })
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,12 +144,12 @@ class InterviewAnswerDetailController: UIViewController {
                 print("unable to fetch user STAR stories error: \(error.localizedDescription)")
             case .success(let stars):
                 DispatchQueue.main.async {
+                    self?.starStories = stars
                     var results = [StarSituation]()
                     for star in stars {
                         if self?.answers.first?.starSituationIDs.contains(star.id) ?? false {
                             results.append(star)
                         }
-                        
                     }
                     self?.starStories = results
                 }
@@ -200,7 +202,11 @@ class InterviewAnswerDetailController: UIViewController {
         hideAddAnswerElements()
     }
     @IBAction func addSTARStoryButtonPressed(_ sender: UIButton) {
-        //TODO: add view/or something related where user could search and select their star situation
+        let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        starStoryVC.isAddingToAnswer = true
+        starStoryVC.answerId = answers.first?.id
+        starStoryVC.question = question?.question
+        present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
 }
 //MARK:- Textfield Delegate
@@ -225,10 +231,9 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == answersCollectionView {
             return answerStrings.count
-        } else if collectionView == starStoriesCollectionView {
+        } else {
             return starStories.count
         }
-        return 10
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == answersCollectionView {
