@@ -16,3 +16,5 @@ struct Interview {
     var followUpSent: Bool
     var notes: String
 }
+
+// do we want notes for each interview ?

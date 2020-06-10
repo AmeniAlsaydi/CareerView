@@ -11,19 +11,19 @@ import UIKit
 class NewApplicationController: UIViewController {
     
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
-    
     @IBOutlet weak var jobTitleTextField: FloatingLabelInput!
     @IBOutlet weak var linkTextField: FloatingLabelInput!
     @IBOutlet weak var locationTextField: FloatingLabelInput!
     @IBOutlet weak var notesLabel: FloatingLabelInput!
-    
+    @IBOutlet weak var deteTextField: FloatingLabelInput!
+   
+    let datePicker = UIDatePicker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         styleAllTextFields()
         configureNavBar()
-        
-
+        createDatePicker()
     }
     
     private func configureNavBar() {
@@ -31,9 +31,34 @@ class NewApplicationController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveJobApplicationButtonPressed(_:)))
     }
     
+    func createDatePicker() {
+        // toolbar
+        let toolbar = UIToolbar()
+        
+        toolbar.sizeToFit()
+        
+        // bar button
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        toolbar.setItems([doneButton], animated: true)
+        
+        // assign toolbar
+        deteTextField.inputAccessoryView = toolbar
+        
+        // assign date picker to text feild
+        deteTextField.inputView = datePicker
+        
+        // date picker mode
+        datePicker.datePickerMode = .date
+    }
+    
+    @objc func doneButtonPressed() {
+        deteTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+        self.view.endEditing(true)
+    }
+    
     private func styleAllTextFields() {
 
-        let textFields = [companyNameTextField, jobTitleTextField, linkTextField, locationTextField, notesLabel]
+        let textFields = [companyNameTextField, jobTitleTextField, linkTextField, locationTextField, notesLabel, deteTextField]
 
         for field in textFields {
             field?.styleTextField()
