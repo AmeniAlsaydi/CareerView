@@ -89,6 +89,12 @@ extension ApplicationTrackerController: UICollectionViewDataSource {
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let aJobApplication = jobApplications[indexPath.row]
+        let applicationDetailVC = ApplicationDetailController(aJobApplication)
+        applicationDetailVC.jobApplication = aJobApplication
+        show(applicationDetailVC, sender: nil)
+    }
     
 }
 
