@@ -73,7 +73,7 @@ class InterviewQuestionsMainController: UIViewController {
     }
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
-        show(interviewQuestionEntryVC, sender: nil)
+        present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
     }
     //MARK:- FilterMenu
     @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {

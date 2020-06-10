@@ -42,6 +42,7 @@ class StarStoryMainController: UIViewController {
         if isAddingToAnswer {
             navigationItem.title = "Add STAR Story to your answer"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
         } else {
           navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
         }
@@ -67,9 +68,11 @@ class StarStoryMainController: UIViewController {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
         show(destinationViewController, sender: nil)
     }
+    @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
     @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
         //When a user selects a star story, save it to db function
-        //let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
         if selectedSTARStory == nil {
             sender.isEnabled = false
         } else {
