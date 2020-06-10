@@ -19,7 +19,7 @@ struct JobApplication {
     var notes: String
     var applicationDeadline: Timestamp
     var dateApplied: Timestamp
-    // var interviews: [Interview]
+    // var interviews: [Interview] 
     var interested: Bool
     var didApply: Bool
     var currentlyInterviewing: Bool
