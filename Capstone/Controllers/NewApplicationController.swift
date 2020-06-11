@@ -10,6 +10,7 @@ import UIKit
 
 class NewApplicationController: UIViewController {
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
     @IBOutlet weak var jobTitleTextField: FloatingLabelInput!
     @IBOutlet weak var linkTextField: FloatingLabelInput!
@@ -103,10 +104,7 @@ class NewApplicationController: UIViewController {
         // TODO:
         // create the interview view
         // have it require an initializer that takes in a number that will be assigned to the label on the view that tells them which interview theyre entering
-        
-     
-        
-        
+ 
         
         switch interviewCount {
         case 0:
@@ -123,7 +121,7 @@ class NewApplicationController: UIViewController {
         view.layoutIfNeeded() // force any pending operations to finish
 
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            self.interviewViewHeight.constant = 50
+            self.interviewViewHeight.constant = 150
             self.view.layoutIfNeeded()
         })
         
