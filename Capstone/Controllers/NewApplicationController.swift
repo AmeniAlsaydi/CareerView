@@ -16,6 +16,21 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var locationTextField: FloatingLabelInput!
     @IBOutlet weak var notesLabel: FloatingLabelInput!
     @IBOutlet weak var deteTextField: FloatingLabelInput!
+    
+    // InterviewEntryViews + height constraints
+    
+    @IBOutlet weak var InterviewEntryView1: InterviewEntryView!
+    @IBOutlet weak var InterviewEntryView1Height: NSLayoutConstraint!
+    
+    @IBOutlet weak var InterviewEntryView2: InterviewEntryView!
+    @IBOutlet weak var InterviewEntryView2Height: NSLayoutConstraint!
+    
+    @IBOutlet weak var InterviewEntryView3: InterviewEntryView!
+    @IBOutlet weak var InterviewEntryView3Height: NSLayoutConstraint!
+    
+    private var interviewViewHeight: NSLayoutConstraint!
+    
+    private var interviewCount = 0
    
     let datePicker = UIDatePicker()
     
@@ -81,14 +96,42 @@ class NewApplicationController: UIViewController {
     
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
         // present a view with prepopulated feilds
-        // i think the way i want to do this is animated the height of a view from 0 -> #
+        // i think the way i want to do this is animate the height of a view from 0 -> #
         // this means ill have all 3 interview views already there and if the user wants to add a new one the height of the one after will increase
-        // i have to also consider if they change their mind on the addition of an interview
+        // i have to also consider if they change their mind on the addition of an interview and would like delete
         
         // TODO:
         // create the interview view
         // have it require an initializer that takes in a number that will be assigned to the label on the view that tells them which interview theyre entering
         
+     
+        
+        
+        
+        switch interviewCount {
+        case 0:
+            interviewViewHeight = InterviewEntryView1Height
+        case 1:
+            interviewViewHeight = InterviewEntryView2Height
+        case 2:
+            interviewViewHeight = InterviewEntryView3Height
+        default:
+            print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
+        }
+        
+       
+        view.layoutIfNeeded() // force any pending operations to finish
+
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.interviewViewHeight.constant = 50
+            self.view.layoutIfNeeded()
+        })
+        
+        interviewCount += 1
+        
+        if interviewCount == 3 {
+            // hide button maybe ?
+        }
         
     }
     
