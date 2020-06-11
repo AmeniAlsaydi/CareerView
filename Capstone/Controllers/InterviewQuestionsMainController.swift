@@ -22,6 +22,8 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    //private lazy var scrollGesture:
+    
     private var listener: ListenerRegistration?
     public var filterState: FilterState = .all {
         didSet {
@@ -38,7 +40,18 @@ class InterviewQuestionsMainController: UIViewController {
     private var searchQuery = String() {
         didSet {
             DispatchQueue.main.async {
-                self.commonInterviewQuestions = self.commonInterviewQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+                switch self.filterState {
+                case .all:
+                    self.allQuestions = self.allQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+                case .common:
+                    self.commonInterviewQuestions = self.commonInterviewQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+                case .custom:
+                    self.customQuestions = self.customQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+                //case .saved:
+                    //TODO
+                default:
+                    self.allQuestions = self.allQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+                }
             }
         }
     }
@@ -84,6 +97,7 @@ class InterviewQuestionsMainController: UIViewController {
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
+        questionsCollectionView.keyboardDismissMode = .onDrag
         questionsCollectionView.delegate = self
         questionsCollectionView.dataSource = self
         questionsCollectionView.register(UINib(nibName: "InterviewQuestionCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewQuestionCell")
@@ -139,6 +153,9 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         } //TODO: add favorites
         navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
 }
 extension InterviewQuestionsMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -146,9 +163,13 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
             return allQuestions.count
         } else if filterState == .common {
             return commonInterviewQuestions.count
-        } else {
+        } else if filterState == .custom {
             return customQuestions.count
-        } //TODO: favorites
+        } else if filterState == .saved {
+            //TODO: logic for saved question
+            return allQuestions.count
+        }
+        return 10
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = questionsCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewQuestionCell", for: indexPath) as? InterviewQuestionCell else {
@@ -163,7 +184,11 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
         } else if filterState == .custom {
             let question = customQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
-        } //TODO: favorites
+        } else if filterState == .saved {
+            //TODO: logic for saved question
+            let question = allQuestions[indexPath.row]
+            cell.configureCell(interviewQ: question)
+        }
         return cell
     }
 }
@@ -175,10 +200,12 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
         } else {
             searchQuery = searchBar.text ?? ""
         }
+        searchBar.resignFirstResponder()
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+    
 }
 //MARK:- Extenstion For Child View
 extension InterviewQuestionsMainController {
@@ -194,9 +221,6 @@ extension InterviewQuestionsMainController {
             let y: CGFloat = frame.minY
             childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
         }
-        view.layer.shadowOpacity = 0.3
-        //view.layer.shadowColor =
-        
         //add the childcontroller's view as the parent view controller's subview
         view.addSubview(childController.view)
         //pass child to parent
