@@ -228,6 +228,16 @@ class DatabaseService {
             }
         }
     }
+    public func deleteCustomQuestion(customQuestion: InterviewQuestion, completion: @escaping(Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else { return }
+        db.collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).document(customQuestion.id).delete { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
     
     // to get interview question answers we will filter answeredQuestions collection using the question string
     
