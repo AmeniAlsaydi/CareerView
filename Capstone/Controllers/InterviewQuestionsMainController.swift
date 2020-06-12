@@ -39,7 +39,6 @@ class InterviewQuestionsMainController: UIViewController {
                 if customQuestions.isEmpty {
                     questionsCollectionView.backgroundView = EmptyView.init(title: "You Have No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "plus")
                 } else {
-                    self.allQuestions.append(contentsOf: customQuestions)
                     questionsCollectionView.reloadData()
                     questionsCollectionView.backgroundView = nil
                 }
@@ -96,6 +95,7 @@ class InterviewQuestionsMainController: UIViewController {
             } else if let snapshot = snapshot {
                 let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
                 self?.customQuestions = customQs
+                self?.allQuestions.append(contentsOf: customQs) 
                 self?.getBookmarkedQuestions()
                 self?.questionsCollectionView.reloadData()
             }
@@ -116,7 +116,6 @@ class InterviewQuestionsMainController: UIViewController {
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
     }
@@ -159,6 +158,8 @@ class InterviewQuestionsMainController: UIViewController {
             case .success(let customQuestions):
                 DispatchQueue.main.async {
                     self?.customQuestions = customQuestions
+                    self?.allQuestions.append(contentsOf: customQuestions)
+                    self?.questionsCollectionView.reloadData()
                 }
             }
         }
@@ -332,7 +333,6 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
         }
         let delete = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
-            //TODO: need "Delete Custom Question" Database function
             DatabaseService.shared.deleteCustomQuestion(customQuestion: customQuestion) { [weak self] (result) in
                 switch result {
                 case .failure(let error):

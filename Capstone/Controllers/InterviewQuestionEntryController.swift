@@ -111,6 +111,22 @@ class InterviewQuestionEntryController: UIViewController {
     @objc private func createQuestionButtonPressed(_ sender: UIBarButtonItem){
         if editingMode {
             //TODO: Database function to update a custom interview question
+            guard var question = customQuestion, let questionText = questionTextfield.text, !questionText.isEmpty else {
+                return
+            }
+            question.question = questionText
+            DatabaseService.shared.updateCustomQuestion(customQuestion: question) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Error", message: "Could not update \(questionText) at this time error: \(error.localizedDescription)")
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Question Updated", message: "Question has now been updated with changes")
+                    }
+                }
+            }
         } else {
             guard let questionText = questionTextfield.text, !questionText.isEmpty else {
                 DispatchQueue.main.async {
