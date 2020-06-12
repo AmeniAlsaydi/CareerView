@@ -16,7 +16,7 @@ protocol FilterStateDelegate: AnyObject {
 class FilterMenuViewController: UIViewController {
     
     @IBOutlet weak var allButton: UIButton!
-    @IBOutlet weak var savedButton: UIButton!
+    @IBOutlet weak var bookmarkedButton: UIButton!
     @IBOutlet weak var commonButton: UIButton!
     @IBOutlet weak var customButton: UIButton!
     @IBOutlet weak var setFilterButton: UIButton!
@@ -34,23 +34,23 @@ class FilterMenuViewController: UIViewController {
     private func updateUI() {
         if filterState == .all {
             allButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
-            savedButton.setImage(UIImage(systemName: "square"), for: .normal)
+            bookmarkedButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else if filterState == .bookmarked {
-            savedButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+            bookmarkedButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else if filterState == .common {
             commonButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
-            savedButton.setImage(UIImage(systemName: "square"), for: .normal)
+            bookmarkedButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else if filterState == .custom {
             customButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
-            savedButton.setImage(UIImage(systemName: "square"), for: .normal)
+            bookmarkedButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
         }
     }
