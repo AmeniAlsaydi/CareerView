@@ -12,7 +12,6 @@ class FoldingCell: UITableViewCell {
     
     @IBOutlet weak var foregroundView: RotatedView!
     @IBOutlet weak var foregroundViewTop: NSLayoutConstraint!
-    
     @IBOutlet weak var thirdView: UIView!
     @IBOutlet weak var secondView: UIView!
     @IBOutlet weak var forthView: UIView!
@@ -69,6 +68,7 @@ class FoldingCell: UITableViewCell {
         
         forthView.layer.borderWidth = 1.0
         forthView.layer.borderColor = UIColor.black.cgColor
+        
     }
     
     // MARK: configure
