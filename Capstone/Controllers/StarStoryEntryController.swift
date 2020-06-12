@@ -37,7 +37,9 @@ class StarStoryEntryController: UIViewController {
     private var saveChoiceAsDefault = false
     var isEditingStarSituation = false
     
+    
     private var guidedEntryPreference = GuidedStarSitutionInput.guided
+    //Note: Default option for showing the user an option for guided/freeform is true
     private var showUserOption = ShowUserStarInputOption.on {
         didSet {
             if showUserOption.rawValue == ShowUserStarInputOption.off.rawValue {
@@ -60,8 +62,12 @@ class StarStoryEntryController: UIViewController {
     }
     //MARK:- Private Functions
     private func configureView() {
-        navigationController?.navigationBar.topItem?.title = "Back"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed(_:)))
+//        navigationController?.navigationBar.topItem?.title = "Back"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "checkmark"),
+            style: .plain,
+            target: self,
+            action: #selector(saveButtonPressed(_:)))
         
         starStoryButton.layer.borderWidth = CGFloat(1.0)
         freeFormButton.layer.borderWidth = CGFloat(1.0)
@@ -90,10 +96,6 @@ class StarStoryEntryController: UIViewController {
         
     }
     private func configureTextViews(view: UIView) {
-        //        view.layer.shadowColor = UIColor.black.cgColor
-        //        view.layer.shadowOpacity = 1
-        //        view.layer.shadowOffset = .zero
-        //        view.layer.shadowRadius = 0.25
         view.layer.cornerRadius = 4
     }
     private func setTextViewHeights() {
@@ -117,7 +119,7 @@ class StarStoryEntryController: UIViewController {
             guidedEntryPreference = guidedPreference
         }
     }
-    // Note: This function is used when editing a starSituation to load the textViews
+    // Note: This function is used when editing a starSituation, to load their respective textViews
     private func updateStarSiuation() {
         if isEditingStarSituation {
             situationTextView.text = starSituation?.situation
@@ -190,9 +192,9 @@ class StarStoryEntryController: UIViewController {
     private func transitionFromOptionToMainView() {
         let duration = 1.0
         UIView.animate(withDuration: duration, delay: 0.0, options: [], animations: {
+            self.view.layoutIfNeeded()
             self.inputOptionView.isHidden = true
             self.blurEffect.isHidden = true
-            self.view.layoutIfNeeded()
         })
     }
     //MARK:- @IBAction functions
