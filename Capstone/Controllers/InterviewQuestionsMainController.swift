@@ -64,7 +64,6 @@ class InterviewQuestionsMainController: UIViewController {
             } else if let snapshot = snapshot {
                 let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
                 self?.customQuestions = customQs
-                self?.allQuestions.append(contentsOf: customQs)
                 self?.questionsCollectionView.reloadData()
             }
         })

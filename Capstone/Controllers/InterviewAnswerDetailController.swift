@@ -45,8 +45,8 @@ class InterviewAnswerDetailController: UIViewController {
             if starStories.isEmpty {
                 starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "plus.circle")
             } else {
-                answersCollectionView.reloadData()
-                answersCollectionView.backgroundView = nil
+                starStoriesCollectionView.reloadData()
+                starStoriesCollectionView.backgroundView = nil
             }
         }
     }
