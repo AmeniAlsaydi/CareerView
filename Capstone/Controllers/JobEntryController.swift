@@ -432,22 +432,6 @@ extension JobEntryController: UITextFieldDelegate {
     }
 }
 
-//MARK:- UITextField Extension
-extension UITextField {
-    func setPadding() {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: self.frame.height))
-        self.leftView = paddingView
-        self.leftViewMode = .always
-        self.layer.backgroundColor = UIColor.white.cgColor
-    }
-    func setBottomBorder() {
-        self.layer.shadowColor = UIColor.systemGray.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        self.layer.shadowOpacity = 1.0
-        self.layer.shadowRadius = 0.0
-        self.layer.backgroundColor = UIColor.white.cgColor
-    }
-}
 //MARK:- CollectionView Extension
 extension JobEntryController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -34,6 +34,7 @@ class StarStoryEntryController: UIViewController {
     
     @IBOutlet weak var situationLabel: UILabel!
     
+
     private var saveChoiceAsDefault = false {
         didSet {
             if saveChoiceAsDefault {
@@ -43,6 +44,7 @@ class StarStoryEntryController: UIViewController {
             }
         }
     }
+
     var isEditingStarSituation = false
     
     private var guidedEntryPreference = GuidedStarSitutionInput.guided
@@ -64,6 +66,7 @@ class StarStoryEntryController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadStarSiuationWhenEditing()
+        updateStarSiuation()
         configureView()
         loadGuidedStarSituationPreference()
     }
@@ -133,6 +136,17 @@ class StarStoryEntryController: UIViewController {
     private func loadStarSiuationWhenEditing() {
         if isEditingStarSituation {
             transitionFromOptionToMainView()
+            situationTextView.text = starSituation?.situation
+            if starSituation?.task != nil && starSituation?.action != nil && starSituation?.result != nil {
+                taskTextView.text = starSituation?.task
+                actionTextView.text = starSituation?.action
+                resultTextView.text = starSituation?.result
+            }
+        }
+    }
+    // Note: This function is used when editing a starSituation to load the textViews
+    private func updateStarSiuation() {
+        if isEditingStarSituation {
             situationTextView.text = starSituation?.situation
             if starSituation?.task != nil && starSituation?.action != nil && starSituation?.result != nil {
                 taskTextView.text = starSituation?.task

@@ -10,6 +10,7 @@ import UIKit
 
 class StarStoryMainController: UIViewController {
     
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     public var isAddingToAnswer = false
@@ -152,6 +153,7 @@ extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
 extension StarStoryMainController: StarSituationCellDelegate {
     
     func editStarSituationPressed(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell) }
@@ -173,6 +175,7 @@ extension StarStoryMainController: StarSituationCellDelegate {
         destinationViewController.isEditingStarSituation = true
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
+
     private func deleteStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
         guard let index = starSituations.firstIndex(of: starSituation) else { return }
         DispatchQueue.main.async {

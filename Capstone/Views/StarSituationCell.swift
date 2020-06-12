@@ -40,5 +40,5 @@ class StarSituationCell: UICollectionViewCell {
     @objc private func contextButtonPressed(_ sender: UIButton) {
         delegate?.editStarSituationPressed(starSituation: starSituationForDelegate!, starSituationCell: self)
     }
-    
+
 }

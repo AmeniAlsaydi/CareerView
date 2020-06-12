@@ -13,6 +13,7 @@
                 <outlet property="commonButton" destination="Amj-Ql-OTA" id="FAB-nO-cZ5"/>
                 <outlet property="customButton" destination="M8O-cb-C7j" id="lPA-6Z-GNx"/>
                 <outlet property="savedButton" destination="ra3-EV-iMe" id="79T-vQ-HM7"/>
+                <outlet property="setFilterButton" destination="pJe-6l-k5Z" id="xNr-lV-s3e"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Exg-3g-WDM"/>
             </connections>
         </placeholder>
