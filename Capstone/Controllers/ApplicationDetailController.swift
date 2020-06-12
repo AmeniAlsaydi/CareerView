@@ -22,7 +22,24 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var dateAppliedLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var view1: InterviewEntryView!
+    @IBOutlet weak var view1Height: NSLayoutConstraint!
+    
+    @IBOutlet weak var view2: InterviewEntryView!
+    @IBOutlet weak var view2Height: NSLayoutConstraint!
+    
+    @IBOutlet weak var view3: InterviewEntryView!
+    @IBOutlet weak var view3Height: NSLayoutConstraint!
+    
+    @IBOutlet weak var mapHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var addInterviewButton: UIButton!
+    
     var jobApplication: JobApplication
+    
+    private var interviewCount = 0
+    
+    private var interviewViewHeight: NSLayoutConstraint!
     
     init(_ jobApplication: JobApplication) {
         self.jobApplication = jobApplication
@@ -102,11 +119,59 @@ class ApplicationDetailController: UIViewController {
         var annotations = [MKPointAnnotation]()
         let annotation = MKPointAnnotation()
         annotation.title = jobApplication.companyName
-        //let coordinate = CLLocationCoordinate2DMake(Double(jobApplication.location.latitude), Double(jobApplication.location.longitude))
-        //annotation.coordinate = coordinate
-        annotations.append(annotation)
+        
+        if let locationCoordinates = jobApplication.location {
+            let coordinate = CLLocationCoordinate2DMake(Double(locationCoordinates.latitude), Double(locationCoordinates.longitude))
+            annotation.coordinate = coordinate
+            annotations.append(annotation)
+        } else {
+            mapHeight.constant = 0 
+            mapView.isHidden = true
+        }
+        
         return annotations
     }
+    
+    
+    @IBAction func addInterviewPressed(_ sender: UIButton) {
+        interviewCount += 1
+        
+        switch interviewCount {
+        case 1:
+            interviewViewHeight = view1Height
+        case 2:
+            interviewViewHeight = view2Height
+        case 3:
+            interviewViewHeight = view3Height
+        default:
+            print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
+        }
+        
+        view.layoutIfNeeded() // force any pending operations to finish
+        
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.interviewViewHeight.constant = 150
+            self.view.layoutIfNeeded()
+        })
+        
+        if interviewCount == 3 {
+            addInterviewButton.isHidden = true
+            // hide button maybe ?
+        }
+    }
+    
+    
+    @IBAction func moreOptionsButtonPressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
+        let editAction = UIAlertAction(title: "Edit", style: .default)
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(editAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
 extension ApplicationDetailController: MKMapViewDelegate {

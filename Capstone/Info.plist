@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDisplayName</key>
+	<string>CareerView</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Access is needed to save your coworkers and references to your job history</string>
 	<key>CFBundleDevelopmentRegion</key>
