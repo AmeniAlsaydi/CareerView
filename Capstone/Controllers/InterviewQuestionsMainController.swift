@@ -23,11 +23,7 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var listener: ListenerRegistration?
-    private lazy var tapGesture: UITapGestureRecognizer = {
-        let tap = UITapGestureRecognizer()
-        tap.addTarget(self, action: #selector(didTapScreen(_:)))
-        return tap
-    }()
+    private var filterMenuOn = false
     
     public var filterState: FilterState = .all {
         didSet {
@@ -80,7 +76,7 @@ class InterviewQuestionsMainController: UIViewController {
         configureNavBar()
         getInterviewQuestions()
         getUserCreatedQuestions()
-        view.addGestureRecognizer(tapGesture)
+        filterMenuOn = false
     }
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
@@ -98,13 +94,17 @@ class InterviewQuestionsMainController: UIViewController {
     //MARK:- FilterMenu
     @objc func presentfilterMenuButtonPressed(_ sender: UIBarButtonItem) {
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        filterMenuVC.delegate = self
-        self.addChild(filterMenuVC, frame: view.frame)
-        filterMenuVC.filterState = filterState
-    }
-    @objc func didTapScreen(_ sender: UIGestureRecognizer) {
-        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        self.removeChild(childController: filterMenuVC)
+        if filterMenuOn {
+            removeChild(childController: filterMenuVC)
+            filterMenuOn = false
+        } else {
+            addChild(filterMenuVC, frame: view.frame)
+            filterMenuVC.delegate = self
+            filterMenuVC.filterState = filterState
+            filterMenuOn = true
+        }
+        
+        
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -161,6 +161,11 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
             let question = customQuestions[indexPath.row]
             interviewAnswerVC.question = question
         } //TODO: add favorites
+        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
+        
+        if filterMenuOn {
+            removeChild(childController: filterMenuVC)
+        }
         navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
 }
@@ -235,19 +240,21 @@ extension InterviewQuestionsMainController {
         view.backgroundColor = .systemGray
         questionsCollectionView.alpha = 0.5
         searchBar.alpha = 0.5
+        filterMenuOn = true
         //pass child to parent
         childController.didMove(toParent: self)
     }
     func removeChild(childController: UIViewController) {
         //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
-        willMove(toParent: nil)
+        view.backgroundColor = .systemBackground
+        questionsCollectionView.alpha = 1
+        searchBar.alpha = 1
+        filterMenuOn = false
+        childController.willMove(toParent: nil)
         //remove the child view controller's view from parent's view
         childController.view.removeFromSuperview()
         //remove child view controller from parent view controller
         childController.removeFromParent()
-        view.backgroundColor = .systemBackground
-        questionsCollectionView.alpha = 1
-        searchBar.alpha = 1
     }
 }
 extension InterviewQuestionsMainController: FilterStateDelegate {
