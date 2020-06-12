@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class NewApplicationController: UIViewController {
     
@@ -16,7 +17,7 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var linkTextField: FloatingLabelInput!
     @IBOutlet weak var locationTextField: FloatingLabelInput!
     @IBOutlet weak var notesLabel: FloatingLabelInput!
-    @IBOutlet weak var deteTextField: FloatingLabelInput!
+    @IBOutlet weak var dateTextField: FloatingLabelInput!
     
     // InterviewEntryViews + height constraints
     
@@ -40,15 +41,27 @@ class NewApplicationController: UIViewController {
             if hasApplied {
                 hasAppliedButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
                 
-                deteTextField.placeholder = "Date applied"
+                dateTextField.placeholder = "Date applied"
                 
             } else {
                 hasAppliedButton.setImage(UIImage(systemName: "square"), for: .normal)
                 
-                deteTextField.placeholder = "Deadline"
+                dateTextField.placeholder = "Deadline"
             }
         }
     }
+    
+    private var isRemote = false {
+        didSet {
+            if isRemote {
+                isRemoteButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            } else {
+                isRemoteButton.setImage(UIImage(systemName: "square"), for: .normal)
+            }
+        }
+    }
+    
+    private var date: Date?
     
     private var interviewViewHeight: NSLayoutConstraint!
     
@@ -79,23 +92,24 @@ class NewApplicationController: UIViewController {
         toolbar.setItems([doneButton], animated: true)
         
         // assign toolbar
-        deteTextField.inputAccessoryView = toolbar
+        dateTextField.inputAccessoryView = toolbar
         
         // assign date picker to text feild
-        deteTextField.inputView = datePicker
+        dateTextField.inputView = datePicker
         
         // date picker mode
         datePicker.datePickerMode = .date
     }
     
     @objc func doneButtonPressed() {
-        deteTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+        dateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+        date = datePicker.date
         self.view.endEditing(true)
     }
     
     private func styleAllTextFields() {
 
-        let textFields = [companyNameTextField, jobTitleTextField, linkTextField, locationTextField, notesLabel, deteTextField]
+        let textFields = [companyNameTextField, jobTitleTextField, linkTextField, locationTextField, notesLabel, dateTextField]
 
         for field in textFields {
             field?.styleTextField()
@@ -104,15 +118,19 @@ class NewApplicationController: UIViewController {
     
     @objc private func saveJobApplicationButtonPressed(_ sender: UIBarButtonItem) {
         // create new application and add to datebase
-        // add the interview (if there is any as a collection to that application 
+        createJobApplication()
+        // add the interview (if there is any as a collection to that application
         
+        
+    }
+    @IBAction func isRemoteButtonPressed(_ sender: UIButton) {
+        isRemote.toggle()
     }
     
     @IBAction func hasAppliedButtonChecked(_ sender: UIButton) {
         hasApplied.toggle()
-        
-        
     }
+    
     
     
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
@@ -152,7 +170,43 @@ class NewApplicationController: UIViewController {
     }
     
     
-
+    private func createJobApplication() {
+        
+        // mandatory fields
+        // link should also be optional
+        guard let companyName = companyNameTextField.text, !companyName.isEmpty, let jobTitle = jobTitleTextField.text, !jobTitle.isEmpty, let link = linkTextField.text, !link.isEmpty else {
+            self.showAlert(title: "Missing fields", message: "Check all fields.")
+            return
+        }
+        
+        let jobID = UUID().uuidString
+        var dateApplied: Timestamp? = nil
+        var deadline: Timestamp? = nil
+        
+        if let date = date {
+            if hasApplied {
+                dateApplied = Timestamp(date: date)
+            } else {
+                 deadline = Timestamp(date: date)
+            }
+        }
+        
+        let isInterviewing = (interviewCount > 0)
+        
+        let jobApplication = JobApplication(id: jobID, companyName: companyName, positionTitle: jobTitle, positionURL: link, remoteStatus: isRemote, location: nil, notes: nil, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: false, receivedOffer: false)
+        
+        DatabaseService.shared.addApplication(application: jobApplication) { (result) in
+            switch result {
+            case .failure(let error):
+                print("Error adding application: \(error)")
+            case .success:
+                print("success adding application")
+                // self.navigationController?.popViewController(animated: true)
+            }
+        }
+        
+               
+    }
 }
 
 
