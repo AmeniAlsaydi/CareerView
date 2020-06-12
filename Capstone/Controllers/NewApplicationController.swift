@@ -29,6 +29,10 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var InterviewEntryView3: InterviewEntryView!
     @IBOutlet weak var InterviewEntryView3Height: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var addInterviewStack: UIStackView!
+    
+    
     private var interviewViewHeight: NSLayoutConstraint!
     
     private var interviewCount = 0
@@ -96,22 +100,20 @@ class NewApplicationController: UIViewController {
     
     
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
-        // present a view with prepopulated feilds
-        // i think the way i want to do this is animate the height of a view from 0 -> #
-        // this means ill have all 3 interview views already there and if the user wants to add a new one the height of the one after will increase
         // i have to also consider if they change their mind on the addition of an interview and would like delete
         
         // TODO:
         // create the interview view
         // have it require an initializer that takes in a number that will be assigned to the label on the view that tells them which interview theyre entering
  
+        interviewCount += 1
         
         switch interviewCount {
-        case 0:
-            interviewViewHeight = InterviewEntryView1Height
         case 1:
-            interviewViewHeight = InterviewEntryView2Height
+            interviewViewHeight = InterviewEntryView1Height
         case 2:
+            interviewViewHeight = InterviewEntryView2Height
+        case 3:
             interviewViewHeight = InterviewEntryView3Height
         default:
             print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
@@ -125,9 +127,9 @@ class NewApplicationController: UIViewController {
             self.view.layoutIfNeeded()
         })
         
-        interviewCount += 1
         
         if interviewCount == 3 {
+            addInterviewStack.isHidden = true
             // hide button maybe ?
         }
         
@@ -136,3 +138,10 @@ class NewApplicationController: UIViewController {
     
 
 }
+
+
+/*
+ key board handling:
+ - manipulate scroll view frame - height constraint
+ - maniplute scroll view to move to current text field
+ */

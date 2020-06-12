@@ -15,6 +15,7 @@
                 <outlet property="InterviewEntryView2Height" destination="3QC-me-TJb" id="Mah-DL-dez"/>
                 <outlet property="InterviewEntryView3" destination="Hhc-cq-NK7" id="IvA-7N-gaE"/>
                 <outlet property="InterviewEntryView3Height" destination="YvJ-4w-eVZ" id="jGT-eG-MwT"/>
+                <outlet property="addInterviewStack" destination="5bb-nj-ZZ4" id="8Fj-3j-zoF"/>
                 <outlet property="companyNameTextField" destination="iXe-1p-Ltr" id="aj1-Bu-AfK"/>
                 <outlet property="deteTextField" destination="pQM-tE-bM3" id="HaB-Qq-PLW"/>
                 <outlet property="jobTitleTextField" destination="sRR-Rf-gqU" id="Bgb-aa-w0k"/>
@@ -31,10 +32,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="kDr-2P-7Dy">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fZd-Yj-lRt" userLabel="ContentView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="835"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="General Information:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TM4-Nz-7mR">
                                     <rect key="frame" x="20" y="117.5" width="374" height="21.5"/>
@@ -244,6 +245,7 @@
                                 <constraint firstItem="zBI-S2-zcW" firstAttribute="top" secondItem="pQM-tE-bM3" secondAttribute="bottom" constant="30" id="scs-iT-T3I"/>
                                 <constraint firstItem="D0r-JB-rI5" firstAttribute="top" secondItem="fZd-Yj-lRt" secondAttribute="top" constant="20" id="sj4-wi-Ivc"/>
                                 <constraint firstAttribute="trailing" secondItem="c9D-U3-bqx" secondAttribute="trailing" constant="20" id="umf-XS-VFw"/>
+                                <constraint firstAttribute="bottom" secondItem="5bb-nj-ZZ4" secondAttribute="bottom" constant="20" id="vxs-6k-jm9"/>
                                 <constraint firstItem="fXr-G6-EGZ" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="wpF-Hn-XJs"/>
                             </constraints>
                         </view>
@@ -251,7 +253,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="fZd-Yj-lRt" secondAttribute="bottom" id="8rV-Ad-OZh"/>
-                        <constraint firstItem="fZd-Yj-lRt" firstAttribute="height" secondItem="kDr-2P-7Dy" secondAttribute="height" id="PG2-Hg-Tk8"/>
+                        <constraint firstItem="fZd-Yj-lRt" firstAttribute="height" secondItem="kDr-2P-7Dy" secondAttribute="height" priority="250" id="PG2-Hg-Tk8"/>
                         <constraint firstItem="fZd-Yj-lRt" firstAttribute="top" secondItem="kDr-2P-7Dy" secondAttribute="top" id="Svm-df-Vg0"/>
                         <constraint firstItem="fZd-Yj-lRt" firstAttribute="width" secondItem="kDr-2P-7Dy" secondAttribute="width" id="aQr-JN-8Mq"/>
                         <constraint firstAttribute="trailing" secondItem="fZd-Yj-lRt" secondAttribute="trailing" id="eH5-M6-xZR"/>
@@ -264,8 +266,8 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="kDr-2P-7Dy" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="6BD-6k-P9z"/>
-                <constraint firstItem="kDr-2P-7Dy" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="-44" id="I8e-sN-jmo"/>
-                <constraint firstAttribute="bottom" secondItem="kDr-2P-7Dy" secondAttribute="bottom" id="R2W-vA-BdL"/>
+                <constraint firstItem="kDr-2P-7Dy" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="I8e-sN-jmo"/>
+                <constraint firstAttribute="bottom" secondItem="kDr-2P-7Dy" secondAttribute="bottom" constant="34" id="R2W-vA-BdL"/>
                 <constraint firstItem="kDr-2P-7Dy" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eas-MW-0nS"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
