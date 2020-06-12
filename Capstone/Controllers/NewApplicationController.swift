@@ -202,7 +202,7 @@ class NewApplicationController: UIViewController {
         
         // mandatory fields
         guard let companyName = companyNameTextField.text, !companyName.isEmpty, let positionTitle = positionTitleTextField.text, !positionTitle.isEmpty else {
-            self.showAlert(title: "Missing fields", message: "Check all fields.")
+            self.showAlert(title: "Missing fields", message: "Check all mandatory fields.")
             return
         }
         
@@ -256,7 +256,7 @@ class NewApplicationController: UIViewController {
             case .success:
                 print("success adding application")
                 self?.showAlert(title: "Success", message: "Your application was added!")
-                // self.navigationController?.popViewController(animated: true)
+                
             }
         }
         

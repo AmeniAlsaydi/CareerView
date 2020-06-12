@@ -30,7 +30,7 @@ class InterviewEntryView: UIView {
         let textfield = UITextField()
         textfield.setPadding()
         textfield.setBottomBorder()
-        //textfield.backgroundColor = .clear
+        textfield.clearButtonMode = .always
         textfield.placeholder = "Interview date"
         return textfield
     }()
@@ -53,7 +53,7 @@ class InterviewEntryView: UIView {
         let textfield = UITextField()
         textfield.setPadding()
         textfield.setBottomBorder()
-        //textfield.backgroundColor = .clear
+        textfield.clearButtonMode = .always
         textfield.placeholder = "Interview notes"
         return textfield
     }()
