@@ -45,7 +45,6 @@ class StarStoryMainController: UIViewController {
             navigationItem.title = "STAR Stories: \(starSituations.count)"
           navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
         }
-
     }
     
     private func loadStarSituations() {
@@ -66,6 +65,9 @@ class StarStoryMainController: UIViewController {
     }
     @objc private func segueToAddStarStoryViewController(_ sender: UIBarButtonItem) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
         show(destinationViewController, sender: nil)
     }
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -164,6 +166,9 @@ extension StarStoryMainController: StarSituationCellDelegate {
     
     private func editStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
         destinationViewController.starSituation = starSituation
         destinationViewController.isEditingStarSituation = true
         navigationController?.pushViewController(destinationViewController, animated: true)
