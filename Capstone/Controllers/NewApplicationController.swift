@@ -17,7 +17,7 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var positionTitleTextField: FloatingLabelInput!
     @IBOutlet weak var positionURLTextField: FloatingLabelInput!
     @IBOutlet weak var locationTextField: FloatingLabelInput!
-    @IBOutlet weak var notesLabel: FloatingLabelInput!
+    @IBOutlet weak var notesTextField: FloatingLabelInput!
     @IBOutlet weak var dateTextField: FloatingLabelInput!
     
     // InterviewEntryViews + height constraints
@@ -137,7 +137,7 @@ class NewApplicationController: UIViewController {
     
     private func styleAllTextFields() {
         
-        let textFields = [companyNameTextField, positionTitleTextField, positionURLTextField, locationTextField, notesLabel, dateTextField]
+        let textFields = [companyNameTextField, positionTitleTextField, positionURLTextField, locationTextField, notesTextField, dateTextField]
         
         for field in textFields {
             field?.styleTextField()
@@ -227,6 +227,7 @@ class NewApplicationController: UIViewController {
         
         // optional fields
         let positionURL = positionURLTextField.text
+        let notes = notesTextField.text
         let locationAsString = locationTextField.text
         var locationAsCoordinates: GeoPoint? = nil
         
@@ -240,7 +241,7 @@ class NewApplicationController: UIViewController {
                     print("Lat: \(coordinate.latitude)")
                     print("Long: \(coordinate.longitude)")
                     
-                    self.createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
+                    self.createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
                 }
                 
             }
@@ -248,11 +249,11 @@ class NewApplicationController: UIViewController {
         
     }
     
-    private func createNewApplication(id: String , companyName: String, positionTitle: String, positionURL: String?, location: GeoPoint?, deadline: Timestamp?, dateApplied: Timestamp?, isInterviewing: Bool) {
+    private func createNewApplication(id: String , companyName: String, positionTitle: String, positionURL: String?, notes: String?, location: GeoPoint?, deadline: Timestamp?, dateApplied: Timestamp?, isInterviewing: Bool) {
         
         
         // FIXME: this assumes that first time application means they have not recieved offer - should this be handled differently?
-        let jobApplication = JobApplication(id: id, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, remoteStatus: isRemote, location: location, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: false)
+        let jobApplication = JobApplication(id: id, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, remoteStatus: isRemote, location: location, notes: notes, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: false)
         
         DatabaseService.shared.addApplication(application: jobApplication) { (result) in
             switch result {

@@ -38,7 +38,6 @@ extension JobApplication {
         self.notes = dictionary["notes"] as? String? ?? nil
         self.applicationDeadline = dictionary["applicationDeadline"] as? Timestamp? ?? nil
         self.dateApplied = dictionary["dateApplied"] as? Timestamp? ?? nil
-        
         self.interested = dictionary["interested"] as? Bool ?? false
         self.didApply = dictionary["didApply"] as? Bool ?? false
         self.currentlyInterviewing = dictionary["currentlyInterviewing"] as? Bool ?? false
