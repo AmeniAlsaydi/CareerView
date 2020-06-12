@@ -23,8 +23,6 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var listener: ListenerRegistration?
-    private var filterMenuOn = false
-
     public var filterState: FilterState = .all {
         didSet {
             self.questionsCollectionView.reloadData()
@@ -81,7 +79,6 @@ class InterviewQuestionsMainController: UIViewController {
         getInterviewQuestions()
         getUserCreatedQuestions()
         getBookmarkedQuestions()
-        filterMenuOn = false
     }
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
@@ -100,15 +97,9 @@ class InterviewQuestionsMainController: UIViewController {
     //MARK:- FilterMenu
     @objc func presentfilterMenuButtonPressed(_ sender: UIBarButtonItem) {
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        if filterMenuOn {
-            removeChild(childController: filterMenuVC)
-            filterMenuOn = false
-        } else {
-            addChild(filterMenuVC, frame: view.frame)
-            filterMenuVC.delegate = self
-            filterMenuVC.filterState = filterState
-            filterMenuOn = true
-        }
+        addChild(filterMenuVC, frame: view.frame)
+        filterMenuVC.delegate = self
+        filterMenuVC.filterState = filterState
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -206,18 +197,37 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
             let question = allQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
             cell.currentQuestion = question
+            let customQs = customQuestions.map {$0.question}
+            if customQs.contains(question.question) {
+                cell.editButton.isHidden = false
+            } else {
+                cell.editButton.isHidden = true
+            }
         case .common:
             let question = commonInterviewQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
             cell.currentQuestion = question
+            let customQs = customQuestions.map {$0.question}
+            if customQs.contains(question.question) {
+                cell.editButton.isHidden = false
+            } else {
+                cell.editButton.isHidden = true
+            }
         case .custom:
             let question = customQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
             cell.currentQuestion = question
+            cell.editButton.isHidden = false
         case .bookmarked:
             let question = bookmarkedQuestions[indexPath.row]
-             cell.configureCell(interviewQ: question)
-             cell.currentQuestion = question
+            cell.configureCell(interviewQ: question)
+            cell.currentQuestion = question
+            let customQs = customQuestions.map {$0.question}
+            if customQs.contains(question.question) {
+                cell.editButton.isHidden = false
+            } else {
+                cell.editButton.isHidden = true
+            }
         }
         cell.delegate = self
         return cell
@@ -254,7 +264,6 @@ extension InterviewQuestionsMainController {
         view.backgroundColor = .systemGray
         questionsCollectionView.alpha = 0.5
         searchBar.alpha = 0.5
-        filterMenuOn = true
         //pass child to parent
         childController.didMove(toParent: self)
     }
@@ -263,7 +272,6 @@ extension InterviewQuestionsMainController {
         view.backgroundColor = .systemBackground
         questionsCollectionView.alpha = 1
         searchBar.alpha = 1
-        filterMenuOn = false
         childController.willMove(toParent: nil)
         //remove the child view controller's view from parent's view
         childController.view.removeFromSuperview()
