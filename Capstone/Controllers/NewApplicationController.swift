@@ -238,10 +238,11 @@ class NewApplicationController: UIViewController {
                 // don't forget to update the UI from the main thread
                 DispatchQueue.main.async {
                     locationAsCoordinates = GeoPoint(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                    print("Lat: \(coordinate.latitude)")
-                    print("Long: \(coordinate.longitude)")
                     
                     self.createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
+                    
+                    
+                    
                 }
                 
             }
@@ -265,6 +266,43 @@ class NewApplicationController: UIViewController {
             }
         }
         
+    }
+    
+    private func addInterviews(_ applicationID: String) {
+        switch interviewCount {
+        case 1:
+            addInterview(InterviewEntryView1, applicationID: applicationID)
+        case 2:
+            addInterview(InterviewEntryView2, applicationID: applicationID)
+        case 3:
+            addInterview(InterviewEntryView3, applicationID: applicationID)
+        default:
+            return 
+        }
+    }
+    
+    private func addInterview(_ view: InterviewEntryView, applicationID: String) {
+        
+        let notes = view.notesTextField.text
+        let thankyouSent = view.thankYouSent
+        guard let interviewDate = view.date else {
+            showAlert(title: "Missing Fields", message: "Interview date is mandatory!")
+            return
+        }
+        
+        // create interview
+        let interviewID = UUID().uuidString
+        let interview = Interview(id: interviewID, interviewDate: Timestamp(date: interviewDate), thankYouSent: thankyouSent, notes: notes)
+        
+        // post
+        DatabaseService.shared.addInterviewToApplication(applicationID: applicationID, interview: interview) { (result) in
+            switch result {
+            case .failure(let error):
+                print("error add interview to application")
+            case .success:
+                print("interview was added successfully to application")
+            }
+        }
     }
     
     private func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
