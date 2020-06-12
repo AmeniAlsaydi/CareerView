@@ -37,7 +37,7 @@ class InterviewQuestionsMainController: UIViewController {
         didSet {
             if filterState == .custom {
                 if customQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Custom Questions Created...", message: "Add a question by pressing the plus button", imageName: "plus")
+                    questionsCollectionView.backgroundView = EmptyView.init(title: "You Have No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "plus")
                 } else {
                     self.allQuestions.append(contentsOf: customQuestions)
                     questionsCollectionView.reloadData()
@@ -63,7 +63,7 @@ class InterviewQuestionsMainController: UIViewController {
             if filterState == .bookmarked {
                 questionsCollectionView.reloadData()
                 if bookmarkedQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Bookmarked Questions Yet...", message: "Bookmark by selecting a question and pressing the bookmark button", imageName: "bookmark")
+                    questionsCollectionView.backgroundView = EmptyView.init(title: "There Are No Bookmarked Questions", message: "Add to your bookmarks by selecting a question and pressing the bookmark button", imageName: "bookmark")
                 } else {
                     questionsCollectionView.reloadData()
                     questionsCollectionView.backgroundView = nil
