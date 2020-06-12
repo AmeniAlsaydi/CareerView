@@ -37,7 +37,7 @@ class FilterMenuViewController: UIViewController {
             savedButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
-        } else if filterState == .saved {
+        } else if filterState == .bookmarked {
             savedButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
@@ -61,7 +61,7 @@ class FilterMenuViewController: UIViewController {
     }
     @IBAction func savedButtonPressed(_ sender: UIButton){
         setFilterButton.isEnabled = true
-        filterState = .saved
+        filterState = .bookmarked
     }
     @IBAction func commonButtonPressed(_ sender: UIButton) {
         setFilterButton.isEnabled = true
