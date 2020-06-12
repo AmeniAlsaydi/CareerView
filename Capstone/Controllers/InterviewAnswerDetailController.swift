@@ -91,6 +91,7 @@ class InterviewAnswerDetailController: UIViewController {
         hideAddAnswerElements()
         configureNavBar()
         configureCollectionViews()
+        isQuestionBookmarked(question: question)
         questionLabel.text = question?.question
     }
     //MARK:- Collection View Config
@@ -116,7 +117,6 @@ class InterviewAnswerDetailController: UIViewController {
     @objc private func addQuestionToSavedQuestionsButtonPressed(_ sender: UIBarButtonItem) {
         guard let question = question else {return}
         if isBookmarked {
-            //remove
             DatabaseService.shared.removeQuestionFromBookmarks(question: question) { [weak self] (result) in
                 switch result {
                 case .failure(let error):
@@ -127,10 +127,10 @@ class InterviewAnswerDetailController: UIViewController {
                     DispatchQueue.main.async {
                         self?.showAlert(title: "Removed", message: "\(question.question) has been removed")
                     }
+                    self?.isBookmarked = false
                 }
             }
         } else {
-            //add
             DatabaseService.shared.addQuestionToBookmarks(question: question) { [weak self] (result) in
                 switch result {
                 case .failure(let error):
@@ -141,6 +141,7 @@ class InterviewAnswerDetailController: UIViewController {
                     DispatchQueue.main.async {
                         self?.showAlert(title: "Added To Your Bookmarks", message: "\(question.question) has been added")
                     }
+                    self?.isBookmarked = true
                 }
             }
         }
@@ -191,6 +192,22 @@ class InterviewAnswerDetailController: UIViewController {
                     }
                     self?.starStories = results
                 }
+            }
+        }
+    }
+    private func isQuestionBookmarked(question: InterviewQuestion?) {
+        guard let question = question else {return}
+        DatabaseService.shared.isQuestioninBookmarks(question: question) { [weak self] (result) in
+            switch result {
+            case.failure(let error):
+                print("could not check bookmarks collection error: \(error.localizedDescription)")
+            case.success(let successful):
+                if successful == true {
+                    self?.isBookmarked = true
+                } else {
+                    self?.isEditing = false
+                }
+                
             }
         }
     }
