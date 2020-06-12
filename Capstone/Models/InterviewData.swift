@@ -13,7 +13,7 @@ struct Interview {
     var id: String
     var interviewDate: Timestamp
     var thankYouSent: Bool
-    var followUpSent: Bool
+    // var followUpSent: Bool -> we need to discuss what this means
     var notes: String
 }
 
