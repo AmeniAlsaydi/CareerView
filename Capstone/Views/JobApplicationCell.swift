@@ -27,9 +27,11 @@ class JobApplicationCell: UICollectionViewCell {
         
         positionLabel.text = application.positionTitle.capitalized
         companyNameLabel.text = application.companyName.capitalized
-        let submittedDate = application.dateApplied.dateValue().dateString("MMM d, yyyy")
-        submittedDateLabel.text = "Date Applied: \(submittedDate)"
-        
+        if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
+            submittedDateLabel.text = "Date Applied: \(submittedDate)"
+        } else {
+            submittedDateLabel.text = "Date Applied: N/A"
+        }
         
         if application.receivedOffer {
             progressBar.progress = 1.0
