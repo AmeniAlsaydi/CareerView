@@ -172,28 +172,38 @@ class NewApplicationController: UIViewController {
     
     private func createJobApplication() {
         
+        // create id
+        let jobID = UUID().uuidString
+        
         // mandatory fields
         // link should also be optional
-        guard let companyName = companyNameTextField.text, !companyName.isEmpty, let jobTitle = jobTitleTextField.text, !jobTitle.isEmpty, let link = linkTextField.text, !link.isEmpty else {
+        guard let companyName = companyNameTextField.text, !companyName.isEmpty, let jobTitle = jobTitleTextField.text, !jobTitle.isEmpty else {
             self.showAlert(title: "Missing fields", message: "Check all fields.")
             return
         }
         
-        let jobID = UUID().uuidString
+        // optional fields
+        let link = linkTextField.text
+        // location
+        
+       // date fields
         var dateApplied: Timestamp? = nil
         var deadline: Timestamp? = nil
         
         if let date = date {
-            if hasApplied {
+            if hasApplied { // if they have applied the date in that date field is the date they applied
                 dateApplied = Timestamp(date: date)
             } else {
-                 deadline = Timestamp(date: date)
+                 deadline = Timestamp(date: date) // otherwise its the dead line date
             }
         }
         
         let isInterviewing = (interviewCount > 0)
         
-        let jobApplication = JobApplication(id: jobID, companyName: companyName, positionTitle: jobTitle, positionURL: link, remoteStatus: isRemote, location: nil, notes: nil, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: false, receivedOffer: false)
+        // this assumes that first time application means they have not recieved offer
+        let jobApplication = JobApplication(id: jobID, companyName: companyName, positionTitle: jobTitle, positionURL: link, remoteStatus: isRemote, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: false, receivedOffer: false)
+        
+//        JobApplication(id: <#T##String#>, companyName: <#T##String#>, positionTitle: <#T##String#>, positionURL: <#T##String?#>, remoteStatus: <#T##Bool#>, location: <#T##GeoPoint?#>, notes: <#T##String?#>, applicationDeadline: <#T##Timestamp?#>, dateApplied: <#T##Timestamp?#>, interested: <#T##Bool#>, didApply: <#T##Bool#>, currentlyInterviewing: <#T##Bool#>, receivedReply: <#T##Bool#>, receivedOffer: <#T##Bool#>)
         
         DatabaseService.shared.addApplication(application: jobApplication) { (result) in
             switch result {

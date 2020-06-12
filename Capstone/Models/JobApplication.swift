@@ -13,7 +13,7 @@ struct JobApplication {
     var id: String
     var companyName: String
     var positionTitle: String
-    var positionURL: String
+    var positionURL: String?
     var remoteStatus: Bool
     var location: GeoPoint? //CLLocation?
     var notes: String?
