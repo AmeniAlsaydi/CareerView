@@ -77,7 +77,7 @@ class CapstoneTests: XCTestCase {
         let exp = XCTestExpectation(description: "interview data added job applications")
         let applicationID = "BPSDevKLkdCxf1iqAkTl"
         
-        let interview = Interview(id: "11111", interviewDate: Timestamp(date: Date()), thankYouSent: false, followUpSent: false, notes: "no notes")
+        let interview = Interview(id: "11111", interviewDate: Timestamp(date: Date()), thankYouSent: false, notes: "no notes")
         
         DatabaseService.shared.addInterviewToApplication(applicationID: applicationID, interview: interview) { (result) in
             exp.fulfill()
