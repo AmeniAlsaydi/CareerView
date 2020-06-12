@@ -21,8 +21,14 @@ class InterviewQuestionsMainController: UIViewController {
     
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
-        
+    
     private var listener: ListenerRegistration?
+    private lazy var tapGesture: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer()
+        tap.addTarget(self, action: #selector(didTapScreen(_:)))
+        return tap
+    }()
+    
     public var filterState: FilterState = .all {
         didSet {
             self.questionsCollectionView.reloadData()
@@ -45,8 +51,8 @@ class InterviewQuestionsMainController: UIViewController {
                     self.commonInterviewQuestions = self.commonInterviewQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
                 case .custom:
                     self.customQuestions = self.customQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
-                //case .saved:
-                    //TODO
+                    //case .saved:
+                //TODO
                 default:
                     self.allQuestions = self.allQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
                 }
@@ -74,6 +80,7 @@ class InterviewQuestionsMainController: UIViewController {
         configureNavBar()
         getInterviewQuestions()
         getUserCreatedQuestions()
+        view.addGestureRecognizer(tapGesture)
     }
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
@@ -82,18 +89,22 @@ class InterviewQuestionsMainController: UIViewController {
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(filterQuestionsButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
     }
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
         present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
     }
     //MARK:- FilterMenu
-    @objc func filterQuestionsButtonPressed(_ sender: UIBarButtonItem) {
+    @objc func presentfilterMenuButtonPressed(_ sender: UIBarButtonItem) {
         let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
         filterMenuVC.delegate = self
         self.addChild(filterMenuVC, frame: view.frame)
         filterMenuVC.filterState = filterState
+    }
+    @objc func didTapScreen(_ sender: UIGestureRecognizer) {
+        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
+        self.removeChild(childController: filterMenuVC)
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -189,7 +200,6 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
             cell.configureCell(interviewQ: question)
             cell.currentQuestion = question
         }
-        
         cell.delegate = self
         return cell
     }
@@ -212,7 +222,6 @@ extension InterviewQuestionsMainController {
     func addChild(_ childController: UIViewController, frame: CGRect? = nil) {
         //add child view controller
         addChild(childController)
-        
         //set the size of the child view controller's frame to half the parent view controller's height
         if let frame = frame {
             let height: CGFloat = frame.height
@@ -223,18 +232,22 @@ extension InterviewQuestionsMainController {
         }
         //add the childcontroller's view as the parent view controller's subview
         view.addSubview(childController.view)
+        view.backgroundColor = .systemGray
+        questionsCollectionView.alpha = 0.5
+        searchBar.alpha = 0.5
         //pass child to parent
         childController.didMove(toParent: self)
     }
     func removeChild(childController: UIViewController) {
         //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
         willMove(toParent: nil)
-        
         //remove the child view controller's view from parent's view
         childController.view.removeFromSuperview()
-        
         //remove child view controller from parent view controller
         childController.removeFromParent()
+        view.backgroundColor = .systemBackground
+        questionsCollectionView.alpha = 1
+        searchBar.alpha = 1
     }
 }
 extension InterviewQuestionsMainController: FilterStateDelegate {
@@ -254,7 +267,7 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
         let customQuestion = allQuestions[indexPath.row] //TODO: refactor for custom q only
         cell.currentQuestion = customQuestion
         
-        let optionsMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let optionsMenu = UIAlertController(title: "Custom Question Options", message: nil, preferredStyle: .actionSheet)
         let edit = UIAlertAction(title: "Edit Custom Question", style: .default) { [weak self] (action) in
             let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
             interviewQuestionEntryVC.editingMode = true
@@ -262,10 +275,10 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
         }
         let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] (action) in
-                //TODO: need "Delete Custom Question" Database function
-                self?.getUserCreatedQuestions()
-                self?.questionsCollectionView.reloadData()
-                print("could not delete")
+            //TODO: need "Delete Custom Question" Database function
+            self?.getUserCreatedQuestions()
+            self?.questionsCollectionView.reloadData()
+            print("could not delete")
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
             self?.dismiss(animated: true)
