@@ -33,21 +33,36 @@ class NewApplicationController: UIViewController {
     
     @IBOutlet weak var addInterviewStack: UIStackView!
     
+    @IBOutlet weak var recievedRelpyStackHeight: NSLayoutConstraint!
+    
     // check mark buttons
     @IBOutlet weak var isRemoteButton: UIButton!
     @IBOutlet weak var hasAppliedButton: UIButton!
+    @IBOutlet weak var hasRecievedReplyButton: UIButton!
     
     private var hasApplied = false {
         didSet {
+            view.layoutIfNeeded()
             if hasApplied {
                 hasAppliedButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
                 
                 dateTextField.placeholder = "Date applied"
+
+                UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                    self.recievedRelpyStackHeight.constant = 22
+                    self.view.layoutIfNeeded()
+                })
                 
             } else {
                 hasAppliedButton.setImage(UIImage(systemName: "square"), for: .normal)
                 
                 dateTextField.placeholder = "Deadline"
+                
+                UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                    self.recievedRelpyStackHeight.constant = 0
+                    self.view.layoutIfNeeded()
+                })
+               hasRecievedReply = false
             }
         }
     }
@@ -62,12 +77,22 @@ class NewApplicationController: UIViewController {
         }
     }
     
+    private var hasRecievedReply = false {
+        didSet {
+            if hasRecievedReply {
+                hasRecievedReplyButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            } else {
+                hasRecievedReplyButton.setImage(UIImage(systemName: "square"), for: .normal)
+            }
+        }
+    }
+    
     private var date: Date?
     
     private var interviewViewHeight: NSLayoutConstraint!
     
     private var interviewCount = 0
-   
+    
     let datePicker = UIDatePicker()
     
     override func viewDidLoad() {
@@ -111,9 +136,9 @@ class NewApplicationController: UIViewController {
     }
     
     private func styleAllTextFields() {
-
+        
         let textFields = [companyNameTextField, jobTitleTextField, linkTextField, locationTextField, notesLabel, dateTextField]
-
+        
         for field in textFields {
             field?.styleTextField()
         }
@@ -134,6 +159,9 @@ class NewApplicationController: UIViewController {
         hasApplied.toggle()
     }
     
+    @IBAction func hasRecievedButtonPressed(_ sender: UIButton) {
+        hasRecievedReply.toggle()
+    }
     
     
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
@@ -142,7 +170,7 @@ class NewApplicationController: UIViewController {
         // TODO:
         // create the interview view
         // have it require an initializer that takes in a number that will be assigned to the label on the view that tells them which interview theyre entering
- 
+        
         interviewCount += 1
         
         switch interviewCount {
@@ -156,9 +184,9 @@ class NewApplicationController: UIViewController {
             print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
         }
         
-       
+        
         view.layoutIfNeeded() // force any pending operations to finish
-
+        
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             self.interviewViewHeight.constant = 150
             self.view.layoutIfNeeded()
@@ -167,7 +195,6 @@ class NewApplicationController: UIViewController {
         
         if interviewCount == 3 {
             addInterviewStack.isHidden = true
-            // hide button maybe ?
         }
         
     }
@@ -179,7 +206,6 @@ class NewApplicationController: UIViewController {
         let jobID = UUID().uuidString
         
         // mandatory fields
-        // link should also be optional
         guard let companyName = companyNameTextField.text, !companyName.isEmpty, let jobTitle = jobTitleTextField.text, !jobTitle.isEmpty else {
             self.showAlert(title: "Missing fields", message: "Check all fields.")
             return
@@ -191,7 +217,7 @@ class NewApplicationController: UIViewController {
         var locationAsCoordinates: GeoPoint? = nil
         
         
-        if let location = locationAsString {
+        if let location = locationAsString, !location.isEmpty {
             getCoordinateFrom(address: location) { coordinate, error in
                 guard let coordinate = coordinate, error == nil else { return }
                 // don't forget to update the UI from the main thread
@@ -200,11 +226,11 @@ class NewApplicationController: UIViewController {
                     print("Lat: \(coordinate.latitude)")
                     print("Long: \(coordinate.longitude)")
                 }
-
+                
             }
         }
         
-       // date fields
+        // date fields
         var dateApplied: Timestamp? = nil
         var deadline: Timestamp? = nil
         
@@ -212,14 +238,14 @@ class NewApplicationController: UIViewController {
             if hasApplied { // if they have applied the date in that date field is the date they applied
                 dateApplied = Timestamp(date: date)
             } else {
-                 deadline = Timestamp(date: date) // otherwise its the dead line date
+                deadline = Timestamp(date: date) // otherwise its the dead line date
             }
         }
         
         let isInterviewing = (interviewCount > 0)
         
-        // this assumes that first time application means they have not recieved offer
-        let jobApplication = JobApplication(id: jobID, companyName: companyName, positionTitle: jobTitle, positionURL: link, remoteStatus: isRemote, location: locationAsCoordinates, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: false, receivedOffer: false)
+        // FIXME: this assumes that first time application means they have not recieved offer - should this be handled differently?
+        let jobApplication = JobApplication(id: jobID, companyName: companyName, positionTitle: jobTitle, positionURL: link, remoteStatus: isRemote, location: locationAsCoordinates, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: false)
         
         DatabaseService.shared.addApplication(application: jobApplication) { (result) in
             switch result {
@@ -231,7 +257,7 @@ class NewApplicationController: UIViewController {
             }
         }
     }
-
+    
     func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
         CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
     }
