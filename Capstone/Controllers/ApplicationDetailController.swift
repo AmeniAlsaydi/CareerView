@@ -86,6 +86,7 @@ class ApplicationDetailController: UIViewController {
     
     private func configureMapView() {
         mapView.delegate = self
+        mapView.isUserInteractionEnabled = false 
     }
     
     private func loadMap() {
