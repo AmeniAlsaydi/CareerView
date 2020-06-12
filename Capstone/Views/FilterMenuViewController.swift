@@ -31,7 +31,6 @@ class FilterMenuViewController: UIViewController {
     override func viewDidLoad() {
         updateUI()
     }
-    
     private func updateUI() {
         if filterState == .all {
             allButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
