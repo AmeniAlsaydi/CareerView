@@ -228,6 +228,16 @@ class DatabaseService {
             }
         }
     }
+    public func updateCustomQuestion(customQuestion: InterviewQuestion, completion: @escaping (Result<Bool,Error>)->() ) {
+        guard let user = Auth.auth().currentUser else {return}
+        db.collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).document(customQuestion.id).updateData(["question": customQuestion.question]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
     public func deleteCustomQuestion(customQuestion: InterviewQuestion, completion: @escaping(Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else { return }
         db.collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).document(customQuestion.id).delete { (error) in
