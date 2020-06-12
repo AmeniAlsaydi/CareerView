@@ -9,7 +9,7 @@
 import UIKit
 
 class StarStoryEntryController: UIViewController {
-
+    
     @IBOutlet weak var starStoryButton: UIButton!
     @IBOutlet weak var freeFormButton: UIButton!
     @IBOutlet weak var saveAsDefaultButton: UIButton!
@@ -34,12 +34,24 @@ class StarStoryEntryController: UIViewController {
     
     @IBOutlet weak var situationLabel: UILabel!
     
-    private var saveChoiceAsDefault = false
 
-    private var guidedEntryPreference = GuidedStarSitutionInput.guided
-    private var showUserOption = ShowUserStarInputOption.on {
+    private var saveChoiceAsDefault = false {
         didSet {
-            if showUserOption.rawValue == ShowUserStarInputOption.off.rawValue {
+            if saveChoiceAsDefault {
+                saveAsDefaultButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+            } else {
+                saveAsDefaultButton.setImage(UIImage(systemName: "square"), for: .normal)
+            }
+        }
+    }
+
+    var isEditingStarSituation = false
+    
+    private var guidedEntryPreference = GuidedStarSitutionInput.guided
+    //Note: Default option for showing the user an option for guided/freeform is true
+    private var showUserOption: ShowUserStarInputOption? {
+        didSet {
+            if showUserOption?.rawValue == ShowUserStarInputOption.off.rawValue {
                 transitionFromOptionToMainView()
                 
                 if guidedEntryPreference.rawValue == GuidedStarSitutionInput.freeForm.rawValue {
@@ -49,16 +61,23 @@ class StarStoryEntryController: UIViewController {
         }
     }
     
-    private var starSituation: StarSituation?
-    
+    var starSituation: StarSituation?
+    //MARK:- viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadStarSiuationWhenEditing()
+        updateStarSiuation()
         configureView()
         loadGuidedStarSituationPreference()
     }
+    //MARK:- Private Functions
     private func configureView() {
-        navigationController?.navigationBar.topItem?.title = "Back"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed(_:)))
+//        navigationController?.navigationBar.topItem?.title = "Back"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "checkmark"),
+            style: .plain,
+            target: self,
+            action: #selector(saveButtonPressed(_:)))
         
         starStoryButton.layer.borderWidth = CGFloat(1.0)
         freeFormButton.layer.borderWidth = CGFloat(1.0)
@@ -87,31 +106,53 @@ class StarStoryEntryController: UIViewController {
         
     }
     private func configureTextViews(view: UIView) {
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOpacity = 1
-//        view.layer.shadowOffset = .zero
-//        view.layer.shadowRadius = 0.25
         view.layer.cornerRadius = 4
     }
     private func setTextViewHeights() {
         situationTextView.sizeToFit()
         situationTextViewHeightConstraint.constant = situationTextView.contentSize.height
-
+        
         taskTextView.sizeToFit()
         taskTextViewHeightContraint.constant = taskTextView.contentSize.height
-
+        
         actionTextView.sizeToFit()
         actionTextViewHeightConstraint.constant = actionTextView.contentSize.height
-
+        
         resultTextView.sizeToFit()
         resultTextViewHeightConstraint.constant = resultTextView.contentSize.height
     }
     private func loadGuidedStarSituationPreference() {
         if let userOptionPreference = UserPreference.shared.getPreferenceShowInputOption() {
+            print(userOptionPreference.rawValue)
             showUserOption = userOptionPreference
         }
         if let guidedPreference = UserPreference.shared.getGuidedSituationInputPreference() {
+            print(guidedPreference.rawValue)
             guidedEntryPreference = guidedPreference
+        }
+
+    }
+    // Note: This function is used when editing a starSituation, to load their respective textViews
+    private func loadStarSiuationWhenEditing() {
+        if isEditingStarSituation {
+            transitionFromOptionToMainView()
+            situationTextView.text = starSituation?.situation
+            if starSituation?.task != nil && starSituation?.action != nil && starSituation?.result != nil {
+                taskTextView.text = starSituation?.task
+                actionTextView.text = starSituation?.action
+                resultTextView.text = starSituation?.result
+            }
+        }
+    }
+    // Note: This function is used when editing a starSituation to load the textViews
+    private func updateStarSiuation() {
+        if isEditingStarSituation {
+            situationTextView.text = starSituation?.situation
+            if starSituation?.task != nil && starSituation?.action != nil && starSituation?.result != nil {
+                taskTextView.text = starSituation?.task
+                actionTextView.text = starSituation?.action
+                resultTextView.text = starSituation?.result
+            }
         }
     }
     //MARK:- Save STAR Situation Function
@@ -123,9 +164,18 @@ class StarStoryEntryController: UIViewController {
         let taskText = taskTextView.text
         let actionText = actionTextView.text
         let resultText = resultTextView.text
-        let id = UUID().uuidString
-        let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: id, userJobID: nil, interviewQuestionsIDs: [""])
-        let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: UUID().uuidString, userJobID: nil, interviewQuestionsIDs: [""])
+        var starSituationID = UUID().uuidString
+        
+        if isEditingStarSituation {
+            guard let starID = starSituation?.id else {
+                return
+            }
+            starSituationID = starID
+        }
+        let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: starSituationID, userJobID: nil, interviewQuestionsIDs: [""])
+        //Note: When user has selected to enter star situation freeForm, to allow Task, Action, and Result fields to be nil
+        let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: starSituationID, userJobID: nil, interviewQuestionsIDs: [""])
+        //TODO: Activity Indicators
         if guidedEntryPreference.rawValue == GuidedStarSitutionInput.guided.rawValue {
             DatabaseService.shared.addToStarSituations(starSituation: guidedStarSituation, completion: { (result) in
                 switch result {
@@ -136,7 +186,9 @@ class StarStoryEntryController: UIViewController {
                 case .success:
                     DispatchQueue.main.async {
                         self.showAlert(title: "Star Story Saved!", message: "Success")
+                        
                     }
+                    self.navigationController?.popToRootViewController(animated: true)
                 }
             })
         } else {
@@ -149,46 +201,47 @@ class StarStoryEntryController: UIViewController {
                 case .success:
                     DispatchQueue.main.async {
                         self.showAlert(title: "Star Story Saved!", message: "Success")
+                        
                     }
+                    self.navigationController?.popToRootViewController(animated: true)
                 }
             })
         }
     }
     private func loadFreeFormView() {
+        //TODO: Animate views leaving screen
         taskBkgdView.isHidden = true
         actionBkgdView.isHidden = true
         resultBkgdView.isHidden = true
-        situationLabel.text = "STAR Story"
     }
     private func transitionFromOptionToMainView() {
-        let duration = 1.0
+        let duration = 0.3
         UIView.animate(withDuration: duration, delay: 0.0, options: [], animations: {
-            self.inputOptionView.isHidden = true
-            self.blurEffect.isHidden = true
             self.view.layoutIfNeeded()
+            self.inputOptionView.alpha = 0
+            self.blurEffect.alpha = 0
         })
     }
-    
+    //MARK:- @IBAction functions
     @IBAction func freeFormButtonPressed(_ sender: UIButton) {
         if saveChoiceAsDefault {
             UserPreference.shared.updatePreferenceShowUserInputOption(with: ShowUserStarInputOption.off)
         }
         loadFreeFormView()
         transitionFromOptionToMainView()
-        
+        situationLabel.text = "STAR Story"
     }
     @IBAction func starStoryButtonPressed(_ sender: UIButton) {
-        print("Star story button pressed")
+        if saveChoiceAsDefault {
+            UserPreference.shared.updatePreferenceShowUserInputOption(with: ShowUserStarInputOption.off)
+        }
         transitionFromOptionToMainView()
     }
+    
     @IBAction func saveAsDefaultButtonPressed(_ sender: UIButton) {
         saveChoiceAsDefault.toggle()
-        if saveChoiceAsDefault {
-            saveAsDefaultButton.setImage(UIImage(systemName: "square"), for: .normal)
-        } else {
-            saveAsDefaultButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
-        }
     }
+    
     @IBAction func clearSituationButtonPressed(_ sender: UIButton) {
         situationTextView.text = ""
         setTextViewHeights()
@@ -207,6 +260,7 @@ class StarStoryEntryController: UIViewController {
     }
     
 }
+
 //MARK:- TextView Delegate
 extension StarStoryEntryController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {

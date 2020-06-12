@@ -42,7 +42,7 @@
                                     <constraint firstAttribute="height" constant="44" id="dZ3-aF-z8P"/>
                                     <constraint firstAttribute="width" constant="44" id="ink-v8-ndf"/>
                                 </constraints>
-                                <state key="normal" image="pencil.circle" catalog="system"/>
+                                <state key="normal" image="ellipsis.circle.fill" catalog="system"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owg-Cm-oSR">
                                 <rect key="frame" x="8" y="60" width="983" height="20"/>
@@ -308,6 +308,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="pencil.circle" catalog="system" width="128" height="121"/>
+        <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>
