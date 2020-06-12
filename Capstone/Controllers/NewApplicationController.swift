@@ -14,8 +14,8 @@ class NewApplicationController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
-    @IBOutlet weak var jobTitleTextField: FloatingLabelInput!
-    @IBOutlet weak var linkTextField: FloatingLabelInput!
+    @IBOutlet weak var positionTitleTextField: FloatingLabelInput!
+    @IBOutlet weak var positionURLTextField: FloatingLabelInput!
     @IBOutlet weak var locationTextField: FloatingLabelInput!
     @IBOutlet weak var notesLabel: FloatingLabelInput!
     @IBOutlet weak var dateTextField: FloatingLabelInput!
@@ -137,7 +137,7 @@ class NewApplicationController: UIViewController {
     
     private func styleAllTextFields() {
         
-        let textFields = [companyNameTextField, jobTitleTextField, linkTextField, locationTextField, notesLabel, dateTextField]
+        let textFields = [companyNameTextField, positionTitleTextField, positionURLTextField, locationTextField, notesLabel, dateTextField]
         
         for field in textFields {
             field?.styleTextField()
@@ -146,7 +146,7 @@ class NewApplicationController: UIViewController {
     
     @objc private func saveJobApplicationButtonPressed(_ sender: UIBarButtonItem) {
         // create new application and add to datebase
-        createJobApplication()
+        submitNewJobApplication()
         // add the interview (if there is any as a collection to that application
         
         
@@ -200,19 +200,33 @@ class NewApplicationController: UIViewController {
     }
     
     
-    private func createJobApplication() {
+    private func submitNewJobApplication() {
         
         // create id
         let jobID = UUID().uuidString
         
         // mandatory fields
-        guard let companyName = companyNameTextField.text, !companyName.isEmpty, let jobTitle = jobTitleTextField.text, !jobTitle.isEmpty else {
+        guard let companyName = companyNameTextField.text, !companyName.isEmpty, let positionTitle = positionTitleTextField.text, !positionTitle.isEmpty else {
             self.showAlert(title: "Missing fields", message: "Check all fields.")
             return
         }
         
+        // date fields
+               var dateApplied: Timestamp? = nil
+               var deadline: Timestamp? = nil
+               
+               if let date = date {
+                   if hasApplied { // if they have applied the date in that date field is the date they applied
+                       dateApplied = Timestamp(date: date)
+                   } else {
+                       deadline = Timestamp(date: date) // otherwise its the dead line date
+                   }
+               }
+               
+               let isInterviewing = (interviewCount > 0)
+        
         // optional fields
-        let link = linkTextField.text
+        let positionURL = positionURLTextField.text
         let locationAsString = locationTextField.text
         var locationAsCoordinates: GeoPoint? = nil
         
@@ -225,27 +239,20 @@ class NewApplicationController: UIViewController {
                     locationAsCoordinates = GeoPoint(latitude: coordinate.latitude, longitude: coordinate.longitude)
                     print("Lat: \(coordinate.latitude)")
                     print("Long: \(coordinate.longitude)")
+                    
+                    self.createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
                 }
                 
             }
         }
         
-        // date fields
-        var dateApplied: Timestamp? = nil
-        var deadline: Timestamp? = nil
+    }
+    
+    private func createNewApplication(id: String , companyName: String, positionTitle: String, positionURL: String?, location: GeoPoint?, deadline: Timestamp?, dateApplied: Timestamp?, isInterviewing: Bool) {
         
-        if let date = date {
-            if hasApplied { // if they have applied the date in that date field is the date they applied
-                dateApplied = Timestamp(date: date)
-            } else {
-                deadline = Timestamp(date: date) // otherwise its the dead line date
-            }
-        }
-        
-        let isInterviewing = (interviewCount > 0)
         
         // FIXME: this assumes that first time application means they have not recieved offer - should this be handled differently?
-        let jobApplication = JobApplication(id: jobID, companyName: companyName, positionTitle: jobTitle, positionURL: link, remoteStatus: isRemote, location: locationAsCoordinates, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: false)
+        let jobApplication = JobApplication(id: id, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, remoteStatus: isRemote, location: location, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: false)
         
         DatabaseService.shared.addApplication(application: jobApplication) { (result) in
             switch result {
@@ -256,11 +263,14 @@ class NewApplicationController: UIViewController {
                 // self.navigationController?.popViewController(animated: true)
             }
         }
+        
     }
     
-    func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
+    private func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
         CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
     }
+    
+    
 }
 
 
