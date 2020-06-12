@@ -17,7 +17,7 @@
                 <outlet property="InterviewEntryView3Height" destination="YvJ-4w-eVZ" id="jGT-eG-MwT"/>
                 <outlet property="addInterviewStack" destination="5bb-nj-ZZ4" id="8Fj-3j-zoF"/>
                 <outlet property="companyNameTextField" destination="iXe-1p-Ltr" id="aj1-Bu-AfK"/>
-                <outlet property="deteTextField" destination="pQM-tE-bM3" id="HaB-Qq-PLW"/>
+                <outlet property="dateTextField" destination="pQM-tE-bM3" id="HaB-Qq-PLW"/>
                 <outlet property="hasAppliedButton" destination="8Cg-gh-vrv" id="iaP-Fa-gga"/>
                 <outlet property="isRemoteButton" destination="XfY-Fk-qHH" id="tdF-hc-KeQ"/>
                 <outlet property="jobTitleTextField" destination="sRR-Rf-gqU" id="Bgb-aa-w0k"/>
@@ -91,6 +91,9 @@
                                             <state key="normal" image="square" catalog="system">
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18" weight="semibold"/>
                                             </state>
+                                            <connections>
+                                                <action selector="isRemoteButtonPressed:" destination="-1" eventType="touchUpInside" id="8ag-cP-SZp"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>

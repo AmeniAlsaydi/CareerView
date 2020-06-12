@@ -80,8 +80,11 @@ class ApplicationDetailController: UIViewController {
             remoteLabel.text = "Remote: No"
         }
         
-        let submittedDate = application.dateApplied.dateValue().dateString("MMM d, yyyy")
-        dateAppliedLabel.text = "Date Applied: \(submittedDate)"
+        if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
+            dateAppliedLabel.text = "Date Applied: \(submittedDate)"
+        } else {
+            dateAppliedLabel.text = "Date Applied: N/A"
+        }
     }
     
     private func configureMapView() {
@@ -98,8 +101,8 @@ class ApplicationDetailController: UIViewController {
         var annotations = [MKPointAnnotation]()
         let annotation = MKPointAnnotation()
         annotation.title = jobApplication.companyName
-        let coordinate = CLLocationCoordinate2DMake(Double(jobApplication.location.latitude), Double(jobApplication.location.longitude))
-        annotation.coordinate = coordinate
+        //let coordinate = CLLocationCoordinate2DMake(Double(jobApplication.location.latitude), Double(jobApplication.location.longitude))
+        //annotation.coordinate = coordinate
         annotations.append(annotation)
         return annotations
     }
