@@ -7,27 +7,72 @@
 //
 
 import XCTest
+import FirebaseAuth
+import FirebaseFirestore
+import Firebase
+import FirebaseFirestoreSwift
+
+
+@testable import Capstone
 
 class UserJobsDataTests: XCTestCase {
+    
+       func testAddingToUserJobs() {
+           let exp = XCTestExpectation(description: "user job added")
+           let id = UUID().uuidString
+           
+           let userJob = UserJob(["id": id, "title": "title", "companyName": "companyName", "beginDate": Timestamp(date: Date()), "endDate": Timestamp(date: Date()), "currentEmployer": true, "description": "description", "responsibilities": ["id1", "id2"], "starSituationIDs": ["id1", "id2"], "interviewQuestionIDs": ["id1", "id2"]])
+           
+           DatabaseService.shared.addToUserJobs(userJob: userJob) { (result) in
+               exp.fulfill()
+               
+               switch result {
+               case(.failure(let error)):
+                   XCTFail("error adding to user jobs: \(error.localizedDescription)")
+               case(.success(let result)):
+                   XCTAssertTrue(result)
+               }
+               
+           }
+           wait(for:[exp], timeout: 5.0)
+       }
+       
+       
+       func testRemovingUserJob() {
+           let exp = XCTestExpectation(description: "user job removed")
+           let testid = "testid" // add new id here to test another delete
+           
+           DatabaseService.shared.removeUserJob(userJobId: testid) { (result) in
+               exp.fulfill()
+               switch result {
+               case(.failure(let error)):
+                   XCTFail("error deleting to user jobs: \(error.localizedDescription)")
+               //print("error deleting to user jobs: \(error.localizedDescription)")
+               case(.success(let result)):
+                   XCTAssertTrue(result)
+               }
+           }
+           
+           wait(for:[exp], timeout: 5.0)
+       }
+    
+    func testFetchUserJobs() {
+        let expectedCount = 17 // current user has 17 jobs
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        let exp = XCTestExpectation(description: "user jobs found")
+        
+        DatabaseService.shared.fetchUserJobs { (result) in
+            exp.fulfill()
+            
+            switch result {
+            case(.failure(let error)):
+                XCTFail("error fetching user jobs: \(error.localizedDescription)")
+            case(.success(let userJobs)):
+                XCTAssertEqual(expectedCount, userJobs.count)
+            }
         }
+        wait(for:[exp], timeout: 5.0)
     }
+
 
 }
