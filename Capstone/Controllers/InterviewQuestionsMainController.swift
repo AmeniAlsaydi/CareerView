@@ -21,9 +21,7 @@ class InterviewQuestionsMainController: UIViewController {
     
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    //private lazy var scrollGesture:
-    
+        
     private var listener: ListenerRegistration?
     public var filterState: FilterState = .all {
         didSet {
@@ -64,6 +62,8 @@ class InterviewQuestionsMainController: UIViewController {
             } else if let snapshot = snapshot {
                 let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
                 self?.customQuestions = customQs
+                self?.allQuestions.append(contentsOf: customQs)
+                self?.questionsCollectionView.reloadData()
             }
         })
     }
@@ -125,7 +125,6 @@ class InterviewQuestionsMainController: UIViewController {
                 DispatchQueue.main.async {
                     self?.customQuestions = customQuestions
                     self?.allQuestions.append(contentsOf: customQuestions)
-
                 }
             }
         }
@@ -153,9 +152,6 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         } //TODO: add favorites
         navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    }
 }
 extension InterviewQuestionsMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -178,17 +174,23 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
         if filterState == .all {
             let question = allQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
+            cell.currentQuestion = question
         } else if filterState == .common {
             let question = commonInterviewQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
+            cell.currentQuestion = question
         } else if filterState == .custom {
             let question = customQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
+            cell.currentQuestion = question
         } else if filterState == .saved {
             //TODO: logic for saved question
             let question = allQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
+            cell.currentQuestion = question
         }
+        
+        cell.delegate = self
         return cell
     }
 }
@@ -200,12 +202,10 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
         } else {
             searchQuery = searchBar.text ?? ""
         }
-        searchBar.resignFirstResponder()
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-    
 }
 //MARK:- Extenstion For Child View
 extension InterviewQuestionsMainController {
@@ -244,5 +244,35 @@ extension InterviewQuestionsMainController: FilterStateDelegate {
     }
     func pressedCancel(child: FilterMenuViewController) {
         removeChild(childController: child)
+    }
+}
+extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
+    func presentMenu(cell: InterviewQuestionCell, question: InterviewQuestion) {
+        guard let indexPath = questionsCollectionView.indexPath(for: cell) else {
+            return
+        }
+        let customQuestion = allQuestions[indexPath.row] //TODO: refactor for custom q only
+        cell.currentQuestion = customQuestion
+        
+        let optionsMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let edit = UIAlertAction(title: "Edit Custom Question", style: .default) { [weak self] (action) in
+            let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
+            interviewQuestionEntryVC.editingMode = true
+            interviewQuestionEntryVC.customQuestion = customQuestion
+            self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
+        }
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] (action) in
+                //TODO: need "Delete Custom Question" Database function
+                self?.getUserCreatedQuestions()
+                self?.questionsCollectionView.reloadData()
+                print("could not delete")
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
+            self?.dismiss(animated: true)
+        }
+        optionsMenu.addAction(edit)
+        optionsMenu.addAction(delete)
+        optionsMenu.addAction(cancel)
+        present(optionsMenu, animated: true, completion: nil)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol FilterStateDelegate: NSObject {
+protocol FilterStateDelegate: AnyObject {
     func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController)
     func pressedCancel(child: FilterMenuViewController)
 }
