@@ -29,9 +29,26 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var InterviewEntryView3: InterviewEntryView!
     @IBOutlet weak var InterviewEntryView3Height: NSLayoutConstraint!
     
-    
     @IBOutlet weak var addInterviewStack: UIStackView!
     
+    // check mark buttons
+    @IBOutlet weak var isRemoteButton: UIButton!
+    @IBOutlet weak var hasAppliedButton: UIButton!
+    
+    private var hasApplied = false {
+        didSet {
+            if hasApplied {
+                hasAppliedButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+                
+                deteTextField.placeholder = "Date applied"
+                
+            } else {
+                hasAppliedButton.setImage(UIImage(systemName: "square"), for: .normal)
+                
+                deteTextField.placeholder = "Deadline"
+            }
+        }
+    }
     
     private var interviewViewHeight: NSLayoutConstraint!
     
@@ -92,8 +109,7 @@ class NewApplicationController: UIViewController {
     }
     
     @IBAction func hasAppliedButtonChecked(_ sender: UIButton) {
-        
-        // animate and display the date applied stack
+        hasApplied.toggle()
         
         
     }
