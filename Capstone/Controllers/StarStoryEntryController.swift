@@ -218,12 +218,16 @@ class StarStoryEntryController: UIViewController {
         situationLabel.text = "STAR Story"
     }
     @IBAction func starStoryButtonPressed(_ sender: UIButton) {
-        print("Star story button pressed")
+        if saveChoiceAsDefault {
+            UserPreference.shared.updatePreferenceShowUserInputOption(with: ShowUserStarInputOption.off)
+        }
         transitionFromOptionToMainView()
     }
+    
     @IBAction func saveAsDefaultButtonPressed(_ sender: UIButton) {
         saveChoiceAsDefault.toggle()
     }
+    
     @IBAction func clearSituationButtonPressed(_ sender: UIButton) {
         situationTextView.text = ""
         setTextViewHeights()
