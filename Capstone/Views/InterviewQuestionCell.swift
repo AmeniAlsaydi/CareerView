@@ -42,7 +42,7 @@ class InterviewQuestionCell: UICollectionViewCell {
                 DispatchQueue.main.async {
                     let answer = answers.first
                     if answer?.answers.count ?? -1 > 0 {
-                        self?.answerCheckBox.image = UIImage(systemName: "checkmark.rectangle")
+                        self?.answerCheckBox.image = UIImage(systemName: "checkmark.square")
                     } else {
                         self?.answerCheckBox.image = UIImage(systemName: "square")
                     }

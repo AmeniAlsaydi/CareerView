@@ -34,22 +34,22 @@ class FilterMenuViewController: UIViewController {
     
     private func updateUI() {
         if filterState == .all {
-            allButton.setImage(UIImage(systemName: "checkmark.rectangle.fill"), for: .normal)
+            allButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             savedButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else if filterState == .saved {
-            savedButton.setImage(UIImage(systemName: "checkmark.rectangle.fill"), for: .normal)
+            savedButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else if filterState == .common {
-            commonButton.setImage(UIImage(systemName: "checkmark.rectangle.fill"), for: .normal)
+            commonButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
             savedButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else if filterState == .custom {
-            customButton.setImage(UIImage(systemName: "checkmark.rectangle.fill"), for: .normal)
+            customButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
             savedButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
