@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import CoreLocation
 
 class NewApplicationController: UIViewController {
     
@@ -74,6 +75,8 @@ class NewApplicationController: UIViewController {
         styleAllTextFields()
         configureNavBar()
         createDatePicker()
+        
+        
     }
     
     private func configureNavBar() {
@@ -184,7 +187,22 @@ class NewApplicationController: UIViewController {
         
         // optional fields
         let link = linkTextField.text
-        // location
+        let locationAsString = locationTextField.text
+        var locationAsCoordinates: GeoPoint? = nil
+        
+        
+        if let location = locationAsString {
+            getCoordinateFrom(address: location) { coordinate, error in
+                guard let coordinate = coordinate, error == nil else { return }
+                // don't forget to update the UI from the main thread
+                DispatchQueue.main.async {
+                    locationAsCoordinates = GeoPoint(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                    print("Lat: \(coordinate.latitude)")
+                    print("Long: \(coordinate.longitude)")
+                }
+
+            }
+        }
         
        // date fields
         var dateApplied: Timestamp? = nil
@@ -201,9 +219,7 @@ class NewApplicationController: UIViewController {
         let isInterviewing = (interviewCount > 0)
         
         // this assumes that first time application means they have not recieved offer
-        let jobApplication = JobApplication(id: jobID, companyName: companyName, positionTitle: jobTitle, positionURL: link, remoteStatus: isRemote, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: false, receivedOffer: false)
-        
-//        JobApplication(id: <#T##String#>, companyName: <#T##String#>, positionTitle: <#T##String#>, positionURL: <#T##String?#>, remoteStatus: <#T##Bool#>, location: <#T##GeoPoint?#>, notes: <#T##String?#>, applicationDeadline: <#T##Timestamp?#>, dateApplied: <#T##Timestamp?#>, interested: <#T##Bool#>, didApply: <#T##Bool#>, currentlyInterviewing: <#T##Bool#>, receivedReply: <#T##Bool#>, receivedOffer: <#T##Bool#>)
+        let jobApplication = JobApplication(id: jobID, companyName: companyName, positionTitle: jobTitle, positionURL: link, remoteStatus: isRemote, location: locationAsCoordinates, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: false, receivedOffer: false)
         
         DatabaseService.shared.addApplication(application: jobApplication) { (result) in
             switch result {
@@ -214,8 +230,10 @@ class NewApplicationController: UIViewController {
                 // self.navigationController?.popViewController(animated: true)
             }
         }
-        
-               
+    }
+
+    func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
+        CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
     }
 }
 
