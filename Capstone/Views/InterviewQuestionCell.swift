@@ -8,17 +8,28 @@
 
 import UIKit
 
+protocol InterviewQuestionCellDelegate: AnyObject  {
+    func presentMenu(cell: InterviewQuestionCell, question: InterviewQuestion)
+}
 class InterviewQuestionCell: UICollectionViewCell {
     @IBOutlet weak var numberOfStarsLabel: UILabel!
     @IBOutlet weak var answerCheckBox: UIImageView!
     @IBOutlet weak var interviewQuestionLabel: UILabel!
+    @IBOutlet weak var editButton: UIButton!
+    
+    weak var delegate: InterviewQuestionCellDelegate?
+    var currentQuestion: InterviewQuestion?
     
     override func layoutSubviews() {
         self.layer.borderWidth = 2
-        //let purple = #colorLiteral(red: 0.305962503, green: 0.1264642179, blue: 0.6983457208, alpha: 1)
-        //self.layer.borderColor = purple as! CGColor
         self.layer.cornerRadius = 13
     }
+    
+    @IBAction func editButtonPressed(_ sender: UIButton) {
+        print("edit button pressed")
+        delegate?.presentMenu(cell: self, question: currentQuestion!)
+    }
+    
     public func configureCell(interviewQ: InterviewQuestion) {
         interviewQuestionLabel.text = interviewQ.question
         getUserAnswers(for: interviewQ)
@@ -32,7 +43,7 @@ class InterviewQuestionCell: UICollectionViewCell {
                 DispatchQueue.main.async {
                     let answer = answers.first
                     if answer?.answers.count ?? -1 > 0 {
-                        self?.answerCheckBox.image = UIImage(systemName: "checkmark.rectangle")
+                        self?.answerCheckBox.image = UIImage(systemName: "checkmark.square")
                     } else {
                         self?.answerCheckBox.image = UIImage(systemName: "square")
                     }

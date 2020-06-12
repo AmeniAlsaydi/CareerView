@@ -22,6 +22,15 @@ class InterviewAnswerDetailController: UIViewController {
     
     private var listener: ListenerRegistration?
     public var question: InterviewQuestion?
+    private var isBookmarked = false {
+        didSet {
+            if isBookmarked {
+                navigationItem.rightBarButtonItem?.image = UIImage(systemName: "bookmark.fill")
+            } else {
+                navigationItem.rightBarButtonItem?.image = UIImage(systemName: "bookmark")
+            }
+        }
+    }
     //MARK:- User Answer
     public var answers = [AnsweredQuestion]() {
         didSet {
@@ -45,8 +54,8 @@ class InterviewAnswerDetailController: UIViewController {
             if starStories.isEmpty {
                 starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "plus.circle")
             } else {
-                answersCollectionView.reloadData()
-                answersCollectionView.backgroundView = nil
+                starStoriesCollectionView.reloadData()
+                starStoriesCollectionView.backgroundView = nil
             }
         }
     }
@@ -82,6 +91,7 @@ class InterviewAnswerDetailController: UIViewController {
         hideAddAnswerElements()
         configureNavBar()
         configureCollectionViews()
+        isQuestionBookmarked(question: question)
         questionLabel.text = question?.question
     }
     //MARK:- Collection View Config
@@ -96,7 +106,7 @@ class InterviewAnswerDetailController: UIViewController {
     //MARK:- Config NavBar & Nav Bar Button functions
     private func configureNavBar() {
         let suggestionButton = UIBarButtonItem(image: UIImage(systemName: "lightbulb"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
-        let saveQuestionButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
+        let saveQuestionButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
         navigationItem.rightBarButtonItems = [saveQuestionButton, suggestionButton]
     }
     @objc private func suggestionButtonPressed(_ sender: UIBarButtonItem) {
@@ -105,7 +115,36 @@ class InterviewAnswerDetailController: UIViewController {
         present(interviewQuestionSuggestionViewController, animated: true)
     }
     @objc private func addQuestionToSavedQuestionsButtonPressed(_ sender: UIBarButtonItem) {
-        //TODO: Save question to a user's collection of saved questions
+        guard let question = question else {return}
+        if isBookmarked {
+            DatabaseService.shared.removeQuestionFromBookmarks(question: question) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Error", message: "Unable to remove \(question.question) from your bookmarks error: \(error.localizedDescription)")
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Removed", message: "\(question.question) has been removed")
+                    }
+                    self?.isBookmarked = false
+                }
+            }
+        } else {
+            DatabaseService.shared.addQuestionToBookmarks(question: question) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Error", message: "Unable to add \(question.question) to your bookmarks at this time error: \(error.localizedDescription)")
+                    }
+                case.success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Added To Your Bookmarks", message: "\(question.question) has been added")
+                    }
+                    self?.isBookmarked = true
+                }
+            }
+        }
     }
     //MARK:- Hide/Show methods
     private func hideAddAnswerElements() {
@@ -153,6 +192,22 @@ class InterviewAnswerDetailController: UIViewController {
                     }
                     self?.starStories = results
                 }
+            }
+        }
+    }
+    private func isQuestionBookmarked(question: InterviewQuestion?) {
+        guard let question = question else {return}
+        DatabaseService.shared.isQuestioninBookmarks(question: question) { [weak self] (result) in
+            switch result {
+            case.failure(let error):
+                print("could not check bookmarks collection error: \(error.localizedDescription)")
+            case.success(let successful):
+                if successful == true {
+                    self?.isBookmarked = true
+                } else {
+                    self?.isEditing = false
+                }
+                
             }
         }
     }
