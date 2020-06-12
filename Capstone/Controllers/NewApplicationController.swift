@@ -165,11 +165,7 @@ class NewApplicationController: UIViewController {
     
     
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
-        // i have to also consider if they change their mind on the addition of an interview and would like delete
-        
-        // TODO:
-        // create the interview view
-        // have it require an initializer that takes in a number that will be assigned to the label on the view that tells them which interview theyre entering
+        // FIXME: have to also consider if they change their mind on the addition of an interview and would like delete
         
         interviewCount += 1
         
@@ -196,7 +192,6 @@ class NewApplicationController: UIViewController {
         if interviewCount == 3 {
             addInterviewStack.isHidden = true
         }
-        
     }
     
     
@@ -233,21 +228,19 @@ class NewApplicationController: UIViewController {
         
         
         if let location = locationAsString, !location.isEmpty {
-            getCoordinateFrom(address: location) { coordinate, error in
+            getCoordinateFrom(address: location) { [weak self] coordinate, error in
                 guard let coordinate = coordinate, error == nil else { return }
                 // don't forget to update the UI from the main thread
                 DispatchQueue.main.async {
                     locationAsCoordinates = GeoPoint(latitude: coordinate.latitude, longitude: coordinate.longitude)
                     
-                    self.createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
+                    self?.createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
                     
-                    
+                    self?.addInterviews(jobID)
                     
                 }
-                
             }
         }
-        
     }
     
     private func createNewApplication(id: String , companyName: String, positionTitle: String, positionURL: String?, notes: String?, location: GeoPoint?, deadline: Timestamp?, dateApplied: Timestamp?, isInterviewing: Bool) {
@@ -256,12 +249,13 @@ class NewApplicationController: UIViewController {
         // FIXME: this assumes that first time application means they have not recieved offer - should this be handled differently?
         let jobApplication = JobApplication(id: id, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, remoteStatus: isRemote, location: location, notes: notes, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: false)
         
-        DatabaseService.shared.addApplication(application: jobApplication) { (result) in
+        DatabaseService.shared.addApplication(application: jobApplication) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print("Error adding application: \(error)")
             case .success:
                 print("success adding application")
+                self?.showAlert(title: "Success", message: "Your application was added!")
                 // self.navigationController?.popViewController(animated: true)
             }
         }
@@ -273,8 +267,11 @@ class NewApplicationController: UIViewController {
         case 1:
             addInterview(InterviewEntryView1, applicationID: applicationID)
         case 2:
+            addInterview(InterviewEntryView1, applicationID: applicationID)
             addInterview(InterviewEntryView2, applicationID: applicationID)
         case 3:
+            addInterview(InterviewEntryView1, applicationID: applicationID)
+            addInterview(InterviewEntryView2, applicationID: applicationID)
             addInterview(InterviewEntryView3, applicationID: applicationID)
         default:
             return 
@@ -298,7 +295,7 @@ class NewApplicationController: UIViewController {
         DatabaseService.shared.addInterviewToApplication(applicationID: applicationID, interview: interview) { (result) in
             switch result {
             case .failure(let error):
-                print("error add interview to application")
+                print("error add interview to application: \(error)")
             case .success:
                 print("interview was added successfully to application")
             }
@@ -308,8 +305,6 @@ class NewApplicationController: UIViewController {
     private func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
         CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
     }
-    
-    
 }
 
 
