@@ -24,7 +24,7 @@ class InterviewQuestionsMainController: UIViewController {
     
     private var listener: ListenerRegistration?
     private var filterMenuOn = false
-    
+
     public var filterState: FilterState = .all {
         didSet {
             self.questionsCollectionView.reloadData()
@@ -83,6 +83,7 @@ class InterviewQuestionsMainController: UIViewController {
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
     }
@@ -102,8 +103,6 @@ class InterviewQuestionsMainController: UIViewController {
             filterMenuVC.filterState = filterState
             filterMenuOn = true
         }
-        
-        
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
