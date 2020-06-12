@@ -13,7 +13,7 @@ import FirebaseAuth
 enum FilterState {
     case common
     case custom
-    case saved //TODO: Add user favorite questions
+    case bookmarked
     case all
 }
 
@@ -37,6 +37,13 @@ class InterviewQuestionsMainController: UIViewController {
             self.questionsCollectionView.reloadData()
         }
     }
+    private var bookmarkedQuestions = [InterviewQuestion]() {
+        didSet {
+            if filterState == .bookmarked {
+                self.questionsCollectionView.reloadData()
+            }
+        }
+    }
     private var searchQuery = String() {
         didSet {
             DispatchQueue.main.async {
@@ -47,10 +54,8 @@ class InterviewQuestionsMainController: UIViewController {
                     self.commonInterviewQuestions = self.commonInterviewQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
                 case .custom:
                     self.customQuestions = self.customQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
-                    //case .saved:
-                //TODO
-                default:
-                    self.allQuestions = self.allQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
+                case .bookmarked:
+                    self.bookmarkedQuestions = self.bookmarkedQuestions.filter {$0.question.lowercased().contains(self.searchQuery.lowercased())}
                 }
             }
         }
@@ -75,6 +80,7 @@ class InterviewQuestionsMainController: UIViewController {
         configureNavBar()
         getInterviewQuestions()
         getUserCreatedQuestions()
+        getBookmarkedQuestions()
         filterMenuOn = false
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -138,6 +144,18 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    private func getBookmarkedQuestions() {
+        DatabaseService.shared.fetchBookmarkedQuestions { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to retrieve bookmarked questions error: \(error.localizedDescription)")
+            case .success(let bookmarks):
+                DispatchQueue.main.async {
+                    self?.bookmarkedQuestions = bookmarks
+                }
+            }
+        }
+    }
 }
 //MARK:- CollectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
@@ -149,59 +167,57 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
-        if filterState == .all {
+        switch filterState{
+        case .all:
             let question = allQuestions[indexPath.row]
             interviewAnswerVC.question = question
-        } else if filterState == .common {
+        case.common:
             let question = commonInterviewQuestions[indexPath.row]
             interviewAnswerVC.question = question
-        } else {
+        case .custom:
             let question = customQuestions[indexPath.row]
             interviewAnswerVC.question = question
-        } //TODO: add favorites
-        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        
-        if filterMenuOn {
-            removeChild(childController: filterMenuVC)
+        case.bookmarked:
+            let question = bookmarkedQuestions[indexPath.row]
+            interviewAnswerVC.question = question
         }
         navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
 }
 extension InterviewQuestionsMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if filterState == .all {
+        switch filterState {
+        case .all:
             return allQuestions.count
-        } else if filterState == .common {
-            return commonInterviewQuestions.count
-        } else if filterState == .custom {
+        case .bookmarked:
+            return bookmarkedQuestions.count
+        case .custom:
             return customQuestions.count
-        } else if filterState == .saved {
-            //TODO: logic for saved question
-            return allQuestions.count
+        case .common:
+            return commonInterviewQuestions.count
         }
-        return 10
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = questionsCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewQuestionCell", for: indexPath) as? InterviewQuestionCell else {
             fatalError("could not cast to interviewquestioncell")
         }
-        if filterState == .all {
+        switch filterState {
+        case .all:
             let question = allQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
             cell.currentQuestion = question
-        } else if filterState == .common {
+        case .common:
             let question = commonInterviewQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
             cell.currentQuestion = question
-        } else if filterState == .custom {
+        case .custom:
             let question = customQuestions[indexPath.row]
             cell.configureCell(interviewQ: question)
             cell.currentQuestion = question
-        } else if filterState == .saved {
-            //TODO: logic for saved question
-            let question = allQuestions[indexPath.row]
-            cell.configureCell(interviewQ: question)
-            cell.currentQuestion = question
+        case .bookmarked:
+            let question = bookmarkedQuestions[indexPath.row]
+             cell.configureCell(interviewQ: question)
+             cell.currentQuestion = question
         }
         cell.delegate = self
         return cell
