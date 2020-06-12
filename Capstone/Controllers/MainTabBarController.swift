@@ -47,8 +47,8 @@ class MainTabBarController: UITabBarController {
     private lazy var settingsController: UINavigationController = {
        let navController = UINavigationController(rootViewController: SettingsController(nibName: "SettingsXib", bundle: nil))
         
-      navController.tabBarItem = UITabBarItem(title: "Settings",
-                                               image: UIImage(systemName: "gear"), selectedImage: UIImage(systemName: "gear"))
+      navController.tabBarItem = UITabBarItem(title: "Profile",
+                                               image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
            return navController
     }()
     
