@@ -30,7 +30,9 @@ class InterviewQuestionsMainController: UIViewController {
     }
     private var commonInterviewQuestions = [InterviewQuestion]() {
         didSet{
-            allQuestions.append(contentsOf: commonInterviewQuestions)
+            if filterState == .common {
+                questionsCollectionView.reloadData()
+            }
         }
     }
     private var customQuestions = [InterviewQuestion]() {
@@ -95,8 +97,8 @@ class InterviewQuestionsMainController: UIViewController {
             } else if let snapshot = snapshot {
                 let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
                 self?.customQuestions = customQs
-                self?.allQuestions.append(contentsOf: customQs) 
-                self?.getBookmarkedQuestions()
+                //FIXME: prevent duplicate custom q
+                //self?.getUserCreatedQuestions()
                 self?.questionsCollectionView.reloadData()
             }
         })
@@ -146,6 +148,7 @@ class InterviewQuestionsMainController: UIViewController {
             case .success(let questions):
                 DispatchQueue.main.async {
                     self?.commonInterviewQuestions = questions
+                    self?.allQuestions.append(contentsOf: questions)
                 }
             }
         }
@@ -159,7 +162,6 @@ class InterviewQuestionsMainController: UIViewController {
                 DispatchQueue.main.async {
                     self?.customQuestions = customQuestions
                     self?.allQuestions.append(contentsOf: customQuestions)
-                    self?.questionsCollectionView.reloadData()
                 }
             }
         }
