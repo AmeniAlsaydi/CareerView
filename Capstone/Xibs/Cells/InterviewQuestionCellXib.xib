@@ -96,6 +96,7 @@
             <size key="customSize" width="575" height="415"/>
             <connections>
                 <outlet property="answerCheckBox" destination="gDJ-5Z-5L7" id="Bka-Yw-6dN"/>
+                <outlet property="editButton" destination="JD4-Y1-tmP" id="lhG-1t-Abm"/>
                 <outlet property="interviewQuestionLabel" destination="nBe-5f-WTw" id="isx-BH-HWg"/>
                 <outlet property="numberOfStarsLabel" destination="d1p-8i-JFb" id="RTY-P7-jcL"/>
             </connections>

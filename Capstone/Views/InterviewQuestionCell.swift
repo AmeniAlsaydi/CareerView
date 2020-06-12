@@ -15,6 +15,7 @@ class InterviewQuestionCell: UICollectionViewCell {
     @IBOutlet weak var numberOfStarsLabel: UILabel!
     @IBOutlet weak var answerCheckBox: UIImageView!
     @IBOutlet weak var interviewQuestionLabel: UILabel!
+    @IBOutlet weak var editButton: UIButton!
     
     weak var delegate: InterviewQuestionCellDelegate?
     var currentQuestion: InterviewQuestion?
