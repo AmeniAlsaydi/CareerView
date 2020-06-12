@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -42,8 +43,11 @@
                                     <constraint firstAttribute="width" constant="44" id="Iod-aV-Egk"/>
                                     <constraint firstAttribute="height" constant="44" id="lJX-4z-T4Z"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="ellipsis.circle" catalog="system"/>
+                                <state key="normal" image="ellipsis.circle" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28" scale="medium" weight="light"/>
+                                </state>
                                 <connections>
                                     <action selector="contextButtonPressed:" destination="taH-0Q-BiL" eventType="touchUpInside" id="65l-2Y-j8d"/>
                                 </connections>
