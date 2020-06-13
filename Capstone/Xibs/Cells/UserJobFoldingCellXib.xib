@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -281,6 +281,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="collectionView" destination="ARr-5X-ENj" id="oTD-P4-QD6"/>
                 <outlet property="companyNameLabel" destination="jI1-Y5-EHa" id="VHc-dO-WYi"/>
                 <outlet property="companyNameLabel2" destination="hwX-Fg-RJz" id="Qu5-aa-R0z"/>
                 <outlet property="containerView" destination="WU1-Uy-BLZ" id="mDU-W4-YnL"/>

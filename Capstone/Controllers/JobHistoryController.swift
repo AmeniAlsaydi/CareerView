@@ -12,9 +12,10 @@ class JobHistoryController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-
     private var userData: User?
 
+    private var displayContactCollectionView = false
+    
     var userJobHistory = [UserJob]() {
         didSet {
             self.tableView.reloadData()
@@ -126,8 +127,13 @@ extension JobHistoryController: UITableViewDelegate {
      }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! FoldingCell
-        
+        let cell = tableView.cellForRow(at: indexPath) as! JobHistoryExpandableCell
+        displayContactCollectionView.toggle()
+        let aUserJobHistory = userJobHistory[indexPath.row]
+        if displayContactCollectionView == true {
+            cell.loadUserContacts(userJob: aUserJobHistory)
+        }
+
         if cell.isAnimating() {
             return
         }
