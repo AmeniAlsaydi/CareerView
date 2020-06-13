@@ -10,11 +10,27 @@ import UIKit
 
 class InterviewEntryView: UIView {
     
+    public var thankYouSent: Bool = false {
+        didSet {
+            if thankYouSent {
+                thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            } else {
+                thankYouButton.setImage(UIImage(systemName: "square"), for: .normal)
+            }
+        }
+    }
+    
+    public var date: Date? = nil
+    
+    private let datePicker = UIDatePicker()
+    
+    
+    
     public lazy var dateTextField: UITextField = {
         let textfield = UITextField()
         textfield.setPadding()
         textfield.setBottomBorder()
-        //textfield.backgroundColor = .clear
+        textfield.clearButtonMode = .always
         textfield.placeholder = "Interview date"
         return textfield
     }()
@@ -37,7 +53,7 @@ class InterviewEntryView: UIView {
         let textfield = UITextField()
         textfield.setPadding()
         textfield.setBottomBorder()
-        //textfield.backgroundColor = .clear
+        textfield.clearButtonMode = .always
         textfield.placeholder = "Interview notes"
         return textfield
     }()
@@ -61,6 +77,38 @@ class InterviewEntryView: UIView {
         constrainNotesTextField()
         constainThankyouButton()
         constrainThankYouLabel()
+        createDatePicker()
+        thankYouButton.addTarget(self, action: #selector(toggleThankYou), for: .touchUpInside)
+    }
+    
+    @objc private func toggleThankYou() {
+        thankYouSent.toggle()
+    }
+    
+    func createDatePicker() {
+        // toolbar
+        let toolbar = UIToolbar()
+        
+        toolbar.sizeToFit()
+        
+        // bar button
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        toolbar.setItems([doneButton], animated: true)
+        
+        // assign toolbar
+        dateTextField.inputAccessoryView = toolbar
+        
+        // assign date picker to text feild
+        dateTextField.inputView = datePicker
+        
+        // date picker mode
+        datePicker.datePickerMode = .date
+    }
+    
+    @objc func doneButtonPressed() {
+        dateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+        date = datePicker.date
+        endEditing(true)
     }
     
     private func constrainDateTextField() {
