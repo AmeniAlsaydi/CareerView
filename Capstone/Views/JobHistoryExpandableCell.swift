@@ -87,8 +87,10 @@ class JobHistoryExpandableCell: FoldingCell {
         }
     }
     private func presentContactViewController(contact: Contact) {
-        let contactViewController = UINavigationController(rootViewController: CNContactViewController(forUnknownContact: contact.contactValue))
-        self.window?.rootViewController?.navigationController?.present(contactViewController, animated: true)
+        let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
+        let rootViewController = findViewController()
+        print(rootViewController)
+        rootViewController?.navigationController?.pushViewController(contactViewController, animated: true)
     }
     override func animationDuration(_ itemIndex: NSInteger, type _: FoldingCell.AnimationType) -> TimeInterval {
         let durations = [0.26, 0.2, 0.2]
@@ -96,7 +98,7 @@ class JobHistoryExpandableCell: FoldingCell {
     }
     
 }
-
+//TODO: Move this extension to extensions folder
 extension Date {
     public func dateString(_ format: String = "MM/yyyy") -> String {
         let dateFormatter = DateFormatter()
@@ -121,23 +123,17 @@ extension JobHistoryExpandableCell: UICollectionViewDataSource {
             return cell
         }
         cell.configureCell(contact: contact)
+        
         return cell
     }
     
-    
 }
+
 extension JobHistoryExpandableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let contact = contacts?[indexPath.row] else {
             return
         }
-        guard let root = self.window?.rootViewController else {
-            print("This didn't work")
-            return
-        }
-        contact.presentContactViewController(contact: contact, rootViewController: root)
-//        let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
-//        let navigationController = UINavigationController(rootViewController: contactViewController)
-        
+        presentContactViewController(contact: contact)
     }
 }
