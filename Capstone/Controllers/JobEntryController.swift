@@ -451,7 +451,7 @@ extension JobEntryController: UITextFieldDelegate {
 //        } else {
 //            return newString.length <= yearMaxLength
 //        }
-    }
+//    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
