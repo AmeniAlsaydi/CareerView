@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-struct UserJob {
+struct UserJob: Equatable {
     var id: String
     var title: String
     var companyName: String

@@ -139,6 +139,20 @@ extension JobHistoryController: JobHistoryExpandableCellDelegate {
     }
     private func deleteUserJob(userJob: UserJob) {
         print("deleting job: \(userJob.title)")
+        guard let index = userJobHistory.firstIndex(of: userJob) else {
+            return }
+        DispatchQueue.main.async {
+            DatabaseService.shared.removeUserJob(userJobId: userJob.id) {
+                (result) in
+                switch result {
+                case .failure(let error):
+                    self.showAlert(title: "Failed to delete job", message: error.localizedDescription)
+                case .success:
+                    self.showAlert(title: "Success", message: "User job deleted")
+                    self.userJobHistory.remove(at: index)
+                }
+            }
+        }
     }
 }
 extension JobHistoryController: UITableViewDelegate {
