@@ -152,6 +152,24 @@ class JobEntryController: UIViewController {
         responsibilities.append("")
     }
     @IBAction func addContactButtonPressed(_ sender: UIButton) {
+        //Note: This will check for access to contact permission and if not determined, ask again
+        // If the user denied permission, they will directed to settings where they can give permission to the app
+        // TODO: Determine, do we want to ask permission again in the app if they denied? Or show alert?
+        let store = CNContactStore()
+        let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
+        if authorizationStatus == .notDetermined {
+            store.requestAccess(for: .contacts) { [weak self] didAuthorize, error in
+                if didAuthorize {
+                    self?.retrieveContacts()
+                }
+            }
+        }  else if authorizationStatus == .denied {
+            showAlert(title: "Access to contacts has been denied", message: "Please go to settings -> CareerView if you would like to give permission to contacts")
+        } else if authorizationStatus == .authorized {
+            retrieveContacts()
+        }
+    }
+    private func retrieveContacts() {
         let contactPicker = CNContactPickerViewController()
         contactPicker.delegate = self
         present(contactPicker, animated: true)
