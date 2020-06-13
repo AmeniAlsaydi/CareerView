@@ -10,9 +10,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterMenuViewController" customModule="Capstone" customModuleProvider="target">
             <connections>
                 <outlet property="allButton" destination="1LK-mB-0V1" id="c17-lw-j7e"/>
+                <outlet property="bookmarkedButton" destination="ra3-EV-iMe" id="79T-vQ-HM7"/>
                 <outlet property="commonButton" destination="Amj-Ql-OTA" id="FAB-nO-cZ5"/>
                 <outlet property="customButton" destination="M8O-cb-C7j" id="lPA-6Z-GNx"/>
-                <outlet property="savedButton" destination="ra3-EV-iMe" id="79T-vQ-HM7"/>
                 <outlet property="setFilterButton" destination="pJe-6l-k5Z" id="xNr-lV-s3e"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Exg-3g-WDM"/>
             </connections>
@@ -64,7 +64,7 @@
                         <action selector="savedButtonPressed:" destination="-1" eventType="touchUpInside" id="CT2-89-4MF"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zl-Ap-Sm8">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmarked" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zl-Ap-Sm8">
                     <rect key="frame" x="72" y="170.5" width="332" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>

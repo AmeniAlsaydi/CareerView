@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol FilterStateDelegate: NSObject {
+protocol FilterStateDelegate: AnyObject {
     func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController)
     func pressedCancel(child: FilterMenuViewController)
 }
@@ -16,7 +16,7 @@ protocol FilterStateDelegate: NSObject {
 class FilterMenuViewController: UIViewController {
     
     @IBOutlet weak var allButton: UIButton!
-    @IBOutlet weak var savedButton: UIButton!
+    @IBOutlet weak var bookmarkedButton: UIButton!
     @IBOutlet weak var commonButton: UIButton!
     @IBOutlet weak var customButton: UIButton!
     @IBOutlet weak var setFilterButton: UIButton!
@@ -31,27 +31,26 @@ class FilterMenuViewController: UIViewController {
     override func viewDidLoad() {
         updateUI()
     }
-    
     private func updateUI() {
         if filterState == .all {
-            allButton.setImage(UIImage(systemName: "checkmark.rectangle.fill"), for: .normal)
-            savedButton.setImage(UIImage(systemName: "square"), for: .normal)
+            allButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+            bookmarkedButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
-        } else if filterState == .saved {
-            savedButton.setImage(UIImage(systemName: "checkmark.rectangle.fill"), for: .normal)
+        } else if filterState == .bookmarked {
+            bookmarkedButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else if filterState == .common {
-            commonButton.setImage(UIImage(systemName: "checkmark.rectangle.fill"), for: .normal)
+            commonButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
-            savedButton.setImage(UIImage(systemName: "square"), for: .normal)
+            bookmarkedButton.setImage(UIImage(systemName: "square"), for: .normal)
             customButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else if filterState == .custom {
-            customButton.setImage(UIImage(systemName: "checkmark.rectangle.fill"), for: .normal)
+            customButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             allButton.setImage(UIImage(systemName: "square"), for: .normal)
-            savedButton.setImage(UIImage(systemName: "square"), for: .normal)
+            bookmarkedButton.setImage(UIImage(systemName: "square"), for: .normal)
             commonButton.setImage(UIImage(systemName: "square"), for: .normal)
         }
     }
@@ -62,7 +61,7 @@ class FilterMenuViewController: UIViewController {
     }
     @IBAction func savedButtonPressed(_ sender: UIButton){
         setFilterButton.isEnabled = true
-        filterState = .saved
+        filterState = .bookmarked
     }
     @IBAction func commonButtonPressed(_ sender: UIButton) {
         setFilterButton.isEnabled = true
