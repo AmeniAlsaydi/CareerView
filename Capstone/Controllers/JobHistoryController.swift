@@ -135,10 +135,12 @@ extension JobHistoryController: JobHistoryExpandableCellDelegate {
         present(alertController, animated: true, completion: nil)
     }
     private func editUserJob(userJob: UserJob) {
-        print("editing job: \(userJob.title)")
+        let destinationViewController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
+        destinationViewController.userJob = userJob
+        destinationViewController.editingJob = true
+        navigationController?.pushViewController(destinationViewController, animated: true)
     }
     private func deleteUserJob(userJob: UserJob) {
-        print("deleting job: \(userJob.title)")
         guard let index = userJobHistory.firstIndex(of: userJob) else {
             return }
         DispatchQueue.main.async {
