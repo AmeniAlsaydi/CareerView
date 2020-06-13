@@ -57,8 +57,7 @@ class JobEntryController: UIViewController {
     public var editingJob = false
     private var currentlyEmployed: Bool = false {
         didSet {
-            print(currentlyEmployed)
-            configureCurrentlyEmployedButton(currentlyEmployed)
+//            configureCurrentlyEmployedButton(currentlyEmployed)
         }
     }
     private var responsibilityCells = 1 {
@@ -93,6 +92,7 @@ class JobEntryController: UIViewController {
         listenForKeyboardEvents()
         loadUserJob()
         addInputAccessoryForTextFields(textFields: [jobTitleTextField, companyNameTextField, beginDateYearTextField, beginDateMonthTextField, endDateYearTextField, endDateMonthTextField, locationTextField, descriptionTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField], dismissable: true, previousNextable: true)
+        configureCurrentlyEmployedButton(currentlyEmployed)
     }
     private func configureView() {
         view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
