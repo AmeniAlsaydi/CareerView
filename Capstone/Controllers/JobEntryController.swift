@@ -230,8 +230,7 @@ class JobEntryController: UIViewController {
                 }
             case .success:
                 DispatchQueue.main.async {
-                    let destVC = JobHistoryController(nibName: "JobHistoryXib", bundle: nil)
-                    self?.show(destVC, sender: nil)
+                    self?.navigationController?.popToRootViewController(animated: true)
                     if self?.editingJob ?? false {
                         self?.showAlert(title: "Job Updated!", message: "Success")
                     } else {
@@ -446,11 +445,11 @@ extension JobEntryController: UITextFieldDelegate {
         let currentString: NSString = textField.text! as NSString
         let newString: NSString =
         currentString.replacingCharacters(in: range, with: string) as NSString
-        if textField.tag == 0 {
-        return newString.length <= monthMaxLength
-        } else {
+//        if textField.tag == 0 {
+//        return newString.length <= monthMaxLength
+//        } else {
             return newString.length <= yearMaxLength
-        }
+//        }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
