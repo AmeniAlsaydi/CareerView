@@ -232,7 +232,11 @@ class JobEntryController: UIViewController {
                 DispatchQueue.main.async {
                     let destVC = JobHistoryController(nibName: "JobHistoryXib", bundle: nil)
                     self?.show(destVC, sender: nil)
+                    if self?.editingJob ?? false {
+                        self?.showAlert(title: "Job Updated!", message: "Success")
+                    } else {
                     self?.showAlert(title: "Job Saved!", message: "Success")
+                    }
                 }
             }
         })
