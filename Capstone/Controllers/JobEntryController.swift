@@ -11,7 +11,6 @@ import Firebase
 import Contacts
 import ContactsUI
 
-
 class JobEntryController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
@@ -55,11 +54,8 @@ class JobEntryController: UIViewController {
     private var testUserJob = UserJob(id: UUID().uuidString, title: "Retail Employee", companyName: "Sonos", location: "NY, NY", beginDate: Timestamp(date: Date(timeIntervalSince1970: 1464783949)), endDate: Timestamp(date: Date(timeIntervalSince1970: 1509539149)), currentEmployer: true, description: "Assisted customers with making purchase decisions", responsibilities: ["Operated POS for transactions","Helped customers troubleshoot products"], starSituationIDs: [], interviewQuestionIDs: [])
     
     public var editingJob = false
-    private var currentlyEmployed: Bool = false {
-        didSet {
-//            configureCurrentlyEmployedButton(currentlyEmployed)
-        }
-    }
+    private var currentlyEmployed: Bool = false
+    
     private var responsibilityCells = 1 {
         didSet {
             // Disable add responsibility button
@@ -92,7 +88,6 @@ class JobEntryController: UIViewController {
         listenForKeyboardEvents()
         loadUserJob()
         addInputAccessoryForTextFields(textFields: [jobTitleTextField, companyNameTextField, beginDateYearTextField, beginDateMonthTextField, endDateYearTextField, endDateMonthTextField, locationTextField, descriptionTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField], dismissable: true, previousNextable: true)
-        configureCurrentlyEmployedButton(currentlyEmployed)
     }
     private func configureView() {
         view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
@@ -107,17 +102,20 @@ class JobEntryController: UIViewController {
     }
     private func loadUserJob() {
         if editingJob {
-            jobTitleTextField.text = testUserJob.title
-            companyNameTextField.text = testUserJob.companyName
-            currentlyEmployed = testUserJob.currentEmployer
-            beginDateMonthTextField.text = testUserJob.beginDate.dateValue().description
-            beginDateYearTextField.text = testUserJob.beginDate.dateValue().description
-            endDateMonthTextField.text = testUserJob.endDate.dateValue().description
-            endDateYearTextField.text = testUserJob.endDate.dateValue().description
-            locationTextField.text = userJob?.location
-            descriptionTextField.text = testUserJob.description
-            responsibilities = testUserJob.responsibilities
-            //TODO: Add star situations, add contacts
+            guard let job = userJob else { return }
+            jobTitleTextField.text = job.title
+            companyNameTextField.text = job.companyName
+            currentlyEmployed = job.currentEmployer
+            beginDateMonthTextField.text = job.beginDate.dateValue().description
+            beginDateYearTextField.text = job.beginDate.dateValue().description
+            endDateMonthTextField.text = job.endDate.dateValue().description
+            endDateYearTextField.text = job.endDate.dateValue().description
+            locationTextField.text = job.location
+            descriptionTextField.text = job.description
+            responsibilities = job.responsibilities
+            configureCurrentlyEmployedButton(job.currentEmployer)
+            currentlyEmployed = job.currentEmployer
+            //TODO: Add star situations
         }
     }
     private func setupNavigationBar() {
@@ -189,9 +187,9 @@ class JobEntryController: UIViewController {
         self.view.endEditing(true)
     }
     private func configureCurrentlyEmployedButton(_ currentlyEmployed: Bool) {
-        if let job = userJob {
-            self.currentlyEmployed = job.currentEmployer
-        }
+//        if let job = userJob {
+//            self.currentlyEmployed = job.currentEmployer
+//        }
         if currentlyEmployed {
             currentlyEmployedButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
         } else {
@@ -211,13 +209,19 @@ class JobEntryController: UIViewController {
     //MARK: Save userJob
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
         populateUserJobResponsibilities()
+        
         let beginDateFromField = formatDates(month: beginDateMonthTextField.text ?? "", year: beginDateYearTextField.text ?? "")
         let endDateFromField = formatDates(month: endDateMonthTextField.text ?? "", year: endDateYearTextField.text ?? "")
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/yyyy"
         let beginDateTimeStamp = Timestamp(date: (beginDateFromField ?? dateFormatter.date(from: "1/1970"))!)
         let endDateTimeStamp = Timestamp(date: (endDateFromField ?? Date()))
-        let newUserJob = UserJob(id: UUID().uuidString, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", location: locationTextField?.text ?? "", beginDate: beginDateTimeStamp, endDate: endDateTimeStamp, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: responsibilities, starSituationIDs: linkedStarSituations, interviewQuestionIDs: linkedInterviewQuestions)
+        var id = UUID().uuidString
+        if editingJob {
+            id = userJob?.id ?? UUID().uuidString
+        }
+        let newUserJob = UserJob(id: id, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", location: locationTextField?.text ?? "", beginDate: beginDateTimeStamp, endDate: endDateTimeStamp, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: responsibilities, starSituationIDs: linkedStarSituations, interviewQuestionIDs: linkedInterviewQuestions)
+        
         DatabaseService.shared.addToUserJobs(userJob: newUserJob, completion: { [weak self] (result) in
             switch result {
             case .failure(let error):
@@ -249,6 +253,7 @@ class JobEntryController: UIViewController {
     }
     @IBAction func currentlyEmployedButtonPressed(_ sender: UIButton) {
         currentlyEmployed.toggle()
+        configureCurrentlyEmployedButton(currentlyEmployed)
     }
     @objc func keyboardWillChange(notification: Notification) {
         let userInfo = notification.userInfo!
@@ -342,7 +347,6 @@ extension JobEntryController: UITableViewDataSource {
             case 1:
                 return companyTitleCell
             case 2:
-                configureCurrentlyEmployedButton(currentlyEmployed)
                 return currentEmployerCell
             case 3:
                 return beginEmploymentDateCell
