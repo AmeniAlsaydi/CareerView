@@ -226,7 +226,7 @@ class NewApplicationController: UIViewController {
         let locationAsString = locationTextField.text
         var locationAsCoordinates: GeoPoint? = nil
         
-        
+        // this is the problem
         if let location = locationAsString, !location.isEmpty {
             getCoordinateFrom(address: location) { [weak self] coordinate, error in
                 guard let coordinate = coordinate, error == nil else { return }
@@ -240,6 +240,10 @@ class NewApplicationController: UIViewController {
                     
                 }
             }
+        } else {
+            createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
+            
+            addInterviews(jobID)
         }
     }
     
@@ -255,7 +259,11 @@ class NewApplicationController: UIViewController {
                 print("Error adding application: \(error)")
             case .success:
                 print("success adding application")
-                self?.showAlert(title: "Success", message: "Your application was added!")
+                
+                self?.showAlert(title: "Sucess!", message: "Your application was added!", completion: { (alertAction) in
+                    self?.navigationController?.popViewController(animated: true)
+                })
+                
                 
             }
         }
