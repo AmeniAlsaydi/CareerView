@@ -9,6 +9,10 @@
 import UIKit
 import ContactsUI
 
+protocol JobHistoryExpandableCellDelegate: AnyObject {
+    func contextButtonPressed(userJob: UserJob)
+}
+
 class JobHistoryExpandableCell: FoldingCell {
     
     @IBOutlet weak var jobTitleLabel: UILabel!
@@ -27,20 +31,28 @@ class JobHistoryExpandableCell: FoldingCell {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    weak var delegate: JobHistoryExpandableCellDelegate?
+    private var userJobForDelegate: UserJob?
+    
     var currentUserJob: UserJob?
     var contacts: [Contact]? {
         didSet {
             collectionView.reloadData()
         }
     }
-    
+    @objc private func contextButtonPressed(_ sender: UIButton) {
+        guard let userJob = userJobForDelegate else { return }
+        delegate?.contextButtonPressed(userJob: userJob)
+    }
     func updateGeneralInfo(userJob: UserJob) {
         
         collectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         currentUserJob = userJob
-        
+        // TODO: Redundant var? (currentUserJob, userJobForDelegate)
+        userJobForDelegate = userJob
+        editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
         jobTitleLabel.text = userJob.title
         companyNameLabel.text = "Company: \(userJob.companyName)"
         jobDescriptionLabel.text = userJob.description
@@ -89,7 +101,6 @@ class JobHistoryExpandableCell: FoldingCell {
     private func presentContactViewController(contact: Contact) {
         let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
         let rootViewController = findViewController()
-        print(rootViewController)
         rootViewController?.navigationController?.pushViewController(contactViewController, animated: true)
     }
     override func animationDuration(_ itemIndex: NSInteger, type _: FoldingCell.AnimationType) -> TimeInterval {

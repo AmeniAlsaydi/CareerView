@@ -111,16 +111,36 @@ extension JobHistoryController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //TODO:- Update this function to take in foldable cell
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "foldingCell", for: indexPath) as? FoldingCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "foldingCell", for: indexPath) as? JobHistoryExpandableCell else {
             fatalError("could not cast to jobHistoryBasicCell")
         }
         let durations: [TimeInterval] = [0.26, 0.3, 0.3]
+        cell.delegate = self
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
         return cell
     }
 }
-
+extension JobHistoryController: JobHistoryExpandableCellDelegate {
+    func contextButtonPressed(userJob: UserJob) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteUserJob(userJob: userJob) }
+        let editAction = UIAlertAction(title: "Edit", style: .default) {
+            alertAction in self.editUserJob(userJob: userJob)
+        }
+        alertController.addAction(editAction)
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    private func editUserJob(userJob: UserJob) {
+        print("editing job: \(userJob.title)")
+    }
+    private func deleteUserJob(userJob: UserJob) {
+        print("deleting job: \(userJob.title)")
+    }
+}
 extension JobHistoryController: UITableViewDelegate {
      func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
          return cellHeights[indexPath.row]
