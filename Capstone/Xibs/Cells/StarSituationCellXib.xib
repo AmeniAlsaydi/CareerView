@@ -42,10 +42,13 @@
                                     <constraint firstAttribute="width" constant="44" id="Iod-aV-Egk"/>
                                     <constraint firstAttribute="height" constant="44" id="lJX-4z-T4Z"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="ellipsis.circle" catalog="system"/>
+                                <state key="normal" image="ellipsis.circle" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28" scale="medium" weight="light"/>
+                                </state>
                                 <connections>
-                                    <action selector="editButtonPressed:" destination="taH-0Q-BiL" eventType="touchUpInside" id="65l-2Y-j8d"/>
+                                    <action selector="contextButtonPressed:" destination="taH-0Q-BiL" eventType="touchUpInside" id="65l-2Y-j8d"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -83,6 +86,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+        <image name="ellipsis.circle" catalog="system" width="32" height="32"/>
     </resources>
 </document>

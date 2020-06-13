@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		06F34E0EBED5AAE34DF36446 /* Pods_CapstoneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */; };
 		45BC67ACBC278BE7865BCC41 /* Pods_Capstone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */; };
-		520D70972491050500284A8C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 520D70962491050500284A8C /* GoogleService-Info.plist */; };
+
+		521402182493F01900ADF7BE /* ApplicationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521402172493F01900ADF7BE /* ApplicationInfo.swift */; };
+
+		52F81DBB249260300052532B /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F81DBA249260300052532B /* SettingCell.xib */; };
+		52F81DBD249260710052532B /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F81DBC249260710052532B /* SettingCell.swift */; };
 		8838A4D1248E60D400217DA1 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */; };
 		8838A4D3248E60E100217DA1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D2248E60E100217DA1 /* UserDefaults.swift */; };
 		8838A4DB248E648800217DA1 /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = 8838A4DA248E648800217DA1 /* DataPersistence */; };
-		8838A4DF248EA6BE00217DA1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8838A4DE248EA6BE00217DA1 /* GoogleService-Info.plist */; };
 		884E555C248408CF00BA180F /* UserContactCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 884E555B248408CF00BA180F /* UserContactCVCell.xib */; };
 		884E555E2484094100BA180F /* UserContactCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E555D2484094100BA180F /* UserContactCVCell.swift */; };
 		884E55602485542100BA180F /* JobHistoryExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */; };
@@ -83,6 +86,8 @@
 		B79F4B8324905536009523EE /* HairlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79F4B8224905536009523EE /* HairlineView.swift */; };
 		B7A865BE2490D60F00AC456F /* UITextFieldExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A865BD2490D60F00AC456F /* UITextFieldExt.swift */; };
 		B7A865C42490EB1300AC456F /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A865C32490EB1300AC456F /* FloatingLabelTextField.swift */; };
+		B7A865D22491C58B00AC456F /* InterviewEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A865D12491C58B00AC456F /* InterviewEntryView.swift */; };
+
 		C60BDFCE2481B3C200CD9875 /* JobFoldingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */; };
 		C6AC379C248592DA00957B61 /* InterviewQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */; };
 		C6AC379E2485DACC00957B61 /* QuestionAnswerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */; };
@@ -107,11 +112,15 @@
 		0B21D1AA2CAE8320224A17FD /* Pods-Capstone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.release.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.release.xcconfig"; sourceTree = "<group>"; };
 		17A1C2FB09C24401FFBC99A4 /* Pods-CapstoneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CapstoneTests.debug.xcconfig"; path = "Target Support Files/Pods-CapstoneTests/Pods-CapstoneTests.debug.xcconfig"; sourceTree = "<group>"; };
 		44397EE59E4E94E21F72EA4A /* Pods-CapstoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CapstoneTests.release.xcconfig"; path = "Target Support Files/Pods-CapstoneTests/Pods-CapstoneTests.release.xcconfig"; sourceTree = "<group>"; };
-		520D70962491050500284A8C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+
+
+		521402172493F01900ADF7BE /* ApplicationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationInfo.swift; sourceTree = "<group>"; };
+
+		52F81DBA249260300052532B /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
+		52F81DBC249260710052532B /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
 		8838A4D2248E60E100217DA1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
-		8838A4DE248EA6BE00217DA1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		884E555B248408CF00BA180F /* UserContactCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserContactCVCell.xib; sourceTree = "<group>"; };
 		884E555D2484094100BA180F /* UserContactCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContactCVCell.swift; sourceTree = "<group>"; };
 		884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobHistoryExpandableCell.swift; sourceTree = "<group>"; };
@@ -185,6 +194,8 @@
 		B79F4B8224905536009523EE /* HairlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HairlineView.swift; sourceTree = "<group>"; };
 		B7A865BD2490D60F00AC456F /* UITextFieldExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExt.swift; sourceTree = "<group>"; };
 		B7A865C32490EB1300AC456F /* FloatingLabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextField.swift; sourceTree = "<group>"; };
+		B7A865D12491C58B00AC456F /* InterviewEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewEntryView.swift; sourceTree = "<group>"; };
+
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFoldingView.swift; sourceTree = "<group>"; };
 		C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionCell.swift; sourceTree = "<group>"; };
@@ -194,7 +205,6 @@
 		C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMenuViewController.swift; sourceTree = "<group>"; };
 		C6E214E9248941E50054CC3C /* InterviewAnswerSuggestionXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterviewAnswerSuggestionXib.xib; sourceTree = "<group>"; };
 		C6E214EB2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAnswerSuggestionViewController.swift; sourceTree = "<group>"; };
-
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -256,6 +266,7 @@
 				B725C2372476832F000811C5 /* Products */,
 				5956DD7DDBAFC9F24FDEE2CA /* Pods */,
 				4249468C7066E63C865B619C /* Frameworks */,
+				B7A865D92494372F00AC456F /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -279,9 +290,8 @@
 				B7976E832480504C001AE3B3 /* Xibs */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
-
 				B725C24724768331000811C5 /* Info.plist */,
-
+				B7A865D52493F13B00AC456F /* GoogleService-Info.plist */,
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -340,6 +350,7 @@
 			children = (
 				B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */,
 				B7A865BD2490D60F00AC456F /* UITextFieldExt.swift */,
+				521402172493F01900ADF7BE /* ApplicationInfo.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -383,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				B7976E55247EA2D9001AE3B3 /* EmptyView.swift */,
+				B7A865D12491C58B00AC456F /* InterviewEntryView.swift */,
 				B7A865C32490EB1300AC456F /* FloatingLabelTextField.swift */,
 				B74108C0248E120900EEFBA8 /* ProgressBar.swift */,
 				884E555D2484094100BA180F /* UserContactCVCell.swift */,
@@ -395,6 +407,7 @@
 				884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */,
 				C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */,
 				B79F4B8224905536009523EE /* HairlineView.swift */,
+				52F81DBC249260710052532B /* SettingCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -440,8 +453,17 @@
 				B7976EAE2480614E001AE3B3 /* QuestionAnswerDetailCellXib.xib */,
 				884E555B248408CF00BA180F /* UserContactCVCell.xib */,
 				886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */,
+				52F81DBA249260300052532B /* SettingCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		B7A865D92494372F00AC456F /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				B7A865D72494251200AC456F /* GoogleService-Info.plist */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -546,9 +568,10 @@
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
-				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
-				B7976E892480524F001AE3B3 /* StarStoryMainXib.xib in Resources */,
 
+				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
+				B7A865DB249439DA00AC456F /* GoogleService-Info.plist in Resources */,
+				B7976E892480524F001AE3B3 /* StarStoryMainXib.xib in Resources */,
 				B7976EAD248060B9001AE3B3 /* JobApplicationCellXib.xib in Resources */,
 				B7976E4F247E9A3E001AE3B3 /* LoginView.storyboard in Resources */,
 				B7976EA924806085001AE3B3 /* StarSituationCellXib.xib in Resources */,
@@ -557,6 +580,7 @@
 				B7976E87248051D8001AE3B3 /* JobEntryXib.xib in Resources */,
 				B7976E9724805CDA001AE3B3 /* InterviewQuestionsMainXib.xib in Resources */,
 				B7976E9F24805E21001AE3B3 /* NewApplicationXib.xib in Resources */,
+				52F81DBB249260300052532B /* SettingCell.xib in Resources */,
 				886B5134248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib in Resources */,
 				884E5572248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib in Resources */,
 				B7976EAF2480614E001AE3B3 /* QuestionAnswerDetailCellXib.xib in Resources */,
@@ -667,6 +691,7 @@
 				B7226CF8248DACA900D7F207 /* JobApplicationCell.swift in Sources */,
 				C6AC37A02485EF4200957B61 /* StarSituationCell.swift in Sources */,
 				C60BDFCE2481B3C200CD9875 /* JobFoldingView.swift in Sources */,
+				521402182493F01900ADF7BE /* ApplicationInfo.swift in Sources */,
 				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
 				C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */,
 				B79F4B4A248F6573009523EE /* StarSituationDatabaseServices.swift in Sources */,
@@ -704,7 +729,9 @@
 				884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */,
 				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
 				B7976E56247EA2D9001AE3B3 /* EmptyView.swift in Sources */,
+				B7A865D22491C58B00AC456F /* InterviewEntryView.swift in Sources */,
 				B79F4B44248F62F7009523EE /* InterviewQuestionsDatabaseServices.swift in Sources */,
+				52F81DBD249260710052532B /* SettingCell.swift in Sources */,
 				B7A865BE2490D60F00AC456F /* UITextFieldExt.swift in Sources */,
 				884E557024873F3700BA180F /* User.swift in Sources */,
 				B7976E2F247D50FF001AE3B3 /* StarSituation.swift in Sources */,
@@ -867,6 +894,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26RHXP32FH;
 				INFOPLIST_FILE = Capstone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -874,7 +902,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Amy.Capstone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -886,6 +914,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26RHXP32FH;
 				INFOPLIST_FILE = Capstone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -893,7 +922,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Amy.Capstone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

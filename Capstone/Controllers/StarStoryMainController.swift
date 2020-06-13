@@ -31,6 +31,7 @@ class StarStoryMainController: UIViewController {
         configureView()
         loadStarSituations()
     }
+    //MARK:- Private funcs
     private func configureView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -45,7 +46,6 @@ class StarStoryMainController: UIViewController {
             navigationItem.title = "STAR Stories: \(starSituations.count)"
           navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
         }
-
     }
     
     private func loadStarSituations() {
@@ -66,6 +66,9 @@ class StarStoryMainController: UIViewController {
     }
     @objc private func segueToAddStarStoryViewController(_ sender: UIBarButtonItem) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
         show(destinationViewController, sender: nil)
     }
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -150,20 +153,29 @@ extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
 extension StarStoryMainController: StarSituationCellDelegate {
     
     func editStarSituationPressed(starSituation: StarSituation, starSituationCell: StarSituationCell) {
-        let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
-        destinationViewController.starSituation = starSituation
-        destinationViewController.isEditingStarSituation = true
-        navigationController?.pushViewController(destinationViewController, animated: true)
-    }
-    
-    func longPressOnStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell) }
+        let editAction = UIAlertAction(title: "Edit", style: .default) {
+            alertAction in self.editStarSituation(starSituation: starSituation, starSituationCell: starSituationCell)
+        }
+        alertController.addAction(editAction)
         alertController.addAction(cancelAction)
         alertController.addAction(deleteAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    private func editStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
+        destinationViewController.starSituation = starSituation
+        destinationViewController.isEditingStarSituation = true
+        navigationController?.pushViewController(destinationViewController, animated: true)
+    }
+
     private func deleteStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
         guard let index = starSituations.firstIndex(of: starSituation) else { return }
         DispatchQueue.main.async {
