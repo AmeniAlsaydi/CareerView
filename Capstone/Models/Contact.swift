@@ -65,9 +65,6 @@ extension Contact {
         }
     }
     
-    internal func presentContactViewController(contact: Contact, rootViewController: UIViewController) {
-        let contactViewController = UINavigationController(rootViewController: CNContactViewController(forUnknownContact: contact.contactValue))
-    }
 }
 
 
