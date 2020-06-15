@@ -35,7 +35,7 @@ class ApplicationDetailController: UIViewController {
     
     @IBOutlet weak var addInterviewButton: UIButton!
     
-    var jobApplication: JobApplication
+    var jobApplication: JobApplication 
     
     private var interviewCount = 0
     
@@ -55,6 +55,12 @@ class ApplicationDetailController: UIViewController {
         configureDetailVC(application: jobApplication)
         configureMapView()
         loadMap()
+        configureNavBar()
+    }
+    
+    private func configureNavBar() {
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(moreOptionsButtonPressed(_:)))
     }
     
     public func configureDetailVC(application: JobApplication) {
@@ -102,6 +108,8 @@ class ApplicationDetailController: UIViewController {
         } else {
             dateAppliedLabel.text = "Date Applied: N/A"
         }
+        
+        hyperlinkLabel.text = application.positionURL
     }
     
     private func configureMapView() {
@@ -160,7 +168,8 @@ class ApplicationDetailController: UIViewController {
     }
     
     
-    @IBAction func moreOptionsButtonPressed(_ sender: UIButton) {
+    @objc
+    func moreOptionsButtonPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
@@ -178,9 +187,10 @@ class ApplicationDetailController: UIViewController {
         }
         
         let editAction = UIAlertAction(title: "Edit", style: .default) { [weak self] (actionSheet) in
-            let applicationEntryVC = NewApplicationController()
+            let applicationEntryVC = NewApplicationController(nibName: "NewApplicationXib", bundle: nil)
             applicationEntryVC.editingApplication = true
-            self?.navigationController?.pushViewController(applicationEntryVC, animated: true)
+            applicationEntryVC.jobApplication = self?.jobApplication
+            self?.show(applicationEntryVC, sender: nil)
         }
         
         alertController.addAction(cancelAction)
@@ -188,7 +198,6 @@ class ApplicationDetailController: UIViewController {
         alertController.addAction(editAction)
         present(alertController, animated: true, completion: nil)
     }
-    
 }
 
 extension ApplicationDetailController: MKMapViewDelegate {
