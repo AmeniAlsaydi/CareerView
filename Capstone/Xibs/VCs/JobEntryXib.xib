@@ -396,6 +396,9 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pup-oD-BVu">
                         <rect key="frame" x="20" y="7" width="124" height="30"/>
                         <state key="normal" title="Add Star Situation"/>
+                        <connections>
+                            <action selector="addStarSituationButtonPressed:" destination="-1" eventType="touchUpInside" id="RSO-1Z-8bc"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

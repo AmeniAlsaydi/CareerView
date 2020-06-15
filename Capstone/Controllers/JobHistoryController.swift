@@ -23,7 +23,6 @@ class JobHistoryController: UIViewController {
         }
     }
     
-    
     enum Const {
         static let closeCellHeight: CGFloat = 180
         static let openCellHeight: CGFloat = 620
@@ -42,6 +41,10 @@ class JobHistoryController: UIViewController {
         loadUserJobs()
         setup()
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        loadUserJobs()
+//        tableView.reloadData()
     }
     private func configureTableView() {
         tableView.delegate = self
@@ -126,6 +129,8 @@ extension JobHistoryController: UITableViewDataSource {
 extension JobHistoryController: JobHistoryExpandableCellDelegate {
     func starSituationsButtonPressed(userJob: UserJob) {
         let destinationViewController = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        destinationViewController.filterByJob = true
+        destinationViewController.userJob = userJob
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
     func contextButtonPressed(userJob: UserJob) {
@@ -175,11 +180,9 @@ extension JobHistoryController: UITableViewDelegate {
         if displayContactCollectionView == true {
             cell.loadUserContacts(userJob: aUserJobHistory)
         }
-        
         if cell.isAnimating() {
             return
         }
-        
         var duration = 0.0
         let cellIsCollapsed = cellHeights[indexPath.row] == Const.closeCellHeight
         if cellIsCollapsed {
