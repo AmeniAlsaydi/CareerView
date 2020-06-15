@@ -95,6 +95,7 @@ class NewApplicationController: UIViewController {
     
     let datePicker = UIDatePicker()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         styleAllTextFields()
@@ -105,6 +106,7 @@ class NewApplicationController: UIViewController {
         
     }
 
+    
     
     private func addTargets() {
         interviewEntryView1.deleteButton.addTarget(self, action: #selector(view1DeleteButtonPressed), for: .touchUpInside)
