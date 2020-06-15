@@ -25,7 +25,7 @@ class InterviewQuestionsMainController: UIViewController {
     private var listener: ListenerRegistration?
     public var filterState: FilterState = .all {
         didSet {
-            self.questionsCollectionView.reloadData()
+            questionsCollectionView.reloadData()
         }
     }
     private var commonInterviewQuestions = [InterviewQuestion]() {
@@ -39,21 +39,17 @@ class InterviewQuestionsMainController: UIViewController {
         didSet {
             if filterState == .custom {
                 if customQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "You Have No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "plus")
+                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "plus")
                 } else {
                     questionsCollectionView.reloadData()
                     questionsCollectionView.backgroundView = nil
                 }
             }
-
         }
     }
     private var allQuestions = [InterviewQuestion]() {
         didSet {
-            questionsCollectionView.reloadData()
-            if allQuestions.isEmpty {
-                questionsCollectionView.backgroundView = EmptyView.init(title: "Oops Network Issues", message: "Please connect to the internet", imageName: "wifi.exclamationmark")
-            } else {
+            if filterState == .all {
                 questionsCollectionView.reloadData()
                 questionsCollectionView.backgroundView = nil
             }
@@ -64,7 +60,7 @@ class InterviewQuestionsMainController: UIViewController {
             if filterState == .bookmarked {
                 questionsCollectionView.reloadData()
                 if bookmarkedQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "There Are No Bookmarked Questions", message: "Add to your bookmarks by selecting a question and pressing the bookmark button", imageName: "bookmark")
+                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Bookmarks", message: "Add to your bookmarks collection by selecting a question and pressing the bookmark button", imageName: "bookmark")
                 } else {
                     questionsCollectionView.reloadData()
                     questionsCollectionView.backgroundView = nil
@@ -97,8 +93,6 @@ class InterviewQuestionsMainController: UIViewController {
             } else if let snapshot = snapshot {
                 let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
                 self?.customQuestions = customQs
-                //FIXME: prevent duplicate custom q
-                //self?.getUserCreatedQuestions()
                 self?.questionsCollectionView.reloadData()
             }
         })
@@ -324,8 +318,14 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
         guard let indexPath = questionsCollectionView.indexPath(for: cell) else {
             return
         }
-        let customQuestion = allQuestions[indexPath.row] //TODO: refactor for custom q only
-        cell.currentQuestion = customQuestion
+        let customQuestion: InterviewQuestion?
+        if filterState == .custom {
+            customQuestion = customQuestions[indexPath.row]
+            cell.currentQuestion = customQuestion
+        } else {
+            customQuestion = allQuestions[indexPath.row]
+            cell.currentQuestion = customQuestion
+        }
         
         let optionsMenu = UIAlertController(title: "Custom Question Options", message: nil, preferredStyle: .actionSheet)
         let edit = UIAlertAction(title: "Edit Custom Question", style: .default) { [weak self] (action) in
@@ -335,7 +335,7 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
         }
         let delete = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
-            DatabaseService.shared.deleteCustomQuestion(customQuestion: customQuestion) { [weak self] (result) in
+            DatabaseService.shared.deleteCustomQuestion(customQuestion: customQuestion!) { [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
@@ -343,14 +343,19 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self?.showAlert(title: "Question Removed", message: "\(customQuestion.question) has been removed")
-                        self?.getUserCreatedQuestions()
-                        self?.allQuestions.remove(at: indexPath.row)
-                        self?.questionsCollectionView.reloadData()
+                        self?.showAlert(title: "Question Removed", message: "\(customQuestion!.question) has been removed")
+                        if self?.filterState == .custom {
+                            if !(self?.customQuestions.isEmpty ?? false) {
+                                self?.customQuestions.remove(at: indexPath.row)
+                                self?.questionsCollectionView.reloadData()
+                            }
+                        } else {
+                            self?.allQuestions.remove(at: indexPath.row)
+                            self?.questionsCollectionView.reloadData()
+                        }
                     }
                 }
             }
-            
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
             self?.dismiss(animated: true)

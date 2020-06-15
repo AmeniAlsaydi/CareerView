@@ -12,7 +12,7 @@ import FirebaseAuth
 
 extension DatabaseService {
     
-    //MARK: Common Interview Questions
+    //MARK:- Common Interview Questions
     public func fetchCommonInterviewQuestions(completion: @escaping (Result<[InterviewQuestion],Error>) -> ()) {
         
         db.collection(DatabaseService.commonQuestionCollection).getDocuments { (snapshot, error) in
@@ -25,12 +25,10 @@ extension DatabaseService {
             }
         }
     }
-    
-    //MARK: Custom Interview Questions 
+    //MARK:- Custom Interview Questions
     public func fetchCustomInterviewQuestions(completion: @escaping (Result<[InterviewQuestion], Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
-        
         
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.customQuestionsCollection).getDocuments { (snapshot, error) in
             if let error = error {
@@ -41,7 +39,6 @@ extension DatabaseService {
             }
         }
     }
-    
     public func addCustomInterviewQuestion(customQuestion: InterviewQuestion, completion: @escaping (Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
@@ -55,5 +52,24 @@ extension DatabaseService {
             }
         }
     }
-    
+    public func updateCustomQuestion(customQuestion: InterviewQuestion, completion: @escaping (Result<Bool,Error>)->() ) {
+        guard let user = Auth.auth().currentUser else {return}
+        db.collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).document(customQuestion.id).updateData(["question": customQuestion.question]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    public func deleteCustomQuestion(customQuestion: InterviewQuestion, completion: @escaping(Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else { return }
+        db.collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).document(customQuestion.id).delete { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
 }
