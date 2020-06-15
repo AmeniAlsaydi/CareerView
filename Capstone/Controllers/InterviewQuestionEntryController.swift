@@ -57,15 +57,15 @@ class InterviewQuestionEntryController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         guard let user = Auth.auth().currentUser else {return}
-            listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
-                if let error = error {
-                    print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
-                } else if let snapshot = snapshot {
-                    let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data()) }
-                    self?.answers = userAnswers.filter {$0.question == self?.createdQuestion?.question}
-                    self?.getUserSTARS()
-                }
-            })
+        listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+            if let error = error {
+                print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
+            } else if let snapshot = snapshot {
+                let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data()) }
+                self?.answers = userAnswers.filter {$0.question == self?.createdQuestion?.question}
+                self?.getUserSTARS()
+            }
+        })
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,7 +141,9 @@ class InterviewQuestionEntryController: UIViewController {
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self?.showAlert(title: "Question Updated", message: "Question has now been updated with changes")
+                        self?.showAlert(title: "Question Updated", message: "Question has now been updated with changes", completion: { (action) in
+                            self?.dismiss(animated: true)
+                        })
                     }
                 }
             }
@@ -161,14 +163,12 @@ class InterviewQuestionEntryController: UIViewController {
                         self?.showAlert(title: "Error", message: "Could not create your custom question at this time error: \(error.localizedDescription)")
                     }
                 case .success:
-                    self?.dismiss(animated: true, completion: {
-                        DispatchQueue.main.async {
-                            
-                            self?.showAlert(title: "Your question has been created!", message: "You can now add an answer and/or attach a STAR Story to the question")
-                            self?.questionTextfield.text = ""
-                        }
-                    })
                     
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Question Added", message: "You can now add an answer and/or attach a STAR Story to the question", completion: { (action) in
+                            self?.dismiss(animated: true)
+                        })
+                    }
                 }
             }
         }
