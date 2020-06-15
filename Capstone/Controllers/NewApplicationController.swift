@@ -40,6 +40,8 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var hasAppliedButton: UIButton!
     @IBOutlet weak var hasRecievedReplyButton: UIButton!
     
+    public var editingApplication = false 
+    
     private var hasApplied = false {
         didSet {
             view.layoutIfNeeded()

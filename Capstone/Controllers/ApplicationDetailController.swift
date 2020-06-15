@@ -177,7 +177,11 @@ class ApplicationDetailController: UIViewController {
             }
         }
         
-        let editAction = UIAlertAction(title: "Edit", style: .default)
+        let editAction = UIAlertAction(title: "Edit", style: .default) { [weak self] (actionSheet) in
+            let applicationEntryVC = NewApplicationController()
+            applicationEntryVC.editingApplication = true
+            self?.navigationController?.pushViewController(applicationEntryVC, animated: true)
+        }
         
         alertController.addAction(cancelAction)
         alertController.addAction(deleteAction)
