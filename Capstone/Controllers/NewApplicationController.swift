@@ -101,8 +101,61 @@ class NewApplicationController: UIViewController {
         configureNavBar()
         createDatePicker()
         
+        addTargets()
         
     }
+
+    
+    private func addTargets() {
+        InterviewEntryView1.deleteButton.addTarget(self, action: #selector(view1DeleteButtonPressed), for: .touchUpInside)
+        InterviewEntryView2.deleteButton.addTarget(self, action: #selector(view2DeleteButtonPressed), for: .touchUpInside)
+        InterviewEntryView3.deleteButton.addTarget(self, action: #selector(view3DeleteButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc func view1DeleteButtonPressed() {
+        interviewCount -= 1
+        
+        InterviewEntryView1.hasInterviewData = false
+        
+        view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.InterviewEntryView1Height.constant = 0
+            self.view.layoutIfNeeded()
+        })
+        
+        addInterviewStack.isHidden = false
+    }
+    
+    @objc func view2DeleteButtonPressed() {
+        interviewCount -= 1
+        
+        InterviewEntryView2.hasInterviewData = false
+        
+        view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.InterviewEntryView2Height.constant = 0
+            self.view.layoutIfNeeded()
+        })
+        addInterviewStack.isHidden = false
+    }
+    
+    @objc func view3DeleteButtonPressed() {
+        interviewCount -= 1
+        
+        InterviewEntryView3.hasInterviewData = false
+        
+        view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.InterviewEntryView3Height.constant = 0
+            self.view.layoutIfNeeded()
+        })
+        
+        addInterviewStack.isHidden = false
+    }
+    
     
     private func configureNavBar() {
         
@@ -165,26 +218,30 @@ class NewApplicationController: UIViewController {
     
     
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
-        // FIXME: have to also consider if they change their mind on the addition of an interview and would like delete
-        
         interviewCount += 1
+
         
-        switch interviewCount {
-        case 1:
+        if  !InterviewEntryView1.hasInterviewData {
+            
             interviewViewHeight = InterviewEntryView1Height
-        case 2:
+            InterviewEntryView1.hasInterviewData = true
+            
+        } else if !InterviewEntryView2.hasInterviewData {
+            
             interviewViewHeight = InterviewEntryView2Height
-        case 3:
+            InterviewEntryView2.hasInterviewData = true
+            
+        } else if !InterviewEntryView3.hasInterviewData {
+            
             interviewViewHeight = InterviewEntryView3Height
-        default:
-            print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
+            InterviewEntryView3.hasInterviewData = true
+            
         }
-        
         
         view.layoutIfNeeded() // force any pending operations to finish
         
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            self.interviewViewHeight.constant = 150
+            self.interviewViewHeight.constant = 160
             self.view.layoutIfNeeded()
         })
         
@@ -237,7 +294,6 @@ class NewApplicationController: UIViewController {
                     self?.createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
                     
                     self?.addInterviews(jobID)
-                    
                 }
             }
         } else {
@@ -263,27 +319,24 @@ class NewApplicationController: UIViewController {
                 self?.showAlert(title: "Sucess!", message: "Your application was added!", completion: { (alertAction) in
                     self?.navigationController?.popViewController(animated: true)
                 })
-                
-                
             }
         }
-        
     }
     
     private func addInterviews(_ applicationID: String) {
-        switch interviewCount {
-        case 1:
+        
+        if  InterviewEntryView1.hasInterviewData {
+            
             addInterview(InterviewEntryView1, applicationID: applicationID)
-        case 2:
-            addInterview(InterviewEntryView1, applicationID: applicationID)
-            addInterview(InterviewEntryView2, applicationID: applicationID)
-        case 3:
-            addInterview(InterviewEntryView1, applicationID: applicationID)
-            addInterview(InterviewEntryView2, applicationID: applicationID)
-            addInterview(InterviewEntryView3, applicationID: applicationID)
-        default:
-            return 
         }
+        
+        if InterviewEntryView2.hasInterviewData {
+            addInterview(InterviewEntryView2, applicationID: applicationID)
+        }
+        if InterviewEntryView3.hasInterviewData {
+            addInterview(InterviewEntryView3, applicationID: applicationID)
+        }
+        
     }
     
     private func addInterview(_ view: InterviewEntryView, applicationID: String) {
