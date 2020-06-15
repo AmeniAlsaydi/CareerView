@@ -40,6 +40,10 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var hasAppliedButton: UIButton!
     @IBOutlet weak var hasRecievedReplyButton: UIButton!
     
+    public var editingApplication = false
+    
+    public var jobApplication: JobApplication?  // FIXME: Is this the right way, use dependency injection?
+    
     private var hasApplied = false {
         didSet {
             view.layoutIfNeeded()
@@ -47,7 +51,7 @@ class NewApplicationController: UIViewController {
                 hasAppliedButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
                 
                 dateTextField.placeholder = "Date applied"
-
+                
                 UIView.animate(withDuration: 0.3, animations: { () -> Void in
                     self.recievedRelpyStackHeight.constant = 22
                     self.view.layoutIfNeeded()
@@ -62,7 +66,7 @@ class NewApplicationController: UIViewController {
                     self.recievedRelpyStackHeight.constant = 0
                     self.view.layoutIfNeeded()
                 })
-               hasRecievedReply = false
+                hasRecievedReply = false
             }
         }
     }
@@ -95,18 +99,38 @@ class NewApplicationController: UIViewController {
     
     let datePicker = UIDatePicker()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         styleAllTextFields()
         configureNavBar()
         createDatePicker()
-        
         addTargets()
-        
+        updateApplicationUI()
     }
-
     
+    private func updateApplicationUI() {
+        if editingApplication {
+            // update UI - Ameni
+            guard let application = jobApplication else {fatalError("no application was passed")}
+            companyNameTextField.text = application.companyName
+            positionTitleTextField.text = application.positionTitle
+            positionURLTextField.text = application.positionURL
+            
+            locationTextField.text = application.location.debugDescription
+            
+            if application.didApply {
+                hasApplied = true
+                dateTextField.text = application.dateApplied?.dateValue().dateString()
+            } else {
+                hasApplied = false
+                dateTextField.text = application.applicationDeadline?.dateValue().dateString()
+            }
+            
+            isRemote = application.remoteStatus
+            positionURLTextField.text = application.positionURL
+            notesTextField.text = application.notes
+        }
+    }
     
     private func addTargets() {
         interviewEntryView1.deleteButton.addTarget(self, action: #selector(view1DeleteButtonPressed), for: .touchUpInside)
@@ -203,9 +227,8 @@ class NewApplicationController: UIViewController {
         // create new application and add to datebase
         submitNewJobApplication()
         // add the interview (if there is any as a collection to that application
-        
-        
     }
+    
     @IBAction func isRemoteButtonPressed(_ sender: UIButton) {
         isRemote.toggle()
     }
@@ -218,10 +241,9 @@ class NewApplicationController: UIViewController {
         hasRecievedReply.toggle()
     }
     
-    
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
         interviewCount += 1
-
+        
         
         if  !interviewEntryView1.hasInterviewData {
             
@@ -257,7 +279,15 @@ class NewApplicationController: UIViewController {
     private func submitNewJobApplication() {
         
         // create id
-        let jobID = UUID().uuidString
+        var jobID = ""
+        
+        if editingApplication {
+            if let jobApplication = jobApplication {
+                jobID = jobApplication.id
+            }
+        } else {
+            jobID = UUID().uuidString
+        }
         
         // mandatory fields
         guard let companyName = companyNameTextField.text, !companyName.isEmpty, let positionTitle = positionTitleTextField.text, !positionTitle.isEmpty else {
@@ -266,18 +296,23 @@ class NewApplicationController: UIViewController {
         }
         
         // date fields
-               var dateApplied: Timestamp? = nil
-               var deadline: Timestamp? = nil
-               
-               if let date = date {
-                   if hasApplied { // if they have applied the date in that date field is the date they applied
-                       dateApplied = Timestamp(date: date)
-                   } else {
-                       deadline = Timestamp(date: date) // otherwise its the dead line date
-                   }
-               }
-               
-               let isInterviewing = (interviewCount > 0)
+        var dateApplied: Timestamp? = nil
+        var deadline: Timestamp? = nil
+        
+        if editingApplication {
+            dateApplied = jobApplication?.dateApplied
+            deadline = jobApplication?.applicationDeadline
+        }
+        
+        if let date = date {
+            if hasApplied { // if they have applied the date in that date field is the date they applied
+                dateApplied = Timestamp(date: date)
+            } else {
+                deadline = Timestamp(date: date) // otherwise its the dead line date
+            }
+        }
+        
+        let isInterviewing = (interviewCount > 0)
         
         // optional fields
         let positionURL = positionURLTextField.text
@@ -318,9 +353,16 @@ class NewApplicationController: UIViewController {
             case .success:
                 print("success adding application")
                 
-                self?.showAlert(title: "Sucess!", message: "Your application was added!", completion: { (alertAction) in
-                    self?.navigationController?.popViewController(animated: true)
-                })
+                if self?.editingApplication ?? true {
+                    self?.showAlert(title: "Sucess!", message: "Your application was edited!", completion: { (alertAction) in
+                        self?.navigationController?.popViewController(animated: true)
+                    })
+                } else {
+                    self?.showAlert(title: "Sucess!", message: "Your application was added!", completion: { (alertAction) in
+                        self?.navigationController?.popViewController(animated: true)
+                    })
+                }
+                
             }
         }
     }
