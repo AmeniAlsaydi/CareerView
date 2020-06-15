@@ -24,6 +24,7 @@ class InterviewEntryView: UIView {
     
     private let datePicker = UIDatePicker()
     
+    public var hasInterviewData: Bool = false // should be made positive when interview is added 
     
     
     public lazy var dateTextField: UITextField = {
@@ -58,6 +59,15 @@ class InterviewEntryView: UIView {
         return textfield
     }()
     
+    public lazy var deleteButton: UIButton = {
+           let button = UIButton()
+           let image = UIImage(systemName: "x.circle.fill")
+           button.tintColor = .black
+           button.setImage(image, for: .normal)
+           return button
+       }()
+    
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -76,6 +86,7 @@ class InterviewEntryView: UIView {
         constrainDateTextField()
         constrainNotesTextField()
         constainThankyouButton()
+        constrainDeleteButton()
         constrainThankYouLabel()
         createDatePicker()
         thankYouButton.addTarget(self, action: #selector(toggleThankYou), for: .touchUpInside)
@@ -144,12 +155,24 @@ class InterviewEntryView: UIView {
         ])
     }
     
+    private func constrainDeleteButton() {
+        addSubview(deleteButton)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            deleteButton.heightAnchor.constraint(equalTo: thankYouButton.heightAnchor),
+            deleteButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            deleteButton.topAnchor.constraint(equalTo: notesTextField.bottomAnchor, constant: 10)
+        ])
+    }
+    
     private func constrainThankYouLabel() {
         addSubview(thankYouLabel)
         thankYouLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             thankYouLabel.topAnchor.constraint(equalTo: notesTextField.bottomAnchor, constant: 10),
-            thankYouLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            thankYouLabel.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor
+            ),
             thankYouLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
             thankYouLabel.leadingAnchor.constraint(equalTo: thankYouButton.trailingAnchor, constant: 20)
         ])
