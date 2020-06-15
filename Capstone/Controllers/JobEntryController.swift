@@ -235,9 +235,9 @@ class JobEntryController: UIViewController {
         if editingJob {
             id = userJob?.id ?? UUID().uuidString
         }
+        let uniqueStarIDs = starSituationIDsToAdd.removingDuplicates()
         
-        let userJobToSave = UserJob(id: id, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", location: locationTextField?.text ?? "", beginDate: beginDateTimeStamp, endDate: endDateTimeStamp, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: jobResponsibilities, starSituationIDs: starSituationIDsToAdd, interviewQuestionIDs: linkedInterviewQuestions)
-        dump(starSituationIDsToAdd)
+        let userJobToSave = UserJob(id: id, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", location: locationTextField?.text ?? "", beginDate: beginDateTimeStamp, endDate: endDateTimeStamp, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: jobResponsibilities, starSituationIDs: uniqueStarIDs, interviewQuestionIDs: linkedInterviewQuestions)
         DatabaseService.shared.addToUserJobs(userJob: userJobToSave, completion: { [weak self] (result) in
             switch result {
             case .failure(let error):
@@ -528,9 +528,6 @@ extension JobEntryController: CNContactPickerDelegate {
 
 extension JobEntryController: StarStoryMainControllerDelegate {
     func starStoryMainViewControllerDismissed(starSituations: [String]) {
-        if starSituations.count != 0 {
-        print("Passed data back")
         starSituationIDsToAdd = starSituations
-        }
     }
 }

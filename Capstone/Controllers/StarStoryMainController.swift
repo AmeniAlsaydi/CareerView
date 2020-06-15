@@ -99,7 +99,6 @@ class StarStoryMainController: UIViewController {
         let starSituationsToSendBack = starSituationIDs
         delegate?.starStoryMainViewControllerDismissed(starSituations: starSituationsToSendBack)
         dismiss(animated: true)
-        
     }
 
     @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
