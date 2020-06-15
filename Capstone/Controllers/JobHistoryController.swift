@@ -23,7 +23,6 @@ class JobHistoryController: UIViewController {
         }
     }
     
-    
     enum Const {
         static let closeCellHeight: CGFloat = 180
         static let openCellHeight: CGFloat = 620
@@ -42,6 +41,9 @@ class JobHistoryController: UIViewController {
         loadUserJobs()
         setup()
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     private func configureTableView() {
         tableView.delegate = self
@@ -177,11 +179,9 @@ extension JobHistoryController: UITableViewDelegate {
         if displayContactCollectionView == true {
             cell.loadUserContacts(userJob: aUserJobHistory)
         }
-        
         if cell.isAnimating() {
             return
         }
-        
         var duration = 0.0
         let cellIsCollapsed = cellHeights[indexPath.row] == Const.closeCellHeight
         if cellIsCollapsed {

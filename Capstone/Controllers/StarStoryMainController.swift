@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol StarStoryMainControllerDelegate {
+    func starStoryMainViewControllerDismissed(starSituations: [String])
+}
+
 class StarStoryMainController: UIViewController {
     
     
@@ -23,14 +27,9 @@ class StarStoryMainController: UIViewController {
             print(selectedSTARStories.count)
         }
     }
-    public var starSituationIDs = [String]() {
-        didSet {
-            print("Star Stary IDs \(starSituationIDs)")
-        }
-    }
+    public var starSituationIDs = [String]()
     public var answerId: String?
     public var question: String?
-    
     private var starSituations = [StarSituation]() {
         didSet {
             if filterByJob {
@@ -41,6 +40,8 @@ class StarStoryMainController: UIViewController {
             navigationItem.title = "STAR Stories: \(starSituations.count)"
         }
     }
+    
+    var delegate: StarStoryMainControllerDelegate?
     
     //MARK:- ViewDidLoad
     override func viewDidLoad() {
@@ -96,9 +97,10 @@ class StarStoryMainController: UIViewController {
         dismiss(animated: true)
     }
     @objc private func addStarStoriesToUserJob(_ sender: UIBarButtonItem) {
-        let userJobViewController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
-        userJobViewController.starSituationIDsToAdd = starSituationIDs
+        let starSituationsToSendBack = starSituationIDs
+        delegate?.starStoryMainViewControllerDismissed(starSituations: starSituationsToSendBack)
         dismiss(animated: true)
+        
     }
 
     @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
