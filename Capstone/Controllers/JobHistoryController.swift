@@ -60,8 +60,12 @@ class JobHistoryController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
-        let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
+//        let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
+//        show(jobEntryController, sender: nil)
+        
+        let jobEntryController = NewJobEntryController(nibName: "NewJobEntryXib", bundle: nil)
         show(jobEntryController, sender: nil)
+        
     }
     
     private func getUserData() {
