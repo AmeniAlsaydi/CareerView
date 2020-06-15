@@ -55,6 +55,16 @@ class JobEntryController: UIViewController {
     
     public var editingJob = false
     private var currentlyEmployed: Bool = false
+    public var starSituationsToAdd: [StarSituation]? {
+        didSet {
+            
+        }
+    }
+    public var starSituationIDsToAdd = [String]() {
+        didSet {
+            print(starSituationIDsToAdd.count)
+        }
+    }
     
     private var responsibilityCells = 1 {
         didSet {
@@ -130,6 +140,11 @@ class JobEntryController: UIViewController {
             field?.setPadding()
             field?.setBottomBorder()
         }
+    }
+    @IBAction func addStarSituationButtonPressed(_ sender: UIButton) {
+        let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        starStoryVC.isAddingToUserJob = true
+        present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
     @IBAction func deleteResponsibiltyCellButtonPressed(_ sender: UIButton) {
         // TODO: Have user confirm the responsibility is going to be deleted before deleting
