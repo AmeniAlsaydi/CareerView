@@ -156,6 +156,7 @@ class InterviewQuestionsMainController: UIViewController {
             case .success(let customQuestions):
                 DispatchQueue.main.async {
                     self?.customQuestions = customQuestions
+                    self?.allQuestions.append(contentsOf: customQuestions)
                 }
             }
         }
@@ -318,8 +319,14 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
         guard let indexPath = questionsCollectionView.indexPath(for: cell) else {
             return
         }
-        let customQuestion = allQuestions[indexPath.row]
-        cell.currentQuestion = customQuestion
+        let customQuestion: InterviewQuestion?
+        if filterState == .custom {
+            customQuestion = customQuestions[indexPath.row]
+            cell.currentQuestion = customQuestion
+        } else {
+            customQuestion = allQuestions[indexPath.row]
+            cell.currentQuestion = customQuestion
+        }
         
         let optionsMenu = UIAlertController(title: "Custom Question Options", message: nil, preferredStyle: .actionSheet)
         let edit = UIAlertAction(title: "Edit Custom Question", style: .default) { [weak self] (action) in
@@ -329,7 +336,7 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
         }
         let delete = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
-            DatabaseService.shared.deleteCustomQuestion(customQuestion: customQuestion) { [weak self] (result) in
+            DatabaseService.shared.deleteCustomQuestion(customQuestion: customQuestion!) { [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
@@ -337,13 +344,17 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self?.showAlert(title: "Question Removed", message: "\(customQuestion.question) has been removed")
-                        self?.allQuestions.remove(at: indexPath.row)
-                        self?.questionsCollectionView.reloadData()
+                        self?.showAlert(title: "Question Removed", message: "\(customQuestion!.question) has been removed")
+                        if self?.filterState == .custom {
+                            self?.customQuestions.remove(at: indexPath.row)
+                            self?.questionsCollectionView.reloadData()
+                        } else {
+                            self?.allQuestions.remove(at: indexPath.row)
+                            self?.questionsCollectionView.reloadData()
+                        }
                     }
                 }
             }
-            
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
             self?.dismiss(animated: true)
