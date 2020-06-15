@@ -19,6 +19,7 @@ class InterviewAnswerDetailController: UIViewController {
     @IBOutlet weak var enterAnswerTextfield: UITextField!
     @IBOutlet weak var confirmAddAnswerButton: UIButton!
     @IBOutlet weak var cancelAnswerButton: UIButton!
+    @IBOutlet weak var scrollview: UIScrollView!
     
     private var listener: ListenerRegistration?
     public var question: InterviewQuestion?
@@ -93,14 +94,16 @@ class InterviewAnswerDetailController: UIViewController {
         configureCollectionViews()
         isQuestionBookmarked(question: question)
         questionLabel.text = question?.question
+        scrollview.keyboardDismissMode = .onDrag
     }
     //MARK:- Collection View Config
     private func configureCollectionViews() {
-        //answersCollectionView.addGestureRecognizer(longPressGesture)
+        answersCollectionView.keyboardDismissMode = .onDrag
         answersCollectionView.delegate = self
         answersCollectionView.dataSource = self
         answersCollectionView.register(UINib(nibName: "QuestionAnswerDetailCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewAnswerCell")
-       //starStoriesCollectionView.addGestureRecognizer(longPressGesture)
+        
+        starStoriesCollectionView.keyboardDismissMode = .onDrag
         starStoriesCollectionView.delegate = self
         starStoriesCollectionView.dataSource = self
         starStoriesCollectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
@@ -296,6 +299,10 @@ class InterviewAnswerDetailController: UIViewController {
 extension InterviewAnswerDetailController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         confirmAddAnswerButton.isEnabled = true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 //MARK:- CollectionView Delegate & DataSource

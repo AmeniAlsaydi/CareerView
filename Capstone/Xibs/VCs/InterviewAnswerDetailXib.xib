@@ -15,6 +15,7 @@
                 <outlet property="confirmAddAnswerButton" destination="tB6-B4-ydu" id="VmA-HK-JrW"/>
                 <outlet property="enterAnswerTextfield" destination="sHD-Sd-JwC" id="yao-hc-U0H"/>
                 <outlet property="questionLabel" destination="0GE-L5-SBQ" id="out-1E-7gQ"/>
+                <outlet property="scrollview" destination="cRa-66-viD" id="IC8-XU-YQe"/>
                 <outlet property="starStoriesCollectionView" destination="FvK-Jj-m8Q" id="wRK-Dm-iz1"/>
                 <outlet property="view" destination="N40-64-mQx" id="Ng3-1f-krt"/>
             </connections>
