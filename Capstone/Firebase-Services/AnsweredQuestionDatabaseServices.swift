@@ -106,11 +106,4 @@ extension DatabaseService {
             }
         }
     }
-    //TODO: FIX! this is not functioning as desired..
-//    public func updateAnswerFromAnswersArray(answerID: String, answerString: String, completion: @escaping(Result<Bool, Error>) -> ()) {
-//        guard let user = Auth.auth().currentUser else {return}
-//        db.collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).document(answerID).
-//        }
-//    }
-    
 }

@@ -33,7 +33,7 @@ class InterviewAnswerDetailController: UIViewController {
     }
     //MARK:- User Answer
     private var isEditingAnswer = false
-    private var answerBeingEdited = String()
+    private var answerBeingEdited: AnsweredQuestion?
     public var answers = [AnsweredQuestion]() {
         didSet {
             answersCollectionView.reloadData()
@@ -258,24 +258,28 @@ class InterviewAnswerDetailController: UIViewController {
                 }
             }
         } else {
-//            guard let currentAnswerID = answers.first?.id else {return}
-//            guard let answer = enterAnswerTextfield.text, !answer.isEmpty else {
-//                confirmAddAnswerButton.isEnabled = false
-//                return
-//            }
-//            DatabaseService.shared.updateAnswerFromAnswersArray(answerID: currentAnswerID, answerString: answer) { [weak self] (result) in
-//                switch result {
-//                case .failure(let error):
-//                    DispatchQueue.main.async {
-//                        self?.showAlert(title: "Error", message: "Could not edit answer at this time error: \(error.localizedDescription)")
-//                    }
-//                case .success:
-//                    DispatchQueue.main.async {
-//                        self?.showAlert(title: "Updated", message: "Answer has been updated")
-//                    }
-//                }
-//            }
-            //TODO: fix db function for edit answer in answer array
+            //TODO: 1. remove 2. add
+            DatabaseService.shared.removeAnswerFromAnswersArray(answerID: answerBeingEdited?.id ?? "", answerString: answerBeingEdited?.answers.first ?? "") { (result) in
+                switch result {
+                case .failure(let error):
+                    print("could not remove error: \(error.localizedDescription)")
+                case .success:
+                    print("removed \(self.answerBeingEdited?.answers.first ?? "")")
+                }
+            }
+            DatabaseService.shared.addAnswerToAnswersArray(answerID: answerBeingEdited?.id ?? "", answerString: enterAnswerTextfield.text ?? "") { (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Error", message: "Unable to update your answer \(error.localizedDescription)")
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Updated", message: "Your answer has been updated with your edits")
+                    }
+                }
+            }
+            
         }
         hideAddAnswerElements()
         isEditingAnswer = false
@@ -334,8 +338,8 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == answersCollectionView {
             let answer = answers[indexPath.row]
-            answerBeingEdited = answer.answers.first ?? ""
-            enterAnswerTextfield.text = answerBeingEdited
+            answerBeingEdited = answer
+            enterAnswerTextfield.text = answerBeingEdited?.answers[indexPath.row]
             showAnswersActionSheet(answer: answer)
         } else {
             let starStory = starStories[indexPath.row]
