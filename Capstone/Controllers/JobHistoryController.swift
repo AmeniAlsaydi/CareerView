@@ -43,7 +43,8 @@ class JobHistoryController: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
+        loadUserJobs()
+//        tableView.reloadData()
     }
     private func configureTableView() {
         tableView.delegate = self

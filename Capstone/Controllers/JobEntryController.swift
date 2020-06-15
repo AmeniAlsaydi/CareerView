@@ -55,15 +55,7 @@ class JobEntryController: UIViewController {
     public var editingJob = false
     private var currentlyEmployed: Bool = false
     
-    public var starSituationIDsToAdd = [String]() {
-        didSet {
-            print("starSituationIDsToAdd")
-            print("Star story id count on jobEntryVC: \(starSituationIDsToAdd.count)")
-            if starSituationIDsToAdd.count == 0 {
-                print("Star situation IDs empty")
-            }
-        }
-    }
+    public var starSituationIDsToAdd = [String]()
     private var responsibilityCells = 1 {
         didSet {
             // Disable add responsibility button
@@ -75,7 +67,7 @@ class JobEntryController: UIViewController {
             }
         }
     }
-    private var responsibilities = [""]
+    private var responsibilities: [String]?
     private var contacts = [CNContact]()
     private var userContacts = [Contact]() {
         didSet {
@@ -150,6 +142,7 @@ class JobEntryController: UIViewController {
     }
     @IBAction func addStarSituationButtonPressed(_ sender: UIButton) {
         let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        starStoryVC.starSituationIDs = starSituationIDsToAdd
         starStoryVC.isAddingToUserJob = true
         starStoryVC.delegate = self
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
@@ -166,11 +159,11 @@ class JobEntryController: UIViewController {
         default:
             break
         }
-        responsibilities.remove(at: sender.tag)
+        responsibilities?.remove(at: sender.tag)
     }
     @IBAction func addResponsibilityButtonPressed(_ sender: UIButton) {
         responsibilityCells += 1
-        responsibilities.append("")
+        responsibilities?.append("")
     }
     @IBAction func addContactButtonPressed(_ sender: UIButton) {
         //Note: This will check for access to contact permission and if not determined, ask again
@@ -217,11 +210,11 @@ class JobEntryController: UIViewController {
         }
     }
     private func populateUserJobResponsibilities() {
-        responsibilities.removeAll()
+        responsibilities?.removeAll()
         let responsibilityFieldEntries = [responsibility1TextField.text, responsibility2TextField.text, responsibility3TextField.text]
         for entry in responsibilityFieldEntries {
             if entry != "" {
-                responsibilities.append(entry ?? "N/A")
+                responsibilities?.append(entry ?? "N/A")
             }
         }
     }
@@ -234,13 +227,16 @@ class JobEntryController: UIViewController {
         dateFormatter.dateFormat = "MM/yyyy"
         let beginDateTimeStamp = Timestamp(date: (beginDateFromField ?? dateFormatter.date(from: "1/1970"))!)
         let endDateTimeStamp = Timestamp(date: (endDateFromField ?? Date()))
-        
+        guard let jobResponsibilities = responsibilities else {
+            showAlert(title: "Responsibilities empty", message: "please enter at least one responsibility to save your job")
+            return
+        }
         var id = UUID().uuidString
         if editingJob {
             id = userJob?.id ?? UUID().uuidString
         }
         
-        let userJobToSave = UserJob(id: id, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", location: locationTextField?.text ?? "", beginDate: beginDateTimeStamp, endDate: endDateTimeStamp, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: responsibilities, starSituationIDs: starSituationIDsToAdd, interviewQuestionIDs: linkedInterviewQuestions)
+        let userJobToSave = UserJob(id: id, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", location: locationTextField?.text ?? "", beginDate: beginDateTimeStamp, endDate: endDateTimeStamp, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: jobResponsibilities, starSituationIDs: starSituationIDsToAdd, interviewQuestionIDs: linkedInterviewQuestions)
         dump(starSituationIDsToAdd)
         DatabaseService.shared.addToUserJobs(userJob: userJobToSave, completion: { [weak self] (result) in
             switch result {
@@ -389,22 +385,30 @@ extension JobEntryController: UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 if editingJob {
-                    responsibility1TextField.text = responsibilities[indexPath.row]
+                    if responsibilities?.count ?? 0 > 0 {
+                        responsibility1TextField.text = responsibilities?[indexPath.row]
+                    }
                 }
                 return mainResponsiblityCell
             case 1:
                 if editingJob {
-                    responsibility2TextField.text = responsibilities[indexPath.row]
+                    if responsibilities?.count ?? 0 > 0 {
+                        responsibility1TextField.text = responsibilities?[indexPath.row]
+                    }
                 }
                 return responsiblity2Cell
             case 2:
                 if editingJob {
-                    responsibility3TextField.text = responsibilities[indexPath.row]
+                    if responsibilities?.count ?? 0 > 0 {
+                        responsibility1TextField.text = responsibilities?[indexPath.row]
+                    }
                 }
                 return responsiblity3Cell
             default:
                 if editingJob {
-                    responsibility1TextField.text = responsibilities[indexPath.row]
+                    if responsibilities?.count ?? 0 > 0 {
+                        responsibility1TextField.text = responsibilities?[indexPath.row]
+                    }
                 }
                 return mainResponsiblityCell
             }

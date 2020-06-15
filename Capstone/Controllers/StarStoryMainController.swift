@@ -22,19 +22,15 @@ class StarStoryMainController: UIViewController {
     public var isAddingToAnswer = false
     public var isAddingToUserJob = false
     public var selectedSTARStory: StarSituation?
-    public var selectedSTARStories = [StarSituation]() {
-        didSet {
-            print(selectedSTARStories.count)
-        }
-    }
+    public var selectedSTARStories = [StarSituation]()
     public var starSituationIDs = [String]()
     public var answerId: String?
     public var question: String?
     private var starSituations = [StarSituation]() {
         didSet {
             if filterByJob {
-                guard let jobID = userJob?.id else { return }
-                starSituations = starSituations.filter { $0.id == jobID }
+                guard let starSituationID = userJob?.starSituationIDs else { return }
+                starSituations = starSituations.filter { starSituationID.contains($0.id) }
             }
             collectionView.reloadData()
             navigationItem.title = "STAR Stories: \(starSituations.count)"
@@ -47,6 +43,9 @@ class StarStoryMainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        loadStarSituations()
+    }
+    override func viewDidAppear(_ animated: Bool) {
         loadStarSituations()
     }
     //MARK:- Private funcs
@@ -152,6 +151,15 @@ extension StarStoryMainController: UICollectionViewDataSource {
             fatalError("Failed to dequeue starSituationCell")
         }
         let starSituation = starSituations[indexPath.row]
+        for starID in starSituationIDs {
+            if starSituation.id == starID {
+                cell.starSituationIsSelected = true
+                cell.backgroundColor = .red
+            } else {
+                cell.starSituationIsSelected = false
+                cell.backgroundColor = .systemBackground
+            }
+        }
         cell.configureCell(starSituation: starSituation)
         cell.editButton.isHidden = true
         cell.delegate = self
