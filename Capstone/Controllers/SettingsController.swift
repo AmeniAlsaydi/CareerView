@@ -32,9 +32,18 @@ class SettingsController: UIViewController {
 
     @IBOutlet weak var settingsTableView: UITableView!
     
+    @IBOutlet weak var appLabel: UILabel!
+    
     private var allSettings = [Settings]()
     
+
+    private var appName = ApplicationInfo.getAppName()
+    private var appVersion = ApplicationInfo.getVersionBuildNumber()
+    
+    
+
     private var showUserStarSituationInputOption: ShowUserStarInputOption? {
+
         didSet {
             if showUserStarSituationInputOption?.rawValue == ShowUserStarInputOption.off.rawValue {
                 starSituationInputToggle.isOn = false
@@ -54,6 +63,7 @@ class SettingsController: UIViewController {
         configureTableView()
         allSettings = Settings.loadSettings()
         navigationItem.title = "Profile"
+        appLabel.text = "\(appName) \(appVersion)"
         navigationController?.navigationBar.prefersLargeTitles = true 
 
     }

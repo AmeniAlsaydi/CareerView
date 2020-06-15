@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class ApplicationTrackerController: UIViewController {
 
@@ -27,12 +29,36 @@ class ApplicationTrackerController: UIViewController {
         }
     }
     
+    private var listener: ListenerRegistration?
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        setUpListener()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         getApplications()
-//        jobApplications = [JobApplication]()
         configureNavBar()
+        
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        listener?.remove()
+    }
+    
+    private func setUpListener() {
+         guard let user = Auth.auth().currentUser else {return}
+        
+        listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.jobApplicationCollection).addSnapshotListener { [weak self] (snapshot, error) in
+            if let error = error {
+                print("Listener on job application not working: \(error.localizedDescription)")
+                
+            } else if let snapshot = snapshot {
+                let applications = snapshot.documents.map { JobApplication($0.data())}
+                self?.jobApplications = applications
+            }
+        }
         
     }
     
