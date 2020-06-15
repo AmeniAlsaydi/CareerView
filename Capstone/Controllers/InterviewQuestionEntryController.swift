@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class InterviewQuestionEntryController: UIViewController {
     
@@ -21,6 +23,7 @@ class InterviewQuestionEntryController: UIViewController {
     @IBOutlet weak var addAnswerLabel: UILabel!
     @IBOutlet weak var addStarStoryLabel: UILabel!
     
+    private var listener: ListenerRegistration?
     var editingMode = false
     var customQuestion: InterviewQuestion?
     var createdQuestion: InterviewQuestion?
@@ -51,12 +54,28 @@ class InterviewQuestionEntryController: UIViewController {
             }
         }
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        guard let user = Auth.auth().currentUser else {return}
+            listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+                if let error = error {
+                    print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
+                } else if let snapshot = snapshot {
+                    let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data()) }
+                    self?.answers = userAnswers.filter {$0.question == self?.createdQuestion?.question}
+                    self?.getUserSTARS()
+                }
+            })
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
         configureCollectionViews()
         configureNavBar()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        listener?.remove()
     }
     private func updateUI() {
         if editingMode {
@@ -110,7 +129,6 @@ class InterviewQuestionEntryController: UIViewController {
     }
     @objc private func createQuestionButtonPressed(_ sender: UIBarButtonItem){
         if editingMode {
-            //TODO: Database function to update a custom interview question
             guard var question = customQuestion, let questionText = questionTextfield.text, !questionText.isEmpty else {
                 return
             }
@@ -231,7 +249,11 @@ class InterviewQuestionEntryController: UIViewController {
         showAddAnswerElements()
     }
     @IBAction func addStarStoryButtonPressed(_ sender: UIButton) {
-        
+        let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        starStoryVC.isAddingToAnswer = true
+        starStoryVC.answerId = answers.first?.id
+        starStoryVC.question = createdQuestion?.question
+        present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
 }
 
@@ -246,7 +268,6 @@ extension InterviewQuestionEntryController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 }
-
 extension InterviewQuestionEntryController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == answersCollectionView {

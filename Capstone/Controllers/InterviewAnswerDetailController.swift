@@ -22,6 +22,12 @@ class InterviewAnswerDetailController: UIViewController {
     
     private var listener: ListenerRegistration?
     public var question: InterviewQuestion?
+//    private lazy var longPressGesture: UILongPressGestureRecognizer = {
+//        let gesture = UILongPressGestureRecognizer()
+//        gesture.minimumPressDuration = 0.3
+//        gesture.addTarget(self, action: #selector(didLongPressOnCell(_:collectionView:)))
+//        return gesture
+//    }()
     private var isBookmarked = false {
         didSet {
             if isBookmarked {
@@ -62,8 +68,6 @@ class InterviewAnswerDetailController: UIViewController {
     //MARK:- ViewDidLoad/ViewWillAppear/ViewDidDisappear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        getUserSTARS()
-        
         guard let user = Auth.auth().currentUser else {return}
             listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
                 if let error = error {
@@ -96,9 +100,11 @@ class InterviewAnswerDetailController: UIViewController {
     }
     //MARK:- Collection View Config
     private func configureCollectionViews() {
+        //answersCollectionView.addGestureRecognizer(longPressGesture)
         answersCollectionView.delegate = self
         answersCollectionView.dataSource = self
         answersCollectionView.register(UINib(nibName: "QuestionAnswerDetailCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewAnswerCell")
+       //starStoriesCollectionView.addGestureRecognizer(longPressGesture)
         starStoriesCollectionView.delegate = self
         starStoriesCollectionView.dataSource = self
         starStoriesCollectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
@@ -263,6 +269,9 @@ class InterviewAnswerDetailController: UIViewController {
         starStoryVC.question = question?.question
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
+//    @objc func didLongPressOnCell(_ sender: UILongPressGestureRecognizer, collectionView: UICollectionView) {
+//        //Database function to remove star/ answer to answer question
+//    }
 }
 //MARK:- Textfield Delegate
 extension InterviewAnswerDetailController: UITextFieldDelegate {
@@ -306,5 +315,43 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             cell.configureCell(starSituation: story)
             return cell
         }
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == answersCollectionView {
+            let answer = answers[indexPath.row]
+            showAnswersActionSheet(answer: answer)
+        } else {
+            
+        }
+    }
+}
+extension InterviewAnswerDetailController {
+    private func showAnswersActionSheet(answer: AnsweredQuestion) {
+        let actionSheet = UIAlertController(title: "Options Menu", message: nil, preferredStyle: .actionSheet)
+        let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
+            self.showAddAnswerElements()
+            self.enterAnswerTextfield.text = answer.answers.first
+        }
+        let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { (action) in
+            //Deletes from collection and db model
+            DatabaseService.shared.removeAnswerFromAnswersArray(answerID: answer.id, answerString: answer.answers.first ?? "") { (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Error", message: "Answer could not be removed at this time error: \(error.localizedDescription)")
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Removed", message: "Your answer has been removed")
+                    }
+                }
+            }
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        actionSheet.addAction(editAction)
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(cancel)
+        
+        present(actionSheet, animated: true, completion: nil)
     }
 }
