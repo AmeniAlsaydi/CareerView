@@ -11,9 +11,11 @@ import UIKit
 class UserContactCVCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var bkgdview: UIView!
+    
     public func configureCell(contact: Contact) {
         bkgdview.layer.masksToBounds = true
         bkgdview.layer.cornerRadius = 4
         nameLabel.text = (" \(contact.firstName) \(contact.lastName) ")
     }
+    
 }

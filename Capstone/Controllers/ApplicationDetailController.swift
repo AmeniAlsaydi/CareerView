@@ -35,7 +35,7 @@ class ApplicationDetailController: UIViewController {
     
     @IBOutlet weak var addInterviewButton: UIButton!
     
-    var jobApplication: JobApplication
+    var jobApplication: JobApplication 
     
     private var interviewCount = 0
     
@@ -55,6 +55,12 @@ class ApplicationDetailController: UIViewController {
         configureDetailVC(application: jobApplication)
         configureMapView()
         loadMap()
+        configureNavBar()
+    }
+    
+    private func configureNavBar() {
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(moreOptionsButtonPressed(_:)))
     }
     
     public func configureDetailVC(application: JobApplication) {
@@ -102,6 +108,8 @@ class ApplicationDetailController: UIViewController {
         } else {
             dateAppliedLabel.text = "Date Applied: N/A"
         }
+        
+        hyperlinkLabel.text = application.positionURL
     }
     
     private func configureMapView() {
@@ -147,7 +155,7 @@ class ApplicationDetailController: UIViewController {
             print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
         }
         
-        view.layoutIfNeeded() // force any pending operations to finish
+        view.layoutIfNeeded() 
         
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             self.interviewViewHeight.constant = 150
@@ -156,22 +164,40 @@ class ApplicationDetailController: UIViewController {
         
         if interviewCount == 3 {
             addInterviewButton.isHidden = true
-            // hide button maybe ?
         }
     }
     
     
-    @IBAction func moreOptionsButtonPressed(_ sender: UIButton) {
+    @objc
+    func moreOptionsButtonPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
-        let editAction = UIAlertAction(title: "Edit", style: .default)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (actionSheet) in
+            DatabaseService.shared.deleteJobApplication(applicationID: self.jobApplication.id) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    self?.showAlert(title: "Fail", message: "Couldnt delete \(error.localizedDescription)")
+                case .success(_) :
+                    self?.showAlert(title: "Success", message: "Application Deleted", completion: { [weak self] (alertAction) in
+                        self?.navigationController?.popViewController(animated: true)
+                    })
+                }
+            }
+        }
+        
+        let editAction = UIAlertAction(title: "Edit", style: .default) { [weak self] (actionSheet) in
+            let applicationEntryVC = NewApplicationController(nibName: "NewApplicationXib", bundle: nil)
+            applicationEntryVC.editingApplication = true
+            applicationEntryVC.jobApplication = self?.jobApplication
+            self?.show(applicationEntryVC, sender: nil)
+        }
+        
         alertController.addAction(cancelAction)
         alertController.addAction(deleteAction)
         alertController.addAction(editAction)
         present(alertController, animated: true, completion: nil)
     }
-    
 }
 
 extension ApplicationDetailController: MKMapViewDelegate {

@@ -41,7 +41,7 @@ class JobApplicationCell: UICollectionViewCell {
             statusLabel.text = "Interviewing 🗣"
         } else if application.receivedReply {
             progressBar.progress = 0.6
-            statusLabel.text = "Rcieved Reply 📨"
+            statusLabel.text = "Recieved Reply 📨"
         } else if application.didApply {
             progressBar.progress = 0.4
             statusLabel.text = "Applied 📝"
