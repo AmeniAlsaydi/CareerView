@@ -53,7 +53,7 @@ class JobHistoryController: UIViewController {
     }
 
     private func configureNavBar() {
-         navigationItem.title = "CallBack"
+         navigationItem.title = "CareerView"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
