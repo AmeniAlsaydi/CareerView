@@ -324,7 +324,7 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
         guard let indexPath = questionsCollectionView.indexPath(for: cell) else {
             return
         }
-        let customQuestion = allQuestions[indexPath.row] //TODO: refactor for custom q only
+        let customQuestion = allQuestions[indexPath.row]
         cell.currentQuestion = customQuestion
         
         let optionsMenu = UIAlertController(title: "Custom Question Options", message: nil, preferredStyle: .actionSheet)

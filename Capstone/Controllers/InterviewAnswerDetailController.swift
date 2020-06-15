@@ -22,12 +22,6 @@ class InterviewAnswerDetailController: UIViewController {
     
     private var listener: ListenerRegistration?
     public var question: InterviewQuestion?
-//    private lazy var longPressGesture: UILongPressGestureRecognizer = {
-//        let gesture = UILongPressGestureRecognizer()
-//        gesture.minimumPressDuration = 0.3
-//        gesture.addTarget(self, action: #selector(didLongPressOnCell(_:collectionView:)))
-//        return gesture
-//    }()
     private var isBookmarked = false {
         didSet {
             if isBookmarked {
@@ -38,6 +32,8 @@ class InterviewAnswerDetailController: UIViewController {
         }
     }
     //MARK:- User Answer
+    private var isEditingAnswer = false
+    private var answerBeingEdited = String()
     public var answers = [AnsweredQuestion]() {
         didSet {
             answersCollectionView.reloadData()
@@ -225,42 +221,64 @@ class InterviewAnswerDetailController: UIViewController {
         hideAddAnswerElements()
     }
     @IBAction func confirmAddAnswerButtonPressed(_ sender: UIButton) {
-        guard let answer = enterAnswerTextfield.text, !answer.isEmpty else {
-            confirmAddAnswerButton.isEnabled = false
-            return
-        }
-        newAnswers.append(answer)
-        if answers.count == 0 {
-            let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question?.question ?? "could not pass question", answers: newAnswers, starSituationIDs: newStarStoryIDs)
-            DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: newAnswer) { [weak self] (result) in
-                switch result {
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        self?.showAlert(title: "Error", message: "Unable to add answer at this time error: \(error.localizedDescription)")
+        if isEditingAnswer == false {
+            guard let answer = enterAnswerTextfield.text, !answer.isEmpty else {
+                confirmAddAnswerButton.isEnabled = false
+                return
+            }
+            newAnswers.append(answer)
+            if answers.count == 0 {
+                let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question?.question ?? "could not pass question", answers: newAnswers, starSituationIDs: newStarStoryIDs)
+                DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: newAnswer) { [weak self] (result) in
+                    switch result {
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Error", message: "Unable to add answer at this time error: \(error.localizedDescription)")
+                        }
+                    case .success:
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Answer Submitted!", message: "")
+                        }
                     }
-                case .success:
-                    DispatchQueue.main.async {
-                        self?.showAlert(title: "Answer Submitted!", message: "")
+                }
+            } else {
+                let answerId = answers.first?.id ?? ""
+                DatabaseService.shared.addAnswerToAnswersArray(answerID: answerId, answerString: answer) { [weak self] (result) in
+                    switch result {
+                    case .failure(let error) :
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Error", message: "Unable to add answer error: \(error.localizedDescription)")
+                        }
+                    case .success:
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Answer Submitted!", message: "")
+                        }
+                        
                     }
                 }
             }
         } else {
-            let answerId = answers.first?.id ?? ""
-            DatabaseService.shared.addAnswerToAnswersArray(answerID: answerId, answerString: answer) { [weak self] (result) in
-                switch result {
-                case .failure(let error) :
-                    DispatchQueue.main.async {
-                        self?.showAlert(title: "Error", message: "Unable to add answer error: \(error.localizedDescription)")
-                    }
-                case .success:
-                    DispatchQueue.main.async {
-                        self?.showAlert(title: "Answer Submitted!", message: "")
-                    }
-                    
-                }
-            }
+//            guard let currentAnswerID = answers.first?.id else {return}
+//            guard let answer = enterAnswerTextfield.text, !answer.isEmpty else {
+//                confirmAddAnswerButton.isEnabled = false
+//                return
+//            }
+//            DatabaseService.shared.updateAnswerFromAnswersArray(answerID: currentAnswerID, answerString: answer) { [weak self] (result) in
+//                switch result {
+//                case .failure(let error):
+//                    DispatchQueue.main.async {
+//                        self?.showAlert(title: "Error", message: "Could not edit answer at this time error: \(error.localizedDescription)")
+//                    }
+//                case .success:
+//                    DispatchQueue.main.async {
+//                        self?.showAlert(title: "Updated", message: "Answer has been updated")
+//                    }
+//                }
+//            }
+            //TODO: fix db function for edit answer in answer array
         }
         hideAddAnswerElements()
+        isEditingAnswer = false
     }
     @IBAction func addSTARStoryButtonPressed(_ sender: UIButton) {
         let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
@@ -269,9 +287,6 @@ class InterviewAnswerDetailController: UIViewController {
         starStoryVC.question = question?.question
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
-//    @objc func didLongPressOnCell(_ sender: UILongPressGestureRecognizer, collectionView: UICollectionView) {
-//        //Database function to remove star/ answer to answer question
-//    }
 }
 //MARK:- Textfield Delegate
 extension InterviewAnswerDetailController: UITextFieldDelegate {
@@ -319,21 +334,25 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == answersCollectionView {
             let answer = answers[indexPath.row]
+            answerBeingEdited = answer.answers.first ?? ""
+            enterAnswerTextfield.text = answerBeingEdited
             showAnswersActionSheet(answer: answer)
         } else {
-            
+            let starStory = starStories[indexPath.row]
+            let answer = answers[indexPath.row]
+            showSTARActionSheet(answer: answer, starStory: starStory)
         }
     }
 }
+//MARK:- Action sheets for editing/deleting from collections
 extension InterviewAnswerDetailController {
     private func showAnswersActionSheet(answer: AnsweredQuestion) {
         let actionSheet = UIAlertController(title: "Options Menu", message: nil, preferredStyle: .actionSheet)
         let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
             self.showAddAnswerElements()
-            self.enterAnswerTextfield.text = answer.answers.first
+            self.isEditingAnswer = true
         }
         let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { (action) in
-            //Deletes from collection and db model
             DatabaseService.shared.removeAnswerFromAnswersArray(answerID: answer.id, answerString: answer.answers.first ?? "") { (result) in
                 switch result {
                 case .failure(let error):
@@ -351,7 +370,35 @@ extension InterviewAnswerDetailController {
         actionSheet.addAction(editAction)
         actionSheet.addAction(deleteAction)
         actionSheet.addAction(cancel)
-        
+        present(actionSheet, animated: true, completion: nil)
+    }
+    private func showSTARActionSheet(answer: AnsweredQuestion, starStory: StarSituation) {
+        let actionSheet = UIAlertController(title: "Options Menu", message: nil, preferredStyle: .actionSheet)
+        let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
+            //present Star Story edit vc
+            let starStoryEditVC = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
+            starStoryEditVC.isEditingStarSituation = true
+            starStoryEditVC.starSituation = starStory
+            self.navigationController?.pushViewController(starStoryEditVC, animated: true)
+        }
+        let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { (action) in
+            DatabaseService.shared.removeStarSituationFromAnswer(answerID: answer.id, starSolutionID: starStory.id) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Error", message: "Unable to remove STAR Story from this answer at this time error: \(error.localizedDescription)")
+                    }
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showAlert(title: "Removed", message: "STAR Story was removed from answer")
+                    }
+                }
+            }
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        actionSheet.addAction(editAction)
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(cancel)
         present(actionSheet, animated: true, completion: nil)
     }
 }
