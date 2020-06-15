@@ -182,7 +182,7 @@
                                             <constraint firstAttribute="width" constant="44" id="9vT-S8-LP3"/>
                                             <constraint firstAttribute="height" constant="44" id="CdO-s7-XC5"/>
                                         </constraints>
-                                        <state key="normal">
+                                        <state key="normal" title="0">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                     </button>
@@ -198,7 +198,7 @@
                                             <constraint firstAttribute="width" constant="44" id="4pV-3H-lqK"/>
                                             <constraint firstAttribute="height" constant="44" id="8aP-tk-33b"/>
                                         </constraints>
-                                        <state key="normal">
+                                        <state key="normal" title="0">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                     </button>

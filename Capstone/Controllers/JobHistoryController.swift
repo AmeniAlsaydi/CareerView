@@ -13,7 +13,7 @@ class JobHistoryController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var userData: User?
-
+    
     private var displayContactCollectionView = false
     
     var userJobHistory = [UserJob]() {
@@ -22,7 +22,7 @@ class JobHistoryController: UIViewController {
             self.setup()
         }
     }
-
+    
     
     enum Const {
         static let closeCellHeight: CGFloat = 180
@@ -35,10 +35,10 @@ class JobHistoryController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureNavBar()
-
+        
         getUserData()
         checkFirstTimeLogin()
-
+        
         loadUserJobs()
         setup()
         
@@ -52,16 +52,16 @@ class JobHistoryController: UIViewController {
     private func setup() {
         cellHeights = Array(repeating: Const.closeCellHeight, count: userJobHistory.count)
     }
-
+    
     private func configureNavBar() {
-         navigationItem.title = "CareerView"
+        navigationItem.title = "CareerView"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
         let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
         show(jobEntryController, sender: nil)
     }
-
+    
     private func getUserData() {
         DatabaseService.shared.fetchUserData { [weak self] (result) in
             switch result {
@@ -79,14 +79,14 @@ class JobHistoryController: UIViewController {
     }
     private func checkFirstTimeLogin() {
         guard let user = userData else { return }
-            if user.firstTimeLogin {
-                print("First time logging in")
-                //Eventually move this to the viewcontroller file once the user has completed the on boarding experience
-                let firstTimeUserExperienceViewController = FirstTimeUserExperienceViewController(nibName: "FirstTimeUserExperienceViewControllerXib", bundle: nil)
-                show(firstTimeUserExperienceViewController, sender: nil)
-            } else {
-                print("User has logged in before")
-            }
+        if user.firstTimeLogin {
+            print("First time logging in")
+            //Eventually move this to the viewcontroller file once the user has completed the on boarding experience
+            let firstTimeUserExperienceViewController = FirstTimeUserExperienceViewController(nibName: "FirstTimeUserExperienceViewControllerXib", bundle: nil)
+            show(firstTimeUserExperienceViewController, sender: nil)
+        } else {
+            print("User has logged in before")
+        }
     }
     //TODO:- Add database function to grab user jobs data from firebase
     private func loadUserJobs() {
@@ -122,6 +122,9 @@ extension JobHistoryController: UITableViewDataSource {
     }
 }
 extension JobHistoryController: JobHistoryExpandableCellDelegate {
+    func starSituationsButtonPressed(userJob: UserJob) {
+        print("Star Situation Button pressed")
+    }
     func contextButtonPressed(userJob: UserJob) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -158,9 +161,9 @@ extension JobHistoryController: JobHistoryExpandableCellDelegate {
     }
 }
 extension JobHistoryController: UITableViewDelegate {
-     func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-         return cellHeights[indexPath.row]
-     }
+    func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeights[indexPath.row]
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! JobHistoryExpandableCell
@@ -169,7 +172,7 @@ extension JobHistoryController: UITableViewDelegate {
         if displayContactCollectionView == true {
             cell.loadUserContacts(userJob: aUserJobHistory)
         }
-
+        
         if cell.isAnimating() {
             return
         }
@@ -202,7 +205,7 @@ extension JobHistoryController: UITableViewDelegate {
         }
         
         cell.backgroundColor = .clear
-       
+        
         if cellHeights[indexPath.row] == Const.closeCellHeight {
             cell.unfold(false, animated: false, completion: nil)
         } else {

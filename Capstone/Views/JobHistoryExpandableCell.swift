@@ -11,6 +11,7 @@ import ContactsUI
 
 protocol JobHistoryExpandableCellDelegate: AnyObject {
     func contextButtonPressed(userJob: UserJob)
+    func starSituationsButtonPressed(userJob: UserJob)
 }
 
 class JobHistoryExpandableCell: FoldingCell {
@@ -44,6 +45,10 @@ class JobHistoryExpandableCell: FoldingCell {
         guard let userJob = userJobForDelegate else { return }
         delegate?.contextButtonPressed(userJob: userJob)
     }
+    @objc private func starSituationButtonPressed(_ sender: UIButton) {
+        guard let userJob = userJobForDelegate else { return }
+        delegate?.starSituationsButtonPressed(userJob: userJob)
+    }
     func updateGeneralInfo(userJob: UserJob) {
         
         collectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
@@ -53,6 +58,7 @@ class JobHistoryExpandableCell: FoldingCell {
         // TODO: Redundant var? (currentUserJob, userJobForDelegate)
         userJobForDelegate = userJob
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
+        starSituationButton.addTarget(self, action: #selector(starSituationButtonPressed(_:)), for: .touchUpInside)
         jobTitleLabel.text = userJob.title
         companyNameLabel.text = "Company: \(userJob.companyName)"
         jobDescriptionLabel.text = userJob.description
