@@ -22,14 +22,14 @@ class NewApplicationController: UIViewController {
     
     // InterviewEntryViews + height constraints
     
-    @IBOutlet weak var InterviewEntryView1: InterviewEntryView!
-    @IBOutlet weak var InterviewEntryView1Height: NSLayoutConstraint!
+    @IBOutlet weak var interviewEntryView1: InterviewEntryView!
+    @IBOutlet weak var interviewEntryView1Height: NSLayoutConstraint!
     
-    @IBOutlet weak var InterviewEntryView2: InterviewEntryView!
-    @IBOutlet weak var InterviewEntryView2Height: NSLayoutConstraint!
+    @IBOutlet weak var interviewEntryView2: InterviewEntryView!
+    @IBOutlet weak var interviewEntryView2Height: NSLayoutConstraint!
     
-    @IBOutlet weak var InterviewEntryView3: InterviewEntryView!
-    @IBOutlet weak var InterviewEntryView3Height: NSLayoutConstraint!
+    @IBOutlet weak var interviewEntryView3: InterviewEntryView!
+    @IBOutlet weak var interviewEntryView3Height: NSLayoutConstraint!
     
     @IBOutlet weak var addInterviewStack: UIStackView!
     
@@ -107,20 +107,20 @@ class NewApplicationController: UIViewController {
 
     
     private func addTargets() {
-        InterviewEntryView1.deleteButton.addTarget(self, action: #selector(view1DeleteButtonPressed), for: .touchUpInside)
-        InterviewEntryView2.deleteButton.addTarget(self, action: #selector(view2DeleteButtonPressed), for: .touchUpInside)
-        InterviewEntryView3.deleteButton.addTarget(self, action: #selector(view3DeleteButtonPressed), for: .touchUpInside)
+        interviewEntryView1.deleteButton.addTarget(self, action: #selector(view1DeleteButtonPressed), for: .touchUpInside)
+        interviewEntryView2.deleteButton.addTarget(self, action: #selector(view2DeleteButtonPressed), for: .touchUpInside)
+        interviewEntryView3.deleteButton.addTarget(self, action: #selector(view3DeleteButtonPressed), for: .touchUpInside)
     }
     
     @objc func view1DeleteButtonPressed() {
         interviewCount -= 1
         
-        InterviewEntryView1.hasInterviewData = false
+        interviewEntryView1.hasInterviewData = false
         
         view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            self.InterviewEntryView1Height.constant = 0
+            self.interviewEntryView1Height.constant = 0
             self.view.layoutIfNeeded()
         })
         
@@ -130,12 +130,12 @@ class NewApplicationController: UIViewController {
     @objc func view2DeleteButtonPressed() {
         interviewCount -= 1
         
-        InterviewEntryView2.hasInterviewData = false
+        interviewEntryView2.hasInterviewData = false
         
         view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            self.InterviewEntryView2Height.constant = 0
+            self.interviewEntryView2Height.constant = 0
             self.view.layoutIfNeeded()
         })
         addInterviewStack.isHidden = false
@@ -144,12 +144,12 @@ class NewApplicationController: UIViewController {
     @objc func view3DeleteButtonPressed() {
         interviewCount -= 1
         
-        InterviewEntryView3.hasInterviewData = false
+        interviewEntryView3.hasInterviewData = false
         
         view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            self.InterviewEntryView3Height.constant = 0
+            self.interviewEntryView3Height.constant = 0
             self.view.layoutIfNeeded()
         })
         
@@ -221,20 +221,20 @@ class NewApplicationController: UIViewController {
         interviewCount += 1
 
         
-        if  !InterviewEntryView1.hasInterviewData {
+        if  !interviewEntryView1.hasInterviewData {
             
-            interviewViewHeight = InterviewEntryView1Height
-            InterviewEntryView1.hasInterviewData = true
+            interviewViewHeight = interviewEntryView1Height
+            interviewEntryView1.hasInterviewData = true
             
-        } else if !InterviewEntryView2.hasInterviewData {
+        } else if !interviewEntryView2.hasInterviewData {
             
-            interviewViewHeight = InterviewEntryView2Height
-            InterviewEntryView2.hasInterviewData = true
+            interviewViewHeight = interviewEntryView2Height
+            interviewEntryView2.hasInterviewData = true
             
-        } else if !InterviewEntryView3.hasInterviewData {
+        } else if !interviewEntryView3.hasInterviewData {
             
-            interviewViewHeight = InterviewEntryView3Height
-            InterviewEntryView3.hasInterviewData = true
+            interviewViewHeight = interviewEntryView3Height
+            interviewEntryView3.hasInterviewData = true
             
         }
         
@@ -325,16 +325,16 @@ class NewApplicationController: UIViewController {
     
     private func addInterviews(_ applicationID: String) {
         
-        if  InterviewEntryView1.hasInterviewData {
+        if  interviewEntryView1.hasInterviewData {
             
-            addInterview(InterviewEntryView1, applicationID: applicationID)
+            addInterview(interviewEntryView1, applicationID: applicationID)
         }
         
-        if InterviewEntryView2.hasInterviewData {
-            addInterview(InterviewEntryView2, applicationID: applicationID)
+        if interviewEntryView2.hasInterviewData {
+            addInterview(interviewEntryView2, applicationID: applicationID)
         }
-        if InterviewEntryView3.hasInterviewData {
-            addInterview(InterviewEntryView3, applicationID: applicationID)
+        if interviewEntryView3.hasInterviewData {
+            addInterview(interviewEntryView3, applicationID: applicationID)
         }
         
     }

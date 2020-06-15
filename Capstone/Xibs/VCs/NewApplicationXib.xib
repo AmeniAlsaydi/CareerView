@@ -2,24 +2,24 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewApplicationController" customModule="Capstone" customModuleProvider="target">
             <connections>
-                <outlet property="InterviewEntryView1" destination="vID-G1-Od9" id="clR-yw-AMY"/>
-                <outlet property="InterviewEntryView1Height" destination="y4X-LX-Ihr" id="70q-OZ-1Zc"/>
-                <outlet property="InterviewEntryView2" destination="8F9-WL-qyr" id="D1W-3b-4xk"/>
-                <outlet property="InterviewEntryView2Height" destination="3QC-me-TJb" id="Mah-DL-dez"/>
-                <outlet property="InterviewEntryView3" destination="Hhc-cq-NK7" id="IvA-7N-gaE"/>
-                <outlet property="InterviewEntryView3Height" destination="YvJ-4w-eVZ" id="jGT-eG-MwT"/>
                 <outlet property="addInterviewStack" destination="5bb-nj-ZZ4" id="8Fj-3j-zoF"/>
                 <outlet property="companyNameTextField" destination="iXe-1p-Ltr" id="aj1-Bu-AfK"/>
                 <outlet property="dateTextField" destination="pQM-tE-bM3" id="HaB-Qq-PLW"/>
                 <outlet property="hasAppliedButton" destination="8Cg-gh-vrv" id="iaP-Fa-gga"/>
                 <outlet property="hasRecievedReplyButton" destination="SJ1-NG-gUe" id="Hbg-KA-toh"/>
+                <outlet property="interviewEntryView1" destination="vID-G1-Od9" id="clR-yw-AMY"/>
+                <outlet property="interviewEntryView1Height" destination="y4X-LX-Ihr" id="70q-OZ-1Zc"/>
+                <outlet property="interviewEntryView2" destination="8F9-WL-qyr" id="D1W-3b-4xk"/>
+                <outlet property="interviewEntryView2Height" destination="3QC-me-TJb" id="Mah-DL-dez"/>
+                <outlet property="interviewEntryView3" destination="Hhc-cq-NK7" id="IvA-7N-gaE"/>
+                <outlet property="interviewEntryView3Height" destination="YvJ-4w-eVZ" id="jGT-eG-MwT"/>
                 <outlet property="isRemoteButton" destination="XfY-Fk-qHH" id="tdF-hc-KeQ"/>
                 <outlet property="locationTextField" destination="c9D-U3-bqx" id="tB3-xv-TPK"/>
                 <outlet property="notesTextField" destination="VUz-fQ-HdT" id="DqZ-LZ-rI1"/>
