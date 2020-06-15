@@ -150,16 +150,13 @@ extension StarStoryMainController: UICollectionViewDataSource {
             fatalError("Failed to dequeue starSituationCell")
         }
         let starSituation = starSituations[indexPath.row]
-        for starID in starSituationIDs {
-            if starSituation.id == starID {
-                cell.starSituationIsSelected = true
-                cell.backgroundColor = .red
-            } else {
-                cell.starSituationIsSelected = false
-                cell.backgroundColor = .systemBackground
-            }
-        }
+
         cell.configureCell(starSituation: starSituation)
+        dump(starSituationIDs)
+        if starSituationIDs.contains(starSituation.id) {
+            cell.starSituationIsSelected = true
+            cell.backgroundColor = .red
+        }
         cell.editButton.isHidden = true
         cell.delegate = self
         return cell
