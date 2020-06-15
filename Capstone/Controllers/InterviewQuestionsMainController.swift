@@ -38,8 +38,9 @@ class InterviewQuestionsMainController: UIViewController {
     private var customQuestions = [InterviewQuestion]() {
         didSet {
             if filterState == .custom {
+                questionsCollectionView.reloadData()
                 if customQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "You Have No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "plus")
+                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "plus")
                 } else {
                     questionsCollectionView.reloadData()
                     questionsCollectionView.backgroundView = nil
@@ -50,12 +51,8 @@ class InterviewQuestionsMainController: UIViewController {
     }
     private var allQuestions = [InterviewQuestion]() {
         didSet {
-            questionsCollectionView.reloadData()
-            if allQuestions.isEmpty {
-                questionsCollectionView.backgroundView = EmptyView.init(title: "Oops Network Issues", message: "Please connect to the internet", imageName: "wifi.exclamationmark")
-            } else {
+            if filterState == .all {
                 questionsCollectionView.reloadData()
-                questionsCollectionView.backgroundView = nil
             }
         }
     }
@@ -64,7 +61,7 @@ class InterviewQuestionsMainController: UIViewController {
             if filterState == .bookmarked {
                 questionsCollectionView.reloadData()
                 if bookmarkedQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "There Are No Bookmarked Questions", message: "Add to your bookmarks by selecting a question and pressing the bookmark button", imageName: "bookmark")
+                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Bookmarked Questions", message: "Add to your bookmarks by selecting a question and pressing the bookmark button", imageName: "bookmark")
                 } else {
                     questionsCollectionView.reloadData()
                     questionsCollectionView.backgroundView = nil
@@ -97,8 +94,6 @@ class InterviewQuestionsMainController: UIViewController {
             } else if let snapshot = snapshot {
                 let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
                 self?.customQuestions = customQs
-                //FIXME: prevent duplicate custom q
-                //self?.getUserCreatedQuestions()
                 self?.questionsCollectionView.reloadData()
             }
         })
@@ -161,7 +156,6 @@ class InterviewQuestionsMainController: UIViewController {
             case .success(let customQuestions):
                 DispatchQueue.main.async {
                     self?.customQuestions = customQuestions
-                    self?.allQuestions.append(contentsOf: customQuestions)
                 }
             }
         }
@@ -344,7 +338,6 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
                 case .success:
                     DispatchQueue.main.async {
                         self?.showAlert(title: "Question Removed", message: "\(customQuestion.question) has been removed")
-                        self?.getUserCreatedQuestions()
                         self?.allQuestions.remove(at: indexPath.row)
                         self?.questionsCollectionView.reloadData()
                     }
