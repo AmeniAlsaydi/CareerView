@@ -11,10 +11,13 @@ import UIKit
 class InterviewAnswerSuggestionViewController: UIViewController {
     
     @IBOutlet weak var suggestionLabel: UILabel!
+    @IBOutlet weak var whiteView: UIView!
     
     var interviewQuestion: InterviewQuestion?
     
     override func viewDidLoad() {
+        view.backgroundColor = .clear
+        whiteView.layer.cornerRadius = 13
         configureLabel(for: interviewQuestion)
     }
     
