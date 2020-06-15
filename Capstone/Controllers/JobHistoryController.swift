@@ -123,7 +123,8 @@ extension JobHistoryController: UITableViewDataSource {
 }
 extension JobHistoryController: JobHistoryExpandableCellDelegate {
     func starSituationsButtonPressed(userJob: UserJob) {
-        print("Star Situation Button pressed")
+        let destinationViewController = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        navigationController?.pushViewController(destinationViewController, animated: true)
     }
     func contextButtonPressed(userJob: UserJob) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
