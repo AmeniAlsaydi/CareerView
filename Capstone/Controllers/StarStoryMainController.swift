@@ -13,6 +13,8 @@ class StarStoryMainController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    public var filterByJob = false
+    public var userJob: UserJob?
     public var isAddingToAnswer = false
     public var selectedSTARStory: StarSituation?
     public var answerId: String?
@@ -20,6 +22,10 @@ class StarStoryMainController: UIViewController {
     
     private var starSituations = [StarSituation]() {
         didSet {
+            if filterByJob {
+                guard let jobID = userJob?.id else { return }
+                starSituations = starSituations.filter { $0.id == jobID }
+            }
             collectionView.reloadData()
             navigationItem.title = "STAR Stories: \(starSituations.count)"
         }

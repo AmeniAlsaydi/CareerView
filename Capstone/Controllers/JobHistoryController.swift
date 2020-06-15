@@ -124,6 +124,8 @@ extension JobHistoryController: UITableViewDataSource {
 extension JobHistoryController: JobHistoryExpandableCellDelegate {
     func starSituationsButtonPressed(userJob: UserJob) {
         let destinationViewController = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        destinationViewController.filterByJob = true
+        destinationViewController.userJob = userJob
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
     func contextButtonPressed(userJob: UserJob) {
