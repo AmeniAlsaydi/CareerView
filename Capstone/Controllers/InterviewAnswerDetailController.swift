@@ -43,7 +43,7 @@ class InterviewAnswerDetailController: UIViewController {
         didSet {
             answersCollectionView.reloadData()
             if answers.isEmpty {
-                answersCollectionView.backgroundView = EmptyView.init(title: "No Answers", message: "Add your answers by pressing the add button", imageName: "plus.circle")
+                answersCollectionView.backgroundView = EmptyView.init(title: "No Answers", message: "Add your answers by pressing the add button", imageName: "pencil")
             } else {
                 answersCollectionView.reloadData()
                 answersCollectionView.backgroundView = nil
@@ -59,7 +59,7 @@ class InterviewAnswerDetailController: UIViewController {
         didSet {
             starStoriesCollectionView.reloadData()
             if starStories.isEmpty {
-                starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "plus.circle")
+                starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "star.fill")
             } else {
                 starStoriesCollectionView.reloadData()
                 starStoriesCollectionView.backgroundView = nil

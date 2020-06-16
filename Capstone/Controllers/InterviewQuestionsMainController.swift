@@ -39,7 +39,7 @@ class InterviewQuestionsMainController: UIViewController {
         didSet {
             if filterState == .custom {
                 if customQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "plus")
+                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "questionmark.square.fill")
                 } else {
                     questionsCollectionView.reloadData()
                     questionsCollectionView.backgroundView = nil
