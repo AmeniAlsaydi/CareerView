@@ -13,7 +13,6 @@
 		52F81DBB249260300052532B /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F81DBA249260300052532B /* SettingCell.xib */; };
 		52F81DBD249260710052532B /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F81DBC249260710052532B /* SettingCell.swift */; };
 		8809883D24956537006EA9D0 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8809883C24956537006EA9D0 /* UIViewExt.swift */; };
-		8818AF852497E13700A06281 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8818AF842497E13700A06281 /* GoogleService-Info.plist */; };
 		8828B97124981F0E00151F10 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8828B97024981F0E00151F10 /* ArrayExt.swift */; };
 		8838A4D1248E60D400217DA1 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */; };
 		8838A4D3248E60E100217DA1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D2248E60E100217DA1 /* UserDefaults.swift */; };
@@ -89,8 +88,9 @@
 		B7A865C42490EB1300AC456F /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A865C32490EB1300AC456F /* FloatingLabelTextField.swift */; };
 		B7A865D22491C58B00AC456F /* InterviewEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A865D12491C58B00AC456F /* InterviewEntryView.swift */; };
 		C60BDFCE2481B3C200CD9875 /* JobFoldingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */; };
-		C61E0EB72497C36F00AA7A9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C61E0EB62497C36F00AA7A9E /* GoogleService-Info.plist */; };
 		C61E0EB92497D6F500AA7A9E /* BookmarkQuestionsDatabaseServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61E0EB82497D6F500AA7A9E /* BookmarkQuestionsDatabaseServices.swift */; };
+		C61E0EBD249825DB00AA7A9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C61E0EBC249825DB00AA7A9E /* GoogleService-Info.plist */; };
+		C61E0EBF249904EA00AA7A9E /* UIStyleGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61E0EBE249904EA00AA7A9E /* UIStyleGuide.swift */; };
 		C6AC379C248592DA00957B61 /* InterviewQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */; };
 		C6AC379E2485DACC00957B61 /* QuestionAnswerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */; };
 		C6AC37A02485EF4200957B61 /* StarSituationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379F2485EF4200957B61 /* StarSituationCell.swift */; };
@@ -119,7 +119,6 @@
 		52F81DBC249260710052532B /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8809883C24956537006EA9D0 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
-		8818AF842497E13700A06281 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8828B97024981F0E00151F10 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
 		8838A4D2248E60E100217DA1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -199,8 +198,9 @@
 		B7A865D12491C58B00AC456F /* InterviewEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewEntryView.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFoldingView.swift; sourceTree = "<group>"; };
-		C61E0EB62497C36F00AA7A9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C61E0EB82497D6F500AA7A9E /* BookmarkQuestionsDatabaseServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkQuestionsDatabaseServices.swift; sourceTree = "<group>"; };
+		C61E0EBC249825DB00AA7A9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		C61E0EBE249904EA00AA7A9E /* UIStyleGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyleGuide.swift; sourceTree = "<group>"; };
 		C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionCell.swift; sourceTree = "<group>"; };
 		C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnswerDetailCell.swift; sourceTree = "<group>"; };
 		C6AC379F2485EF4200957B61 /* StarSituationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarSituationCell.swift; sourceTree = "<group>"; };
@@ -301,9 +301,8 @@
 				B7976E832480504C001AE3B3 /* Xibs */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
-				8818AF842497E13700A06281 /* GoogleService-Info.plist */,
 				B725C24724768331000811C5 /* Info.plist */,
-				C61E0EB62497C36F00AA7A9E /* GoogleService-Info.plist */,
+				C61E0EBC249825DB00AA7A9E /* GoogleService-Info.plist */,
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -365,6 +364,7 @@
 				8809883C24956537006EA9D0 /* UIViewExt.swift */,
 				521402172493F01900ADF7BE /* ApplicationInfo.swift */,
 				8828B97024981F0E00151F10 /* ArrayExt.swift */,
+				C61E0EBE249904EA00AA7A9E /* UIStyleGuide.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -582,7 +582,7 @@
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
-				8818AF852497E13700A06281 /* GoogleService-Info.plist in Resources */,
+				C61E0EBD249825DB00AA7A9E /* GoogleService-Info.plist in Resources */,
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
 				B7976E892480524F001AE3B3 /* StarStoryMainXib.xib in Resources */,
 				B7976EAD248060B9001AE3B3 /* JobApplicationCellXib.xib in Resources */,
@@ -731,6 +731,7 @@
 				C61E0EB92497D6F500AA7A9E /* BookmarkQuestionsDatabaseServices.swift in Sources */,
 				B7976E37247D537A001AE3B3 /* UIViewControllerExt.swift in Sources */,
 				8828B97124981F0E00151F10 /* ArrayExt.swift in Sources */,
+				C61E0EBF249904EA00AA7A9E /* UIStyleGuide.swift in Sources */,
 				B79F4B40248F61C1009523EE /* UserDatabaseServices.swift in Sources */,
 				B7976E41247D7834001AE3B3 /* InterviewQuestionsMainController.swift in Sources */,
 				884E55602485542100BA180F /* JobHistoryExpandableCell.swift in Sources */,

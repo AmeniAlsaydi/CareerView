@@ -110,7 +110,8 @@ class InterviewAnswerDetailController: UIViewController {
     }
     //MARK:- Config NavBar & Nav Bar Button functions
     private func configureNavBar() {
-        let suggestionButton = UIBarButtonItem(image: UIImage(systemName: "lightbulb"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
+        navigationItem.title = "Answer Question"
+        let suggestionButton = UIBarButtonItem(image: UIImage(systemName: "eye"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
         let saveQuestionButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
         navigationItem.rightBarButtonItems = [saveQuestionButton, suggestionButton]
     }

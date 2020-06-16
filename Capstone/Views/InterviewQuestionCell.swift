@@ -21,8 +21,8 @@ class InterviewQuestionCell: UICollectionViewCell {
     var currentQuestion: InterviewQuestion?
     
     override func layoutSubviews() {
-        self.layer.borderWidth = 2
         self.layer.cornerRadius = 13
+        self.backgroundColor = AppColors.systemBackgroundColor
     }
     
     @IBAction func editButtonPressed(_ sender: UIButton) {

@@ -86,6 +86,7 @@ class InterviewQuestionsMainController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        updateUI()
         guard let user = Auth.auth().currentUser else {return}
         listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
             if let error = error {
@@ -108,6 +109,11 @@ class InterviewQuestionsMainController: UIViewController {
     }
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
+    }
+    //MARK:- UI
+    private func updateUI() {
+        AppColors.colors.gradientBackground(view: view)
+        questionsCollectionView.backgroundColor = .clear
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
@@ -178,8 +184,11 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
         let itemWidth: CGFloat = maxsize.width * 0.9
-        let itemHeight: CGFloat = maxsize.height * 0.15
+        let itemHeight: CGFloat = maxsize.height * 0.2
         return CGSize(width: itemWidth, height: itemHeight)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
