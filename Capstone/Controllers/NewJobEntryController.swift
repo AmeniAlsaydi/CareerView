@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import Contacts
+import ContactsUI
 
 class NewJobEntryController: UIViewController {
     
@@ -26,7 +29,18 @@ class NewJobEntryController: UIViewController {
     
     public var starSituationIDsToAdd = [String]() {
         didSet {
-            print(starSituationIDsToAdd.count)
+            print(starSituationIDsToAdd.count) // just to test we get back stars
+            // reload star story collection
+            //self.starSituationsCollectionView.reloadData()
+        }
+    }
+    
+    private var contacts = [CNContact]()
+    private var userContacts = [Contact]() {
+        didSet {
+            print(userContacts.count) // just to test we get contacts back
+            // should reload the contactsCollection
+            //self.contactsCollectionView.reloadData()
         }
     }
     
@@ -39,7 +53,7 @@ class NewJobEntryController: UIViewController {
             }
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
@@ -59,10 +73,10 @@ class NewJobEntryController: UIViewController {
         
     }
     
-
-   @objc private func saveJobButtonPressed(_ sender: UIBarButtonItem) {
+    
+    @objc private func saveJobButtonPressed(_ sender: UIBarButtonItem) {
         // create new job and add to datebase
-    print("create new job and add to datebase")
+        print("create new job and add to datebase")
     }
     
     
@@ -85,11 +99,51 @@ class NewJobEntryController: UIViewController {
     
     @IBAction func addContactsButtonPressed(_ sender: UIButton) {
         // display contacts
+        
+        //Note: This will check for access to contact permission and if not determined, ask again
+        // If the user denied permission, they will directed to settings where they can give permission to the app
+        // TODO: Determine, do we want to ask permission again in the app if they denied? Or show alert?
+        let store = CNContactStore()
+        let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
+        if authorizationStatus == .notDetermined {
+            store.requestAccess(for: .contacts) { [weak self] didAuthorize, error in
+                if didAuthorize {
+                    self?.retrieveContacts()
+                }
+            }
+        }  else if authorizationStatus == .denied {
+            showAlert(title: "Access to contacts has been denied", message: "Please go to settings -> CareerView if you would like to give permission to contacts")
+        } else if authorizationStatus == .authorized {
+            retrieveContacts()
+        }
+
+        
         // allow them to select
         // add contacts to an array (will be used to add to the contacts collection)
         // display them on the collection view
     }
     
+    private func retrieveContacts() {
+        let contactPicker = CNContactPickerViewController()
+        contactPicker.delegate = self
+        present(contactPicker, animated: true)
+    }
+    
+    
+}
+
+//MARK:- CNContactPickerDelegate
+extension NewJobEntryController: CNContactPickerDelegate {
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
+        self.contacts = contacts
+        let newContacts = contacts.compactMap { Contact(contact: $0) }
+        for contact in newContacts {
+            self.contacts.append(contact.contactValue)
+            if !userContacts.contains(contact) {
+                self.userContacts.append(contact)
+            }
+        }
+    }
 }
 
 

@@ -132,6 +132,9 @@ class JobEntryController: UIViewController {
         let rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed(_:)))
         navigationItem.rightBarButtonItem = rightBarButton
     }
+    
+    
+    // IGNORE **** ✅
     private func setupTextFields() {
         let textFields = [jobTitleTextField, companyNameTextField, beginDateYearTextField, beginDateMonthTextField, endDateYearTextField, endDateMonthTextField, locationTextField, descriptionTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
         for field in textFields {
@@ -140,6 +143,8 @@ class JobEntryController: UIViewController {
             field?.setBottomBorder()
         }
     }
+    
+    // HANDLED **** ✅
     @IBAction func addStarSituationButtonPressed(_ sender: UIButton) {
         let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
         starStoryVC.starSituationIDs = starSituationIDsToAdd
@@ -147,6 +152,8 @@ class JobEntryController: UIViewController {
         starStoryVC.delegate = self
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
+    
+    // to delete a repsonsibilty
     @IBAction func deleteResponsibiltyCellButtonPressed(_ sender: UIButton) {
         // TODO: Have user confirm the responsibility is going to be deleted before deleting
         //        showAlert(title: "Are you sure?", message: "You are about to delete this resonsibility: \(userJobResponsibilities[sender.tag])")
@@ -161,10 +168,14 @@ class JobEntryController: UIViewController {
         }
         responsibilities?.remove(at: sender.tag)
     }
+    
+    // to add a ressponsibility
     @IBAction func addResponsibilityButtonPressed(_ sender: UIButton) {
         responsibilityCells += 1
         responsibilities?.append("")
     }
+    
+    // HANDLED *** ✅
     @IBAction func addContactButtonPressed(_ sender: UIButton) {
         //Note: This will check for access to contact permission and if not determined, ask again
         // If the user denied permission, they will directed to settings where they can give permission to the app
@@ -183,11 +194,14 @@ class JobEntryController: UIViewController {
             retrieveContacts()
         }
     }
+     // HANDLED *** ✅
     private func retrieveContacts() {
         let contactPicker = CNContactPickerViewController()
         contactPicker.delegate = self
         present(contactPicker, animated: true)
     }
+    
+    
     private func listenForKeyboardEvents() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
