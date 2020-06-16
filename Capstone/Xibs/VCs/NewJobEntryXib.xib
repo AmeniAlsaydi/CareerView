@@ -9,6 +9,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewJobEntryController" customModule="Capstone" customModuleProvider="target">
             <connections>
+                <outlet property="beginDateTextField" destination="eop-AS-ov7" id="4kS-MZ-3ud"/>
+                <outlet property="companyNameTextField" destination="X3u-Xd-YlK" id="wna-H6-wlL"/>
+                <outlet property="contactsCollectionView" destination="dOy-nq-266" id="lrh-Po-eqR"/>
+                <outlet property="currentEmployerButton" destination="Wno-rf-MbO" id="14Z-gg-gjs"/>
+                <outlet property="descriptionTextField" destination="qub-8J-lcb" id="Ng6-1B-QKt"/>
+                <outlet property="endDateTextField" destination="77o-g7-Jd2" id="Jhs-ND-bwn"/>
+                <outlet property="jobTitleTextField" destination="sgL-06-x2q" id="SfK-xv-kAZ"/>
+                <outlet property="locationTextField" destination="9FQ-W9-wEm" id="Jt9-0A-Oah"/>
+                <outlet property="responsibility1TextField" destination="bgc-am-9oi" id="Kks-Tu-hCL"/>
+                <outlet property="responsibility2TextField" destination="Sbx-cA-VI2" id="wJV-c5-e84"/>
+                <outlet property="responsibility3TextField" destination="gt0-X7-POk" id="xQE-mB-hXH"/>
+                <outlet property="starSituationsCollectionView" destination="0df-Od-mN3" id="dDQ-s8-dkl"/>
                 <outlet property="view" destination="iN0-l3-epB" id="nWB-AU-Dgb"/>
             </connections>
         </placeholder>
@@ -107,6 +119,9 @@
                                             <state key="normal" image="square" catalog="system">
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="medium"/>
                                             </state>
+                                            <connections>
+                                                <action selector="currentEmployerButtonPressed:" destination="-1" eventType="touchUpInside" id="YiW-Sv-r0D"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>
@@ -138,6 +153,9 @@
                                     <state key="normal" image="plus.circle.fill" catalog="system">
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="medium"/>
                                     </state>
+                                    <connections>
+                                        <action selector="addStarSituationButtonPressed:" destination="-1" eventType="touchUpInside" id="MnM-0C-oGP"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hoy-iJ-xEG">
                                     <rect key="frame" x="20" y="1035.5" width="352" height="21.5"/>
@@ -154,6 +172,9 @@
                                     <state key="normal" image="plus.circle.fill" catalog="system">
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="medium"/>
                                     </state>
+                                    <connections>
+                                        <action selector="addContactsButtonPressed:" destination="-1" eventType="touchUpInside" id="YAn-3B-ilI"/>
+                                    </connections>
                                 </button>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dOy-nq-266">
                                     <rect key="frame" x="0.0" y="1077" width="414" height="100"/>
