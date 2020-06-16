@@ -10,7 +10,7 @@ import UIKit
 
 class NewJobEntryController: UIViewController {
     
-    @IBOutlet weak var jobTitleTextField: FloatingLabelInput!
+    @IBOutlet weak var positionTitleTextField: FloatingLabelInput!
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
     @IBOutlet weak var locationTextField: FloatingLabelInput!
     @IBOutlet weak var descriptionTextField: FloatingLabelInput!
@@ -24,17 +24,33 @@ class NewJobEntryController: UIViewController {
     
     @IBOutlet weak var currentEmployerButton: UIButton!
     
+    private var isCurrentEmployer = false {
+        didSet {
+            if isCurrentEmployer {
+                currentEmployerButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            } else {
+                currentEmployerButton.setImage(UIImage(systemName: "square"), for: .normal)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
-
-        // Do any additional setup after loading the view.
+        styleAllTextFields()
     }
     
     private func configureNavBar() {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveJobButtonPressed(_:)))
+    }
+    
+    private func styleAllTextFields() {
+        
+        let textFields = [companyNameTextField, positionTitleTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
+        
+        let _ = textFields.map { $0?.styleTextField()}
+        
     }
     
 
@@ -45,9 +61,8 @@ class NewJobEntryController: UIViewController {
     
     
     @IBAction func currentEmployerButtonPressed(_ sender: UIButton) {
+        isCurrentEmployer.toggle()
         
-        // toggle currentEmployer boolean
-        // toggle checked and unchecked 
     }
     
     @IBAction func addStarSituationButtonPressed(_ sender: UIButton) {
