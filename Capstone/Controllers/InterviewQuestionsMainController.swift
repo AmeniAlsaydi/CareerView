@@ -114,6 +114,7 @@ class InterviewQuestionsMainController: UIViewController {
     private func updateUI() {
         AppColors.colors.gradientBackground(view: view)
         questionsCollectionView.backgroundColor = .clear
+        searchBar.alpha = 0.85
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
@@ -188,7 +189,7 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: itemWidth, height: itemHeight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
@@ -305,7 +306,7 @@ extension InterviewQuestionsMainController {
         //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
         view.backgroundColor = .systemBackground
         questionsCollectionView.alpha = 1
-        searchBar.alpha = 1
+        searchBar.alpha = 0.85
         childController.willMove(toParent: nil)
         //remove the child view controller's view from parent's view
         childController.view.removeFromSuperview()

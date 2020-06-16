@@ -9,17 +9,12 @@
 import Foundation
 import UIKit
 
-class UIStyleGuide {
-    static let shared = UIStyleGuide()
-    //static let appColors: AppColors
-    private init() {}
-}
 class AppColors {
     static let colors = AppColors()
     private init() {}
     //MARK:- Style Guide: Purples should be reserved for features that need to stand out or tell the user something is clickable/ interactive. Examples: UIButtons, Progress Bar, etc.
-    static let primaryPurpleColor: UIColor = #colorLiteral(red: 0.3141366243, green: 0.1664823294, blue: 0.6806778312, alpha: 1)
-    static let secondaryPurpleColor: UIColor = #colorLiteral(red: 0.7428715825, green: 0.2606383562, blue: 1, alpha: 1)
+    static let primaryPurpleColor: UIColor = #colorLiteral(red: 0.2280851007, green: 0, blue: 0.5494799614, alpha: 1)
+    static let secondaryPurpleColor: UIColor = #colorLiteral(red: 0.4743034244, green: 0, blue: 1, alpha: 1)
     
     //MARK:- Style Guide: Reserve Black for important text, cell headers, and Navigation Bar items. Example: Interview Question Cell color view, Nav Bar buttons and titles, Job Title, etc.
     static let primaryBlackColor: UIColor = .black
@@ -33,15 +28,15 @@ class AppColors {
     static let systemBackgroundColor: UIColor = .systemBackground
     
     //gradient background colors
-    private let gradientPink: UIColor = #colorLiteral(red: 0.9988244176, green: 0.2330017388, blue: 0.6751695871, alpha: 1)
-    private let gradientBlue: UIColor = #colorLiteral(red: 0.105688177, green: 0.3018850684, blue: 0.7567492127, alpha: 1)
-    private let gradientPurple: UIColor = #colorLiteral(red: 0.4692288041, green: 0.2948487699, blue: 0.6268667579, alpha: 1)
+    private let gradientPink: UIColor = #colorLiteral(red: 0.8186734915, green: 0.5191187263, blue: 0.9447844625, alpha: 1)
+    private let gradientBlue: UIColor = #colorLiteral(red: 0.08412662894, green: 0.08182061464, blue: 0.3485977948, alpha: 1)
+    private let gradientPurple: UIColor = #colorLiteral(red: 0.33890149, green: 0.0695855394, blue: 0.6190637946, alpha: 1)
     
     public func gradientBackground(view: UIView) {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradientLayer.startPoint = CGPoint(x: 0.3, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
-        gradientLayer.colors = [gradientPink.cgColor, gradientPurple.cgColor, gradientBlue.cgColor]
+        gradientLayer.colors = [gradientBlue.cgColor, gradientPurple.cgColor, gradientPink.cgColor]
         view.backgroundColor = .clear
         gradientLayer.frame = view.frame
         view.layer.insertSublayer(gradientLayer, at: 0)

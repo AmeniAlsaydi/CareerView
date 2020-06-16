@@ -87,7 +87,7 @@ class InterviewAnswerDetailController: UIViewController {
         super.viewDidDisappear(true)
         listener?.remove()
     }
-    //MARK:- UI
+    //MARK:- UI/AppColors
     private func updateUI() {
         hideAddAnswerElements()
         configureNavBar()
@@ -111,7 +111,7 @@ class InterviewAnswerDetailController: UIViewController {
     //MARK:- Config NavBar & Nav Bar Button functions
     private func configureNavBar() {
         navigationItem.title = "Answer Question"
-        let suggestionButton = UIBarButtonItem(image: UIImage(systemName: "eye"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
+        let suggestionButton = UIBarButtonItem(image: UIImage(systemName: "info"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
         let saveQuestionButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
         navigationItem.rightBarButtonItems = [saveQuestionButton, suggestionButton]
     }

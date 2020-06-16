@@ -12,15 +12,19 @@ class InterviewAnswerSuggestionViewController: UIViewController {
     
     @IBOutlet weak var suggestionLabel: UILabel!
     @IBOutlet weak var whiteView: UIView!
+    @IBOutlet weak var purpleView: UIView!
     
     var interviewQuestion: InterviewQuestion?
     
     override func viewDidLoad() {
-        view.backgroundColor = .clear
-        whiteView.layer.cornerRadius = 13
+        setAppColors()
         configureLabel(for: interviewQuestion)
     }
-    
+    private func setAppColors() {
+        AppColors.colors.gradientBackground(view: purpleView)
+        view.backgroundColor = .clear
+        whiteView.layer.cornerRadius = 13
+    }
     public func configureLabel(for question: InterviewQuestion?) {
         suggestionLabel.text = question?.suggestion
     }
