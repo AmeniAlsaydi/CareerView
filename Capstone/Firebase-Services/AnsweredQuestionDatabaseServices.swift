@@ -45,8 +45,7 @@ extension DatabaseService {
         }
     }
     
-    //MARK: Updating Answers
-    
+    //MARK:- Remove/Add STAR Story to answer
     public func removeStarSituationFromAnswer(answerID: String, starSolutionID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
            
            guard let user = Auth.auth().currentUser else {return}
@@ -77,7 +76,7 @@ extension DatabaseService {
         }
     }
     
-    
+    //MARK:- Adding/Updating/Removing answers
     public func addAnswerToAnswersArray(answerID: String, answerString: String, completion: @escaping (Result<Bool, Error>) -> ()) {
         
         guard let user = Auth.auth().currentUser else {return}
@@ -107,5 +106,4 @@ extension DatabaseService {
             }
         }
     }
-    
 }

@@ -117,7 +117,7 @@ class JobHistoryExpandableCell: FoldingCell {
 }
 //TODO: Move this extension to extensions folder
 extension Date {
-    public func dateString(_ format: String = "MM/yyyy") -> String {
+    public func dateString(_ format: String = "MM/dd/yyyy") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         // self the Date object itself
