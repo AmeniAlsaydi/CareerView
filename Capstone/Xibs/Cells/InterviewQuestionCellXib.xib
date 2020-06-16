@@ -17,10 +17,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VCd-9o-m5O" userLabel="Purple View">
-                        <rect key="frame" x="0.0" y="0.0" width="575" height="104"/>
+                        <rect key="frame" x="0.0" y="0.0" width="575" height="62.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of STAR stories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1p-8i-JFb">
-                                <rect key="frame" x="173" y="10" width="132" height="20.5"/>
+                                <rect key="frame" x="161" y="10" width="132" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -34,14 +34,14 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="d1p-8i-JFb" firstAttribute="leading" secondItem="typ-ON-eJX" secondAttribute="trailing" constant="20" id="3Q1-iZ-jcp"/>
+                            <constraint firstItem="d1p-8i-JFb" firstAttribute="leading" secondItem="typ-ON-eJX" secondAttribute="trailing" constant="8" id="3Q1-iZ-jcp"/>
                             <constraint firstItem="typ-ON-eJX" firstAttribute="centerY" secondItem="d1p-8i-JFb" secondAttribute="centerY" id="THb-5u-CN5"/>
                             <constraint firstItem="typ-ON-eJX" firstAttribute="top" secondItem="VCd-9o-m5O" secondAttribute="top" constant="8" id="aDl-TL-mTB"/>
                             <constraint firstItem="typ-ON-eJX" firstAttribute="leading" secondItem="VCd-9o-m5O" secondAttribute="leading" constant="8" id="bNJ-44-LCv"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interview Question" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBe-5f-WTw">
-                        <rect key="frame" x="10" y="114" width="555" height="24"/>
+                        <rect key="frame" x="10" y="102.5" width="555" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -89,14 +89,17 @@
                     <constraint firstAttribute="trailing" secondItem="nBe-5f-WTw" secondAttribute="trailing" constant="10" id="TIe-5X-UAi"/>
                     <constraint firstItem="d1p-8i-JFb" firstAttribute="top" secondItem="JD4-Y1-tmP" secondAttribute="top" id="Ua2-f6-obE"/>
                     <constraint firstAttribute="bottom" secondItem="gDJ-5Z-5L7" secondAttribute="bottom" constant="8" id="XbR-Dy-vNv"/>
-                    <constraint firstItem="VCd-9o-m5O" firstAttribute="height" secondItem="jqw-Ht-Goa" secondAttribute="height" multiplier="0.25" id="eWk-8h-5Ns"/>
+                    <constraint firstItem="VCd-9o-m5O" firstAttribute="height" secondItem="jqw-Ht-Goa" secondAttribute="height" multiplier="0.15" id="eWk-8h-5Ns"/>
                     <constraint firstItem="WsJ-by-uTK" firstAttribute="centerY" secondItem="gDJ-5Z-5L7" secondAttribute="centerY" id="g87-vK-84n"/>
-                    <constraint firstItem="nBe-5f-WTw" firstAttribute="top" secondItem="VCd-9o-m5O" secondAttribute="bottom" constant="10" id="rEA-UB-9mT"/>
+                    <constraint firstItem="nBe-5f-WTw" firstAttribute="top" secondItem="VCd-9o-m5O" secondAttribute="bottom" constant="40" id="rEA-UB-9mT"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="575" height="415"/>
             <connections>
                 <outlet property="answerCheckBox" destination="gDJ-5Z-5L7" id="Bka-Yw-6dN"/>
+                <outlet property="answeredLabel" destination="WsJ-by-uTK" id="Bc6-el-85U"/>
+                <outlet property="cellHeaderView" destination="VCd-9o-m5O" id="9JO-d1-Urd"/>
+                <outlet property="connectedStarsLabel" destination="typ-ON-eJX" id="etW-fy-Sxj"/>
                 <outlet property="editButton" destination="JD4-Y1-tmP" id="lhG-1t-Abm"/>
                 <outlet property="interviewQuestionLabel" destination="nBe-5f-WTw" id="isx-BH-HWg"/>
                 <outlet property="numberOfStarsLabel" destination="d1p-8i-JFb" id="RTY-P7-jcL"/>

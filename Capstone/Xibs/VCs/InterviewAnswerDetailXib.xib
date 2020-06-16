@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InterviewAnswerDetailController" customModule="Capstone" customModuleProvider="target">
             <connections>
                 <outlet property="addAnswerButton" destination="8Bb-ig-QSj" id="j9h-T8-dcE"/>
+                <outlet property="addStarButton" destination="Z3h-w9-3C5" id="5MQ-nW-uQh"/>
                 <outlet property="answersCollectionView" destination="dbf-iK-Whd" id="zMK-bE-6Fj"/>
                 <outlet property="answersLabel" destination="FKW-dx-599" id="YHs-GR-cwb"/>
                 <outlet property="cancelAnswerButton" destination="vgv-3d-onP" id="U2G-yO-uV6"/>
@@ -17,7 +18,7 @@
                 <outlet property="enterAnswerTextfield" destination="sHD-Sd-JwC" id="yao-hc-U0H"/>
                 <outlet property="promptLabel" destination="GVk-ic-lla" id="AfF-WP-4mq"/>
                 <outlet property="questionLabel" destination="0GE-L5-SBQ" id="out-1E-7gQ"/>
-                <outlet property="scrollview" destination="cRa-66-viD" id="nh0-fi-EWZ"/>
+                <outlet property="scrollView" destination="cRa-66-viD" id="Qnz-92-NGA"/>
                 <outlet property="starStoriesCollectionView" destination="FvK-Jj-m8Q" id="wRK-Dm-iz1"/>
                 <outlet property="starstoriesLabel" destination="d5c-hs-Rqv" id="u3G-OB-gOs"/>
                 <outlet property="view" destination="N40-64-mQx" id="Ng3-1f-krt"/>
@@ -105,19 +106,19 @@
                                         <outlet property="delegate" destination="-1" id="HdK-4a-iEa"/>
                                     </connections>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-3d-onP">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vgv-3d-onP">
                                     <rect key="frame" x="272" y="213" width="44" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="OHz-E5-cs4"/>
                                         <constraint firstAttribute="width" constant="44" id="UWc-Ek-2Zy"/>
                                     </constraints>
                                     <color key="tintColor" red="0.1150386602" green="0.054188097349999999" blue="0.28289578050000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    <state key="normal" title="Button" image="xmark" catalog="system"/>
+                                    <state key="normal" image="xmark" catalog="system"/>
                                     <connections>
                                         <action selector="cancelAddAnswerButtonPressed:" destination="-1" eventType="touchUpInside" id="D2J-Xw-CA7"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tB6-B4-ydu">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tB6-B4-ydu">
                                     <rect key="frame" x="360" y="213" width="44" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="9GG-PA-i4r"/>
@@ -126,7 +127,7 @@
                                         <constraint firstAttribute="width" constant="44" id="u9R-QO-sAO"/>
                                     </constraints>
                                     <color key="tintColor" red="0.1150386602" green="0.054188097349999999" blue="0.28289578050000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    <state key="normal" title="Button" image="checkmark" catalog="system"/>
+                                    <state key="normal" image="checkmark" catalog="system"/>
                                     <connections>
                                         <action selector="confirmAddAnswerButtonPressed:" destination="-1" eventType="touchUpInside" id="w3H-jW-8tD"/>
                                     </connections>

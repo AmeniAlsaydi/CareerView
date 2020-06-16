@@ -112,15 +112,14 @@ class InterviewQuestionsMainController: UIViewController {
     }
     //MARK:- UI
     private func updateUI() {
-        AppColors.colors.gradientBackground(view: view)
+        view.backgroundColor = AppColors.complimentaryBackgroundColor
         questionsCollectionView.backgroundColor = .clear
-        searchBar.alpha = 0.85
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.filterIcon, style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
     }
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
@@ -306,7 +305,7 @@ extension InterviewQuestionsMainController {
         //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
         view.backgroundColor = .systemBackground
         questionsCollectionView.alpha = 1
-        searchBar.alpha = 0.85
+        searchBar.alpha = 1
         childController.willMove(toParent: nil)
         //remove the child view controller's view from parent's view
         childController.view.removeFromSuperview()

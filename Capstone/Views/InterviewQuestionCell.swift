@@ -15,7 +15,10 @@ class InterviewQuestionCell: UICollectionViewCell {
     @IBOutlet weak var numberOfStarsLabel: UILabel!
     @IBOutlet weak var answerCheckBox: UIImageView!
     @IBOutlet weak var interviewQuestionLabel: UILabel!
+    @IBOutlet weak var connectedStarsLabel: UILabel!
+    @IBOutlet weak var answeredLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var cellHeaderView: UIView!
     
     weak var delegate: InterviewQuestionCellDelegate?
     var currentQuestion: InterviewQuestion?
@@ -23,6 +26,26 @@ class InterviewQuestionCell: UICollectionViewCell {
     override func layoutSubviews() {
         self.layer.cornerRadius = 13
         self.backgroundColor = AppColors.systemBackgroundColor
+        //cellShadow()
+        setAppColorsandFonts()
+    }
+    private func cellShadow(){
+        self.layer.shadowColor =  AppColors.primaryBlackColor.cgColor
+        self.layer.shadowOffset = CGSize(width: 2.0, height: 0.5)
+        self.layer.shadowRadius = 5
+        self.layer.shadowOpacity = 0.25
+        self.layer.masksToBounds = false
+        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.layer.cornerRadius).cgPath
+    }
+    private func setAppColorsandFonts() {
+        interviewQuestionLabel.font = AppFonts.semiBold
+        connectedStarsLabel.font = AppFonts.secondaryFont
+        connectedStarsLabel.textColor = AppColors.whiteTextColor
+        numberOfStarsLabel.font = AppFonts.secondaryFont
+        numberOfStarsLabel.textColor = AppColors.whiteTextColor
+        answeredLabel.font = AppFonts.secondaryFont
+        answerCheckBox.tintColor = AppColors.darkGrayHighlightColor
+        AppColors.colors.gradientBackground(view: cellHeaderView)
     }
     
     @IBAction func editButtonPressed(_ sender: UIButton) {

@@ -19,19 +19,20 @@ class InterviewAnswerDetailController: UIViewController {
     @IBOutlet weak var enterAnswerTextfield: UITextField!
     @IBOutlet weak var confirmAddAnswerButton: UIButton!
     @IBOutlet weak var cancelAnswerButton: UIButton!
-    @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var addStarButton: UIButton!
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var answersLabel: UILabel!
     @IBOutlet weak var starstoriesLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     private var listener: ListenerRegistration?
     public var question: InterviewQuestion?
     private var isBookmarked = false {
         didSet {
             if isBookmarked {
-                navigationItem.rightBarButtonItem?.image = UIImage(systemName: "bookmark.fill")
+                navigationItem.rightBarButtonItem?.image = AppButtonIcons.bookmarkIcon
             } else {
-                navigationItem.rightBarButtonItem?.image = UIImage(systemName: "bookmark")
+                navigationItem.rightBarButtonItem?.image = AppButtonIcons.bookmarkFillIcon
             }
         }
     }
@@ -94,20 +95,29 @@ class InterviewAnswerDetailController: UIViewController {
     private func appFonts() {
         questionLabel.font = AppFonts.semiBold
         promptLabel.font = AppFonts.secondaryFont
-        promptLabel.textColor = AppColors.primaryBlackColor
         answersLabel.font = AppFonts.secondaryFont
-        answersLabel.textColor = AppColors.darkGrayHighlightColor
         starstoriesLabel.font = AppFonts.secondaryFont
+    }
+    private func appColors() {
+        promptLabel.textColor = AppColors.primaryBlackColor
+        answersLabel.textColor = AppColors.darkGrayHighlightColor
         starstoriesLabel.textColor = AppColors.darkGrayHighlightColor
+        answersCollectionView.backgroundColor = AppColors.complimentaryBackgroundColor
+        starStoriesCollectionView.backgroundColor = AppColors.complimentaryBackgroundColor
+        addStarButton.tintColor = AppColors.secondaryPurpleColor
+        addAnswerButton.tintColor = AppColors.secondaryPurpleColor
+        cancelAnswerButton.tintColor = AppColors.secondaryPurpleColor
+        confirmAddAnswerButton.tintColor = AppColors.secondaryPurpleColor
     }
     private func updateUI() {
         appFonts()
+        appColors()
         hideAddAnswerElements()
         configureNavBar()
         configureCollectionViews()
         isQuestionBookmarked(question: question)
         questionLabel.text = question?.question
-        scrollview.keyboardDismissMode = .onDrag
+        scrollView.keyboardDismissMode = .onDrag
     }
     //MARK:- Collection View Config
     private func configureCollectionViews() {
@@ -124,8 +134,8 @@ class InterviewAnswerDetailController: UIViewController {
     //MARK:- Config NavBar & Nav Bar Button functions
     private func configureNavBar() {
         navigationItem.title = "Answer Question"
-        let suggestionButton = UIBarButtonItem(image: UIImage(systemName: "info"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
-        let saveQuestionButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
+        let suggestionButton = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
+        let saveQuestionButton = UIBarButtonItem(image: AppButtonIcons.bookmarkIcon, style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
         navigationItem.rightBarButtonItems = [saveQuestionButton, suggestionButton]
     }
     @objc private func suggestionButtonPressed(_ sender: UIBarButtonItem) {

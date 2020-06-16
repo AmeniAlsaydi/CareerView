@@ -54,6 +54,7 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
            super.viewDidLoad()
+        self.tabBar.tintColor = AppColors.primaryBlackColor
            viewControllers = [jobHistoryController, starSituationController, interviewQuestionsController, applicationTrackerController, settingsController]
        }
        

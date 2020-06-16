@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.windowScene = windowScene
         
-        window?.tintColor = .black
+        window?.tintColor = AppColors.primaryBlackColor
         
 //        try? FirebaseAuth.Auth.auth().signOut()
         

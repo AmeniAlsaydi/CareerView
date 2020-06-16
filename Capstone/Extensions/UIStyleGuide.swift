@@ -17,7 +17,7 @@ class AppColors {
     static let secondaryPurpleColor: UIColor = #colorLiteral(red: 0.4743034244, green: 0, blue: 1, alpha: 1)
     
     //MARK:- Style Guide: Reserve Black for important text, cell headers, and Navigation Bar items. Example: Interview Question Cell color view, Nav Bar buttons and titles, Job Title, etc.
-    static let primaryBlackColor: UIColor = .black
+    static let primaryBlackColor: UIColor = .label
     
     //MARK:- Style Guide: Grays are meant for secondary information, detail text, seperation lines
     static let lightGrayHighlightColor: UIColor = .systemGray3
@@ -26,14 +26,17 @@ class AppColors {
     //MARK:- Style Guide: Only use white when text will be infront of a view that isn't using a system color. Every other case should be system background
     static let whiteTextColor: UIColor = .white
     static let systemBackgroundColor: UIColor = .systemBackground
+    //MARK:- Reserve for collection view/ table view background color
+    static let complimentaryBackgroundColor: UIColor = .secondarySystemBackground
     
     //gradient background colors
-    private let gradientPink: UIColor = #colorLiteral(red: 0.8186734915, green: 0.5191187263, blue: 0.9447844625, alpha: 1)
+    private let gradientPink: UIColor = #colorLiteral(red: 0.8805331588, green: 0.7443125248, blue: 0.9330717921, alpha: 1)
     private let gradientBlue: UIColor = #colorLiteral(red: 0.08412662894, green: 0.08182061464, blue: 0.3485977948, alpha: 1)
-    private let gradientPurple: UIColor = #colorLiteral(red: 0.33890149, green: 0.0695855394, blue: 0.6190637946, alpha: 1)
+    private let gradientPurple: UIColor = #colorLiteral(red: 0.557056725, green: 0.1121184751, blue: 1, alpha: 1)
     
     private init() {}
     
+    //MARK:- reserve gradients for small ui views only
     public func gradientBackground(view: UIView) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.startPoint = CGPoint(x: 0.3, y: 1.0)
@@ -52,6 +55,24 @@ class AppFonts {
     static let boldFont = UIFont(name: "Avenir-Heavy", size: 25)
     static let semiBold = UIFont(name: "Avenir-Medium", size: 25)
     static let secondaryFont = UIFont(name: "Helvetica", size: 17)
+    
+    private init() {}
+}
+class AppButtonIcons {
+    static let buttons = AppButtonIcons()
+    
+    static let plusIcon = UIImage(systemName: "plus")
+    static let optionsIcon = UIImage(systemName: "ellipsis")
+    static let filterIcon = UIImage(systemName: "slider.horizontal.3")
+    static let bookmarkIcon = UIImage(systemName: "bookmark")
+    static let bookmarkFillIcon = UIImage(systemName: "bookmark.fill")
+    static let checkmarkIcon = UIImage(systemName: "checkmark")
+    static let xmarkIcon = UIImage(systemName: "xmark")
+    static let infoIcon = UIImage(systemName: "info.circle")
+    static let backArrowIcon = UIImage(systemName: "arrow.left")
+    static let emptySquareIcon = UIImage(systemName: "square")
+    static let squareCheckmarkIcon = UIImage(systemName: "checkmark.square")
+    static let squareCheckmarkFillIcon = UIImage(systemName: "checkmark.square.fill")
     
     private init() {}
 }
