@@ -53,7 +53,7 @@ class AppFonts {
     
     static let primaryFont = UIFont(name: "Avenir-Regular", size: 20)
     static let boldFont = UIFont(name: "Avenir-Heavy", size: 25)
-    static let semiBold = UIFont(name: "Avenir-Medium", size: 25)
+    static let semiBold = UIFont(name: "Avenir-Medium", size: 20)
     static let secondaryFont = UIFont(name: "Helvetica", size: 17)
     
     private init() {}

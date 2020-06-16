@@ -30,9 +30,9 @@ class InterviewAnswerDetailController: UIViewController {
     private var isBookmarked = false {
         didSet {
             if isBookmarked {
-                navigationItem.rightBarButtonItem?.image = AppButtonIcons.bookmarkIcon
-            } else {
                 navigationItem.rightBarButtonItem?.image = AppButtonIcons.bookmarkFillIcon
+            } else {
+                navigationItem.rightBarButtonItem?.image = AppButtonIcons.bookmarkIcon
             }
         }
     }
@@ -93,7 +93,7 @@ class InterviewAnswerDetailController: UIViewController {
     }
     //MARK:- UI
     private func appFonts() {
-        questionLabel.font = AppFonts.semiBold
+        questionLabel.font = AppFonts.boldFont
         promptLabel.font = AppFonts.secondaryFont
         answersLabel.font = AppFonts.secondaryFont
         starstoriesLabel.font = AppFonts.secondaryFont
