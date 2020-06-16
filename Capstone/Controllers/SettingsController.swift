@@ -12,15 +12,18 @@ import FirebaseAuth
 struct Settings {
     let tabs: String
     let images: UIImage
+    let viewController: UIViewController
+    
+    
     
     static func loadSettings() -> [Settings] {
         return [
-            Settings(tabs: "Account", images: UIImage(systemName: "person.fill")!),
-            Settings(tabs: "Settings", images: UIImage(systemName: "gear")!),
-            Settings(tabs: "Notifications", images: UIImage(systemName: "message")!),
-            Settings(tabs: "About this app", images: UIImage(systemName: "questionmark.circle")!),
-            Settings(tabs: "FAQ", images: UIImage(systemName: "questionmark.circle.fill")!),
-            Settings(tabs: "Contact Us", images: UIImage(systemName: "phone.fill")!)
+            Settings(tabs: "Account", images: UIImage(systemName: "person.fill")!, viewController: AccountViewController(nibName: "AccountViewControllerXib", bundle: nil)),
+            Settings(tabs: "Settings", images: UIImage(systemName: "gear")!, viewController: SettingsViewController(nibName: "SettingsViewControllerXib", bundle: nil)),
+//            Settings(tabs: "Notifications", images: UIImage(systemName: "message")!),
+            Settings(tabs: "About this app", images: UIImage(systemName: "questionmark.circle")!, viewController: AboutThisAppViewController(nibName: "AboutThisAppViewControllerXib", bundle: nil)),
+            Settings(tabs: "FAQ", images: UIImage(systemName: "questionmark.circle.fill")!, viewController: FAQViewController(nibName: "FAQViewControllerXib", bundle: nil)),
+            Settings(tabs: "Contact Us", images: UIImage(systemName: "phone.fill")!, viewController: ContactUsViewController(nibName: "ContactUsViewControllerXib", bundle: nil))
         ]
     }
 }
@@ -29,21 +32,17 @@ class SettingsController: UIViewController {
     
     @IBOutlet weak var starSituationInputToggle: UISwitch!
     
-
     @IBOutlet weak var settingsTableView: UITableView!
     
     @IBOutlet weak var appLabel: UILabel!
     
     private var allSettings = [Settings]()
     
-
     private var appName = ApplicationInfo.getAppName()
     private var appVersion = ApplicationInfo.getVersionBuildNumber()
     
-    
-
     private var showUserStarSituationInputOption: ShowUserStarInputOption? {
-
+        
         didSet {
             if showUserStarSituationInputOption?.rawValue == ShowUserStarInputOption.off.rawValue {
                 starSituationInputToggle.isOn = false
@@ -56,7 +55,7 @@ class SettingsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         loadSettings()
@@ -65,7 +64,7 @@ class SettingsController: UIViewController {
         navigationItem.title = "Profile"
         appLabel.text = "\(appName) \(appVersion)"
         navigationController?.navigationBar.prefersLargeTitles = true 
-
+        
     }
     
     private func loadSettings() {
@@ -78,10 +77,10 @@ class SettingsController: UIViewController {
     @IBAction func starSituationInputOptionToggled(_ sender: UISwitch) {
         if sender.isOn {
             showUserStarSituationInputOption = ShowUserStarInputOption.on
-//            UserPreference.shared.updatePreferenceShowUserInputOption(with: showUserStarSituationInputOption)
+            //            UserPreference.shared.updatePreferenceShowUserInputOption(with: showUserStarSituationInputOption)
         } else {
             showUserStarSituationInputOption = ShowUserStarInputOption.off
-//            UserPreference.shared.updatePreferenceShowUserInputOption(with: showUserStarSituationInputOption)
+            //            UserPreference.shared.updatePreferenceShowUserInputOption(with: showUserStarSituationInputOption)
         }
         print("Star Situation Input option: \(String(describing: showUserStarSituationInputOption?.rawValue))")
     }
@@ -123,5 +122,9 @@ extension SettingsController: UITableViewDataSource {
 extension SettingsController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let destinationViewController = allSettings[indexPath.row].viewController
+        navigationController?.pushViewController(destinationViewController, animated: true)
     }
 }

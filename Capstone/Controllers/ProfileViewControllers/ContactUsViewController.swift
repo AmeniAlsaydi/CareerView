@@ -1,5 +1,5 @@
 //
-//  AboutThisAppViewController.swift
+//  ContactUsViewController.swift
 //  Capstone
 //
 //  Created by Gregory Keeley on 6/16/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AboutThisAppViewController: UIViewController {
+class ContactUsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

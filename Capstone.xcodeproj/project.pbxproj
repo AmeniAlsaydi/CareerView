@@ -34,6 +34,8 @@
 		889FCAB02499678800CC9153 /* AboutThisAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAAF2499678800CC9153 /* AboutThisAppViewController.swift */; };
 		889FCAB2249967E300CC9153 /* FAQViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */; };
 		889FCAB4249967F200CC9153 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAB3249967F200CC9153 /* FAQViewController.swift */; };
+		889FCAB6249969FD00CC9153 /* ContactUsViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAB5249969FD00CC9153 /* ContactUsViewControllerXib.xib */; };
+		889FCAB824996A0D00CC9153 /* ContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAB724996A0C00CC9153 /* ContactUsViewController.swift */; };
 		B7226CF8248DACA900D7F207 /* JobApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */; };
 		B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C2392476832F000811C5 /* AppDelegate.swift */; };
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
@@ -148,6 +150,8 @@
 		889FCAAF2499678800CC9153 /* AboutThisAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutThisAppViewController.swift; sourceTree = "<group>"; };
 		889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQViewControllerXib.xib; sourceTree = "<group>"; };
 		889FCAB3249967F200CC9153 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
+		889FCAB5249969FD00CC9153 /* ContactUsViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactUsViewControllerXib.xib; sourceTree = "<group>"; };
+		889FCAB724996A0C00CC9153 /* ContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewController.swift; sourceTree = "<group>"; };
 		B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationCell.swift; sourceTree = "<group>"; };
 		B725C2362476832F000811C5 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B725C2392476832F000811C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 				889FCAA92499671D00CC9153 /* SettingsViewControllerXib.xib */,
 				889FCAAD2499677100CC9153 /* AboutThisAppViewControllerXib.xib */,
 				889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */,
+				889FCAB5249969FD00CC9153 /* ContactUsViewControllerXib.xib */,
 			);
 			path = ProfileViewControllerXibs;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				889FCAAB2499672C00CC9153 /* SettingsViewController.swift */,
 				889FCAAF2499678800CC9153 /* AboutThisAppViewController.swift */,
 				889FCAB3249967F200CC9153 /* FAQViewController.swift */,
+				889FCAB724996A0C00CC9153 /* ContactUsViewController.swift */,
 			);
 			path = ProfileViewControllers;
 			sourceTree = "<group>";
@@ -614,6 +620,7 @@
 				B7976E892480524F001AE3B3 /* StarStoryMainXib.xib in Resources */,
 				889FCAA6249966EC00CC9153 /* AccountViewControllerXib.xib in Resources */,
 				889FCAA4249965A000CC9153 /* GoogleService-Info.plist in Resources */,
+				889FCAB6249969FD00CC9153 /* ContactUsViewControllerXib.xib in Resources */,
 				B7976EAD248060B9001AE3B3 /* JobApplicationCellXib.xib in Resources */,
 				B7976E4F247E9A3E001AE3B3 /* LoginView.storyboard in Resources */,
 				B7976EA924806085001AE3B3 /* StarSituationCellXib.xib in Resources */,
@@ -772,6 +779,7 @@
 				B737DF362486A1740052F375 /* AnsweredQuestion.swift in Sources */,
 				8809883D24956537006EA9D0 /* UIViewExt.swift in Sources */,
 				B7976E47247D9423001AE3B3 /* ApplicationTrackerController.swift in Sources */,
+				889FCAB824996A0D00CC9153 /* ContactUsViewController.swift in Sources */,
 				B7976E5C247EAD84001AE3B3 /* Contact.swift in Sources */,
 				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
 				B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */,
