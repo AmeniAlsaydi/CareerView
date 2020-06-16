@@ -13,9 +13,7 @@
 		52F81DBB249260300052532B /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F81DBA249260300052532B /* SettingCell.xib */; };
 		52F81DBD249260710052532B /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F81DBC249260710052532B /* SettingCell.swift */; };
 		8809883D24956537006EA9D0 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8809883C24956537006EA9D0 /* UIViewExt.swift */; };
-
 		8828B97124981F0E00151F10 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8828B97024981F0E00151F10 /* ArrayExt.swift */; };
-
 		8838A4D1248E60D400217DA1 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */; };
 		8838A4D3248E60E100217DA1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D2248E60E100217DA1 /* UserDefaults.swift */; };
 		8838A4DB248E648800217DA1 /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = 8838A4DA248E648800217DA1 /* DataPersistence */; };
@@ -27,6 +25,15 @@
 		884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */; };
 		884E557A2488298B00BA180F /* ScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */; };
 		886B5134248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */; };
+		889FCAA4249965A000CC9153 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAA3249965A000CC9153 /* GoogleService-Info.plist */; };
+		889FCAA6249966EC00CC9153 /* AccountViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAA5249966EC00CC9153 /* AccountViewControllerXib.xib */; };
+		889FCAA82499670300CC9153 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAA72499670300CC9153 /* AccountViewController.swift */; };
+		889FCAAA2499671D00CC9153 /* SettingsViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAA92499671D00CC9153 /* SettingsViewControllerXib.xib */; };
+		889FCAAC2499672C00CC9153 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAAB2499672C00CC9153 /* SettingsViewController.swift */; };
+		889FCAAE2499677100CC9153 /* AboutThisAppViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAAD2499677100CC9153 /* AboutThisAppViewControllerXib.xib */; };
+		889FCAB02499678800CC9153 /* AboutThisAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAAF2499678800CC9153 /* AboutThisAppViewController.swift */; };
+		889FCAB2249967E300CC9153 /* FAQViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */; };
+		889FCAB4249967F200CC9153 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAB3249967F200CC9153 /* FAQViewController.swift */; };
 		B7226CF8248DACA900D7F207 /* JobApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */; };
 		B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C2392476832F000811C5 /* AppDelegate.swift */; };
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
@@ -37,7 +44,6 @@
 		B737DF362486A1740052F375 /* AnsweredQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B737DF352486A1740052F375 /* AnsweredQuestion.swift */; };
 		B74108C1248E120900EEFBA8 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74108C0248E120900EEFBA8 /* ProgressBar.swift */; };
 		B74108C7248EDC8200EEFBA8 /* JobApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74108C6248EDC8200EEFBA8 /* JobApplicationTests.swift */; };
-		B78EE8342497DF2D00F7E973 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B78EE8332497DF2D00F7E973 /* GoogleService-Info.plist */; };
 		B78EE8362497EA8B00F7E973 /* NewJobEntryXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B78EE8352497EA8B00F7E973 /* NewJobEntryXib.xib */; };
 		B78EE8382497EAB700F7E973 /* NewJobEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78EE8372497EAB700F7E973 /* NewJobEntryController.swift */; };
 		B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1924777593001AE3B3 /* JobApplication.swift */; };
@@ -93,7 +99,6 @@
 		B7A865C42490EB1300AC456F /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A865C32490EB1300AC456F /* FloatingLabelTextField.swift */; };
 		B7A865D22491C58B00AC456F /* InterviewEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A865D12491C58B00AC456F /* InterviewEntryView.swift */; };
 		C60BDFCE2481B3C200CD9875 /* JobFoldingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */; };
-		C61E0EB72497C36F00AA7A9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C61E0EB62497C36F00AA7A9E /* GoogleService-Info.plist */; };
 		C61E0EB92497D6F500AA7A9E /* BookmarkQuestionsDatabaseServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61E0EB82497D6F500AA7A9E /* BookmarkQuestionsDatabaseServices.swift */; };
 		C6AC379C248592DA00957B61 /* InterviewQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */; };
 		C6AC379E2485DACC00957B61 /* QuestionAnswerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */; };
@@ -123,7 +128,6 @@
 		52F81DBC249260710052532B /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8809883C24956537006EA9D0 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
-		8818AF842497E13700A06281 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8828B97024981F0E00151F10 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
 		8838A4D2248E60E100217DA1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -135,6 +139,15 @@
 		884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeUserExperienceViewController.swift; sourceTree = "<group>"; };
 		884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
 		886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshotCollectionViewCellXib.xib; sourceTree = "<group>"; };
+		889FCAA3249965A000CC9153 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		889FCAA5249966EC00CC9153 /* AccountViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountViewControllerXib.xib; sourceTree = "<group>"; };
+		889FCAA72499670300CC9153 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		889FCAA92499671D00CC9153 /* SettingsViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewControllerXib.xib; sourceTree = "<group>"; };
+		889FCAAB2499672C00CC9153 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		889FCAAD2499677100CC9153 /* AboutThisAppViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutThisAppViewControllerXib.xib; sourceTree = "<group>"; };
+		889FCAAF2499678800CC9153 /* AboutThisAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutThisAppViewController.swift; sourceTree = "<group>"; };
+		889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQViewControllerXib.xib; sourceTree = "<group>"; };
+		889FCAB3249967F200CC9153 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationCell.swift; sourceTree = "<group>"; };
 		B725C2362476832F000811C5 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B725C2392476832F000811C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,7 +160,6 @@
 		B737DF352486A1740052F375 /* AnsweredQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnsweredQuestion.swift; sourceTree = "<group>"; };
 		B74108C0248E120900EEFBA8 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		B74108C6248EDC8200EEFBA8 /* JobApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationTests.swift; sourceTree = "<group>"; };
-		B78EE8332497DF2D00F7E973 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B78EE8352497EA8B00F7E973 /* NewJobEntryXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewJobEntryXib.xib; sourceTree = "<group>"; };
 		B78EE8372497EAB700F7E973 /* NewJobEntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewJobEntryController.swift; sourceTree = "<group>"; };
 		B7976E1924777593001AE3B3 /* JobApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplication.swift; sourceTree = "<group>"; };
@@ -206,7 +218,6 @@
 		B7A865D12491C58B00AC456F /* InterviewEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewEntryView.swift; sourceTree = "<group>"; };
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFoldingView.swift; sourceTree = "<group>"; };
-		C61E0EB62497C36F00AA7A9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C61E0EB82497D6F500AA7A9E /* BookmarkQuestionsDatabaseServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkQuestionsDatabaseServices.swift; sourceTree = "<group>"; };
 		C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionCell.swift; sourceTree = "<group>"; };
 		C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnswerDetailCell.swift; sourceTree = "<group>"; };
@@ -268,11 +279,26 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
-		8877E08F24943274006FC043 /* Recovered References */ = {
+		889FCAA124995A0C00CC9153 /* ProfileViewControllerXibs */ = {
 			isa = PBXGroup;
 			children = (
+				889FCAA5249966EC00CC9153 /* AccountViewControllerXib.xib */,
+				889FCAA92499671D00CC9153 /* SettingsViewControllerXib.xib */,
+				889FCAAD2499677100CC9153 /* AboutThisAppViewControllerXib.xib */,
+				889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */,
 			);
-			name = "Recovered References";
+			path = ProfileViewControllerXibs;
+			sourceTree = "<group>";
+		};
+		889FCAA224995A3900CC9153 /* ProfileViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				889FCAA72499670300CC9153 /* AccountViewController.swift */,
+				889FCAAB2499672C00CC9153 /* SettingsViewController.swift */,
+				889FCAAF2499678800CC9153 /* AboutThisAppViewController.swift */,
+				889FCAB3249967F200CC9153 /* FAQViewController.swift */,
+			);
+			path = ProfileViewControllers;
 			sourceTree = "<group>";
 		};
 		B725C22D2476832F000811C5 = {
@@ -283,8 +309,6 @@
 				B725C2372476832F000811C5 /* Products */,
 				5956DD7DDBAFC9F24FDEE2CA /* Pods */,
 				4249468C7066E63C865B619C /* Frameworks */,
-				8877E08F24943274006FC043 /* Recovered References */,
-				B7A865D92494372F00AC456F /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -308,9 +332,8 @@
 				B7976E832480504C001AE3B3 /* Xibs */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
-
+				889FCAA3249965A000CC9153 /* GoogleService-Info.plist */,
 				B725C24724768331000811C5 /* Info.plist */,
-
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -318,6 +341,7 @@
 		B7976E0C247687FB001AE3B3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				889FCAA224995A3900CC9153 /* ProfileViewControllers */,
 				B7976E50247E9D16001AE3B3 /* MainTabBarController.swift */,
 				B7976E57247EA3E6001AE3B3 /* LoginController.swift */,
 				B7976E59247EA404001AE3B3 /* SignUpController.swift */,
@@ -372,9 +396,7 @@
 				B7A865BD2490D60F00AC456F /* UITextFieldExt.swift */,
 				8809883C24956537006EA9D0 /* UIViewExt.swift */,
 				521402172493F01900ADF7BE /* ApplicationInfo.swift */,
-
 				8828B97024981F0E00151F10 /* ArrayExt.swift */,
-
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -464,6 +486,7 @@
 				B7976EA224805EA2001AE3B3 /* SettingsXib.xib */,
 				884E5571248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib */,
 				C6E214E32488066B0054CC3C /* FilterMenuViewControllerXib.xib */,
+				889FCAA124995A0C00CC9153 /* ProfileViewControllerXibs */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -482,13 +505,6 @@
 				52F81DBA249260300052532B /* SettingCell.xib */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		B7A865D92494372F00AC456F /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -585,6 +601,7 @@
 				C6E214EA248941E50054CC3C /* InterviewAnswerSuggestionXib.xib in Resources */,
 				B7976E9924805D02001AE3B3 /* InterviewQuestionEntryXib.xib in Resources */,
 				B7976EAB2480609F001AE3B3 /* InterviewQuestionCellXib.xib in Resources */,
+				889FCAB2249967E300CC9153 /* FAQViewControllerXib.xib in Resources */,
 				B7976E9D24805D91001AE3B3 /* ApplicationTrackerXib.xib in Resources */,
 				B7976E9B24805D2B001AE3B3 /* InterviewAnswerDetailXib.xib in Resources */,
 				B7976EA324805EA2001AE3B3 /* SettingsXib.xib in Resources */,
@@ -593,14 +610,17 @@
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
-
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
 				B7976E892480524F001AE3B3 /* StarStoryMainXib.xib in Resources */,
+				889FCAA6249966EC00CC9153 /* AccountViewControllerXib.xib in Resources */,
+				889FCAA4249965A000CC9153 /* GoogleService-Info.plist in Resources */,
 				B7976EAD248060B9001AE3B3 /* JobApplicationCellXib.xib in Resources */,
 				B7976E4F247E9A3E001AE3B3 /* LoginView.storyboard in Resources */,
 				B7976EA924806085001AE3B3 /* StarSituationCellXib.xib in Resources */,
 				884E555C248408CF00BA180F /* UserContactCVCell.xib in Resources */,
+				889FCAAA2499671D00CC9153 /* SettingsViewControllerXib.xib in Resources */,
 				B7976E9524805C9B001AE3B3 /* StarStoryEntryXib.xib in Resources */,
+				889FCAAE2499677100CC9153 /* AboutThisAppViewControllerXib.xib in Resources */,
 				B7976E87248051D8001AE3B3 /* JobEntryXib.xib in Resources */,
 				B7976E9724805CDA001AE3B3 /* InterviewQuestionsMainXib.xib in Resources */,
 				B7976E9F24805E21001AE3B3 /* NewApplicationXib.xib in Resources */,
@@ -708,6 +728,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				889FCAA82499670300CC9153 /* AccountViewController.swift in Sources */,
 				884E555E2484094100BA180F /* UserContactCVCell.swift in Sources */,
 				8838A4D1248E60D400217DA1 /* PersistenceHelper.swift in Sources */,
 				B79F4B8324905536009523EE /* HairlineView.swift in Sources */,
@@ -730,9 +751,11 @@
 				B7976E2D247D500B001AE3B3 /* UserJob.swift in Sources */,
 				C6AC379C248592DA00957B61 /* InterviewQuestionCell.swift in Sources */,
 				B7976E45247D8F40001AE3B3 /* InterviewAnswerDetailController.swift in Sources */,
+				889FCAAC2499672C00CC9153 /* SettingsViewController.swift in Sources */,
 				B7271670248117F600276478 /* AuthenticationSession.swift in Sources */,
 				B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */,
 				B7976E31247D5169001AE3B3 /* InterviewQuestion.swift in Sources */,
+				889FCAB4249967F200CC9153 /* FAQViewController.swift in Sources */,
 				B7976E3F247D77FA001AE3B3 /* StarStoryEntryController.swift in Sources */,
 				C6AC379E2485DACC00957B61 /* QuestionAnswerDetailCell.swift in Sources */,
 				B79F4B48248F64AF009523EE /* AnsweredQuestionDatabaseServices.swift in Sources */,
@@ -757,6 +780,7 @@
 				884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */,
 				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
 				B7976E56247EA2D9001AE3B3 /* EmptyView.swift in Sources */,
+				889FCAB02499678800CC9153 /* AboutThisAppViewController.swift in Sources */,
 				B7A865D22491C58B00AC456F /* InterviewEntryView.swift in Sources */,
 				B79F4B44248F62F7009523EE /* InterviewQuestionsDatabaseServices.swift in Sources */,
 				B78EE8382497EAB700F7E973 /* NewJobEntryController.swift in Sources */,
