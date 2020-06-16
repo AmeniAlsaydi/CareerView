@@ -33,13 +33,15 @@ class ApplicationDetailController: UIViewController {
     
     @IBOutlet weak var mapHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var addInterviewButton: UIButton!
-    
     var jobApplication: JobApplication 
     
     private var interviewCount = 0
     
+    private var interviewData = [Interview]()
+    
     private var interviewViewHeight: NSLayoutConstraint!
+    
+    private var interviewView = ApplicationDetailView()
     
     init(_ jobApplication: JobApplication) {
         self.jobApplication = jobApplication
@@ -49,18 +51,34 @@ class ApplicationDetailController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         configureDetailVC(application: jobApplication)
+        getInterview(application: jobApplication)
         configureMapView()
         loadMap()
         configureNavBar()
     }
     
     private func configureNavBar() {
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(moreOptionsButtonPressed(_:)))
+    }
+    
+    public func getInterview(application: JobApplication) {
+        DatabaseService.shared.getApplicationInterview(applicationID: application.id) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("couldnt get any interviews \(error.localizedDescription)")
+            case .success(let interviews):
+                DispatchQueue.main.async {
+                    self?.interviewCount = interviews.count
+                    self?.interviewData = interviews
+                    self?.updateInterview()
+                    print("This is the interview count \(self?.interviewCount ?? 0)")
+                }
+            }
+        }
     }
     
     public func configureDetailVC(application: JobApplication) {
@@ -140,33 +158,34 @@ class ApplicationDetailController: UIViewController {
         return annotations
     }
     
-    
-    @IBAction func addInterviewPressed(_ sender: UIButton) {
-        interviewCount += 1
+    private func updateInterview() {
         
         switch interviewCount {
+        case 0 :
+            view1.isHidden = true
+            view2.isHidden = true
+            view3.isHidden = true
         case 1:
-            interviewViewHeight = view1Height
+            view1Height.constant = 150
+            view2.isHidden = true
+            view3.isHidden = true
+            interviewView.configureUI(interview: interviewData[0])
         case 2:
-            interviewViewHeight = view2Height
+            view1Height.constant = 150
+            view2Height.constant = 150
+            view3.isHidden = true
         case 3:
-            interviewViewHeight = view3Height
+            view1Height.constant = 150
+            view2Height.constant = 150 
+            view3Height.constant = 150
+            interviewView.configureUI(interview: interviewData[0])
+            interviewView.configureUI(interview: interviewData[1])
+            interviewView.configureUI(interview: interviewData[2])
         default:
             print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
         }
-        
-        view.layoutIfNeeded() 
-        
-        UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            self.interviewViewHeight.constant = 150
-            self.view.layoutIfNeeded()
-        })
-        
-        if interviewCount == 3 {
-            addInterviewButton.isHidden = true
-        }
+        view.layoutIfNeeded()
     }
-    
     
     @objc
     func moreOptionsButtonPressed(_ sender: UIButton) {
@@ -190,6 +209,7 @@ class ApplicationDetailController: UIViewController {
             let applicationEntryVC = NewApplicationController(nibName: "NewApplicationXib", bundle: nil)
             applicationEntryVC.editingApplication = true
             applicationEntryVC.jobApplication = self?.jobApplication
+            applicationEntryVC.interviewData = self?.interviewData  
             self?.show(applicationEntryVC, sender: nil)
         }
         
@@ -216,5 +236,3 @@ extension ApplicationDetailController: MKMapViewDelegate {
         return annotationView
     }
 }
-
-

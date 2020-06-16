@@ -44,6 +44,8 @@ class NewApplicationController: UIViewController {
     
     public var jobApplication: JobApplication?  // FIXME: Is this the right way, use dependency injection?
     
+    public var interviewData: [Interview]? // 0 1 2 
+    
     private var hasApplied = false {
         didSet {
             view.layoutIfNeeded()
@@ -111,6 +113,7 @@ class NewApplicationController: UIViewController {
     private func updateApplicationUI() {
         if editingApplication {
             // update UI - Ameni
+            
             guard let application = jobApplication else {fatalError("no application was passed")}
             companyNameTextField.text = application.companyName
             positionTitleTextField.text = application.positionTitle
@@ -130,6 +133,8 @@ class NewApplicationController: UIViewController {
             positionURLTextField.text = application.positionURL
             notesTextField.text = application.notes
         }
+        
+        editingInterviewViews()
     }
     
     private func addTargets() {
@@ -370,7 +375,6 @@ class NewApplicationController: UIViewController {
     private func addInterviews(_ applicationID: String) {
         
         if  interviewEntryView1.hasInterviewData {
-            
             addInterview(interviewEntryView1, applicationID: applicationID)
         }
         
@@ -403,6 +407,35 @@ class NewApplicationController: UIViewController {
                 print("error add interview to application: \(error)")
             case .success:
                 print("interview was added successfully to application")
+            }
+        }
+    }
+    
+    private func editingInterviewViews() {
+        if editingApplication {
+            guard let interviewData = interviewData else {return}
+            
+            switch interviewData.count {
+            case 0:
+                print("no interview")
+            case 1:
+                interviewEntryView1Height.constant = 150
+                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString()
+            case 2:
+                interviewEntryView1Height.constant = 150
+                interviewEntryView2Height.constant = 150
+                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString()
+                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString()
+            case 3:
+                interviewEntryView1Height.constant = 150
+                interviewEntryView2Height.constant = 150
+                interviewEntryView3Height.constant = 150
+                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString()
+                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString()
+                interviewEntryView3.dateTextField.text = interviewData[2].interviewDate?.dateValue().dateString()
+                addInterviewStack.isHidden = true
+            default:
+                print("break")
             }
         }
     }

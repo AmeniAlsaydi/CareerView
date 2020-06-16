@@ -9,7 +9,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ApplicationDetailController" customModule="Capstone" customModuleProvider="target">
             <connections>
-                <outlet property="addInterviewButton" destination="C3F-gG-A20" id="wgU-mw-Q4X"/>
                 <outlet property="applicationStatusLabel" destination="MPQ-bb-COS" id="ju6-f0-6iQ"/>
                 <outlet property="appliedAsLabel" destination="4Ct-KT-HKE" id="dJ5-aT-5SW"/>
                 <outlet property="appliedToLabel" destination="94P-5l-wtT" id="aeI-ir-7jK"/>
@@ -41,7 +40,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="89K-Is-oGd" userLabel="Content View">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="588.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Applied To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94P-5l-wtT">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Applied To" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94P-5l-wtT">
                                     <rect key="frame" x="20" y="8" width="374" height="41"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="34"/>
                                     <nil key="textColor"/>
@@ -91,23 +90,23 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gs-O2-vVX" userLabel="view 1" customClass="InterviewEntryView" customModule="Capstone" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gs-O2-vVX" userLabel="view 1" customClass="ApplicationDetailView" customModule="Capstone" customModuleProvider="target">
                                     <rect key="frame" x="20" y="548.5" width="374" height="0.0"/>
-                                    <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" id="PBo-Fg-9Cf"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dem-ki-EYW" userLabel="view 2" customClass="InterviewEntryView" customModule="Capstone" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dem-ki-EYW" userLabel="view 2" customClass="ApplicationDetailView" customModule="Capstone" customModuleProvider="target">
                                     <rect key="frame" x="20" y="558.5" width="374" height="0.0"/>
-                                    <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" id="OJJ-Lr-tSJ"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bL4-gh-oH7" userLabel="view 3 " customClass="InterviewEntryView" customModule="Capstone" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bL4-gh-oH7" userLabel="view 3 " customClass="ApplicationDetailView" customModule="Capstone" customModuleProvider="target">
                                     <rect key="frame" x="20" y="568.5" width="374" height="0.0"/>
-                                    <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" id="fd4-sF-4ys"/>
                                     </constraints>
@@ -118,13 +117,6 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3F-gG-A20">
-                                    <rect key="frame" x="374" y="513" width="20" height="30"/>
-                                    <state key="normal" image="plus.circle" catalog="system"/>
-                                    <connections>
-                                        <action selector="addInterviewPressed:" destination="-1" eventType="touchUpInside" id="RDu-HP-92A"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
@@ -141,7 +133,6 @@
                                 <constraint firstItem="4Ct-KT-HKE" firstAttribute="top" secondItem="MPQ-bb-COS" secondAttribute="bottom" constant="8" id="I12-t7-U2X"/>
                                 <constraint firstAttribute="trailing" secondItem="MPQ-bb-COS" secondAttribute="trailing" constant="20" id="IXg-nE-rdp"/>
                                 <constraint firstItem="tdK-XV-ht8" firstAttribute="leading" secondItem="89K-Is-oGd" secondAttribute="leading" constant="20" id="KqK-Gj-Gcv"/>
-                                <constraint firstItem="UDp-Y2-DAT" firstAttribute="centerY" secondItem="C3F-gG-A20" secondAttribute="centerY" id="LJ7-Ek-1KB"/>
                                 <constraint firstItem="vgo-uG-0fe" firstAttribute="top" secondItem="94P-5l-wtT" secondAttribute="bottom" constant="8" id="LPe-f6-l4J"/>
                                 <constraint firstItem="zVH-cl-NWz" firstAttribute="leading" secondItem="89K-Is-oGd" secondAttribute="leading" constant="20" id="MoY-um-yDF"/>
                                 <constraint firstAttribute="trailing" secondItem="zVH-cl-NWz" secondAttribute="trailing" constant="20" id="NIR-Pm-o4L"/>
@@ -149,7 +140,6 @@
                                 <constraint firstAttribute="trailing" secondItem="tdK-XV-ht8" secondAttribute="trailing" constant="20" id="UEv-hN-D3U"/>
                                 <constraint firstItem="bL4-gh-oH7" firstAttribute="leading" secondItem="89K-Is-oGd" secondAttribute="leading" constant="20" id="WLd-Cj-nuQ"/>
                                 <constraint firstItem="nhF-K5-6KO" firstAttribute="top" secondItem="zVH-cl-NWz" secondAttribute="bottom" constant="8" id="Xca-F5-71T"/>
-                                <constraint firstAttribute="trailing" secondItem="C3F-gG-A20" secondAttribute="trailing" constant="20" id="YQs-WS-2zm"/>
                                 <constraint firstItem="zVH-cl-NWz" firstAttribute="top" secondItem="4Ct-KT-HKE" secondAttribute="bottom" constant="8" id="aLY-dq-yfv"/>
                                 <constraint firstItem="MPQ-bb-COS" firstAttribute="top" secondItem="vgo-uG-0fe" secondAttribute="bottom" constant="10" id="axa-cK-b61"/>
                                 <constraint firstItem="bL4-gh-oH7" firstAttribute="top" secondItem="dem-ki-EYW" secondAttribute="bottom" constant="10" id="d05-2g-YPm"/>
@@ -166,7 +156,6 @@
                                 <constraint firstAttribute="trailing" secondItem="dem-ki-EYW" secondAttribute="trailing" constant="20" id="v4n-QJ-g9c"/>
                                 <constraint firstAttribute="trailing" secondItem="nhF-K5-6KO" secondAttribute="trailing" constant="20" id="vBs-dl-HAo"/>
                                 <constraint firstItem="qha-ww-Y2a" firstAttribute="leading" secondItem="89K-Is-oGd" secondAttribute="leading" constant="20" id="w5z-Ro-18o"/>
-                                <constraint firstItem="C3F-gG-A20" firstAttribute="top" secondItem="qha-ww-Y2a" secondAttribute="bottom" constant="3.5" id="xbf-G3-MZY"/>
                                 <constraint firstItem="4Ct-KT-HKE" firstAttribute="leading" secondItem="89K-Is-oGd" secondAttribute="leading" constant="20" id="zYr-Ky-HUo"/>
                             </constraints>
                         </view>
@@ -194,7 +183,4 @@
             <point key="canvasLocation" x="-142.02898550724638" y="138.61607142857142"/>
         </view>
     </objects>
-    <resources>
-        <image name="plus.circle" catalog="system" width="128" height="121"/>
-    </resources>
 </document>
