@@ -220,24 +220,36 @@ class JobEntryController: UIViewController {
     }
     //MARK: Save userJob
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
+        
         populateUserJobResponsibilities()
+        
+        // Handling dates
         let beginDateFromField = formatDates(month: beginDateMonthTextField.text ?? "", year: beginDateYearTextField.text ?? "")
         let endDateFromField = formatDates(month: endDateMonthTextField.text ?? "", year: endDateYearTextField.text ?? "")
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/yyyy"
         let beginDateTimeStamp = Timestamp(date: (beginDateFromField ?? dateFormatter.date(from: "1/1970"))!)
         let endDateTimeStamp = Timestamp(date: (endDateFromField ?? Date()))
+        
+        // Handling Responsibilities
         guard let jobResponsibilities = responsibilities else {
             showAlert(title: "Responsibilities empty", message: "please enter at least one responsibility to save your job")
             return
         }
+        
+        // id
         var id = UUID().uuidString
         if editingJob {
             id = userJob?.id ?? UUID().uuidString
         }
+        
+        // remove dups from star situations array
         let uniqueStarIDs = starSituationIDsToAdd.removingDuplicates()
         
+        // creating user job object
         let userJobToSave = UserJob(id: id, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", location: locationTextField?.text ?? "", beginDate: beginDateTimeStamp, endDate: endDateTimeStamp, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: jobResponsibilities, starSituationIDs: uniqueStarIDs, interviewQuestionIDs: linkedInterviewQuestions)
+        
+        // sending object to firebase
         DatabaseService.shared.addToUserJobs(userJob: userJobToSave, completion: { [weak self] (result) in
             switch result {
             case .failure(let error):
@@ -245,6 +257,7 @@ class JobEntryController: UIViewController {
                     self?.showAlert(title: "Failed to save job", message: error.localizedDescription)
                 }
             case .success:
+                // show alert plus pop VC
                 DispatchQueue.main.async {
                     if self?.editingJob ?? false {
                         self?.showAlert(title: "Job Updated!", message: "Success!")  { (alert) in
@@ -258,6 +271,8 @@ class JobEntryController: UIViewController {
                 }
             }
         })
+        
+        // send contacts to contacts collection for user job
         if userContacts.count != 0 {
             for contact in userContacts {
                 DatabaseService.shared.addContactsToUserJob(userJobId: userJobToSave.id, contact: contact, completion: { [weak self] (results) in
@@ -273,10 +288,14 @@ class JobEntryController: UIViewController {
             }
         }
     }
+    
+    // IGNORE THIS - i handled it differently ****
     @IBAction func currentlyEmployedButtonPressed(_ sender: UIButton) {
         currentlyEmployed.toggle()
         configureCurrentlyEmployedButton(currentlyEmployed)
     }
+    
+    
     @objc func keyboardWillChange(notification: Notification) {
         let userInfo = notification.userInfo!
         let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue

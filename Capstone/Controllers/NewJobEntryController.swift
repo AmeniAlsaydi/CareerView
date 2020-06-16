@@ -24,6 +24,12 @@ class NewJobEntryController: UIViewController {
     
     @IBOutlet weak var currentEmployerButton: UIButton!
     
+    public var starSituationIDsToAdd = [String]() {
+        didSet {
+            print(starSituationIDsToAdd.count)
+        }
+    }
+    
     private var isCurrentEmployer = false {
         didSet {
             if isCurrentEmployer {
@@ -67,6 +73,11 @@ class NewJobEntryController: UIViewController {
     
     @IBAction func addStarSituationButtonPressed(_ sender: UIButton) {
         // display star situations
+        let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        starStoryVC.starSituationIDs = starSituationIDsToAdd
+        starStoryVC.isAddingToUserJob = true
+        starStoryVC.delegate = self
+        present(UINavigationController(rootViewController: starStoryVC), animated: true)
         // allow them to select
         // add ids to an array (used in the created of the job)
         // display them on the collection view
@@ -79,4 +90,11 @@ class NewJobEntryController: UIViewController {
         // display them on the collection view
     }
     
+}
+
+
+extension NewJobEntryController: StarStoryMainControllerDelegate {
+    func starStoryMainViewControllerDismissed(starSituations: [String]) {
+        starSituationIDsToAdd = starSituations
+    }
 }
