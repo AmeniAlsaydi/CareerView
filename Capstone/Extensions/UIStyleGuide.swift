@@ -11,7 +11,7 @@ import UIKit
 
 class AppColors {
     static let colors = AppColors()
-    private init() {}
+    
     //MARK:- Style Guide: Purples should be reserved for features that need to stand out or tell the user something is clickable/ interactive. Examples: UIButtons, Progress Bar, etc.
     static let primaryPurpleColor: UIColor = #colorLiteral(red: 0.2280851007, green: 0, blue: 0.5494799614, alpha: 1)
     static let secondaryPurpleColor: UIColor = #colorLiteral(red: 0.4743034244, green: 0, blue: 1, alpha: 1)
@@ -32,6 +32,8 @@ class AppColors {
     private let gradientBlue: UIColor = #colorLiteral(red: 0.08412662894, green: 0.08182061464, blue: 0.3485977948, alpha: 1)
     private let gradientPurple: UIColor = #colorLiteral(red: 0.33890149, green: 0.0695855394, blue: 0.6190637946, alpha: 1)
     
+    private init() {}
+    
     public func gradientBackground(view: UIView) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.startPoint = CGPoint(x: 0.3, y: 1.0)
@@ -42,4 +44,14 @@ class AppColors {
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+}
+class AppFonts {
+    static let fonts = AppFonts()
+    
+    static let primaryFont = UIFont(name: "Avenir-Regular", size: 20)
+    static let boldFont = UIFont(name: "Avenir-Heavy", size: 25)
+    static let semiBold = UIFont(name: "Avenir-Medium", size: 25)
+    static let secondaryFont = UIFont(name: "Helvetica", size: 17)
+    
+    private init() {}
 }

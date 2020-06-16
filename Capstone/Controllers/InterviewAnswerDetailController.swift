@@ -20,6 +20,9 @@ class InterviewAnswerDetailController: UIViewController {
     @IBOutlet weak var confirmAddAnswerButton: UIButton!
     @IBOutlet weak var cancelAnswerButton: UIButton!
     @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var promptLabel: UILabel!
+    @IBOutlet weak var answersLabel: UILabel!
+    @IBOutlet weak var starstoriesLabel: UILabel!
     
     private var listener: ListenerRegistration?
     public var question: InterviewQuestion?
@@ -87,8 +90,18 @@ class InterviewAnswerDetailController: UIViewController {
         super.viewDidDisappear(true)
         listener?.remove()
     }
-    //MARK:- UI/AppColors
+    //MARK:- UI
+    private func appFonts() {
+        questionLabel.font = AppFonts.semiBold
+        promptLabel.font = AppFonts.secondaryFont
+        promptLabel.textColor = AppColors.primaryBlackColor
+        answersLabel.font = AppFonts.secondaryFont
+        answersLabel.textColor = AppColors.darkGrayHighlightColor
+        starstoriesLabel.font = AppFonts.secondaryFont
+        starstoriesLabel.textColor = AppColors.darkGrayHighlightColor
+    }
     private func updateUI() {
+        appFonts()
         hideAddAnswerElements()
         configureNavBar()
         configureCollectionViews()

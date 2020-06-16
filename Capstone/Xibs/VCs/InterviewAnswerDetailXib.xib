@@ -11,12 +11,15 @@
             <connections>
                 <outlet property="addAnswerButton" destination="8Bb-ig-QSj" id="j9h-T8-dcE"/>
                 <outlet property="answersCollectionView" destination="dbf-iK-Whd" id="zMK-bE-6Fj"/>
+                <outlet property="answersLabel" destination="FKW-dx-599" id="YHs-GR-cwb"/>
                 <outlet property="cancelAnswerButton" destination="vgv-3d-onP" id="U2G-yO-uV6"/>
                 <outlet property="confirmAddAnswerButton" destination="tB6-B4-ydu" id="VmA-HK-JrW"/>
                 <outlet property="enterAnswerTextfield" destination="sHD-Sd-JwC" id="yao-hc-U0H"/>
+                <outlet property="promptLabel" destination="GVk-ic-lla" id="AfF-WP-4mq"/>
                 <outlet property="questionLabel" destination="0GE-L5-SBQ" id="out-1E-7gQ"/>
                 <outlet property="scrollview" destination="cRa-66-viD" id="nh0-fi-EWZ"/>
                 <outlet property="starStoriesCollectionView" destination="FvK-Jj-m8Q" id="wRK-Dm-iz1"/>
+                <outlet property="starstoriesLabel" destination="d5c-hs-Rqv" id="u3G-OB-gOs"/>
                 <outlet property="view" destination="N40-64-mQx" id="Ng3-1f-krt"/>
             </connections>
         </placeholder>

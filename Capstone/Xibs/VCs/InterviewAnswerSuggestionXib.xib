@@ -9,6 +9,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InterviewAnswerSuggestionViewController" customModule="Capstone" customModuleProvider="target">
             <connections>
+                <outlet property="directionsLabel" destination="Y5M-xq-EWF" id="uZk-OC-kqK"/>
+                <outlet property="promptLabel" destination="gPj-Uh-MBl" id="yLI-Ci-M5s"/>
                 <outlet property="purpleView" destination="poI-Ey-vWo" id="LVk-CR-ftS"/>
                 <outlet property="suggestionLabel" destination="2oC-1g-ccY" id="WKh-Rf-b8o"/>
                 <outlet property="view" destination="iN0-l3-epB" id="cW6-5I-dVc"/>
@@ -32,7 +34,7 @@
                     <rect key="frame" x="30" y="74" width="354" height="627"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="poI-Ey-vWo" userLabel="Purple View">
-                            <rect key="frame" x="0.0" y="0.0" width="354" height="125.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="354" height="157"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here's a tip on how to answer this question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPj-Uh-MBl">
                                     <rect key="frame" x="20" y="62" width="314" height="54.5"/>
@@ -59,13 +61,13 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suggestion" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2oC-1g-ccY">
-                            <rect key="frame" x="20" y="135.5" width="314" height="20.5"/>
+                            <rect key="frame" x="20" y="167" width="314" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer this question by entering attaching a STAR Story or a freeform answer." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5M-xq-EWF">
-                            <rect key="frame" x="20" y="176" width="314" height="61"/>
+                            <rect key="frame" x="20" y="207.5" width="314" height="61"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -74,7 +76,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstItem="poI-Ey-vWo" firstAttribute="top" secondItem="e65-CM-VOh" secondAttribute="top" id="48O-hb-HAo"/>
-                        <constraint firstItem="poI-Ey-vWo" firstAttribute="height" secondItem="e65-CM-VOh" secondAttribute="height" multiplier="0.2" id="6Zh-Tt-pXT"/>
+                        <constraint firstItem="poI-Ey-vWo" firstAttribute="height" secondItem="e65-CM-VOh" secondAttribute="height" multiplier="0.25" id="6Zh-Tt-pXT"/>
                         <constraint firstItem="2oC-1g-ccY" firstAttribute="leading" secondItem="e65-CM-VOh" secondAttribute="leading" constant="20" id="9If-zI-f1v"/>
                         <constraint firstAttribute="trailing" secondItem="2oC-1g-ccY" secondAttribute="trailing" constant="20" id="GzI-MR-KBt"/>
                         <constraint firstItem="Y5M-xq-EWF" firstAttribute="top" secondItem="2oC-1g-ccY" secondAttribute="bottom" constant="20" id="OZI-s2-eYC"/>
