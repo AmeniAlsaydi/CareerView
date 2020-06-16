@@ -54,10 +54,42 @@ class NewJobEntryController: UIViewController {
         }
     }
     
+    let datePicker = UIDatePicker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
         styleAllTextFields()
+    }
+    
+    func createDatePicker() {
+        // toolbar
+        let toolbar = UIToolbar()
+        
+        toolbar.sizeToFit()
+        
+        // bar button
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        toolbar.setItems([doneButton], animated: true)
+        
+        // assign toolbar
+        beginDateTextField.inputAccessoryView = toolbar
+        endDateTextField.inputAccessoryView = toolbar
+        
+        // assign date picker to text feild
+        beginDateTextField.inputView = datePicker
+        endDateTextField.inputView = datePicker
+        
+        // date picker mode
+        datePicker.datePickerMode = .date
+    }
+    
+    @objc func doneButtonPressed() {
+        
+        beginDateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+        // need to handle end date 
+        // date = datePicker.date
+        self.view.endEditing(true)
     }
     
     private func configureNavBar() {
@@ -98,7 +130,7 @@ class NewJobEntryController: UIViewController {
     }
     
     @IBAction func addContactsButtonPressed(_ sender: UIButton) {
-        // display contacts
+        // display contacts controller
         
         //Note: This will check for access to contact permission and if not determined, ask again
         // If the user denied permission, they will directed to settings where they can give permission to the app
@@ -116,9 +148,7 @@ class NewJobEntryController: UIViewController {
         } else if authorizationStatus == .authorized {
             retrieveContacts()
         }
-
         
-        // allow them to select
         // add contacts to an array (will be used to add to the contacts collection)
         // display them on the collection view
     }
