@@ -27,6 +27,8 @@ class NewJobEntryController: UIViewController {
     
     @IBOutlet weak var currentEmployerButton: UIButton!
     
+    private var activeTextField = UITextField()
+    
     public var starSituationIDsToAdd = [String]() {
         didSet {
             print(starSituationIDsToAdd.count) // just to test we get back stars
@@ -60,9 +62,19 @@ class NewJobEntryController: UIViewController {
         super.viewDidLoad()
         configureNavBar()
         styleAllTextFields()
+        createDatePicker()
+//         beginDateTextField.delegate = self
+        setUpDelegateForTextFields()
     }
     
-    func createDatePicker() {
+    private func setUpDelegateForTextFields() {
+        beginDateTextField.delegate = self
+        endDateTextField.delegate = self
+    }
+    
+    
+    // FIXME: this function is used if both forms - make it reusable
+    private func createDatePicker() {
         // toolbar
         let toolbar = UIToolbar()
         
@@ -86,7 +98,11 @@ class NewJobEntryController: UIViewController {
     
     @objc func doneButtonPressed() {
         
-        beginDateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+        if activeTextField == beginDateTextField {
+            beginDateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+        } else if activeTextField == endDateTextField {
+            endDateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+        }
         // need to handle end date 
         // date = datePicker.date
         self.view.endEditing(true)
@@ -180,5 +196,11 @@ extension NewJobEntryController: CNContactPickerDelegate {
 extension NewJobEntryController: StarStoryMainControllerDelegate {
     func starStoryMainViewControllerDismissed(starSituations: [String]) {
         starSituationIDsToAdd = starSituations
+    }
+}
+
+extension NewJobEntryController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField as! FloatingLabelInput
     }
 }
