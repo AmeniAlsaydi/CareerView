@@ -9,7 +9,9 @@
 ## Description
 
 ## Screenshots of App
-![Wireframe](Media/Wireframe.jpg)
+
+<img src="Media/Wireframe.jpg" alt="Wireframe" width="600" height="600" />
+
 
 ## Frameworks used
 #### - UIKit 
