@@ -109,6 +109,36 @@ class NewJobEntryController: UIViewController {
         configureContactsCollectionView()
         configureStarSituationCollectionView()
         configureSituationsCollectionView()
+        loadUserJob()
+    }
+    
+    private func loadUserJob() {
+        
+        if editingJob {
+             guard let job = userJob else { return }
+            positionTitleTextField.text = job.title
+            companyNameTextField.text = job.companyName
+            isCurrentEmployer = job.currentEmployer
+            locationTextField.text = job.location
+            descriptionTextField.text = job.description
+            beginDateTextField.text = job.beginDate.dateValue().dateString()
+            endDateTextField.text = job.endDate.dateValue().dateString()
+            starSituationIDsToAdd = job.starSituationIDs
+            
+            responsibility1TextField.text = job.responsibilities[0]
+            
+            switch job.responsibilities.count {
+            case 2:
+                responsibility2TextField.text = job.responsibilities[1]
+            case 3:
+                responsibility2TextField.text = job.responsibilities[1]
+                responsibility3TextField.text = job.responsibilities[2]
+            default:
+                print("")
+            }
+            
+            
+        }
     }
     
     private func setUpDelegateForTextFields() {
@@ -181,12 +211,6 @@ class NewJobEntryController: UIViewController {
     
     
     @objc private func saveJobButtonPressed(_ sender: UIBarButtonItem) {
-        // create new job and add to datebase
-        print("create new job and add to datebase")
-        
-        // create use job object
-        
-        // check mandatory fields
         
         var userJobId = UUID().uuidString
         
