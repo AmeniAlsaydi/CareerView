@@ -28,7 +28,16 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var customButton: UIButton!
     
     private var listener: ListenerRegistration?
-    private var isFilterOn = false
+    private var isFilterOn = false {
+        didSet {
+            if isFilterOn {
+                //TODO: when filter is hidden, snap the collectionview to search bar
+                filterButtonsStack.isHidden = false
+            } else {
+                filterButtonsStack.isHidden = true
+            }
+        }
+    }
     public var filterState: FilterState = .all {
         didSet {
             questionsCollectionView.reloadData()
@@ -121,17 +130,29 @@ class InterviewQuestionsMainController: UIViewController {
     private func updateUI() {
         view.backgroundColor = AppColors.complimentaryBackgroundColor
         isFilterOn = false
-        filterButtonsStack.isHidden = true
         questionsCollectionView.backgroundColor = .clear
+        buttonsUI()
+        roundButtons()
+    }
+    private func buttonsUI() {
         allButton.titleLabel?.font = AppFonts.semiBoldSmall
         bookmarksButton.titleLabel?.font = AppFonts.semiBoldSmall
         commonButton.titleLabel?.font = AppFonts.semiBoldSmall
         customButton.titleLabel?.font = AppFonts.semiBoldSmall
-        allButton.tintColor = AppColors.secondaryPurpleColor
-        allButton.backgroundColor = AppColors.whiteTextColor
-        bookmarksButton.tintColor = AppColors.primaryPurpleColor
-        commonButton.tintColor = AppColors.primaryPurpleColor
-        customButton.tintColor = AppColors.primaryPurpleColor
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.secondaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.secondaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.secondaryPurpleColor
+    }
+    private func roundButtons() {
+        allButton.layer.cornerRadius = 13
+        bookmarksButton.layer.cornerRadius = 13
+        commonButton.layer.cornerRadius = 13
+        customButton.layer.cornerRadius = 13
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
@@ -146,11 +167,6 @@ class InterviewQuestionsMainController: UIViewController {
     //MARK:- FilterMenu
     @objc func presentfilterMenuButtonPressed(_ sender: UIBarButtonItem) {
         isFilterOn.toggle()
-        if isFilterOn {
-            filterButtonsStack.isHidden = false
-        } else {
-            filterButtonsStack.isHidden = true
-        }
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -199,31 +215,47 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     @IBAction func allButtonPressed(_ sender: UIButton) {
-        allButton.tintColor = AppColors.secondaryPurpleColor
-        bookmarksButton.tintColor = AppColors.primaryPurpleColor
-        commonButton.tintColor = AppColors.primaryPurpleColor
-        customButton.tintColor = AppColors.primaryPurpleColor
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.primaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.secondaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.secondaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .all
     }
     @IBAction func bookmarksButtonPressed(_ sender: UIButton) {
-        allButton.tintColor = AppColors.primaryPurpleColor
-        bookmarksButton.tintColor = AppColors.secondaryPurpleColor
-        commonButton.tintColor = AppColors.primaryPurpleColor
-        customButton.tintColor = AppColors.primaryPurpleColor
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.primaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.secondaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .bookmarked
     }
     @IBAction func commonButtonPressed(_ sender: UIButton) {
-        allButton.tintColor = AppColors.primaryPurpleColor
-        bookmarksButton.tintColor = AppColors.primaryPurpleColor
-        commonButton.tintColor = AppColors.secondaryPurpleColor
-        customButton.tintColor = AppColors.primaryPurpleColor
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.secondaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.primaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .common
     }
     @IBAction func customButtomPressed(_ sender: UIButton) {
-        allButton.tintColor = AppColors.primaryPurpleColor
-        bookmarksButton.tintColor = AppColors.primaryPurpleColor
-        commonButton.tintColor = AppColors.primaryPurpleColor
-        customButton.tintColor = AppColors.secondaryPurpleColor
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.secondaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.secondaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.primaryPurpleColor
         filterState = .custom
     }
 }
@@ -232,8 +264,11 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
         let itemWidth: CGFloat = maxsize.width * 0.9
-        let itemHeight: CGFloat = maxsize.height * 0.15
+        let itemHeight: CGFloat = maxsize.height * 0.2
         return CGSize(width: itemWidth, height: itemHeight)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
