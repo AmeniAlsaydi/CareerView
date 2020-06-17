@@ -37,7 +37,16 @@ class NewJobEntryController: UIViewController {
         didSet {
             print(starSituationIDsToAdd.count) // just to test we get back stars
             // reload star story collection
+            // get star situations
+            getStarSituations()
+            
+        }
+    }
+    
+    public var starSituations = [StarSituation]() {
+        didSet {
             self.starSituationsCollectionView.reloadData()
+            
         }
     }
     
@@ -105,6 +114,19 @@ class NewJobEntryController: UIViewController {
     private func setUpDelegateForTextFields() {
         beginDateTextField.delegate = self
         endDateTextField.delegate = self
+    }
+    
+    private func getStarSituations() {
+        DatabaseService.shared.fetchStarSituations { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                self?.showAlert(title: "Error getting star situations", message: "\(error.localizedDescription)")
+            case .success(let situations):
+                let situationsArr: [String] = self?.starSituationIDsToAdd ?? []
+                let situationIDs = Set(situationsArr)
+                self?.starSituations = situations.filter { situationIDs.contains($0.id) }
+            }
+        }
     }
     
     
@@ -335,7 +357,10 @@ extension NewJobEntryController: UICollectionViewDelegateFlowLayout {
         if collectionView == contactsCollectionView {
             return CGSize(width: 150, height: 45) // FIXME: hardcoded values - this is no good
         } else if collectionView == starSituationsCollectionView {
-            return CGSize(width: 200, height: 100)
+            
+            let maxsize: CGSize = UIScreen.main.bounds.size
+            let width: CGFloat = maxsize.width * 0.9
+            return CGSize(width: width, height: 100) // FIXME: hardcoded values - this is no good
         }
          return CGSize(width: 0, height: 0)
     }
@@ -351,10 +376,8 @@ extension NewJobEntryController: UICollectionViewDelegate {
             navigationController?.pushViewController(contactViewController, animated: true)
             
         } else if collectionView == starSituationsCollectionView {
-            // if 
+            // if star situation is selected - do we want/need this?
         }
-        
-       
     }
 }
 
@@ -364,7 +387,7 @@ extension NewJobEntryController: UICollectionViewDataSource {
         if collectionView == contactsCollectionView {
            return userContacts.count
         } else if collectionView == starSituationsCollectionView {
-            return starSituationIDsToAdd.count
+            return starSituations.count
         }
         
         return 1
@@ -386,9 +409,10 @@ extension NewJobEntryController: UICollectionViewDataSource {
                 fatalError("could not down cast to BasicStarSituationCell")
             }
             
-            let sitID = starSituationIDsToAdd[indexPath.row]
-            cell.situationLabel.text = sitID
-            cell.backgroundColor = .red
+            let situation = starSituations[indexPath.row]
+            cell.configureCell(situation)
+            
+            cell.backgroundColor = .white
             return cell
         }
 
