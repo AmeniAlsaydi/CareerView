@@ -9,7 +9,7 @@
 ## Description
 
 ## ScreenShot of App
-![nytImage1](Media/Wireframe.jpg)
+!(Media/Wireframe.jpg)
 
 ## Frameworks used
 #### UIKit 
