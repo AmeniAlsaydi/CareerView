@@ -30,15 +30,15 @@ class InterviewQuestionCell: UICollectionViewCell {
     }
     private func setAppColorsandFonts() {
         interviewQuestionLabel.font = AppFonts.semiBoldLarge
-        connectedStarsLabel.font = AppFonts.secondaryFont
+        connectedStarsLabel.font = AppFonts.subtitleFont
         connectedStarsLabel.textColor = AppColors.darkGrayHighlightColor
-        numberOfStarsLabel.font = AppFonts.secondaryFont
+        numberOfStarsLabel.font = AppFonts.subtitleFont
         numberOfStarsLabel.textColor = AppColors.darkGrayHighlightColor
-        answeredLabel.font = AppFonts.secondaryFont
+        answeredLabel.font = AppFonts.subtitleFont
         answeredLabel.textColor = AppColors.darkGrayHighlightColor
         answerCheckBox.tintColor = AppColors.darkGrayHighlightColor
         AppColors.colors.gradientBackground(view: cellHeaderView)
-        editButton.tintColor = AppColors.primaryPurpleColor
+        editButton.tintColor = AppColors.secondaryPurpleColor
     }
     
     @IBAction func editButtonPressed(_ sender: UIButton) {

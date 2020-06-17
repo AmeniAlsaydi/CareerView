@@ -14,7 +14,7 @@ class AppColors {
     
     //MARK:- Style Guide: Purples should be reserved for features that need to stand out or tell the user something is clickable/ interactive. Examples: UIButtons, Progress Bar, etc.
     static let primaryPurpleColor: UIColor = #colorLiteral(red: 0.2280851007, green: 0, blue: 0.5494799614, alpha: 1)
-    static let secondaryPurpleColor: UIColor = #colorLiteral(red: 0.4743034244, green: 0, blue: 1, alpha: 1)
+    static let secondaryPurpleColor: UIColor = #colorLiteral(red: 0.6090013385, green: 0.1283935905, blue: 0.9983350635, alpha: 1)
     
     //MARK:- Style Guide: Reserve Black for important text, cell headers, and Navigation Bar items. Example: Interview Question Cell color view, Nav Bar buttons and titles, Job Title, etc.
     static let primaryBlackColor: UIColor = .label
@@ -56,7 +56,7 @@ class AppFonts {
     static let semiBoldLarge = UIFont(name: "Avenir-Medium", size: 20)
     static let semiBoldSmall = UIFont(name: "Avenir-Medium", size: 17)
     static let secondaryFont = UIFont(name: "Helvetica", size: 17)
-    
+    static let subtitleFont = UIFont(name: "Avenir", size: 14)
     private init() {}
 }
 class AppButtonIcons {
@@ -80,7 +80,7 @@ class AppButtonIcons {
     public func navBarBackButtonItem(navigationItem: UINavigationItem) {
         let backItem = UIBarButtonItem()
         backItem.title = ""
-        backItem.image = navBarBackButton
+        //backItem.image = navBarBackButton
         navigationItem.backBarButtonItem = backItem
     }
 }
