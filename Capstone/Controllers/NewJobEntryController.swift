@@ -13,6 +13,7 @@ import ContactsUI
 
 class NewJobEntryController: UIViewController {
     
+    //MARK: TextFields
     @IBOutlet weak var positionTitleTextField: FloatingLabelInput!
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
     @IBOutlet weak var locationTextField: FloatingLabelInput!
@@ -22,9 +23,12 @@ class NewJobEntryController: UIViewController {
     @IBOutlet weak var responsibility1TextField: FloatingLabelInput!
     @IBOutlet weak var responsibility2TextField: FloatingLabelInput!
     @IBOutlet weak var responsibility3TextField: FloatingLabelInput!
-    @IBOutlet weak var starSituationsCollectionView: UICollectionView!
-    @IBOutlet weak var contactsCollectionView: UICollectionView!
     
+    //MARK: CollectionViews
+    @IBOutlet weak var contactsCollectionView: UICollectionView!
+    @IBOutlet weak var starSituationsCollectionView: UICollectionView!
+    
+    //MARK: Buttons
     @IBOutlet weak var currentEmployerButton: UIButton!
     
     private var activeTextField = UITextField()
@@ -36,12 +40,18 @@ class NewJobEntryController: UIViewController {
             //self.starSituationsCollectionView.reloadData()
         }
     }
+    
+    private func configureStarSituationCollectionView() {
+        starSituationsCollectionView.backgroundColor = .secondarySystemBackground
+    }
+    
     private func configureContactsCollectionView() {
-        self.contactsCollectionView.delegate = self
-        self.contactsCollectionView.dataSource = self
-        self.contactsCollectionView.isUserInteractionEnabled = true
+        contactsCollectionView.delegate = self
+        contactsCollectionView.dataSource = self
+        contactsCollectionView.isUserInteractionEnabled = true
         //self.contactsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // ??? ****
-        self.contactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
+        contactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
+        contactsCollectionView.backgroundColor = .secondarySystemBackground
     }
     
     private var contacts = [CNContact]()
@@ -82,6 +92,7 @@ class NewJobEntryController: UIViewController {
         createDatePicker()
         setUpDelegateForTextFields()
         configureContactsCollectionView()
+        configureStarSituationCollectionView()
     }
     
     private func setUpDelegateForTextFields() {
@@ -314,6 +325,11 @@ extension NewJobEntryController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        CGSize(width: 150, height: 45) // FIXME: hardcoded values - this is no good 
+    }
+    
 }
 
 extension NewJobEntryController: UICollectionViewDelegate {
@@ -332,7 +348,6 @@ extension NewJobEntryController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userContactCell", for: indexPath) as? UserContactCVCell else {
             fatalError("failed to dequeue userContactCell")
         }
-        //cell.backgroundColor = .red
         let contact = userContacts[indexPath.row]
         cell.configureCell(contact: contact)
         return cell
