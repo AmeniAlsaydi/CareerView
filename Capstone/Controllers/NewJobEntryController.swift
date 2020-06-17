@@ -213,10 +213,25 @@ class NewJobEntryController: UIViewController {
             return
         }
         
-        guard let responsibilty1 = responsibility1TextField.text else {
+        // handle responsibilities:
+        var responsibilties = [String]()
+        
+        guard let responsibility1 = responsibility1TextField.text else {
             self.showAlert(title: "Responsibilities?", message: "Please enter at least one of ypur responsibilites at this position.")
             return
         }
+        
+        responsibilties.append(responsibility1)
+        
+        // optional responsibilties
+        if let responsibility2 = responsibility2TextField.text {
+             responsibilties.append(responsibility2)
+        }
+        
+        if let responsibility3 = responsibility3TextField.text {
+            responsibilties.append(responsibility3)
+        }
+        
         
         let beginTimeStamp = Timestamp(date: beginDate)
         var endTimeStamp: Timestamp? = nil
@@ -227,7 +242,7 @@ class NewJobEntryController: UIViewController {
             endTimeStamp = Timestamp(date: endDate)
         }
         
-        let userJobToSave = UserJob(id: userJobId, title: jobTitle, companyName: companyName, location: location ?? "", beginDate: beginTimeStamp, endDate: endTimeStamp!, currentEmployer: isCurrentEmployer, description: description, responsibilities: [responsibilty1], starSituationIDs: starSituationIDsToAdd, interviewQuestionIDs: [])
+        let userJobToSave = UserJob(id: userJobId, title: jobTitle, companyName: companyName, location: location ?? "", beginDate: beginTimeStamp, endDate: endTimeStamp!, currentEmployer: isCurrentEmployer, description: description, responsibilities: responsibilties, starSituationIDs: starSituationIDsToAdd, interviewQuestionIDs: [])
         
         DatabaseService.shared.addToUserJobs(userJob: userJobToSave, completion: { [weak self] (result) in
             switch result {
