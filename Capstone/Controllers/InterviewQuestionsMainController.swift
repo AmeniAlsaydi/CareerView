@@ -107,6 +107,7 @@ class InterviewQuestionsMainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        updateUI()
         configureCollectionView()
         configureNavBar()
         getInterviewQuestions()
@@ -119,12 +120,19 @@ class InterviewQuestionsMainController: UIViewController {
     //MARK:- UI
     private func updateUI() {
         view.backgroundColor = AppColors.complimentaryBackgroundColor
+        isFilterOn = false
+        filterButtonsStack.isHidden = true
         questionsCollectionView.backgroundColor = .clear
+        allButton.titleLabel?.font = AppFonts.semiBoldSmall
+        bookmarksButton.titleLabel?.font = AppFonts.semiBoldSmall
+        commonButton.titleLabel?.font = AppFonts.semiBoldSmall
+        customButton.titleLabel?.font = AppFonts.semiBoldSmall
         allButton.tintColor = AppColors.secondaryPurpleColor
+        allButton.backgroundColor = AppColors.whiteTextColor
         bookmarksButton.tintColor = AppColors.primaryPurpleColor
         commonButton.tintColor = AppColors.primaryPurpleColor
         customButton.tintColor = AppColors.primaryPurpleColor
-        isFilterOn = false
+        
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
@@ -144,11 +152,6 @@ class InterviewQuestionsMainController: UIViewController {
         } else {
             filterButtonsStack.isHidden = true
         }
-        //TODO: refactor to show/hide filter stack
-//        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-//        addChild(filterMenuVC, frame: view.frame)
-//        filterMenuVC.delegate = self
-//        filterMenuVC.filterState = filterState
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -232,9 +235,6 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         let itemWidth: CGFloat = maxsize.width * 0.9
         let itemHeight: CGFloat = maxsize.height * 0.15
         return CGSize(width: itemWidth, height: itemHeight)
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
@@ -324,48 +324,6 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-    }
-}
-//MARK:- Extenstion For Child View
-extension InterviewQuestionsMainController {
-    func addChild(_ childController: UIViewController, frame: CGRect? = nil) {
-        //add child view controller
-        addChild(childController)
-        //set the size of the child view controller's frame to half the parent view controller's height
-        if let frame = frame {
-            let height: CGFloat = frame.height
-            let width: CGFloat = frame.width / 2
-            let x: CGFloat = frame.minX
-            let y: CGFloat = frame.minY
-            childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
-        }
-        //add the childcontroller's view as the parent view controller's subview
-        view.addSubview(childController.view)
-        view.backgroundColor = .systemGray
-        questionsCollectionView.alpha = 0.5
-        searchBar.alpha = 0.5
-        //pass child to parent
-        childController.didMove(toParent: self)
-    }
-    func removeChild(childController: UIViewController) {
-        //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
-        view.backgroundColor = .systemBackground
-        questionsCollectionView.alpha = 1
-        searchBar.alpha = 1
-        childController.willMove(toParent: nil)
-        //remove the child view controller's view from parent's view
-        childController.view.removeFromSuperview()
-        //remove child view controller from parent view controller
-        childController.removeFromParent()
-    }
-}
-extension InterviewQuestionsMainController: FilterStateDelegate {
-    func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController) {
-        self.filterState = filterState
-        removeChild(childController: child)
-    }
-    func pressedCancel(child: FilterMenuViewController) {
-        removeChild(childController: child)
     }
 }
 extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
