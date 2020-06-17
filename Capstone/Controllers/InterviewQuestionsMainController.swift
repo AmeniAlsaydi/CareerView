@@ -28,6 +28,7 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var customButton: UIButton!
     
     private var listener: ListenerRegistration?
+    private var isFilterOn = false
     public var filterState: FilterState = .all {
         didSet {
             questionsCollectionView.reloadData()
@@ -119,6 +120,11 @@ class InterviewQuestionsMainController: UIViewController {
     private func updateUI() {
         view.backgroundColor = AppColors.complimentaryBackgroundColor
         questionsCollectionView.backgroundColor = .clear
+        allButton.tintColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.primaryPurpleColor
+        commonButton.tintColor = AppColors.primaryPurpleColor
+        customButton.tintColor = AppColors.primaryPurpleColor
+        isFilterOn = false
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
@@ -132,10 +138,17 @@ class InterviewQuestionsMainController: UIViewController {
     }
     //MARK:- FilterMenu
     @objc func presentfilterMenuButtonPressed(_ sender: UIBarButtonItem) {
-        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        addChild(filterMenuVC, frame: view.frame)
-        filterMenuVC.delegate = self
-        filterMenuVC.filterState = filterState
+        isFilterOn.toggle()
+        if isFilterOn {
+            filterButtonsStack.isHidden = false
+        } else {
+            filterButtonsStack.isHidden = true
+        }
+        //TODO: refactor to show/hide filter stack
+//        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
+//        addChild(filterMenuVC, frame: view.frame)
+//        filterMenuVC.delegate = self
+//        filterMenuVC.filterState = filterState
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -184,13 +197,32 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     @IBAction func allButtonPressed(_ sender: UIButton) {
-        
+        allButton.tintColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.primaryPurpleColor
+        commonButton.tintColor = AppColors.primaryPurpleColor
+        customButton.tintColor = AppColors.primaryPurpleColor
+        filterState = .all
     }
     @IBAction func bookmarksButtonPressed(_ sender: UIButton) {
-        
+        allButton.tintColor = AppColors.primaryPurpleColor
+        bookmarksButton.tintColor = AppColors.secondaryPurpleColor
+        commonButton.tintColor = AppColors.primaryPurpleColor
+        customButton.tintColor = AppColors.primaryPurpleColor
+        filterState = .bookmarked
     }
     @IBAction func commonButtonPressed(_ sender: UIButton) {
-        
+        allButton.tintColor = AppColors.primaryPurpleColor
+        bookmarksButton.tintColor = AppColors.primaryPurpleColor
+        commonButton.tintColor = AppColors.secondaryPurpleColor
+        customButton.tintColor = AppColors.primaryPurpleColor
+        filterState = .common
+    }
+    @IBAction func customButtomPressed(_ sender: UIButton) {
+        allButton.tintColor = AppColors.primaryPurpleColor
+        bookmarksButton.tintColor = AppColors.primaryPurpleColor
+        commonButton.tintColor = AppColors.primaryPurpleColor
+        customButton.tintColor = AppColors.secondaryPurpleColor
+        filterState = .custom
     }
 }
 //MARK:- CollectionView Delegate and DataSource

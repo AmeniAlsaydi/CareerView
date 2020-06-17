@@ -62,10 +62,16 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l62-Mx-rF1">
                             <rect key="frame" x="207" y="0.0" width="103.5" height="44"/>
                             <state key="normal" title="Common"/>
+                            <connections>
+                                <action selector="commonButtonPressed:" destination="-1" eventType="touchUpInside" id="cy9-SC-sd4"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yq3-QZ-KaE">
                             <rect key="frame" x="310.5" y="0.0" width="103.5" height="44"/>
                             <state key="normal" title="Custom"/>
+                            <connections>
+                                <action selector="customButtomPressed:" destination="-1" eventType="touchUpInside" id="vzE-o6-fhk"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>
