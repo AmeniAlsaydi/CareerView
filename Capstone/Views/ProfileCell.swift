@@ -8,12 +8,12 @@
 
 import UIKit
 
-class SettingCell: UITableViewCell {
+class ProfileCell: UITableViewCell {
 
     @IBOutlet weak var settingsImage: UIImageView!
     @IBOutlet weak var settingsName: UILabel!
     
-    public func configureCell(setting: Settings) {
+    public func configureCell(setting: ProfileCells) {
         settingsImage.image = setting.images
         settingsName.text = setting.tabs
     }
