@@ -10,11 +10,15 @@
 		06F34E0EBED5AAE34DF36446 /* Pods_CapstoneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */; };
 		45BC67ACBC278BE7865BCC41 /* Pods_Capstone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */; };
 		521402182493F01900ADF7BE /* ApplicationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521402172493F01900ADF7BE /* ApplicationInfo.swift */; };
+
+		52D4D19624981141004FD7EE /* ApplicationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D4D19524981140004FD7EE /* ApplicationDetailView.swift */; };
+
 		52F81DBB249260300052532B /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F81DBA249260300052532B /* SettingCell.xib */; };
 		52F81DBD249260710052532B /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F81DBC249260710052532B /* SettingCell.swift */; };
 		8809883D24956537006EA9D0 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8809883C24956537006EA9D0 /* UIViewExt.swift */; };
 
 		8828B97124981F0E00151F10 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8828B97024981F0E00151F10 /* ArrayExt.swift */; };
+
 
 		8838A4D1248E60D400217DA1 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */; };
 		8838A4D3248E60E100217DA1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D2248E60E100217DA1 /* UserDefaults.swift */; };
@@ -119,6 +123,9 @@
 		17A1C2FB09C24401FFBC99A4 /* Pods-CapstoneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CapstoneTests.debug.xcconfig"; path = "Target Support Files/Pods-CapstoneTests/Pods-CapstoneTests.debug.xcconfig"; sourceTree = "<group>"; };
 		44397EE59E4E94E21F72EA4A /* Pods-CapstoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CapstoneTests.release.xcconfig"; path = "Target Support Files/Pods-CapstoneTests/Pods-CapstoneTests.release.xcconfig"; sourceTree = "<group>"; };
 		521402172493F01900ADF7BE /* ApplicationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationInfo.swift; sourceTree = "<group>"; };
+
+		52D4D19524981140004FD7EE /* ApplicationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDetailView.swift; sourceTree = "<group>"; };
+
 		52F81DBA249260300052532B /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		52F81DBC249260710052532B /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,6 +278,7 @@
 		8877E08F24943274006FC043 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -308,9 +316,8 @@
 				B7976E832480504C001AE3B3 /* Xibs */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
-
 				B725C24724768331000811C5 /* Info.plist */,
-
+				52D4D19324980883004FD7EE /* GoogleService-Info.plist */,
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -433,6 +440,7 @@
 				C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */,
 				B79F4B8224905536009523EE /* HairlineView.swift */,
 				52F81DBC249260710052532B /* SettingCell.swift */,
+				52D4D19524981140004FD7EE /* ApplicationDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -595,6 +603,7 @@
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
 
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
+				52D4D19424980883004FD7EE /* GoogleService-Info.plist in Resources */,
 				B7976E892480524F001AE3B3 /* StarStoryMainXib.xib in Resources */,
 				B7976EAD248060B9001AE3B3 /* JobApplicationCellXib.xib in Resources */,
 				B7976E4F247E9A3E001AE3B3 /* LoginView.storyboard in Resources */,
@@ -716,6 +725,7 @@
 				B7226CF8248DACA900D7F207 /* JobApplicationCell.swift in Sources */,
 				C6AC37A02485EF4200957B61 /* StarSituationCell.swift in Sources */,
 				C60BDFCE2481B3C200CD9875 /* JobFoldingView.swift in Sources */,
+				52D4D19624981141004FD7EE /* ApplicationDetailView.swift in Sources */,
 				521402182493F01900ADF7BE /* ApplicationInfo.swift in Sources */,
 				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
 				C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */,
