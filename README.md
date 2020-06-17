@@ -12,13 +12,13 @@
 ![Wireframe](Media/Wireframe.jpg)
 
 ## Frameworks used
-#### UIKit 
-#### Foundation
-#### Firebase  
-#### MFMailComposer
-#### MessageUI
-#### Contacts
-#### MapKit
+#### - UIKit 
+#### - Foundation
+#### - Firebase  
+#### - MFMailComposer
+#### - MessageUI
+#### - Contacts
+#### - MapKit
 
 ## Cocopods used
 #### Folding Cell by Ramotion - https://github.com/Ramotion/folding-cell
