@@ -21,6 +21,7 @@ class StarSituationCell: UICollectionViewCell {
     
     weak var delegate: StarSituationCellDelegate?
     private var starSituationForDelegate: StarSituation?
+    public var starSituationIsSelected = false
     
     override func layoutSubviews() {
         self.layer.borderWidth = 2

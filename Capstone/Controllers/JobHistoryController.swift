@@ -23,7 +23,6 @@ class JobHistoryController: UIViewController {
         }
     }
     
-    
     enum Const {
         static let closeCellHeight: CGFloat = 180
         static let openCellHeight: CGFloat = 620
@@ -43,6 +42,10 @@ class JobHistoryController: UIViewController {
         setup()
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        loadUserJobs()
+//        tableView.reloadData()
+    }
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -60,8 +63,12 @@ class JobHistoryController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
-        let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
+//        let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
+//        show(jobEntryController, sender: nil)
+        
+        let jobEntryController = NewJobEntryController(nibName: "NewJobEntryXib", bundle: nil)
         show(jobEntryController, sender: nil)
+        
     }
     
     private func getUserData() {
@@ -126,6 +133,8 @@ extension JobHistoryController: UITableViewDataSource {
 extension JobHistoryController: JobHistoryExpandableCellDelegate {
     func starSituationsButtonPressed(userJob: UserJob) {
         let destinationViewController = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
+        destinationViewController.filterByJob = true
+        destinationViewController.userJob = userJob
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
     func contextButtonPressed(userJob: UserJob) {
@@ -175,11 +184,9 @@ extension JobHistoryController: UITableViewDelegate {
         if displayContactCollectionView == true {
             cell.loadUserContacts(userJob: aUserJobHistory)
         }
-        
         if cell.isAnimating() {
             return
         }
-        
         var duration = 0.0
         let cellIsCollapsed = cellHeights[indexPath.row] == Const.closeCellHeight
         if cellIsCollapsed {
