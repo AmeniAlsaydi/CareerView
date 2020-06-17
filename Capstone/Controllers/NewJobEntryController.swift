@@ -360,7 +360,7 @@ extension NewJobEntryController: UICollectionViewDelegateFlowLayout {
             
             let maxsize: CGSize = UIScreen.main.bounds.size
             let width: CGFloat = maxsize.width * 0.9
-            return CGSize(width: width, height: 100) // FIXME: hardcoded values - this is no good
+            return CGSize(width: width, height: 90) // FIXME: hardcoded values - this is no good
         }
          return CGSize(width: 0, height: 0)
     }
