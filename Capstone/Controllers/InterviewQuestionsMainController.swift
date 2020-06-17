@@ -132,7 +132,6 @@ class InterviewQuestionsMainController: UIViewController {
         bookmarksButton.tintColor = AppColors.primaryPurpleColor
         commonButton.tintColor = AppColors.primaryPurpleColor
         customButton.tintColor = AppColors.primaryPurpleColor
-        
     }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
