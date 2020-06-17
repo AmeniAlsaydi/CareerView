@@ -50,20 +50,27 @@ class NewJobEntryController: UIViewController {
         didSet {
             if isCurrentEmployer {
                 currentEmployerButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+                // animate endDateTextField height to zero
+                // set end date to todays date
             } else {
                 currentEmployerButton.setImage(UIImage(systemName: "square"), for: .normal)
+                
+                // animate endDateTextField height to original height
             }
         }
     }
     
-    let datePicker = UIDatePicker()
+    private let datePicker = UIDatePicker()
+    
+    private var beginDate: Date?
+    private var endDate: Date?
+    public var editingJob = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
         styleAllTextFields()
         createDatePicker()
-//         beginDateTextField.delegate = self
         setUpDelegateForTextFields()
     }
     
@@ -100,11 +107,12 @@ class NewJobEntryController: UIViewController {
         
         if activeTextField == beginDateTextField {
             beginDateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+            beginDate = datePicker.date
         } else if activeTextField == endDateTextField {
             endDateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
+            endDate = datePicker.date
         }
-        // need to handle end date 
-        // date = datePicker.date
+        
         self.view.endEditing(true)
     }
     
@@ -125,6 +133,71 @@ class NewJobEntryController: UIViewController {
     @objc private func saveJobButtonPressed(_ sender: UIBarButtonItem) {
         // create new job and add to datebase
         print("create new job and add to datebase")
+        
+        // create use job object
+        
+        // check mandatory fields
+        
+        var userJobId = UUID().uuidString
+        
+        // guard for mandatory fields
+        
+        guard let jobTitle = positionTitleTextField.text,
+            !jobTitle.isEmpty,
+            let companyName = companyNameTextField.text,
+            !companyName.isEmpty,
+            let description = descriptionTextField.text,
+            !description.isEmpty else {
+              self.showAlert(title: "Missing fields", message: "Check all mandatory fields.")
+            return
+        }
+        
+        let location = locationTextField.text
+        
+        guard let beginDate = beginDate else {
+            self.showAlert(title: "Missing fields", message: "Please enter the date you began this position.")
+            return
+        }
+        
+        guard let responsibilty1 = responsibility1TextField.text else {
+            self.showAlert(title: "Responsibilities?", message: "Please enter at least one of ypur responsibilites at this position.")
+            return
+        }
+        
+        let beginTimeStamp = Timestamp(date: beginDate)
+        var endTimeStamp: Timestamp? = nil
+        
+        if isCurrentEmployer {
+            endTimeStamp = Timestamp(date: Date())
+        } else if let endDate = endDate {
+            endTimeStamp = Timestamp(date: endDate)
+        }
+        
+        let userJobToSave = UserJob(id: userJobId, title: jobTitle, companyName: companyName, location: location ?? "", beginDate: beginTimeStamp, endDate: endTimeStamp!, currentEmployer: isCurrentEmployer, description: description, responsibilities: [responsibilty1], starSituationIDs: starSituationIDsToAdd, interviewQuestionIDs: [])
+        
+        DatabaseService.shared.addToUserJobs(userJob: userJobToSave, completion: { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Failed to save job", message: error.localizedDescription)
+                }
+            case .success:
+                // show alert and pop VC
+                DispatchQueue.main.async {
+                    if self?.editingJob ?? false {
+                        self?.showAlert(title: "Job Updated!", message: "Success!")  { (alert) in
+                            self?.navigationController?.popToRootViewController(animated: true)
+                        }
+                    } else {
+                        self?.showAlert(title: "Job Saved", message: "Success!")  { (alert) in
+                            self?.navigationController?.popToRootViewController(animated: true)
+                        }
+                    }
+                }
+            }
+        })
+        
+        
     }
     
     
