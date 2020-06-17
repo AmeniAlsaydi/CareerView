@@ -74,7 +74,13 @@ class AppButtonIcons {
     static let emptySquareIcon = UIImage(systemName: "square")
     static let squareCheckmarkIcon = UIImage(systemName: "checkmark.square")
     static let squareCheckmarkFillIcon = UIImage(systemName: "checkmark.square.fill")
-    static let navBarBackButton = UIImage(systemName: "arrow.left")
+    private let navBarBackButton = UIImage(systemName: "arrow.left")
     
     private init() {}
+    public func navBarBackButtonItem(navigationItem: UINavigationItem) {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        backItem.image = navBarBackButton
+        navigationItem.backBarButtonItem = backItem
+    }
 }
