@@ -8,7 +8,7 @@
 
 ## Description
 
-## ScreenShot of App
+## Screenshots of App
 ![Wireframe](Media/Wireframe.jpg)
 
 ## Frameworks used
