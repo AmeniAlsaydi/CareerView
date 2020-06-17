@@ -37,7 +37,7 @@ class NewJobEntryController: UIViewController {
         didSet {
             print(starSituationIDsToAdd.count) // just to test we get back stars
             // reload star story collection
-            //self.starSituationsCollectionView.reloadData()
+            self.starSituationsCollectionView.reloadData()
         }
     }
     
@@ -52,6 +52,12 @@ class NewJobEntryController: UIViewController {
         //self.contactsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // ??? ****
         contactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
         contactsCollectionView.backgroundColor = .secondarySystemBackground
+    }
+    
+    private func configureSituationsCollectionView() {
+        starSituationsCollectionView.delegate = self
+        starSituationsCollectionView.dataSource = self
+        starSituationsCollectionView.register(UINib(nibName: "BasicStarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "basicSituationCell")
     }
     
     private var contacts = [CNContact]()
@@ -93,6 +99,7 @@ class NewJobEntryController: UIViewController {
         setUpDelegateForTextFields()
         configureContactsCollectionView()
         configureStarSituationCollectionView()
+        configureSituationsCollectionView()
     }
     
     private func setUpDelegateForTextFields() {
@@ -237,8 +244,6 @@ class NewJobEntryController: UIViewController {
                 })
             }
         }
-        
-        
     }
     
     
@@ -327,29 +332,66 @@ extension NewJobEntryController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        CGSize(width: 150, height: 45) // FIXME: hardcoded values - this is no good 
+        if collectionView == contactsCollectionView {
+            return CGSize(width: 150, height: 45) // FIXME: hardcoded values - this is no good
+        } else if collectionView == starSituationsCollectionView {
+            return CGSize(width: 200, height: 100)
+        }
+         return CGSize(width: 0, height: 0)
     }
-    
 }
 
 extension NewJobEntryController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let contact = userContacts[indexPath.row]
-        let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
-        navigationController?.pushViewController(contactViewController, animated: true)
+        
+        if collectionView == contactsCollectionView {
+            
+           let contact = userContacts[indexPath.row]
+            let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
+            navigationController?.pushViewController(contactViewController, animated: true)
+            
+        } else if collectionView == starSituationsCollectionView {
+            // if 
+        }
+        
+       
     }
 }
 
 extension NewJobEntryController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userContacts.count
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userContactCell", for: indexPath) as? UserContactCVCell else {
-            fatalError("failed to dequeue userContactCell")
+        
+        if collectionView == contactsCollectionView {
+           return userContacts.count
+        } else if collectionView == starSituationsCollectionView {
+            return starSituationIDsToAdd.count
         }
-        let contact = userContacts[indexPath.row]
-        cell.configureCell(contact: contact)
-        return cell
+        
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView == contactsCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userContactCell", for: indexPath) as? UserContactCVCell else {
+                fatalError("failed to dequeue userContactCell")
+            }
+            let contact = userContacts[indexPath.row]
+            cell.configureCell(contact: contact)
+            return cell
+        }
+        
+        else if collectionView == starSituationsCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicSituationCell", for: indexPath) as? BasicStarSituationCell else {
+                fatalError("could not down cast to BasicStarSituationCell")
+            }
+            
+            let sitID = starSituationIDsToAdd[indexPath.row]
+            cell.situationLabel.text = sitID
+            cell.backgroundColor = .red
+            return cell
+        }
+
+        return UICollectionViewCell()
     }
 }
