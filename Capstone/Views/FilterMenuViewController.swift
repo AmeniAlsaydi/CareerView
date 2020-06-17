@@ -20,6 +20,13 @@ class FilterMenuViewController: UIViewController {
     @IBOutlet weak var commonButton: UIButton!
     @IBOutlet weak var customButton: UIButton!
     @IBOutlet weak var setFilterButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var seperatorLine: UIView!
+    @IBOutlet weak var filterByLabel: UILabel!
+    @IBOutlet weak var allLabel: UILabel!
+    @IBOutlet weak var bookmarkedLabel: UILabel!
+    @IBOutlet weak var commonLabel: UILabel!
+    @IBOutlet weak var customLabel: UILabel!
     
     public var filterState: FilterState? {
         didSet {
@@ -30,6 +37,25 @@ class FilterMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         updateUI()
+        setAppColors()
+    }
+    private func setAppColors() {
+        //labels
+        filterByLabel.textColor = AppColors.darkGrayHighlightColor
+        allLabel.textColor = AppColors.primaryBlackColor
+        bookmarkedLabel.textColor = AppColors.primaryBlackColor
+        commonLabel.textColor = AppColors.primaryBlackColor
+        customLabel.textColor = AppColors.primaryBlackColor
+        //view
+        seperatorLine.backgroundColor = AppColors.darkGrayHighlightColor
+        //buttons
+        setFilterButton.layer.cornerRadius = 13
+        setFilterButton.backgroundColor = AppColors.primaryPurpleColor
+        cancelButton.tintColor = AppColors.secondaryPurpleColor
+        allButton.tintColor = AppColors.primaryPurpleColor
+        bookmarkedButton.tintColor = AppColors.primaryPurpleColor
+        commonButton.tintColor = AppColors.primaryPurpleColor
+        customButton.tintColor = AppColors.primaryPurpleColor
     }
     private func updateUI() {
         if filterState == .all {
