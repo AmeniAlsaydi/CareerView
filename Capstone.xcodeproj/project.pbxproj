@@ -15,6 +15,8 @@
 		8809883D24956537006EA9D0 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8809883C24956537006EA9D0 /* UIViewExt.swift */; };
 		881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */; };
 		881CD33E2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */; };
+		881CD3402499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881CD33F2499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib */; };
+		881CD3422499CCA3008AB0C8 /* FAQCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CD3412499CCA3008AB0C8 /* FAQCollectionViewCell.swift */; };
 		8828B97124981F0E00151F10 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8828B97024981F0E00151F10 /* ArrayExt.swift */; };
 		8838A4D1248E60D400217DA1 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */; };
 		8838A4D3248E60E100217DA1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D2248E60E100217DA1 /* UserDefaults.swift */; };
@@ -134,6 +136,8 @@
 		8809883C24956537006EA9D0 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
 		881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellSwitch.swift; sourceTree = "<group>"; };
+		881CD33F2499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQCollectionViewCellXib.xib; sourceTree = "<group>"; };
+		881CD3412499CCA3008AB0C8 /* FAQCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQCollectionViewCell.swift; sourceTree = "<group>"; };
 		8828B97024981F0E00151F10 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
 		8838A4D2248E60E100217DA1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 				B79F4B8224905536009523EE /* HairlineView.swift */,
 				52F81DBC249260710052532B /* ProfileCell.swift */,
 				881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */,
+				881CD3412499CCA3008AB0C8 /* FAQCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -515,6 +520,7 @@
 				886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */,
 				52F81DBA249260300052532B /* ProfileCell.xib */,
 				881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */,
+				881CD33F2499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -635,6 +641,7 @@
 				881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */,
 				B7976E9524805C9B001AE3B3 /* StarStoryEntryXib.xib in Resources */,
 				889FCAAE2499677100CC9153 /* AboutThisAppViewControllerXib.xib in Resources */,
+				881CD3402499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib in Resources */,
 				B7976E87248051D8001AE3B3 /* JobEntryXib.xib in Resources */,
 				B7976E9724805CDA001AE3B3 /* InterviewQuestionsMainXib.xib in Resources */,
 				B7976E9F24805E21001AE3B3 /* NewApplicationXib.xib in Resources */,
@@ -754,6 +761,7 @@
 				521402182493F01900ADF7BE /* ApplicationInfo.swift in Sources */,
 				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
 				C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */,
+				881CD3422499CCA3008AB0C8 /* FAQCollectionViewCell.swift in Sources */,
 				B79F4B4A248F6573009523EE /* StarSituationDatabaseServices.swift in Sources */,
 				B7976E5A247EA404001AE3B3 /* SignUpController.swift in Sources */,
 				C6E214EC2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift in Sources */,

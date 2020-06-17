@@ -23,24 +23,41 @@ struct FAQInfo {
 }
 
 class FAQViewController: UIViewController {
-
-   
+    
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     private var FAQs = [FAQInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Frequently Asked Questions"
+        configureCollectionView()
+        loadFAQInfo()
+    }
+    private func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        loadFAQInfo()
+        collectionView.register(UINib(nibName: "FAQCollectionViewCellXib", bundle: nil), forCellWithReuseIdentifier: "FAQCell")
     }
     private func loadFAQInfo() {
         FAQs = FAQInfo.loadFAQs()
     }
 }
-extension FAQViewController: UICollectionViewDelegate {
-    
+extension FAQViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let faq = FAQs[indexPath.row]
+        let label = UILabel(frame: CGRect.zero)
+        label.text = faq.description
+        label.sizeToFit()
+        let maxWidth = collectionView.frame.width
+        let maxHeight = collectionView.frame.height
+        return CGSize(width: maxWidth * 0.90, height: maxHeight / 4)
+//        return CGSize(width: maxWidth * 0.90, height: label.frame.height)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+    }
 }
 extension FAQViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -48,11 +65,17 @@ extension FAQViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FAQCell", for: indexPath) as? FAQCollectionViewCell else {
+            fatalError("Failed to dequeue FAQCollectionViewCell")
+        }
+        let faq = FAQs[indexPath.row]
+        cell.layer.cornerRadius = 4
+        cell.layer.masksToBounds = true
+        cell.configureCell(faq: faq)
         return cell
     }
     
-
+    
     
     
 }
