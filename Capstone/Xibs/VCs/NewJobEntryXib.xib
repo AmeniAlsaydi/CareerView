@@ -33,7 +33,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anl-Vr-wkA" userLabel="Content View">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="1217"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1167"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add another job" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Lj-RJ-vnm">
                                     <rect key="frame" x="20" y="20" width="374" height="29"/>
@@ -177,10 +177,10 @@
                                     </connections>
                                 </button>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dOy-nq-266">
-                                    <rect key="frame" x="0.0" y="1087" width="414" height="100"/>
+                                    <rect key="frame" x="0.0" y="1087" width="414" height="50"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="100" id="OAU-wM-bVU"/>
+                                        <constraint firstAttribute="height" constant="50" id="OAU-wM-bVU"/>
                                     </constraints>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hMV-p4-Mzx">
                                         <size key="itemSize" width="128" height="128"/>

@@ -40,7 +40,7 @@ class NewJobEntryController: UIViewController {
         self.contactsCollectionView.delegate = self
         self.contactsCollectionView.dataSource = self
         self.contactsCollectionView.isUserInteractionEnabled = true
-        self.contactsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        //self.contactsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // ??? ****
         self.contactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
     }
     
@@ -332,7 +332,7 @@ extension NewJobEntryController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userContactCell", for: indexPath) as? UserContactCVCell else {
             fatalError("failed to dequeue userContactCell")
         }
-        cell.backgroundColor = .red
+        //cell.backgroundColor = .red
         let contact = userContacts[indexPath.row]
         cell.configureCell(contact: contact)
         return cell
