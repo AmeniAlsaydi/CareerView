@@ -26,14 +26,16 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var bookmarksButton: UIButton!
     @IBOutlet weak var commonButton: UIButton!
     @IBOutlet weak var customButton: UIButton!
+    @IBOutlet weak var collectionViewTopAnchor: NSLayoutConstraint!
     
     private var listener: ListenerRegistration?
     private var isFilterOn = false {
         didSet {
             if isFilterOn {
-                //TODO: when filter is hidden, snap the collectionview to search bar
+                collectionViewTopAnchor.constant = 8
                 filterButtonsStack.isHidden = false
             } else {
+                collectionViewTopAnchor.constant = -44
                 filterButtonsStack.isHidden = true
             }
         }

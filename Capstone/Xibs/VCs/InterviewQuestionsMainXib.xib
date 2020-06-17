@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="allButton" destination="IYR-ul-Cfo" id="R7X-LC-IIb"/>
                 <outlet property="bookmarksButton" destination="BZV-Vi-l3f" id="JaF-jY-htl"/>
+                <outlet property="collectionViewTopAnchor" destination="20h-JW-86T" id="44h-ZF-tAA"/>
                 <outlet property="commonButton" destination="l62-Mx-rF1" id="JsC-Rb-B7V"/>
                 <outlet property="customButton" destination="yq3-QZ-KaE" id="nH8-dl-LDA"/>
                 <outlet property="filterButtonsStack" destination="1fq-9L-DVe" id="eQ2-EV-rqs"/>

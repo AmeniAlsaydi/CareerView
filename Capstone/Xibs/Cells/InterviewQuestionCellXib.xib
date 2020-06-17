@@ -48,9 +48,7 @@
                             <constraint firstAttribute="width" constant="44" id="sNh-bE-Can"/>
                         </constraints>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <state key="normal" image="ellipsis" catalog="system">
-                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
-                        </state>
+                        <state key="normal" image="ellipsis" catalog="system"/>
                         <connections>
                             <action selector="editButtonPressed:" destination="XPp-9N-CxE" eventType="touchUpInside" id="BmX-2L-LMf"/>
                         </connections>
