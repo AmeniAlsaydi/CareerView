@@ -85,7 +85,7 @@
 		B7976E9D24805D91001AE3B3 /* ApplicationTrackerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976E9C24805D91001AE3B3 /* ApplicationTrackerXib.xib */; };
 		B7976E9F24805E21001AE3B3 /* NewApplicationXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976E9E24805E21001AE3B3 /* NewApplicationXib.xib */; };
 		B7976EA124805E4F001AE3B3 /* ApplicationDetailXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976EA024805E4F001AE3B3 /* ApplicationDetailXib.xib */; };
-		B7976EA324805EA2001AE3B3 /* SettingsXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976EA224805EA2001AE3B3 /* SettingsXib.xib */; };
+		B7976EA324805EA2001AE3B3 /* ProfileViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976EA224805EA2001AE3B3 /* ProfileViewControllerXib.xib */; };
 		B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976EA42480601A001AE3B3 /* UserJobFoldingCellXib.xib */; };
 		B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976EA624806047001AE3B3 /* UserJobBasicCellXib.xib */; };
 		B7976EA924806085001AE3B3 /* StarSituationCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7976EA824806085001AE3B3 /* StarSituationCellXib.xib */; };
@@ -207,7 +207,7 @@
 		B7976E9C24805D91001AE3B3 /* ApplicationTrackerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplicationTrackerXib.xib; sourceTree = "<group>"; };
 		B7976E9E24805E21001AE3B3 /* NewApplicationXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewApplicationXib.xib; sourceTree = "<group>"; };
 		B7976EA024805E4F001AE3B3 /* ApplicationDetailXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplicationDetailXib.xib; sourceTree = "<group>"; };
-		B7976EA224805EA2001AE3B3 /* SettingsXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsXib.xib; sourceTree = "<group>"; };
+		B7976EA224805EA2001AE3B3 /* ProfileViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewControllerXib.xib; sourceTree = "<group>"; };
 		B7976EA42480601A001AE3B3 /* UserJobFoldingCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserJobFoldingCellXib.xib; sourceTree = "<group>"; };
 		B7976EA624806047001AE3B3 /* UserJobBasicCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserJobBasicCellXib.xib; sourceTree = "<group>"; };
 		B7976EA824806085001AE3B3 /* StarSituationCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarSituationCellXib.xib; sourceTree = "<group>"; };
@@ -494,7 +494,7 @@
 				C6E214E9248941E50054CC3C /* InterviewAnswerSuggestionXib.xib */,
 				B7976E9C24805D91001AE3B3 /* ApplicationTrackerXib.xib */,
 				B7976EA024805E4F001AE3B3 /* ApplicationDetailXib.xib */,
-				B7976EA224805EA2001AE3B3 /* SettingsXib.xib */,
+				B7976EA224805EA2001AE3B3 /* ProfileViewControllerXib.xib */,
 				884E5571248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib */,
 				C6E214E32488066B0054CC3C /* FilterMenuViewControllerXib.xib */,
 				889FCAA124995A0C00CC9153 /* ProfileViewControllerXibs */,
@@ -616,7 +616,7 @@
 				889FCAB2249967E300CC9153 /* FAQViewControllerXib.xib in Resources */,
 				B7976E9D24805D91001AE3B3 /* ApplicationTrackerXib.xib in Resources */,
 				B7976E9B24805D2B001AE3B3 /* InterviewAnswerDetailXib.xib in Resources */,
-				B7976EA324805EA2001AE3B3 /* SettingsXib.xib in Resources */,
+				B7976EA324805EA2001AE3B3 /* ProfileViewControllerXib.xib in Resources */,
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
 				B7976E8524805085001AE3B3 /* JobHistoryXib.xib in Resources */,
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
