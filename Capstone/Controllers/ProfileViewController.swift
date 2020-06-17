@@ -65,7 +65,6 @@ class ProfileViewController: UIViewController {
     private func configureTableView() {
         settingsTableView.dataSource = self
         settingsTableView.delegate = self
-        settingsTableView.isScrollEnabled = false
         settingsTableView.register(UINib(nibName: "ProfileCell", bundle: nil), forCellReuseIdentifier: "profileCell")
         settingsTableView.tintColor = .systemPurple
     }
@@ -84,6 +83,7 @@ extension ProfileViewController: UITableViewDataSource {
         }
         let aSetting = allSettings[indexPath.row]
         cell.configureCell(setting: aSetting)
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -103,10 +103,10 @@ extension ProfileViewController: UITableViewDelegate {
                 let composeVC = MFMailComposeViewController()
                 composeVC.mailComposeDelegate = self
                 composeVC.setToRecipients(["CareerViewAppTeam@gmail.com"])
-                composeVC.setSubject("I was told to contact you")
+                composeVC.setSubject("Greetings!")
                 self.present(composeVC, animated: true, completion: nil)
             } else {
-                showAlert(title: "Mail not configured", message: "Please configure your mail app to contact us")
+                showAlert(title: "Something went wrong", message: "Please check you have configured your mail app and try again")
             }
         }
     }
