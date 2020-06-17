@@ -9,6 +9,7 @@
 ## Description
 
 ## ScreenShot of App
+![nytImage1](Media/nytImage1.2.png)
 
 ## Frameworks used
 #### UIKit 
