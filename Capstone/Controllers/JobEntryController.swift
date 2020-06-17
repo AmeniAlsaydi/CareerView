@@ -216,6 +216,7 @@ class JobEntryController: UIViewController {
     @objc func doneButtonAction() {
         self.view.endEditing(true)
     }
+    
     private func configureCurrentlyEmployedButton(_ currentlyEmployed: Bool) {
         if currentlyEmployed {
             currentlyEmployedButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
@@ -525,6 +526,7 @@ extension JobEntryController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
 extension JobEntryController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let contact = userContacts[indexPath.row]
@@ -532,6 +534,7 @@ extension JobEntryController: UICollectionViewDelegate {
         navigationController?.pushViewController(contactViewController, animated: true)
     }
 }
+ // HANDLED *** ✅
 extension JobEntryController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return userContacts.count
@@ -545,6 +548,8 @@ extension JobEntryController: UICollectionViewDataSource {
         return cell
     }
 }
+
+ // HANDLED *** ✅
 //MARK:- CNContactPickerDelegate
 extension JobEntryController: CNContactPickerDelegate {
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
@@ -559,6 +564,7 @@ extension JobEntryController: CNContactPickerDelegate {
     }
 }
 
+ // HANDLED *** ✅
 extension JobEntryController: StarStoryMainControllerDelegate {
     func starStoryMainViewControllerDismissed(starSituations: [String]) {
         starSituationIDsToAdd = starSituations

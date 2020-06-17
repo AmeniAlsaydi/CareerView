@@ -36,13 +36,20 @@ class NewJobEntryController: UIViewController {
             //self.starSituationsCollectionView.reloadData()
         }
     }
+    private func configureContactsCollectionView() {
+        self.contactsCollectionView.delegate = self
+        self.contactsCollectionView.dataSource = self
+        self.contactsCollectionView.isUserInteractionEnabled = true
+        self.contactsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.contactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
+    }
     
     private var contacts = [CNContact]()
     private var userContacts = [Contact]() {
         didSet {
             print(userContacts.count) // just to test we get contacts back
             // should reload the contactsCollection
-            //self.contactsCollectionView.reloadData()
+            self.contactsCollectionView.reloadData()
         }
     }
     
@@ -66,12 +73,15 @@ class NewJobEntryController: UIViewController {
     private var endDate: Date?
     public var editingJob = false
     
+    public var userJob: UserJob?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
         styleAllTextFields()
         createDatePicker()
         setUpDelegateForTextFields()
+        configureContactsCollectionView()
     }
     
     private func setUpDelegateForTextFields() {
@@ -140,6 +150,10 @@ class NewJobEntryController: UIViewController {
         
         var userJobId = UUID().uuidString
         
+        if editingJob {
+            userJobId = userJob?.id ?? UUID().uuidString
+        }
+        
         // guard for mandatory fields
         
         guard let jobTitle = positionTitleTextField.text,
@@ -196,6 +210,22 @@ class NewJobEntryController: UIViewController {
                 }
             }
         })
+        
+        // send contacts to contacts collection for user job
+        if userContacts.count != 0 {
+            for contact in userContacts {
+                DatabaseService.shared.addContactsToUserJob(userJobId: userJobToSave.id, contact: contact, completion: { [weak self] (results) in
+                    switch results {
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            self?.showAlert(title: "Error saving contact", message: error.localizedDescription)
+                        }
+                    case .success:
+                        break
+                    }
+                })
+            }
+        }
         
         
     }
@@ -275,5 +305,36 @@ extension NewJobEntryController: StarStoryMainControllerDelegate {
 extension NewJobEntryController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField as! FloatingLabelInput
+    }
+}
+
+//MARK:- CollectionView Extension
+extension NewJobEntryController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+    }
+    
+}
+
+extension NewJobEntryController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let contact = userContacts[indexPath.row]
+        let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
+        navigationController?.pushViewController(contactViewController, animated: true)
+    }
+}
+
+extension NewJobEntryController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return userContacts.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userContactCell", for: indexPath) as? UserContactCVCell else {
+            fatalError("failed to dequeue userContactCell")
+        }
+        cell.backgroundColor = .red
+        let contact = userContacts[indexPath.row]
+        cell.configureCell(contact: contact)
+        return cell
     }
 }
