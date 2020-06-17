@@ -65,5 +65,19 @@ extension DatabaseService {
             }
         }
     }
+    
+    public func getApplicationInterview(applicationID: String, completion: @escaping(Result<[Interview], Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).document(applicationID).collection(DatabaseService.interviewCollection).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                let interviews = snapshot.documents.map {Interview($0.data())}
+                completion(.success(interviews))
+            }
+        }
+    }
 
 }
