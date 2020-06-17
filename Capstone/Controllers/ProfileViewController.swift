@@ -8,21 +8,29 @@
 
 import UIKit
 import FirebaseAuth
+import MessageUI
 
 struct ProfileCells {
-    let tabs: String
+    let title: String
     let images: UIImage
     let viewController: UIViewController
     
     static func loadProfileCells() -> [ProfileCells] {
         return [
-            ProfileCells(tabs: "Account", images: UIImage(systemName: "person.fill")!, viewController: AccountViewController(nibName: "AccountViewControllerXib", bundle: nil)),
-            ProfileCells(tabs: "Settings", images: UIImage(systemName: "gear")!, viewController: SettingsViewController(nibName: "SettingsViewControllerXib", bundle: nil)),
+            ProfileCells(title: profileCellType.account.rawValue, images: UIImage(systemName: "person.fill")!, viewController: AccountViewController(nibName: "AccountViewControllerXib", bundle: nil)),
+            ProfileCells(title: profileCellType.settings.rawValue, images: UIImage(systemName: "gear")!, viewController: SettingsViewController(nibName: "SettingsViewControllerXib", bundle: nil)),
 //            Settings(tabs: "Notifications", images: UIImage(systemName: "message")!),
-            ProfileCells(tabs: "About this app", images: UIImage(systemName: "questionmark.circle")!, viewController: AboutThisAppViewController(nibName: "AboutThisAppViewControllerXib", bundle: nil)),
-            ProfileCells(tabs: "FAQ", images: UIImage(systemName: "questionmark.circle.fill")!, viewController: FAQViewController(nibName: "FAQViewControllerXib", bundle: nil)),
-            ProfileCells(tabs: "Contact Us", images: UIImage(systemName: "phone.fill")!, viewController: ContactUsViewController(nibName: "ContactUsViewControllerXib", bundle: nil))
+            ProfileCells(title: profileCellType.about.rawValue, images: UIImage(systemName: "questionmark.circle")!, viewController: AboutThisAppViewController(nibName: "AboutThisAppViewControllerXib", bundle: nil)),
+            ProfileCells(title: profileCellType.faq.rawValue, images: UIImage(systemName: "questionmark.circle.fill")!, viewController: FAQViewController(nibName: "FAQViewControllerXib", bundle: nil)),
+            ProfileCells(title: profileCellType.contact.rawValue, images: UIImage(systemName: "phone.fill")!, viewController: MFMailComposeViewController())
         ]
+    }
+    public enum profileCellType: String {
+        case account = "Account"
+        case settings = "Settings"
+        case about = "About This App"
+        case faq = "FAQ"
+        case contact = "Contact Us"
     }
 }
 
@@ -61,7 +69,9 @@ class ProfileViewController: UIViewController {
         settingsTableView.register(UINib(nibName: "ProfileCell", bundle: nil), forCellReuseIdentifier: "profileCell")
         settingsTableView.tintColor = .systemPurple
     }
-    
+    private func canSendMail() -> Bool {
+        return MFMailComposeViewController.canSendMail()
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource {
@@ -84,7 +94,26 @@ extension ProfileViewController: UITableViewDelegate {
         return 40
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let profileCellSelected = allSettings[indexPath.row]
         let destinationViewController = allSettings[indexPath.row].viewController
+        if profileCellSelected.title != ProfileCells.profileCellType.contact.rawValue {
         navigationController?.pushViewController(destinationViewController, animated: true)
+        } else {
+            if canSendMail() {
+                let composeVC = MFMailComposeViewController()
+                composeVC.mailComposeDelegate = self
+                composeVC.setToRecipients(["CareerViewAppTeam@gmail.com"])
+                composeVC.setSubject("I was told to contact you")
+                self.present(composeVC, animated: true, completion: nil)
+            } else {
+                showAlert(title: "Mail not configured", message: "Please configure your mail app to contact us")
+            }
+        }
+    }
+}
+
+extension ProfileViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingTableViewCell: UITableViewCell {
+class SettingTableViewCellSwitch: UITableViewCell {
     
     @IBOutlet weak var settingSwitch: UISwitch!
     @IBOutlet weak var settingLabel: UILabel!
@@ -35,7 +35,6 @@ class SettingTableViewCell: UITableViewCell {
     private func loadUserPreferenceSTARStoryOption() {
         if let showStarSituationInputOption = UserPreference.shared.getPreferenceShowInputOption() {
             showUserStarSituationInputOption = showStarSituationInputOption
-            print("show starSituation option: \(showStarSituationInputOption.rawValue)")
         }
     }
     @objc func starSituationInputOptionToggled(_ sender: UISwitch) {

@@ -14,7 +14,7 @@
 		52F81DBD249260710052532B /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F81DBC249260710052532B /* ProfileCell.swift */; };
 		8809883D24956537006EA9D0 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8809883C24956537006EA9D0 /* UIViewExt.swift */; };
 		881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */; };
-		881CD33E2499AB6F008AB0C8 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CD33D2499AB6F008AB0C8 /* SettingTableViewCell.swift */; };
+		881CD33E2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */; };
 		8828B97124981F0E00151F10 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8828B97024981F0E00151F10 /* ArrayExt.swift */; };
 		8838A4D1248E60D400217DA1 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */; };
 		8838A4D3248E60E100217DA1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8838A4D2248E60E100217DA1 /* UserDefaults.swift */; };
@@ -133,7 +133,7 @@
 		65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8809883C24956537006EA9D0 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
 		881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
-		881CD33D2499AB6F008AB0C8 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellSwitch.swift; sourceTree = "<group>"; };
 		8828B97024981F0E00151F10 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
 		8838A4D2248E60E100217DA1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 				C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */,
 				B79F4B8224905536009523EE /* HairlineView.swift */,
 				52F81DBC249260710052532B /* ProfileCell.swift */,
-				881CD33D2499AB6F008AB0C8 /* SettingTableViewCell.swift */,
+				881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -764,7 +764,7 @@
 				B79F4B46248F633E009523EE /* JobApplicationsDatabaseServices.swift in Sources */,
 				B7976E2D247D500B001AE3B3 /* UserJob.swift in Sources */,
 				C6AC379C248592DA00957B61 /* InterviewQuestionCell.swift in Sources */,
-				881CD33E2499AB6F008AB0C8 /* SettingTableViewCell.swift in Sources */,
+				881CD33E2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift in Sources */,
 				B7976E45247D8F40001AE3B3 /* InterviewAnswerDetailController.swift in Sources */,
 				889FCAAC2499672C00CC9153 /* SettingsViewController.swift in Sources */,
 				B7271670248117F600276478 /* AuthenticationSession.swift in Sources */,

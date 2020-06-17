@@ -15,6 +15,7 @@ class ProfileCell: UITableViewCell {
     
     public func configureCell(setting: ProfileCells) {
         settingsImage.image = setting.images
-        settingsName.text = setting.tabs
+        settingsName.text = setting.title
     }
+    
 }
