@@ -21,6 +21,11 @@ class InterviewQuestionsMainController: UIViewController {
     
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var filterButtonsStack: UIStackView!
+    @IBOutlet weak var allButton: UIButton!
+    @IBOutlet weak var bookmarksButton: UIButton!
+    @IBOutlet weak var commonButton: UIButton!
+    @IBOutlet weak var customButton: UIButton!
     
     private var listener: ListenerRegistration?
     public var filterState: FilterState = .all {
@@ -178,13 +183,22 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    @IBAction func allButtonPressed(_ sender: UIButton) {
+        
+    }
+    @IBAction func bookmarksButtonPressed(_ sender: UIButton) {
+        
+    }
+    @IBAction func commonButtonPressed(_ sender: UIButton) {
+        
+    }
 }
 //MARK:- CollectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
         let itemWidth: CGFloat = maxsize.width * 0.9
-        let itemHeight: CGFloat = maxsize.height * 0.2
+        let itemHeight: CGFloat = maxsize.height * 0.15
         return CGSize(width: itemWidth, height: itemHeight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

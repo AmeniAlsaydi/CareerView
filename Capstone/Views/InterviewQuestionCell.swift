@@ -38,13 +38,14 @@ class InterviewQuestionCell: UICollectionViewCell {
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.layer.cornerRadius).cgPath
     }
     private func setAppColorsandFonts() {
-        interviewQuestionLabel.font = AppFonts.semiBold
-        connectedStarsLabel.font = AppFonts.secondaryFont
+        interviewQuestionLabel.font = AppFonts.semiBoldLarge
+        connectedStarsLabel.font = AppFonts.semiBoldSmall
         connectedStarsLabel.textColor = AppColors.whiteTextColor
         numberOfStarsLabel.font = AppFonts.secondaryFont
         numberOfStarsLabel.textColor = AppColors.whiteTextColor
         answeredLabel.font = AppFonts.secondaryFont
         answerCheckBox.tintColor = AppColors.darkGrayHighlightColor
+        //cellHeaderView.backgroundColor = AppColors.primaryPurpleColor
         AppColors.colors.gradientBackground(view: cellHeaderView)
     }
     

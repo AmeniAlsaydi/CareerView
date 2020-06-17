@@ -39,7 +39,7 @@ class AppColors {
     //MARK:- reserve gradients for small ui views only
     public func gradientBackground(view: UIView) {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.startPoint = CGPoint(x: 0.3, y: 1.0)
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
         gradientLayer.colors = [gradientBlue.cgColor, gradientPurple.cgColor, gradientPink.cgColor]
         view.backgroundColor = .clear
@@ -51,9 +51,10 @@ class AppColors {
 class AppFonts {
     static let fonts = AppFonts()
     
-    static let primaryFont = UIFont(name: "Avenir-Regular", size: 20)
-    static let boldFont = UIFont(name: "Avenir-Heavy", size: 25)
-    static let semiBold = UIFont(name: "Avenir-Medium", size: 20)
+    static let primaryFont = UIFont(name: "Avenir-Regular", size: 17)
+    static let boldFont = UIFont(name: "Avenir-Heavy", size: 20)
+    static let semiBoldLarge = UIFont(name: "Avenir-Medium", size: 20)
+    static let semiBoldSmall = UIFont(name: "Avenir-Medium", size: 17)
     static let secondaryFont = UIFont(name: "Helvetica", size: 17)
     
     private init() {}
@@ -73,6 +74,7 @@ class AppButtonIcons {
     static let emptySquareIcon = UIImage(systemName: "square")
     static let squareCheckmarkIcon = UIImage(systemName: "checkmark.square")
     static let squareCheckmarkFillIcon = UIImage(systemName: "checkmark.square.fill")
+    static let navBarBackButton = UIImage(systemName: "arrow.left")
     
     private init() {}
 }

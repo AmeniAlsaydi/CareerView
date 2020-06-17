@@ -17,16 +17,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VCd-9o-m5O" userLabel="Purple View">
-                        <rect key="frame" x="0.0" y="0.0" width="575" height="62.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="575" height="44"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of STAR stories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1p-8i-JFb">
-                                <rect key="frame" x="161" y="10" width="132" height="20.5"/>
+                                <rect key="frame" x="163" y="12" width="132" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected STARS:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="typ-ON-eJX">
-                                <rect key="frame" x="8" y="8" width="145" height="24.5"/>
+                                <rect key="frame" x="10" y="12" width="145" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -34,23 +34,24 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="d1p-8i-JFb" firstAttribute="leading" secondItem="typ-ON-eJX" secondAttribute="trailing" constant="8" id="3Q1-iZ-jcp"/>
-                            <constraint firstItem="typ-ON-eJX" firstAttribute="centerY" secondItem="d1p-8i-JFb" secondAttribute="centerY" id="THb-5u-CN5"/>
-                            <constraint firstItem="typ-ON-eJX" firstAttribute="top" secondItem="VCd-9o-m5O" secondAttribute="top" constant="8" id="aDl-TL-mTB"/>
-                            <constraint firstItem="typ-ON-eJX" firstAttribute="leading" secondItem="VCd-9o-m5O" secondAttribute="leading" constant="8" id="bNJ-44-LCv"/>
+                            <constraint firstAttribute="height" constant="44" id="Dcw-eK-Pol"/>
+                            <constraint firstItem="typ-ON-eJX" firstAttribute="leading" secondItem="VCd-9o-m5O" secondAttribute="leading" constant="10" id="Gh6-i8-7GO"/>
+                            <constraint firstItem="typ-ON-eJX" firstAttribute="centerY" secondItem="VCd-9o-m5O" secondAttribute="centerY" id="Ssb-I0-wKv"/>
+                            <constraint firstItem="d1p-8i-JFb" firstAttribute="centerY" secondItem="typ-ON-eJX" secondAttribute="centerY" id="abD-pT-ECv"/>
+                            <constraint firstItem="d1p-8i-JFb" firstAttribute="leading" secondItem="typ-ON-eJX" secondAttribute="trailing" constant="8" id="vuR-9U-ebH"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interview Question" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBe-5f-WTw">
-                        <rect key="frame" x="10" y="102.5" width="555" height="24"/>
+                        <rect key="frame" x="10" y="54" width="555" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JD4-Y1-tmP">
-                        <rect key="frame" x="521" y="10" width="44" height="44"/>
+                        <rect key="frame" x="521" y="0.0" width="44" height="44"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="44" id="nYW-XL-G1R"/>
-                            <constraint firstAttribute="height" constant="44" id="v3c-QY-jI6"/>
+                            <constraint firstAttribute="height" constant="44" id="FVG-aB-u9Z"/>
+                            <constraint firstAttribute="width" constant="44" id="wl6-d7-liQ"/>
                         </constraints>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" image="ellipsis" catalog="system">
@@ -77,9 +78,7 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="JD4-Y1-tmP" secondAttribute="trailing" constant="10" id="1Oz-54-u5a"/>
                     <constraint firstAttribute="trailing" secondItem="VCd-9o-m5O" secondAttribute="trailing" id="4I5-0y-tKB"/>
-                    <constraint firstItem="JD4-Y1-tmP" firstAttribute="top" secondItem="jqw-Ht-Goa" secondAttribute="top" constant="10" id="ABA-TC-Cem"/>
                     <constraint firstAttribute="bottom" secondItem="WsJ-by-uTK" secondAttribute="bottom" constant="8" id="Fym-Au-H42"/>
                     <constraint firstItem="nBe-5f-WTw" firstAttribute="leading" secondItem="jqw-Ht-Goa" secondAttribute="leading" constant="10" id="HBd-Pv-15b"/>
                     <constraint firstItem="gDJ-5Z-5L7" firstAttribute="leading" secondItem="WsJ-by-uTK" secondAttribute="trailing" constant="8" id="MUt-D5-8zL"/>
@@ -87,11 +86,11 @@
                     <constraint firstItem="VCd-9o-m5O" firstAttribute="leading" secondItem="jqw-Ht-Goa" secondAttribute="leading" id="NPi-2i-qH5"/>
                     <constraint firstAttribute="trailing" secondItem="gDJ-5Z-5L7" secondAttribute="trailing" constant="8" id="QGi-e6-TBB"/>
                     <constraint firstAttribute="trailing" secondItem="nBe-5f-WTw" secondAttribute="trailing" constant="10" id="TIe-5X-UAi"/>
-                    <constraint firstItem="d1p-8i-JFb" firstAttribute="top" secondItem="JD4-Y1-tmP" secondAttribute="top" id="Ua2-f6-obE"/>
+                    <constraint firstAttribute="trailing" secondItem="JD4-Y1-tmP" secondAttribute="trailing" constant="10" id="Tvj-F1-6EQ"/>
                     <constraint firstAttribute="bottom" secondItem="gDJ-5Z-5L7" secondAttribute="bottom" constant="8" id="XbR-Dy-vNv"/>
-                    <constraint firstItem="VCd-9o-m5O" firstAttribute="height" secondItem="jqw-Ht-Goa" secondAttribute="height" multiplier="0.15" id="eWk-8h-5Ns"/>
                     <constraint firstItem="WsJ-by-uTK" firstAttribute="centerY" secondItem="gDJ-5Z-5L7" secondAttribute="centerY" id="g87-vK-84n"/>
-                    <constraint firstItem="nBe-5f-WTw" firstAttribute="top" secondItem="VCd-9o-m5O" secondAttribute="bottom" constant="40" id="rEA-UB-9mT"/>
+                    <constraint firstItem="JD4-Y1-tmP" firstAttribute="centerY" secondItem="VCd-9o-m5O" secondAttribute="centerY" id="nz4-wB-oHC"/>
+                    <constraint firstItem="nBe-5f-WTw" firstAttribute="top" secondItem="VCd-9o-m5O" secondAttribute="bottom" constant="10" id="rEA-UB-9mT"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="575" height="415"/>
