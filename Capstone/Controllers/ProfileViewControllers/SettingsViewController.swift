@@ -28,6 +28,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Settings"
         loadSettings()
         tableView.delegate = self
         tableView.dataSource = self
