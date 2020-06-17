@@ -19,3 +19,6 @@
 #### MessageUI
 #### Contacts
 #### MapKit
+
+## Cocopods used
+#### Folding Cell by Ramotion - https://github.com/Ramotion/folding-cell
