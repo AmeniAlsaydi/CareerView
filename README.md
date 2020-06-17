@@ -9,7 +9,7 @@
 ## Description
 
 ## ScreenShot of App
-!(Media/Wireframe.jpg)
+![Wireframe](Media/Wireframe.jpg)
 
 ## Frameworks used
 #### UIKit 
