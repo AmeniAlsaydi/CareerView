@@ -282,7 +282,6 @@ class NewApplicationController: UIViewController {
     
     
     private func submitNewJobApplication() {
-        
         // create id
         var jobID = ""
         
@@ -358,7 +357,7 @@ class NewApplicationController: UIViewController {
             case .success:
                 print("success adding application")
                 
-                if self?.editingApplication ?? true {
+                if self?.editingApplication ?? false {
                     self?.showAlert(title: "Sucess!", message: "Your application was edited!", completion: { (alertAction) in
                         self?.navigationController?.popViewController(animated: true)
                     })
@@ -444,7 +443,6 @@ class NewApplicationController: UIViewController {
         CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
     }
 }
-
 
 /*
  key board handling:

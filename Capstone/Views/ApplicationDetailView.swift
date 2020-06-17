@@ -12,8 +12,21 @@ class ApplicationDetailView: UIView {
     
     public lazy var interviewDateLabel: UILabel = {
         let label = UILabel()
-        label.text = "Hi"
         return label
+    }()
+    
+    public lazy var thankYouLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Thank you note sent?"
+        return label
+    }()
+    
+    public lazy var thankYouButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "square")
+        button.tintColor = .systemPurple
+        button.setImage(image, for: .normal)
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -28,6 +41,8 @@ class ApplicationDetailView: UIView {
     
     private func commonInit() {
         configureInterviewLabel()
+        constrainThankYouLabel()
+        constainThankyouButton()
     }
     
     private func configureInterviewLabel() {
@@ -40,8 +55,24 @@ class ApplicationDetailView: UIView {
         ])
     }
     
-    public func configureUI(interview: Interview) {
-        interviewDateLabel.text = interview.interviewDate?.dateValue().dateString()
+    private func constrainThankYouLabel() {
+        addSubview(thankYouLabel)
+        thankYouLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            thankYouLabel.topAnchor.constraint(equalTo: interviewDateLabel.bottomAnchor, constant: 10),
+            thankYouLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+        ])
+    }
+    
+    private func constainThankyouButton() {
+        addSubview(thankYouButton)
+        thankYouButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            thankYouButton.widthAnchor.constraint(equalToConstant: 44),
+            thankYouButton.topAnchor.constraint(equalTo: interviewDateLabel.bottomAnchor, constant: 10),
+            thankYouButton.leadingAnchor.constraint(equalTo: thankYouLabel.trailingAnchor, constant: -40),
+            thankYouButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
     }
     
 }

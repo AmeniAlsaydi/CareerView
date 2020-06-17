@@ -22,13 +22,13 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var dateAppliedLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     
-    @IBOutlet weak var view1: InterviewEntryView!
+    @IBOutlet weak var view1: ApplicationDetailView!
     @IBOutlet weak var view1Height: NSLayoutConstraint!
     
-    @IBOutlet weak var view2: InterviewEntryView!
+    @IBOutlet weak var view2: ApplicationDetailView!
     @IBOutlet weak var view2Height: NSLayoutConstraint!
     
-    @IBOutlet weak var view3: InterviewEntryView!
+    @IBOutlet weak var view3: ApplicationDetailView!
     @IBOutlet weak var view3Height: NSLayoutConstraint!
     
     @IBOutlet weak var mapHeight: NSLayoutConstraint!
@@ -40,9 +40,7 @@ class ApplicationDetailController: UIViewController {
     private var interviewData = [Interview]()
     
     private var interviewViewHeight: NSLayoutConstraint!
-    
-    private var interviewView = ApplicationDetailView()
-    
+        
     init(_ jobApplication: JobApplication) {
         self.jobApplication = jobApplication
         super.init(nibName: "ApplicationDetailXib", bundle: nil)
@@ -51,7 +49,7 @@ class ApplicationDetailController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureDetailVC(application: jobApplication)
@@ -154,7 +152,6 @@ class ApplicationDetailController: UIViewController {
             mapHeight.constant = 0 
             mapView.isHidden = true
         }
-        
         return annotations
     }
     
@@ -166,21 +163,47 @@ class ApplicationDetailController: UIViewController {
             view2.isHidden = true
             view3.isHidden = true
         case 1:
-            view1Height.constant = 150
+            view1Height.constant = 100
             view2.isHidden = true
             view3.isHidden = true
-            interviewView.configureUI(interview: interviewData[0])
+            view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
+            
+            if interviewData[0].thankYouSent {
+                view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            
         case 2:
-            view1Height.constant = 150
-            view2Height.constant = 150
+            view1Height.constant = 100
+            view2Height.constant = 100
             view3.isHidden = true
+            
+            view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
+            if interviewData[0].thankYouSent {
+                view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            
+            view2.interviewDateLabel.text = "Interview Date: \(interviewData[1].interviewDate?.dateValue().dateString() ?? "")"
+            if interviewData[1].thankYouSent {
+                view2.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
         case 3:
-            view1Height.constant = 150
-            view2Height.constant = 150 
-            view3Height.constant = 150
-            interviewView.configureUI(interview: interviewData[0])
-            interviewView.configureUI(interview: interviewData[1])
-            interviewView.configureUI(interview: interviewData[2])
+            view1Height.constant = 100
+            view2Height.constant = 100
+            view3Height.constant = 100
+            view1.interviewDateLabel.text = "Interview Date #1 - \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
+            if interviewData[0].thankYouSent {
+                view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            
+            view2.interviewDateLabel.text = "Interview Date #2 - \(interviewData[1].interviewDate?.dateValue().dateString() ?? "")"
+            if interviewData[1].thankYouSent {
+                view2.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            
+            view3.interviewDateLabel.text = "Interview Date #3 - \(interviewData[2].interviewDate?.dateValue().dateString() ?? "")"
+            if interviewData[2].thankYouSent {
+                view3.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
         default:
             print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
         }
