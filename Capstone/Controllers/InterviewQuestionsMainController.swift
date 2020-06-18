@@ -69,6 +69,7 @@ class InterviewQuestionsMainController: UIViewController {
             if filterState == .all {
                 questionsCollectionView.reloadData()
                 questionsCollectionView.backgroundView = nil
+                allQuestions = Array(allQuestions).removingDuplicates()
             }
         }
     }
@@ -103,15 +104,16 @@ class InterviewQuestionsMainController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        updateUI()
+       
         guard let user = Auth.auth().currentUser else {return}
         listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
             if let error = error {
                 print("listener could not recieve changes for custom questions error: \(error.localizedDescription)")
             } else if let snapshot = snapshot {
                 let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
-                self?.customQuestions = customQs
                 self?.questionsCollectionView.reloadData()
+                self?.customQuestions = customQs
+                self?.getUserCreatedQuestions()
             }
         })
     }
@@ -122,7 +124,6 @@ class InterviewQuestionsMainController: UIViewController {
         configureCollectionView()
         configureNavBar()
         getInterviewQuestions()
-        getUserCreatedQuestions()
         getBookmarkedQuestions()
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -309,6 +310,8 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
         guard let cell = questionsCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewQuestionCell", for: indexPath) as? InterviewQuestionCell else {
             fatalError("could not cast to interviewquestioncell")
         }
+        
+        
         switch filterState {
         case .all:
             let question = allQuestions[indexPath.row]
