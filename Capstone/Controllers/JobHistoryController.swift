@@ -150,7 +150,8 @@ extension JobHistoryController: JobHistoryExpandableCellDelegate {
         present(alertController, animated: true, completion: nil)
     }
     private func editUserJob(userJob: UserJob) {
-        let destinationViewController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
+        
+        let destinationViewController = NewJobEntryController(nibName: "NewJobEntryXib", bundle: nil)
         destinationViewController.userJob = userJob
         destinationViewController.editingJob = true
         navigationController?.pushViewController(destinationViewController, animated: true)
