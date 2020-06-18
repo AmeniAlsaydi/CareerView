@@ -33,9 +33,15 @@ class NewJobEntryController: UIViewController {
     
     private var activeTextField = UITextField()
     
+    public var uniqueStarIDs = [String]() {
+        didSet {
+             getStarSituations()
+        }
+    }
+    
     public var starSituationIDsToAdd = [String]() {
         didSet {
-            getStarSituations()
+            uniqueStarIDs = starSituationIDsToAdd.removingDuplicates()
         }
     }
     
@@ -165,7 +171,7 @@ class NewJobEntryController: UIViewController {
             case .failure(let error):
                 self?.showAlert(title: "Error getting star situations", message: "\(error.localizedDescription)")
             case .success(let situations):
-                let situationsArr: [String] = self?.starSituationIDsToAdd ?? []
+                let situationsArr: [String] = self?.uniqueStarIDs ?? []
                 let situationIDs = Set(situationsArr)
                 self?.starSituations = situations.filter { situationIDs.contains($0.id) }
             }
@@ -279,7 +285,7 @@ class NewJobEntryController: UIViewController {
             endTimeStamp = Timestamp(date: endDate)
         }
         
-        let uniqueStarIDs = starSituationIDsToAdd.removingDuplicates()
+        
         
         let userJobToSave = UserJob(id: userJobId, title: jobTitle, companyName: companyName, location: location ?? "", beginDate: beginTimeStamp, endDate: endTimeStamp!, currentEmployer: isCurrentEmployer, description: description, responsibilities: responsibilties, starSituationIDs: uniqueStarIDs, interviewQuestionIDs: [])
         
@@ -473,6 +479,27 @@ extension NewJobEntryController: BasicSituationDelegate {
     func didPressMoreButton(starSituation: StarSituation, starSituationCell: BasicStarSituationCell) {
         print("present action sheet")
         // display action sheet to allow delete
-        // using the situation delete from ids -> hopefully this will trigger the didSet and subsequently update the collection view 
+        // using the situation delete from ids -> hopefully this will trigger the didSet and subsequently update the collection view
+        
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteSituationID(starSituation: starSituation) }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func deleteSituationID(starSituation: StarSituation) {
+        
+        guard let index = uniqueStarIDs.firstIndex(of: starSituation.id) else {
+            print("")
+            return
+        }
+        
+        print(uniqueStarIDs)
+        uniqueStarIDs.remove(at: index)
+        print(uniqueStarIDs)
     }
 }
