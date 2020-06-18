@@ -48,21 +48,51 @@ class JobHistoryExpandableCell: FoldingCell {
         guard let userJob = userJobForDelegate else { return }
         delegate?.starSituationsButtonPressed(userJob: userJob)
     }
-    func updateGeneralInfo(userJob: UserJob) {
-        
+    private func configureCollectionView() {
         collectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
         collectionView.delegate = self
         collectionView.dataSource = self
+    }
+    private func setUpAppUI() {
+        //Closed
+        jobTitleLabel.font = AppFonts.semiBoldLarge
+        jobTitleLabel.textColor = AppColors.primaryBlackColor
+        dateLabel.font = AppFonts.secondaryFont
+        dateLabel.textColor = AppColors.darkGrayHighlightColor
+        companyNameLabel.font = AppFonts.primaryFont
+        companyNameLabel.textColor = AppColors.primaryBlackColor
+        jobDescriptionLabel.font = AppFonts.secondaryFont
+        jobDescriptionLabel.textColor = AppColors.darkGrayHighlightColor
+        
+        //Opened
+        jobTitleLabel2.font = AppFonts.boldFont
+        jobTitleLabel2.textColor = AppColors.primaryBlackColor
+        
+        dateLabel2.font = AppFonts.semiBoldSmall
+        dateLabel2.textColor = AppColors.primaryBlackColor
+        
+        companyNameLabel2.font = AppFonts.semiBoldSmall
+        companyNameLabel2.textColor = AppColors.primaryBlackColor
+        
+        jobDescriptionLabel2.font = AppFonts.primaryFont
+        jobDescriptionLabel2.textColor = AppColors.primaryBlackColor
+        
+        responsibilityOne.font = AppFonts.semiBoldSmall
+        responsibilityTwo.font = AppFonts.semiBoldSmall
+        responsibilityThree.font = AppFonts.semiBoldSmall
+    }
+    func updateGeneralInfo(userJob: UserJob) {
+        setUpAppUI()
         currentUserJob = userJob
         userJobForDelegate = userJob
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
         starSituationButton.addTarget(self, action: #selector(starSituationButtonPressed(_:)), for: .touchUpInside)
         jobTitleLabel.text = userJob.title
-        companyNameLabel.text = "Company: \(userJob.companyName)"
+        companyNameLabel.text = "\(userJob.companyName)"
         jobDescriptionLabel.text = userJob.description
         dateLabel.text = "\(userJob.beginDate.dateValue().dateString()) - \(userJob.endDate.dateValue().dateString()) "
         jobTitleLabel2.text = userJob.title
-        companyNameLabel2.text = "Company: \(userJob.companyName)"
+        companyNameLabel2.text = "\(userJob.companyName) |"
         jobDescriptionLabel2.text = userJob.description
         dateLabel2.text = "\(userJob.beginDate.dateValue().dateString()) - \(userJob.endDate.dateValue().dateString()) "
         
@@ -70,22 +100,12 @@ class JobHistoryExpandableCell: FoldingCell {
             responsibilityOne.text = userJob.responsibilities[0]
             responsibilityTwo.text = userJob.responsibilities[1]
             responsibilityThree.text = userJob.responsibilities[2]
-        }
-        
-        if userJob.responsibilities.count == 2 {
+        } else if userJob.responsibilities.count == 2 {
             responsibilityOne.text = userJob.responsibilities[0]
             responsibilityTwo.text = userJob.responsibilities[1]
-        }
-        
-        if userJob.responsibilities.count == 1 {
+        } else if userJob.responsibilities.count == 1 {
             responsibilityOne.text = userJob.responsibilities[0]
         }
-        
-        if userJob.responsibilities.count == 0 {
-            responsibilityOne.textAlignment = .center
-            responsibilityOne.text = "No responsibility listed for this job"
-        }
-        
         starSituationButton.setTitle(userJob.starSituationIDs.count.description, for: .normal)
     }
     func loadUserContacts(userJob: UserJob) {
@@ -137,12 +157,9 @@ extension JobHistoryExpandableCell: UICollectionViewDataSource {
             return cell
         }
         cell.configureCell(contact: contact)
-        
         return cell
     }
-    
 }
-
 extension JobHistoryExpandableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let contact = contacts?[indexPath.row] else {
