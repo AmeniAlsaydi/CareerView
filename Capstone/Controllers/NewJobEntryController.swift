@@ -35,18 +35,13 @@ class NewJobEntryController: UIViewController {
     
     public var starSituationIDsToAdd = [String]() {
         didSet {
-            print(starSituationIDsToAdd.count) // just to test we get back stars
-            // reload star story collection
-            // get star situations
             getStarSituations()
-            
         }
     }
     
     public var starSituations = [StarSituation]() {
         didSet {
             self.starSituationsCollectionView.reloadData()
-            
         }
     }
     
@@ -82,12 +77,11 @@ class NewJobEntryController: UIViewController {
         didSet {
             if isCurrentEmployer {
                 currentEmployerButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
-                // animate endDateTextField height to zero
+                // TO DO: animate endDateTextField height to zero
                 // set end date to todays date
             } else {
                 currentEmployerButton.setImage(UIImage(systemName: "square"), for: .normal)
-                
-                // animate endDateTextField height to original height
+                // TO DO: animate endDateTextField height to original height
             }
         }
     }
@@ -125,19 +119,38 @@ class NewJobEntryController: UIViewController {
             endDateTextField.text = job.endDate.dateValue().dateString()
             starSituationIDsToAdd = job.starSituationIDs
             
-            responsibility1TextField.text = job.responsibilities[0]
+            beginDate = job.beginDate.dateValue()
+            endDate = job.endDate.dateValue()
             
+            // handle optional responsibilities
             switch job.responsibilities.count {
+            case 1:
+                responsibility1TextField.text = job.responsibilities[0]
             case 2:
                 responsibility2TextField.text = job.responsibilities[1]
             case 3:
                 responsibility2TextField.text = job.responsibilities[1]
                 responsibility3TextField.text = job.responsibilities[2]
             default:
-                print("")
+                print("no responsibilties")
             }
             
-            
+            // handle contacts
+            loadUserContacts(job)
+        }
+    }
+    
+    func loadUserContacts(_ userJob: UserJob) {
+        let userJobID = userJob.id
+        DatabaseService.shared.fetchContactsForJob(userJobId: userJobID) { (result) in
+            switch result {
+            case .failure(let error):
+                print("Failure loading jobs: \(error.localizedDescription)")
+            case .success(let contactData):
+                DispatchQueue.main.async {
+                    self.userContacts = contactData
+                }
+            }
         }
     }
     
