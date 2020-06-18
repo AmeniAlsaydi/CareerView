@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="beginDateTextField" destination="eop-AS-ov7" id="4kS-MZ-3ud"/>
                 <outlet property="companyNameTextField" destination="X3u-Xd-YlK" id="wna-H6-wlL"/>
+                <outlet property="contactsCVHeight" destination="OAU-wM-bVU" id="QPb-R9-khn"/>
                 <outlet property="contactsCollectionView" destination="dOy-nq-266" id="lrh-Po-eqR"/>
                 <outlet property="currentEmployerButton" destination="Wno-rf-MbO" id="14Z-gg-gjs"/>
                 <outlet property="descriptionTextField" destination="qub-8J-lcb" id="Ng6-1B-QKt"/>
@@ -20,6 +21,7 @@
                 <outlet property="responsibility1TextField" destination="bgc-am-9oi" id="Kks-Tu-hCL"/>
                 <outlet property="responsibility2TextField" destination="Sbx-cA-VI2" id="wJV-c5-e84"/>
                 <outlet property="responsibility3TextField" destination="gt0-X7-POk" id="xQE-mB-hXH"/>
+                <outlet property="situationsCVHeight" destination="8xa-Hd-Le9" id="JkO-ZK-kDv"/>
                 <outlet property="starSituationsCollectionView" destination="0df-Od-mN3" id="3N6-wP-khp"/>
                 <outlet property="view" destination="iN0-l3-epB" id="nWB-AU-Dgb"/>
             </connections>
@@ -33,7 +35,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anl-Vr-wkA" userLabel="Content View">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="1173.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1023.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add another job" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Lj-RJ-vnm">
                                     <rect key="frame" x="20" y="20" width="374" height="29"/>
@@ -132,10 +134,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="0df-Od-mN3">
-                                    <rect key="frame" x="0.0" y="938" width="414" height="100"/>
+                                    <rect key="frame" x="0.0" y="938" width="414" height="0.0"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="100" id="8xa-Hd-Le9"/>
+                                        <constraint firstAttribute="height" id="8xa-Hd-Le9"/>
                                     </constraints>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="q1i-gs-UR8">
                                         <size key="itemSize" width="128" height="128"/>
@@ -158,13 +160,13 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hoy-iJ-xEG">
-                                    <rect key="frame" x="20" y="1058" width="352" height="20.5"/>
+                                    <rect key="frame" x="20" y="958" width="352" height="20.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyJ-at-csv">
-                                    <rect key="frame" x="372" y="1057" width="22" height="22"/>
+                                    <rect key="frame" x="372" y="957" width="22" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="22" id="xAJ-tB-nii"/>
                                     </constraints>
@@ -177,10 +179,10 @@
                                     </connections>
                                 </button>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dOy-nq-266">
-                                    <rect key="frame" x="0.0" y="1093.5" width="414" height="50"/>
+                                    <rect key="frame" x="0.0" y="993.5" width="414" height="0.0"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="OAU-wM-bVU"/>
+                                        <constraint firstAttribute="height" id="OAU-wM-bVU"/>
                                     </constraints>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hMV-p4-Mzx">
                                         <size key="itemSize" width="128" height="128"/>

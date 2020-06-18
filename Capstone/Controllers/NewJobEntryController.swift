@@ -31,6 +31,12 @@ class NewJobEntryController: UIViewController {
     //MARK: Buttons
     @IBOutlet weak var currentEmployerButton: UIButton!
     
+    // MARK: Constraints
+    
+    @IBOutlet weak var situationsCVHeight: NSLayoutConstraint!
+    @IBOutlet weak var contactsCVHeight: NSLayoutConstraint!
+   
+    
     private var activeTextField = UITextField()
     
     public var uniqueStarIDs = [String]() {
@@ -47,6 +53,19 @@ class NewJobEntryController: UIViewController {
     
     public var starSituations = [StarSituation]() {
         didSet {
+            if starSituations.count > 0 {
+                UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                    self.situationsCVHeight.constant = 100
+                    self.view.layoutIfNeeded()
+                })
+            }
+            
+            if starSituations.count == 0 {
+                UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                    self.situationsCVHeight.constant = 0
+                    self.view.layoutIfNeeded()
+                })
+            }
             self.starSituationsCollectionView.reloadData()
         }
     }
@@ -73,8 +92,19 @@ class NewJobEntryController: UIViewController {
     private var contacts = [CNContact]()
     private var userContacts = [Contact]() {
         didSet {
-            print(userContacts.count) // just to test we get contacts back
-            // should reload the contactsCollection
+            if userContacts.count > 0 {
+                UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                    self.contactsCVHeight.constant = 50
+                    self.view.layoutIfNeeded()
+                })
+            }
+            
+            if userContacts.count == 0 {
+                UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                    self.contactsCVHeight.constant = 0
+                    self.view.layoutIfNeeded()
+                })
+            }
             self.contactsCollectionView.reloadData()
         }
     }
@@ -83,11 +113,12 @@ class NewJobEntryController: UIViewController {
         didSet {
             if isCurrentEmployer {
                 currentEmployerButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
-                // TO DO: animate endDateTextField height to zero
-                // set end date to todays date
+                endDateTextField.text = "Present"
+                endDate = Date() // set end date to todays date
             } else {
                 currentEmployerButton.setImage(UIImage(systemName: "square"), for: .normal)
-                // TO DO: animate endDateTextField height to original height
+                endDateTextField.text = nil
+                
             }
         }
     }
@@ -497,9 +528,6 @@ extension NewJobEntryController: BasicSituationDelegate {
             print("")
             return
         }
-        
-        print(uniqueStarIDs)
         uniqueStarIDs.remove(at: index)
-        print(uniqueStarIDs)
     }
 }
