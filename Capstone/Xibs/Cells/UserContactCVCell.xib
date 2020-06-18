@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -16,29 +16,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="154" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-Wl-biT">
-                        <rect key="frame" x="-2" y="13" width="155.5" height="24"/>
-                        <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First&amp;Last Names" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4g3-Pa-3Xn">
-                        <rect key="frame" x="8" y="14.5" width="135.5" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First&amp;Last Names" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4g3-Pa-3Xn">
+                        <rect key="frame" x="0.0" y="16" width="154" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                        <color key="textColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="TmV-Wl-biT" firstAttribute="height" secondItem="4g3-Pa-3Xn" secondAttribute="height" multiplier="1.15" id="40m-4S-jjj"/>
-                    <constraint firstItem="TmV-Wl-biT" firstAttribute="width" secondItem="4g3-Pa-3Xn" secondAttribute="width" multiplier="1.15" id="9ah-Hg-QDV"/>
-                    <constraint firstItem="4g3-Pa-3Xn" firstAttribute="leading" secondItem="O2G-um-eKx" secondAttribute="leading" constant="8" id="NYl-EO-fx2"/>
-                    <constraint firstItem="TmV-Wl-biT" firstAttribute="centerX" secondItem="4g3-Pa-3Xn" secondAttribute="centerX" id="OTs-DK-w6w"/>
-                    <constraint firstItem="4g3-Pa-3Xn" firstAttribute="centerY" secondItem="O2G-um-eKx" secondAttribute="centerY" id="Prs-Ax-8Zs"/>
-                    <constraint firstItem="TmV-Wl-biT" firstAttribute="centerY" secondItem="4g3-Pa-3Xn" secondAttribute="centerY" id="rAg-eg-UQe"/>
+                    <constraint firstItem="4g3-Pa-3Xn" firstAttribute="leading" secondItem="O2G-um-eKx" secondAttribute="leading" id="dgA-ye-1pd"/>
+                    <constraint firstItem="4g3-Pa-3Xn" firstAttribute="centerY" secondItem="O2G-um-eKx" secondAttribute="centerY" id="txC-gD-hwK"/>
+                    <constraint firstAttribute="trailing" secondItem="4g3-Pa-3Xn" secondAttribute="trailing" id="xvw-2b-N8P"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="154" height="50"/>
             <connections>
-                <outlet property="bkgdview" destination="TmV-Wl-biT" id="6Jl-qP-csg"/>
                 <outlet property="nameLabel" destination="4g3-Pa-3Xn" id="rDG-lU-j31"/>
             </connections>
             <point key="canvasLocation" x="591.304347826087" y="501.5625"/>
