@@ -279,7 +279,9 @@ class NewJobEntryController: UIViewController {
             endTimeStamp = Timestamp(date: endDate)
         }
         
-        let userJobToSave = UserJob(id: userJobId, title: jobTitle, companyName: companyName, location: location ?? "", beginDate: beginTimeStamp, endDate: endTimeStamp!, currentEmployer: isCurrentEmployer, description: description, responsibilities: responsibilties, starSituationIDs: starSituationIDsToAdd, interviewQuestionIDs: [])
+        let uniqueStarIDs = starSituationIDsToAdd.removingDuplicates()
+        
+        let userJobToSave = UserJob(id: userJobId, title: jobTitle, companyName: companyName, location: location ?? "", beginDate: beginTimeStamp, endDate: endTimeStamp!, currentEmployer: isCurrentEmployer, description: description, responsibilities: responsibilties, starSituationIDs: uniqueStarIDs, interviewQuestionIDs: [])
         
         DatabaseService.shared.addToUserJobs(userJob: userJobToSave, completion: { [weak self] (result) in
             switch result {
