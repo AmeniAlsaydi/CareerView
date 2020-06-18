@@ -9,6 +9,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InterviewQuestionsMainController" customModule="Capstone" customModuleProvider="target">
             <connections>
+                <outlet property="allButton" destination="IYR-ul-Cfo" id="R7X-LC-IIb"/>
+                <outlet property="bookmarksButton" destination="BZV-Vi-l3f" id="JaF-jY-htl"/>
+                <outlet property="collectionViewTopAnchor" destination="20h-JW-86T" id="44h-ZF-tAA"/>
+                <outlet property="commonButton" destination="l62-Mx-rF1" id="JsC-Rb-B7V"/>
+                <outlet property="customButton" destination="yq3-QZ-KaE" id="nH8-dl-LDA"/>
+                <outlet property="filterButtonsStack" destination="1fq-9L-DVe" id="eQ2-EV-rqs"/>
                 <outlet property="questionsCollectionView" destination="SGx-8c-HZA" id="1mh-4O-HhG"/>
                 <outlet property="searchBar" destination="9w5-ui-qrJ" id="qLL-D5-cKn"/>
                 <outlet property="view" destination="iN0-l3-epB" id="hMN-IE-PU8"/>
@@ -20,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="SGx-8c-HZA">
-                    <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                    <rect key="frame" x="0.0" y="152" width="414" height="710"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xCB-jS-uMc">
                         <size key="itemSize" width="128" height="128"/>
@@ -33,19 +39,58 @@
                         <outlet property="delegate" destination="-1" id="k9p-2h-9xD"/>
                     </connections>
                 </collectionView>
-                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="9w5-ui-qrJ">
+                <searchBar contentMode="redraw" placeholder="search by question" translatesAutoresizingMaskIntoConstraints="NO" id="9w5-ui-qrJ">
                     <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="1fq-9L-DVe">
+                    <rect key="frame" x="6" y="108" width="402" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYR-ul-Cfo">
+                            <rect key="frame" x="0.0" y="0.0" width="96" height="44"/>
+                            <state key="normal" title="All"/>
+                            <connections>
+                                <action selector="allButtonPressed:" destination="-1" eventType="touchUpInside" id="C4i-gE-EZA"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZV-Vi-l3f">
+                            <rect key="frame" x="102" y="0.0" width="96" height="44"/>
+                            <state key="normal" title=" Bookmarks "/>
+                            <connections>
+                                <action selector="bookmarksButtonPressed:" destination="-1" eventType="touchUpInside" id="dP3-tT-6gQ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l62-Mx-rF1">
+                            <rect key="frame" x="204" y="0.0" width="96" height="44"/>
+                            <state key="normal" title="Common"/>
+                            <connections>
+                                <action selector="commonButtonPressed:" destination="-1" eventType="touchUpInside" id="cy9-SC-sd4"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yq3-QZ-KaE">
+                            <rect key="frame" x="306" y="0.0" width="96" height="44"/>
+                            <state key="normal" title="Custom"/>
+                            <connections>
+                                <action selector="customButtomPressed:" destination="-1" eventType="touchUpInside" id="vzE-o6-fhk"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="mwi-Dx-R0N"/>
+                    </constraints>
+                </stackView>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
+                <constraint firstItem="SGx-8c-HZA" firstAttribute="top" secondItem="1fq-9L-DVe" secondAttribute="bottom" id="20h-JW-86T"/>
                 <constraint firstItem="9w5-ui-qrJ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="2r3-TP-QaG"/>
                 <constraint firstItem="SGx-8c-HZA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="CvK-qt-3HI"/>
-                <constraint firstItem="SGx-8c-HZA" firstAttribute="top" secondItem="9w5-ui-qrJ" secondAttribute="bottom" id="Uhn-YU-4et"/>
+                <constraint firstItem="1fq-9L-DVe" firstAttribute="top" secondItem="9w5-ui-qrJ" secondAttribute="bottom" constant="8" id="TWN-ez-1S3"/>
                 <constraint firstItem="SGx-8c-HZA" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="WYx-Ke-co3"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1fq-9L-DVe" secondAttribute="trailing" constant="6" id="Xdt-wE-SAR"/>
                 <constraint firstItem="9w5-ui-qrJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="d3o-cW-8kg"/>
                 <constraint firstItem="9w5-ui-qrJ" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="iA2-96-DEQ"/>
+                <constraint firstItem="1fq-9L-DVe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="6" id="qcG-TO-tsT"/>
                 <constraint firstItem="SGx-8c-HZA" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="uXi-RF-OE7"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

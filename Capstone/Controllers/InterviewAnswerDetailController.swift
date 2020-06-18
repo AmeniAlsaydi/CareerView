@@ -19,16 +19,20 @@ class InterviewAnswerDetailController: UIViewController {
     @IBOutlet weak var enterAnswerTextfield: UITextField!
     @IBOutlet weak var confirmAddAnswerButton: UIButton!
     @IBOutlet weak var cancelAnswerButton: UIButton!
-    @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var addStarButton: UIButton!
+    @IBOutlet weak var promptLabel: UILabel!
+    @IBOutlet weak var answersLabel: UILabel!
+    @IBOutlet weak var starstoriesLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     private var listener: ListenerRegistration?
     public var question: InterviewQuestion?
     private var isBookmarked = false {
         didSet {
             if isBookmarked {
-                navigationItem.rightBarButtonItem?.image = UIImage(systemName: "bookmark.fill")
+                navigationItem.rightBarButtonItem?.image = AppButtonIcons.bookmarkFillIcon
             } else {
-                navigationItem.rightBarButtonItem?.image = UIImage(systemName: "bookmark")
+                navigationItem.rightBarButtonItem?.image = AppButtonIcons.bookmarkIcon
             }
         }
     }
@@ -39,7 +43,7 @@ class InterviewAnswerDetailController: UIViewController {
         didSet {
             answersCollectionView.reloadData()
             if answers.isEmpty {
-                answersCollectionView.backgroundView = EmptyView.init(title: "No Answers", message: "Add your answers by pressing the add button", imageName: "plus.circle")
+                answersCollectionView.backgroundView = EmptyView.init(title: "No Answers", message: "Add your answers by pressing the add button", imageName: "pencil")
             } else {
                 answersCollectionView.reloadData()
                 answersCollectionView.backgroundView = nil
@@ -55,7 +59,7 @@ class InterviewAnswerDetailController: UIViewController {
         didSet {
             starStoriesCollectionView.reloadData()
             if starStories.isEmpty {
-                starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "plus.circle")
+                starStoriesCollectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Add your story by pressing the add button", imageName: "star.fill")
             } else {
                 starStoriesCollectionView.reloadData()
                 starStoriesCollectionView.backgroundView = nil
@@ -88,13 +92,32 @@ class InterviewAnswerDetailController: UIViewController {
         listener?.remove()
     }
     //MARK:- UI
+    private func appFonts() {
+        questionLabel.font = AppFonts.boldFont
+        promptLabel.font = AppFonts.secondaryFont
+        answersLabel.font = AppFonts.secondaryFont
+        starstoriesLabel.font = AppFonts.secondaryFont
+    }
+    private func appColors() {
+        promptLabel.textColor = AppColors.primaryBlackColor
+        answersLabel.textColor = AppColors.darkGrayHighlightColor
+        starstoriesLabel.textColor = AppColors.darkGrayHighlightColor
+        answersCollectionView.backgroundColor = AppColors.complimentaryBackgroundColor
+        starStoriesCollectionView.backgroundColor = AppColors.complimentaryBackgroundColor
+        addStarButton.tintColor = AppColors.secondaryPurpleColor
+        addAnswerButton.tintColor = AppColors.secondaryPurpleColor
+        cancelAnswerButton.tintColor = AppColors.secondaryPurpleColor
+        confirmAddAnswerButton.tintColor = AppColors.secondaryPurpleColor
+    }
     private func updateUI() {
+        appFonts()
+        appColors()
         hideAddAnswerElements()
         configureNavBar()
         configureCollectionViews()
         isQuestionBookmarked(question: question)
         questionLabel.text = question?.question
-        scrollview.keyboardDismissMode = .onDrag
+        scrollView.keyboardDismissMode = .onDrag
     }
     //MARK:- Collection View Config
     private func configureCollectionViews() {
@@ -110,8 +133,9 @@ class InterviewAnswerDetailController: UIViewController {
     }
     //MARK:- Config NavBar & Nav Bar Button functions
     private func configureNavBar() {
-        let suggestionButton = UIBarButtonItem(image: UIImage(systemName: "lightbulb"), style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
-        let saveQuestionButton = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
+        navigationItem.title = "Answer Question"
+        let suggestionButton = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
+        let saveQuestionButton = UIBarButtonItem(image: AppButtonIcons.bookmarkIcon, style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
         navigationItem.rightBarButtonItems = [saveQuestionButton, suggestionButton]
     }
     @objc private func suggestionButtonPressed(_ sender: UIBarButtonItem) {

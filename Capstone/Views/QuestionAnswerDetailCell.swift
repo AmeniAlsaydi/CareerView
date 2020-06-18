@@ -11,10 +11,11 @@ import UIKit
 class QuestionAnswerDetailCell: UICollectionViewCell {
     @IBOutlet weak var userAnswerLabel: UILabel!
     override func layoutSubviews() {
-        self.layer.borderWidth = 2
         self.layer.cornerRadius = 13
+        self.backgroundColor = AppColors.systemBackgroundColor
     }
     public func configureCell(answer: String) {
+        userAnswerLabel.font = AppFonts.primaryFont
         userAnswerLabel.text = answer
     }
 }

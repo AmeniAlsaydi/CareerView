@@ -15,14 +15,30 @@ class InterviewQuestionCell: UICollectionViewCell {
     @IBOutlet weak var numberOfStarsLabel: UILabel!
     @IBOutlet weak var answerCheckBox: UIImageView!
     @IBOutlet weak var interviewQuestionLabel: UILabel!
+    @IBOutlet weak var connectedStarsLabel: UILabel!
+    @IBOutlet weak var answeredLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var cellHeaderView: UIView!
     
     weak var delegate: InterviewQuestionCellDelegate?
     var currentQuestion: InterviewQuestion?
     
     override func layoutSubviews() {
-        self.layer.borderWidth = 2
         self.layer.cornerRadius = 13
+        self.backgroundColor = AppColors.systemBackgroundColor
+        setAppColorsandFonts()
+    }
+    private func setAppColorsandFonts() {
+        interviewQuestionLabel.font = AppFonts.semiBoldLarge
+        connectedStarsLabel.font = AppFonts.subtitleFont
+        connectedStarsLabel.textColor = AppColors.darkGrayHighlightColor
+        numberOfStarsLabel.font = AppFonts.subtitleFont
+        numberOfStarsLabel.textColor = AppColors.darkGrayHighlightColor
+        answeredLabel.font = AppFonts.subtitleFont
+        answeredLabel.textColor = AppColors.darkGrayHighlightColor
+        answerCheckBox.tintColor = AppColors.darkGrayHighlightColor
+        AppColors.colors.gradientBackground(view: cellHeaderView)
+        editButton.tintColor = AppColors.secondaryPurpleColor
     }
     
     @IBAction func editButtonPressed(_ sender: UIButton) {

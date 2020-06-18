@@ -21,8 +21,25 @@ class InterviewQuestionsMainController: UIViewController {
     
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var filterButtonsStack: UIStackView!
+    @IBOutlet weak var allButton: UIButton!
+    @IBOutlet weak var bookmarksButton: UIButton!
+    @IBOutlet weak var commonButton: UIButton!
+    @IBOutlet weak var customButton: UIButton!
+    @IBOutlet weak var collectionViewTopAnchor: NSLayoutConstraint!
     
     private var listener: ListenerRegistration?
+    private var isFilterOn = false {
+        didSet {
+            if isFilterOn {
+                collectionViewTopAnchor.constant = 8
+                filterButtonsStack.isHidden = false
+            } else {
+                collectionViewTopAnchor.constant = -44
+                filterButtonsStack.isHidden = true
+            }
+        }
+    }
     public var filterState: FilterState = .all {
         didSet {
             questionsCollectionView.reloadData()
@@ -39,7 +56,7 @@ class InterviewQuestionsMainController: UIViewController {
         didSet {
             if filterState == .custom {
                 if customQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "plus")
+                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "questionmark.square.fill")
                 } else {
                     questionsCollectionView.reloadData()
                     questionsCollectionView.backgroundView = nil
@@ -86,6 +103,7 @@ class InterviewQuestionsMainController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        updateUI()
         guard let user = Auth.auth().currentUser else {return}
         listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
             if let error = error {
@@ -100,6 +118,7 @@ class InterviewQuestionsMainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        updateUI()
         configureCollectionView()
         configureNavBar()
         getInterviewQuestions()
@@ -109,11 +128,40 @@ class InterviewQuestionsMainController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
     }
+    //MARK:- UI
+    private func updateUI() {
+        view.backgroundColor = AppColors.complimentaryBackgroundColor
+        isFilterOn = false
+        questionsCollectionView.backgroundColor = .clear
+        buttonsUI()
+        roundButtons()
+    }
+    private func buttonsUI() {
+        allButton.titleLabel?.font = AppFonts.semiBoldSmall
+        bookmarksButton.titleLabel?.font = AppFonts.semiBoldSmall
+        commonButton.titleLabel?.font = AppFonts.semiBoldSmall
+        customButton.titleLabel?.font = AppFonts.semiBoldSmall
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.secondaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.secondaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.secondaryPurpleColor
+    }
+    private func roundButtons() {
+        allButton.layer.cornerRadius = 13
+        bookmarksButton.layer.cornerRadius = 13
+        commonButton.layer.cornerRadius = 13
+        customButton.layer.cornerRadius = 13
+    }
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
+        AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.filterIcon, style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
     }
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
@@ -121,10 +169,7 @@ class InterviewQuestionsMainController: UIViewController {
     }
     //MARK:- FilterMenu
     @objc func presentfilterMenuButtonPressed(_ sender: UIBarButtonItem) {
-        let filterMenuVC = FilterMenuViewController(nibName: "FilterMenuViewControllerXib", bundle: nil)
-        addChild(filterMenuVC, frame: view.frame)
-        filterMenuVC.delegate = self
-        filterMenuVC.filterState = filterState
+        isFilterOn.toggle()
     }
     //MARK:- Config Collection View
     private func configureCollectionView() {
@@ -172,14 +217,61 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    @IBAction func allButtonPressed(_ sender: UIButton) {
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.primaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.secondaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.secondaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.secondaryPurpleColor
+        filterState = .all
+    }
+    @IBAction func bookmarksButtonPressed(_ sender: UIButton) {
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.primaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.secondaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.secondaryPurpleColor
+        filterState = .bookmarked
+    }
+    @IBAction func commonButtonPressed(_ sender: UIButton) {
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.secondaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.primaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.secondaryPurpleColor
+        filterState = .common
+    }
+    @IBAction func customButtomPressed(_ sender: UIButton) {
+        allButton.tintColor = AppColors.whiteTextColor
+        allButton.backgroundColor = AppColors.secondaryPurpleColor
+        bookmarksButton.tintColor = AppColors.whiteTextColor
+        bookmarksButton.backgroundColor = AppColors.secondaryPurpleColor
+        commonButton.tintColor = AppColors.whiteTextColor
+        commonButton.backgroundColor = AppColors.secondaryPurpleColor
+        customButton.tintColor = AppColors.whiteTextColor
+        customButton.backgroundColor = AppColors.primaryPurpleColor
+        filterState = .custom
+    }
 }
 //MARK:- CollectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
         let itemWidth: CGFloat = maxsize.width * 0.9
-        let itemHeight: CGFloat = maxsize.height * 0.15
+        let itemHeight: CGFloat = maxsize.height * 0.2
         return CGSize(width: itemWidth, height: itemHeight)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
@@ -269,48 +361,6 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-    }
-}
-//MARK:- Extenstion For Child View
-extension InterviewQuestionsMainController {
-    func addChild(_ childController: UIViewController, frame: CGRect? = nil) {
-        //add child view controller
-        addChild(childController)
-        //set the size of the child view controller's frame to half the parent view controller's height
-        if let frame = frame {
-            let height: CGFloat = frame.height
-            let width: CGFloat = frame.width / 2
-            let x: CGFloat = frame.minX
-            let y: CGFloat = frame.minY
-            childController.view.frame = CGRect(x: x, y: y, width: width, height: height)
-        }
-        //add the childcontroller's view as the parent view controller's subview
-        view.addSubview(childController.view)
-        view.backgroundColor = .systemGray
-        questionsCollectionView.alpha = 0.5
-        searchBar.alpha = 0.5
-        //pass child to parent
-        childController.didMove(toParent: self)
-    }
-    func removeChild(childController: UIViewController) {
-        //willMove assigns next location for this child view controller. since we dont need it elsewhere, we assign it to nil
-        view.backgroundColor = .systemBackground
-        questionsCollectionView.alpha = 1
-        searchBar.alpha = 1
-        childController.willMove(toParent: nil)
-        //remove the child view controller's view from parent's view
-        childController.view.removeFromSuperview()
-        //remove child view controller from parent view controller
-        childController.removeFromParent()
-    }
-}
-extension InterviewQuestionsMainController: FilterStateDelegate {
-    func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController) {
-        self.filterState = filterState
-        removeChild(childController: child)
-    }
-    func pressedCancel(child: FilterMenuViewController) {
-        removeChild(childController: child)
     }
 }
 extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
