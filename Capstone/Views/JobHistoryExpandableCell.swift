@@ -28,7 +28,6 @@ class JobHistoryExpandableCell: FoldingCell {
     @IBOutlet weak var responsibilityTwo: UILabel!
     @IBOutlet weak var responsibilityThree: UILabel!
     @IBOutlet weak var starSituationButton: UIButton!
-    @IBOutlet weak var interviewButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -55,7 +54,6 @@ class JobHistoryExpandableCell: FoldingCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         currentUserJob = userJob
-        // TODO: Redundant var? (currentUserJob, userJobForDelegate)
         userJobForDelegate = userJob
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
         starSituationButton.addTarget(self, action: #selector(starSituationButtonPressed(_:)), for: .touchUpInside)
@@ -89,7 +87,6 @@ class JobHistoryExpandableCell: FoldingCell {
         }
         
         starSituationButton.setTitle(userJob.starSituationIDs.count.description, for: .normal)
-        interviewButton.setTitle(userJob.interviewQuestionIDs.count.description, for: .normal)
     }
     func loadUserContacts(userJob: UserJob) {
         let userJobID = userJob.id
