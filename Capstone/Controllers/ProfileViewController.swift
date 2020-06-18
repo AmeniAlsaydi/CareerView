@@ -52,16 +52,8 @@ class ProfileViewController: UIViewController {
         navigationItem.title = "Profile"
         appLabel.text = "\(appName) \(appVersion)"
         navigationController?.navigationBar.prefersLargeTitles = true 
-        
     }
     
-    @IBAction func logoutButtonPressed(_ sender: UIButton) {
-        DispatchQueue.main.async {
-            try? FirebaseAuth.Auth.auth().signOut()
-        }
-        UIViewController.showLoginView()
-    }
-
     private func configureTableView() {
         settingsTableView.dataSource = self
         settingsTableView.delegate = self

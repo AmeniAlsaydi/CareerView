@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 
+//TODO: Update FAQCollectionViewCell and its files to basicTitleDescriptionCollectionViewCell or something
 class FAQCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
