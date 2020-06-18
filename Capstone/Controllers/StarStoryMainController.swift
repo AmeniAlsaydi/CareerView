@@ -152,7 +152,6 @@ extension StarStoryMainController: UICollectionViewDataSource {
         let starSituation = starSituations[indexPath.row]
 
         cell.configureCell(starSituation: starSituation)
-        dump(starSituationIDs)
         if starSituationIDs.contains(starSituation.id) {
             cell.starSituationIsSelected = true
             cell.backgroundColor = .red
