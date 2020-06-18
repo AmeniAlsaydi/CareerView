@@ -359,9 +359,6 @@ class NewJobEntryController: UIViewController {
         } else if authorizationStatus == .authorized {
             retrieveContacts()
         }
-        
-        // add contacts to an array (will be used to add to the contacts collection)
-        // display them on the collection view
     }
     
     private func retrieveContacts() {
@@ -369,8 +366,6 @@ class NewJobEntryController: UIViewController {
         contactPicker.delegate = self
         present(contactPicker, animated: true)
     }
-    
-    
 }
 
 //MARK:- CNContactPickerDelegate
@@ -465,11 +460,19 @@ extension NewJobEntryController: UICollectionViewDataSource {
             
             let situation = starSituations[indexPath.row]
             cell.configureCell(situation)
-            
+            cell.delegate = self
             cell.backgroundColor = .white
             return cell
         }
 
         return UICollectionViewCell()
+    }
+}
+
+extension NewJobEntryController: BasicSituationDelegate {
+    func didPressMoreButton(starSituation: StarSituation, starSituationCell: BasicStarSituationCell) {
+        print("present action sheet")
+        // display action sheet to allow delete
+        // using the situation delete from ids -> hopefully this will trigger the didSet and subsequently update the collection view 
     }
 }

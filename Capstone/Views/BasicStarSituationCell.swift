@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BasicSituationDelegate: AnyObject {
-    func didPressMoreButton()
+    func didPressMoreButton(starSituation: StarSituation, starSituationCell: BasicStarSituationCell)
 }
 
 class BasicStarSituationCell: UICollectionViewCell {
@@ -24,11 +24,17 @@ class BasicStarSituationCell: UICollectionViewCell {
         self.layer.cornerRadius = 4
     }
     weak var delegate: BasicSituationDelegate?
+    private var currentStarSituation: StarSituation?
     
     public func configureCell(_ starSitaution: StarSituation) {
+        currentStarSituation = starSitaution
         
         situationLabel.text = starSitaution.situation
     }
     
+   
+    @IBAction func moreButtonPressed(_ sender: UIButton) {
+        delegate?.didPressMoreButton(starSituation: currentStarSituation!, starSituationCell: self)
+    }
     
 }

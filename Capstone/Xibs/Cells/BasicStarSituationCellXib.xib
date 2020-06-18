@@ -30,6 +30,9 @@
                         </constraints>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" image="ellipsis" catalog="system"/>
+                        <connections>
+                            <action selector="moreButtonPressed:" destination="5EC-za-NA1" eventType="touchUpInside" id="9aF-WI-Yan"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
