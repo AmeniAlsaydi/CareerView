@@ -157,7 +157,10 @@ extension StarStoryMainController: UICollectionViewDataSource {
             cell.starSituationIsSelected = true
             cell.backgroundColor = .red
         }
-        cell.editButton.isHidden = true
+        if isAddingToUserJob || isAddingToAnswer {
+            cell.editButton.isHidden = true
+        }
+        
         cell.delegate = self
         return cell
     }
