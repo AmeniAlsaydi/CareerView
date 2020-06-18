@@ -23,17 +23,20 @@ struct FAQInfo {
 }
 
 class FAQViewController: UIViewController {
-    
-    
+
     @IBOutlet weak var collectionView: UICollectionView!
     
     private var FAQs = [FAQInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Frequently Asked Questions"
+        configureNavBar()
         configureCollectionView()
         loadFAQInfo()
+    }
+    private func configureNavBar() {
+        navigationItem.title = "Frequently Asked Questions"
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     private func configureCollectionView() {
         collectionView.delegate = self
@@ -44,6 +47,7 @@ class FAQViewController: UIViewController {
         FAQs = FAQInfo.loadFAQs()
     }
 }
+
 extension FAQViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let faq = FAQs[indexPath.row]
@@ -71,7 +75,7 @@ extension FAQViewController: UICollectionViewDataSource {
         let faq = FAQs[indexPath.row]
         cell.layer.cornerRadius = 4
         cell.layer.masksToBounds = true
-        cell.configureCell(faq: faq)
+        cell.configureCell(faq: faq, userInfo: nil)
         return cell
     }
     

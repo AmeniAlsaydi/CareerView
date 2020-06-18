@@ -25,7 +25,7 @@ class SettingTableViewCellSwitch: UITableViewCell {
     }
     
     public func configureCell(setting: SettingsCell) {
-        settingSwitch.tintColor = #colorLiteral(red: 0.557056725, green: 0.1121184751, blue: 1, alpha: 1)
+        settingSwitch.onTintColor = #colorLiteral(red: 0.557056725, green: 0.1121184751, blue: 1, alpha: 1)
         settingLabel.text = setting.title
         if setting.title == SettingsCell.settings.showUserSTARStoryOption.rawValue {
             loadUserPreferenceSTARStoryOption()

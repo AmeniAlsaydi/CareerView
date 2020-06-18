@@ -28,16 +28,24 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Settings"
+        configureTableView()
+        configureNavBar()
         loadSettings()
-        tableView.delegate = self
-        tableView.dataSource = self
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
     }
-    private func loadSettings() {
+    private func configureNavBar() {
+        navigationItem.title = "Settings"
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    private func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(UINib(nibName: "SettingTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
+    }
+    private func loadSettings() {
         settings = SettingsCell.loadSettingsCells()
     }
 

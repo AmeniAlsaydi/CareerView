@@ -20,9 +20,9 @@ struct ProfileCells {
             ProfileCells(title: profileCellType.account.rawValue, images: UIImage(systemName: "person.fill")!, viewController: AccountViewController(nibName: "AccountViewControllerXib", bundle: nil)),
             ProfileCells(title: profileCellType.settings.rawValue, images: UIImage(systemName: "gear")!, viewController: SettingsViewController(nibName: "SettingsViewControllerXib", bundle: nil)),
 //            Settings(tabs: "Notifications", images: UIImage(systemName: "message")!),
-            ProfileCells(title: profileCellType.about.rawValue, images: UIImage(systemName: "questionmark.circle")!, viewController: AboutThisAppViewController(nibName: "AboutThisAppViewControllerXib", bundle: nil)),
+            ProfileCells(title: profileCellType.about.rawValue, images: UIImage(systemName: "info.circle")!, viewController: AboutThisAppViewController(nibName: "AboutThisAppViewControllerXib", bundle: nil)),
             ProfileCells(title: profileCellType.faq.rawValue, images: UIImage(systemName: "questionmark.circle.fill")!, viewController: FAQViewController(nibName: "FAQViewControllerXib", bundle: nil)),
-            ProfileCells(title: profileCellType.contact.rawValue, images: UIImage(systemName: "phone.fill")!, viewController: MFMailComposeViewController())
+            ProfileCells(title: profileCellType.contact.rawValue, images: UIImage(systemName: "bubble.middle.bottom")!, viewController: MFMailComposeViewController())
         ]
     }
     public enum profileCellType: String {
