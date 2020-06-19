@@ -21,6 +21,7 @@
                 <outlet property="responsibility1TextField" destination="bgc-am-9oi" id="Kks-Tu-hCL"/>
                 <outlet property="responsibility2TextField" destination="Sbx-cA-VI2" id="wJV-c5-e84"/>
                 <outlet property="responsibility3TextField" destination="gt0-X7-POk" id="xQE-mB-hXH"/>
+                <outlet property="scrollView" destination="kbe-Ce-pKS" id="GI1-a0-yUG"/>
                 <outlet property="situationsCVHeight" destination="8xa-Hd-Le9" id="JkO-ZK-kDv"/>
                 <outlet property="starSituationsCollectionView" destination="0df-Od-mN3" id="3N6-wP-khp"/>
                 <outlet property="view" destination="iN0-l3-epB" id="nWB-AU-Dgb"/>

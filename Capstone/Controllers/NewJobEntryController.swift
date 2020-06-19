@@ -13,6 +13,9 @@ import ContactsUI
 
 class NewJobEntryController: UIViewController {
     
+    // MARK: ScrollView
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     //MARK: TextFields
     @IBOutlet weak var positionTitleTextField: FloatingLabelInput!
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
@@ -141,7 +144,30 @@ class NewJobEntryController: UIViewController {
         configureStarSituationCollectionView()
         configureSituationsCollectionView()
         loadUserJob()
+        listenForKeyboardEvents()
     }
+    
+    private func listenForKeyboardEvents() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        let userInfo = notification.userInfo!
+        
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
+        
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
+        } else {
+            scrollView.contentInset = UIEdgeInsets.zero
+        }
+        
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+    }
+    
     
     private func loadUserJob() {
         
