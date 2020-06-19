@@ -21,9 +21,6 @@ struct UserJob: Equatable {
     var responsibilities: [String]
     var starSituationIDs: [String]
     var interviewQuestionIDs: [String]
-    // var contactIDs: [String] - removed because no longer needed
-    // var contacts: [Contact] - removed because it's a sub collection
-    
 }
 
 extension UserJob {
