@@ -30,6 +30,10 @@ class JobHistoryExpandableCell: FoldingCell {
     @IBOutlet weak var starSituationButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var unfoldedEditButton: UIButton!
+    @IBOutlet weak var responsibilitesPromptLabel: UILabel!
+    @IBOutlet weak var starsPromptLable: UILabel!
+    @IBOutlet weak var contactsPromptLable: UILabel!
     
     weak var delegate: JobHistoryExpandableCellDelegate?
     private var userJobForDelegate: UserJob?
@@ -67,19 +71,26 @@ class JobHistoryExpandableCell: FoldingCell {
         //Opened
         jobTitleLabel2.font = AppFonts.boldFont
         jobTitleLabel2.textColor = AppColors.primaryBlackColor
-        
         dateLabel2.font = AppFonts.semiBoldSmall
         dateLabel2.textColor = AppColors.primaryBlackColor
-        
         companyNameLabel2.font = AppFonts.semiBoldSmall
         companyNameLabel2.textColor = AppColors.primaryBlackColor
-        
         jobDescriptionLabel2.font = AppFonts.primaryFont
         jobDescriptionLabel2.textColor = AppColors.primaryBlackColor
-        
+        responsibilitesPromptLabel.font = AppFonts.secondaryFont
+        responsibilitesPromptLabel.textColor = AppColors.darkGrayHighlightColor
         responsibilityOne.font = AppFonts.semiBoldSmall
         responsibilityTwo.font = AppFonts.semiBoldSmall
         responsibilityThree.font = AppFonts.semiBoldSmall
+        editButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
+        unfoldedEditButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
+        editButton.tintColor = AppColors.secondaryPurpleColor
+        unfoldedEditButton.tintColor = AppColors.secondaryPurpleColor
+        starsPromptLable.font = AppFonts.secondaryFont
+        starsPromptLable.tintColor = AppColors.darkGrayHighlightColor
+        contactsPromptLable.font = AppFonts.secondaryFont
+        contactsPromptLable.tintColor = AppColors.darkGrayHighlightColor
+        starSituationButton.tintColor = AppColors.secondaryPurpleColor
     }
     func updateGeneralInfo(userJob: UserJob) {
         setUpAppUI()
@@ -97,14 +108,14 @@ class JobHistoryExpandableCell: FoldingCell {
         dateLabel2.text = "\(userJob.beginDate.dateValue().dateString()) - \(userJob.endDate.dateValue().dateString()) "
         
         if userJob.responsibilities.count == 3 {
-            responsibilityOne.text = userJob.responsibilities[0]
-            responsibilityTwo.text = userJob.responsibilities[1]
-            responsibilityThree.text = userJob.responsibilities[2]
+            responsibilityOne.text = "- \(userJob.responsibilities[0])"
+            responsibilityTwo.text = "- \(userJob.responsibilities[1])"
+            responsibilityThree.text = "- \(userJob.responsibilities[2])"
         } else if userJob.responsibilities.count == 2 {
-            responsibilityOne.text = userJob.responsibilities[0]
-            responsibilityTwo.text = userJob.responsibilities[1]
+            responsibilityOne.text = "- \(userJob.responsibilities[0])"
+            responsibilityTwo.text = "- \(userJob.responsibilities[1])"
         } else if userJob.responsibilities.count == 1 {
-            responsibilityOne.text = userJob.responsibilities[0]
+            responsibilityOne.text = "- \(userJob.responsibilities[0])"
         }
         starSituationButton.setTitle(userJob.starSituationIDs.count.description, for: .normal)
     }
@@ -134,7 +145,7 @@ class JobHistoryExpandableCell: FoldingCell {
 }
 //TODO: Move this extension to extensions folder
 extension Date {
-    public func dateString(_ format: String = "MM/dd/yyyy") -> String {
+    public func dateString(_ format: String = "MMM yyyy") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         // self the Date object itself
