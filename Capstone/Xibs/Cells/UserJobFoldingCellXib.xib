@@ -176,7 +176,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STAR Stories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vhu-6H-cti">
                                         <rect key="frame" x="8" y="8" width="919" height="44"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z3s-Dc-u8d">
@@ -206,7 +206,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgF-ZZ-oDu">
                                         <rect key="frame" x="8" y="8" width="983" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ARr-5X-ENj">
@@ -268,7 +268,7 @@
                 <outlet property="collectionView" destination="ARr-5X-ENj" id="oTD-P4-QD6"/>
                 <outlet property="companyNameLabel" destination="jI1-Y5-EHa" id="VHc-dO-WYi"/>
                 <outlet property="companyNameLabel2" destination="hwX-Fg-RJz" id="Qu5-aa-R0z"/>
-                <outlet property="contactsPromptLable" destination="LgF-ZZ-oDu" id="622-ey-8gn"/>
+                <outlet property="contactsPromptLable" destination="LgF-ZZ-oDu" id="azn-jk-qRX"/>
                 <outlet property="containerView" destination="WU1-Uy-BLZ" id="mDU-W4-YnL"/>
                 <outlet property="containerViewTop" destination="i9D-dm-1nM" id="T2e-Fj-TFu"/>
                 <outlet property="dateLabel" destination="owg-Cm-oSR" id="WOR-8w-yu3"/>
@@ -288,7 +288,7 @@
                 <outlet property="responsibilityTwo" destination="2nl-LQ-uju" id="hni-nb-vn2"/>
                 <outlet property="secondView" destination="cQI-3S-PLS" id="eh4-Ft-sp5"/>
                 <outlet property="starSituationButton" destination="z3s-Dc-u8d" id="7fy-FN-R7h"/>
-                <outlet property="starsPromptLable" destination="Vhu-6H-cti" id="wD4-jS-oii"/>
+                <outlet property="starsPromptLable" destination="Vhu-6H-cti" id="PBY-sU-Nzw"/>
                 <outlet property="thirdView" destination="wHf-IB-oi8" id="ZDY-0i-TWx"/>
                 <outlet property="unfoldedEditButton" destination="Ghe-pM-dQ3" id="OXl-sr-nuJ"/>
             </connections>

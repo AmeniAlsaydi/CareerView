@@ -36,7 +36,6 @@ class FoldingCell: UITableViewCell {
     }
     
     // MARK: Life Cycle
-    
     open override func awakeFromNib() {
         super.awakeFromNib()
         commonInit()
