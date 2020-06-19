@@ -21,6 +21,7 @@ class ApplicationTrackerController: UIViewController {
                  collectionView.backgroundView = EmptyView(title: "No Applications yet", message: "Click on the add button on the top right and start keeping track of progress!", imageName: "square.and.pencil")
             } else {
                 collectionView.backgroundView = nil
+                collectionView.contentInsetAdjustmentBehavior = .automatic
             }
             
             DispatchQueue.main.async {
