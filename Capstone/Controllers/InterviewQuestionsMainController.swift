@@ -449,7 +449,7 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
                         self?.showAlert(title: "Question Removed", message: "\(customQuestion!.question) has been removed")
                         if self?.filterState == .custom {
                             if !(self?.customQuestions.isEmpty ?? false) {
-                                self?.customQuestions.remove(at: indexPath.row)
+//                                self?.customQuestions.remove(at: indexPath.row)
                                 self?.questionsCollectionView.reloadData()
                             }
                         } else {
