@@ -45,6 +45,7 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var hasRecievedReplyButton: UIButton!
     
     public var editingApplication = false
+    private var activeTextField = UITextField()
     
     public var jobApplication: JobApplication?  // FIXME: Is this the right way, use dependency injection?
     
@@ -140,11 +141,10 @@ class NewApplicationController: UIViewController {
     
     private func setUpTextFieldsReturnType() {
         let _ = textFields.map { $0.returnKeyType = .next }
-        dateTextField.returnKeyType = .done
     }
     
     private func setUpDelegateForTextFields() {
-        //let _ = textFields.map { $0.delegate = self }
+        let _ = textFields.map { $0.delegate = self }
     }
     
     
@@ -482,8 +482,25 @@ class NewApplicationController: UIViewController {
     }
 }
 
-/*
- key board handling:
- - manipulate scroll view frame - height constraint
- - maniplute scroll view to move to current text field
- */
+//MARK: TextField Delegate
+
+extension NewApplicationController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField as! FloatingLabelInput
+        // use active textfield to assign current textfield index
+        
+        currentTextFieldIndex = textFields.firstIndex(of: activeTextField as! FloatingLabelInput)!
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.returnKeyType == .next {
+            currentTextFieldIndex += 1
+            textFields[currentTextFieldIndex].becomeFirstResponder()
+        } else if textField.returnKeyType == .done {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+}
+

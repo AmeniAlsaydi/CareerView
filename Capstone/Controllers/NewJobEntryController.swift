@@ -460,6 +460,8 @@ extension NewJobEntryController: StarStoryMainControllerDelegate {
 extension NewJobEntryController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField as! FloatingLabelInput
+        currentTextFieldIndex = textFields.firstIndex(of: activeTextField as! FloatingLabelInput)!
+
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
