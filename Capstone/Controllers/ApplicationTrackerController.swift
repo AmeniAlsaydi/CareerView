@@ -17,6 +17,7 @@ class ApplicationTrackerController: UIViewController {
     private var jobApplications = [JobApplication]() {
         didSet {
             if jobApplications.count == 0 {
+                 collectionView.contentInsetAdjustmentBehavior = .never
                  collectionView.backgroundView = EmptyView(title: "No Applications yet", message: "Click on the add button on the top right and start keeping track of progress!", imageName: "square.and.pencil")
             } else {
                 collectionView.backgroundView = nil
@@ -38,10 +39,15 @@ class ApplicationTrackerController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        configureCollectionView()
+//        getApplications()
+//        configureNavBar()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
         configureCollectionView()
         getApplications()
         configureNavBar()
-        
     }
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
@@ -84,7 +90,8 @@ class ApplicationTrackerController: UIViewController {
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView.register(UINib(nibName: "JobApplicationCellXib", bundle: nil), forCellWithReuseIdentifier: "applicationCell")
         
     }
