@@ -35,8 +35,8 @@ class FAQViewController: UIViewController {
         loadFAQInfo()
     }
     private func configureNavBar() {
-        navigationItem.title = "Frequently Asked Questions"
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.title = "FAQs"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     private func configureCollectionView() {
         collectionView.delegate = self

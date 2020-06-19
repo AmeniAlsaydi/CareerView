@@ -51,9 +51,12 @@ class ProfileViewController: UIViewController {
         allSettings = ProfileCells.loadProfileCells()
         navigationItem.title = "Profile"
         appLabel.text = "\(appName) \(appVersion)"
-        navigationController?.navigationBar.prefersLargeTitles = true 
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
     private func configureTableView() {
         settingsTableView.dataSource = self
         settingsTableView.delegate = self
