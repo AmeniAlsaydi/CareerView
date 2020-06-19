@@ -56,7 +56,7 @@ class AppFonts {
     static let semiBoldLarge = UIFont(name: "Avenir-Medium", size: 20)
     static let semiBoldSmall = UIFont(name: "Avenir-Medium", size: 17)
     static let secondaryFont = UIFont(name: "Helvetica", size: 17)
-    static let subtitleFont = UIFont(name: "Avenir", size: 14)
+    static let subtitleFont = UIFont(name: "AvenirNext-Bold", size: 14)
     private init() {}
 }
 class AppButtonIcons {

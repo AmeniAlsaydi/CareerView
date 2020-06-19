@@ -137,10 +137,10 @@ class InterviewQuestionsMainController: UIViewController {
         roundButtons()
     }
     private func buttonsUI() {
-        allButton.titleLabel?.font = AppFonts.semiBoldSmall
-        bookmarksButton.titleLabel?.font = AppFonts.semiBoldSmall
-        commonButton.titleLabel?.font = AppFonts.semiBoldSmall
-        customButton.titleLabel?.font = AppFonts.semiBoldSmall
+        allButton.titleLabel?.font = AppFonts.subtitleFont
+        bookmarksButton.titleLabel?.font = AppFonts.subtitleFont
+        commonButton.titleLabel?.font = AppFonts.subtitleFont
+        customButton.titleLabel?.font = AppFonts.subtitleFont
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.secondaryPurpleColor
         bookmarksButton.tintColor = AppColors.whiteTextColor
@@ -265,7 +265,7 @@ class InterviewQuestionsMainController: UIViewController {
 //MARK:- CollectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let maxsize: CGSize = UIScreen.main.bounds.size
+        let maxsize: CGSize = view.frame.size
         let itemWidth: CGFloat = maxsize.width * 0.9
         let itemHeight: CGFloat = maxsize.height * 0.2
         return CGSize(width: itemWidth, height: itemHeight)

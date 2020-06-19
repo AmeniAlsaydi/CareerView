@@ -59,12 +59,12 @@ class JobHistoryExpandableCell: FoldingCell {
     }
     private func setUpAppUI() {
         //Closed
-        jobTitleLabel.font = AppFonts.semiBoldLarge
+        jobTitleLabel.font = AppFonts.semiBoldSmall
         jobTitleLabel.textColor = AppColors.primaryBlackColor
         dateLabel.font = AppFonts.secondaryFont
         dateLabel.textColor = AppColors.darkGrayHighlightColor
         companyNameLabel.font = AppFonts.primaryFont
-        companyNameLabel.textColor = AppColors.primaryBlackColor
+        companyNameLabel.textColor = AppColors.darkGrayHighlightColor
         jobDescriptionLabel.font = AppFonts.secondaryFont
         jobDescriptionLabel.textColor = AppColors.darkGrayHighlightColor
         
@@ -93,7 +93,6 @@ class JobHistoryExpandableCell: FoldingCell {
         starSituationButton.tintColor = AppColors.secondaryPurpleColor
     }
     func updateGeneralInfo(userJob: UserJob) {
-        setUpAppUI()
         currentUserJob = userJob
         userJobForDelegate = userJob
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
@@ -118,6 +117,8 @@ class JobHistoryExpandableCell: FoldingCell {
             responsibilityOne.text = "- \(userJob.responsibilities[0])"
         }
         starSituationButton.setTitle(userJob.starSituationIDs.count.description, for: .normal)
+        starSituationButton.tintColor = AppColors.secondaryPurpleColor
+        setUpAppUI()
     }
     func loadUserContacts(userJob: UserJob) {
         let userJobID = userJob.id
