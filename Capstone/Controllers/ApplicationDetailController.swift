@@ -60,7 +60,7 @@ class ApplicationDetailController: UIViewController {
     }
     
     private func configureNavBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(moreOptionsButtonPressed(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.optionsIcon, style: .plain, target: self, action: #selector(moreOptionsButtonPressed(_:)))
     }
     
     public func getInterview(application: JobApplication) {
@@ -89,19 +89,19 @@ class ApplicationDetailController: UIViewController {
             DispatchQueue.main.async {
                 if application.receivedOffer {
                     self.progressBar.progress = 1.0
-                    self.applicationStatusLabel.text = "Recieved Offer 🥳"
+                    self.applicationStatusLabel.text = "Recieved Offer"
                 } else if application.currentlyInterviewing {
                     self.progressBar.progress = 0.8
-                    self.applicationStatusLabel.text = "Interviewing 🗣"
+                    self.applicationStatusLabel.text = "Interviewing"
                 } else if application.receivedReply {
                     self.progressBar.progress = 0.6
-                    self.applicationStatusLabel.text = "Rcieved Reply 📨"
+                    self.applicationStatusLabel.text = "Recieved Reply"
                 } else if application.didApply {
                     self.progressBar.progress = 0.4
-                    self.applicationStatusLabel.text = "Applied 📝"
+                    self.applicationStatusLabel.text = "Applied"
                 } else if application.interested {
                     self.progressBar.progress = 0.2
-                    self.applicationStatusLabel.text = "Interested 👀"
+                    self.applicationStatusLabel.text = "Interested"
                 } else {
                     self.progressBar.progress = 0.0
                 }

@@ -40,12 +40,12 @@ class ApplicationDetailView: UIView {
     }
     
     private func commonInit() {
-        configureInterviewLabel()
+        constrainInterviewLabel()
         constrainThankYouLabel()
-        constainThankyouButton()
+        constrainThankyouButton()
     }
     
-    private func configureInterviewLabel() {
+    private func constrainInterviewLabel() {
         addSubview(interviewDateLabel)
         interviewDateLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -64,7 +64,7 @@ class ApplicationDetailView: UIView {
         ])
     }
     
-    private func constainThankyouButton() {
+    private func constrainThankyouButton() {
         addSubview(thankYouButton)
         thankYouButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
