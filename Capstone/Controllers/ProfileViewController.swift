@@ -78,6 +78,7 @@ extension ProfileViewController: UITableViewDataSource {
         }
         let aSetting = allSettings[indexPath.row]
         cell.configureCell(setting: aSetting)
+        cell.settingsImage.tintColor = AppColors.primaryPurpleColor
         cell.selectionStyle = .none
         return cell
     }
