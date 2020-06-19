@@ -10,6 +10,7 @@ import UIKit
 
 class QuestionAnswerDetailCell: UICollectionViewCell {
     @IBOutlet weak var userAnswerLabel: UILabel!
+    
     override func layoutSubviews() {
         self.layer.cornerRadius = 13
         self.backgroundColor = AppColors.systemBackgroundColor

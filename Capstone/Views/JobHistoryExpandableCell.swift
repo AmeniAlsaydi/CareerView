@@ -90,7 +90,8 @@ class JobHistoryExpandableCell: FoldingCell {
         starsPromptLable.tintColor = AppColors.darkGrayHighlightColor
         contactsPromptLable.font = AppFonts.secondaryFont
         contactsPromptLable.tintColor = AppColors.darkGrayHighlightColor
-        starSituationButton.tintColor = AppColors.secondaryPurpleColor
+        starSituationButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
+        collectionView.backgroundColor = AppColors.complimentaryBackgroundColor
     }
     func updateGeneralInfo(userJob: UserJob) {
         currentUserJob = userJob
@@ -117,7 +118,6 @@ class JobHistoryExpandableCell: FoldingCell {
             responsibilityOne.text = "- \(userJob.responsibilities[0])"
         }
         starSituationButton.setTitle(userJob.starSituationIDs.count.description, for: .normal)
-        starSituationButton.tintColor = AppColors.secondaryPurpleColor
         setUpAppUI()
     }
     func loadUserContacts(userJob: UserJob) {
@@ -149,8 +149,6 @@ extension Date {
     public func dateString(_ format: String = "MMM yyyy") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        // self the Date object itself
-        // dateValue().dateString()
         return dateFormatter.string(from: self)
     }
 }

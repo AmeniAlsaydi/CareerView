@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="891" height="497"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-AP-Qwq">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-AP-Qwq">
                         <rect key="frame" x="837" y="10" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="3Re-O6-Hc0"/>
@@ -31,6 +31,10 @@
                             <action selector="contextButtonPressed:" destination="taH-0Q-BiL" eventType="touchUpInside" id="65l-2Y-j8d"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fNr-nQ-gFq">
+                        <rect key="frame" x="0.0" y="472" width="891" height="25"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Situation" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-Rh-tp3">
                         <rect key="frame" x="20" y="54" width="851" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -39,15 +43,20 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="fNr-nQ-gFq" firstAttribute="height" secondItem="wbv-Hu-H1f" secondAttribute="height" multiplier="0.05" id="8VG-2j-M8E"/>
                     <constraint firstItem="vq9-AP-Qwq" firstAttribute="top" secondItem="wbv-Hu-H1f" secondAttribute="top" constant="10" id="MYR-8L-VQq"/>
+                    <constraint firstItem="fNr-nQ-gFq" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" id="NxU-QE-Mlc"/>
                     <constraint firstItem="T6V-Rh-tp3" firstAttribute="top" secondItem="vq9-AP-Qwq" secondAttribute="bottom" id="Oah-p1-JFC"/>
                     <constraint firstAttribute="trailing" secondItem="T6V-Rh-tp3" secondAttribute="trailing" constant="20" id="V6I-RR-0Ke"/>
                     <constraint firstItem="T6V-Rh-tp3" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="20" id="Vyi-yP-6ci"/>
                     <constraint firstAttribute="trailing" secondItem="vq9-AP-Qwq" secondAttribute="trailing" constant="10" id="Xwd-JW-kw6"/>
+                    <constraint firstAttribute="bottom" secondItem="fNr-nQ-gFq" secondAttribute="bottom" id="cn5-AH-me0"/>
+                    <constraint firstAttribute="trailing" secondItem="fNr-nQ-gFq" secondAttribute="trailing" id="ugF-x8-N32"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="891" height="497"/>
             <connections>
+                <outlet property="cellFooterView" destination="fNr-nQ-gFq" id="nKK-g2-Vxm"/>
                 <outlet property="editButton" destination="vq9-AP-Qwq" id="01j-SR-Z2R"/>
                 <outlet property="situationLabel" destination="T6V-Rh-tp3" id="IOZ-h5-ZEM"/>
             </connections>
