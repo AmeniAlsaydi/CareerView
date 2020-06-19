@@ -15,8 +15,6 @@ protocol StarSituationCellDelegate: AnyObject {
 class StarSituationCell: UICollectionViewCell {
     
     @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var jobTitleLabel: UILabel!
-    @IBOutlet weak var numberOfQuestions: UILabel!
     @IBOutlet weak var situationLabel: UILabel!
     
     weak var delegate: StarSituationCellDelegate?
@@ -24,18 +22,19 @@ class StarSituationCell: UICollectionViewCell {
     public var starSituationIsSelected = false
     
     override func layoutSubviews() {
-        self.layer.borderWidth = 2
-        //let purple = #colorLiteral(red: 0.305962503, green: 0.1264642179, blue: 0.6983457208, alpha: 1)
-        //self.layer.borderColor = purple as! CGColor
         self.layer.cornerRadius = 13
+        setupAppUI()
     }
-    
+    private func setupAppUI(){
+        self.backgroundColor = AppColors.systemBackgroundColor
+        situationLabel.font = AppFonts.semiBoldSmall
+        situationLabel.textColor = AppColors.primaryBlackColor
+        editButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
+        editButton.tintColor = AppColors.secondaryPurpleColor
+    }
     public func configureCell(starSituation: StarSituation) {
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
-        jobTitleLabel.text = starSituation.userJobID
-        numberOfQuestions.text = "\(starSituation.interviewQuestionsIDs.count) questions"
         situationLabel.text = starSituation.situation
-        
         starSituationForDelegate = starSituation
     }
     @objc private func contextButtonPressed(_ sender: UIButton) {

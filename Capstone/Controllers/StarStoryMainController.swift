@@ -53,8 +53,9 @@ class StarStoryMainController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
-        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        //collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        //collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        collectionView.backgroundColor = AppColors.complimentaryBackgroundColor
         if isAddingToAnswer {
             navigationItem.title = "Add STAR Story to your answer"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
@@ -152,12 +153,17 @@ extension StarStoryMainController: UICollectionViewDataSource {
         let starSituation = starSituations[indexPath.row]
 
         cell.configureCell(starSituation: starSituation)
-        dump(starSituationIDs)
+        
         if starSituationIDs.contains(starSituation.id) {
             cell.starSituationIsSelected = true
             cell.backgroundColor = .red
         }
-        cell.editButton.isHidden = true
+        if isAddingToAnswer || isAddingToUserJob {
+            cell.editButton.isHidden = true
+        } else {
+            cell.editButton.isHidden = false
+        }
+        
         cell.delegate = self
         return cell
     }
@@ -193,16 +199,16 @@ extension StarStoryMainController: UICollectionViewDataSource {
     }
     
 }
-extension StarStoryMainController: UICollectionViewDelegate {
-    
-}
 extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxWidth = view.frame.width
         let maxHeight = view.frame.height
-        let adjustedWidth = CGFloat(maxWidth * 0.95)
+        let adjustedWidth = CGFloat(maxWidth * 0.9)
         let adjustedHeight = CGFloat(maxHeight / 4)
         return CGSize(width: adjustedWidth, height: adjustedHeight)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
 }
 //MARK:- StarSituationCell Delegate
