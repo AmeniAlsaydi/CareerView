@@ -21,6 +21,7 @@ class InterviewQuestionEntryController: UIViewController {
         updateUI()
         configureNavBar()
     }
+    
     private func updateUI() {
         if editingMode {
             questionTextfield.text = customQuestion?.question
@@ -30,14 +31,17 @@ class InterviewQuestionEntryController: UIViewController {
             navigationItem.title = "Add A Custom Question"
         }
     }
+    
     private func configureNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.checkmarkIcon, style: .plain, target: self, action: #selector(createQuestionButtonPressed(_:)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.xmarkIcon, style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
     }
+    
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-    @objc private func createQuestionButtonPressed(_ sender: UIBarButtonItem){
+    
+    @objc private func createQuestionButtonPressed(_ sender: UIBarButtonItem) {
         if editingMode {
             guard var question = customQuestion, let questionText = questionTextfield.text, !questionText.isEmpty else {
                 return
