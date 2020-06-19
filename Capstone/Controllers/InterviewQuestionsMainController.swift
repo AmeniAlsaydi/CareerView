@@ -29,6 +29,7 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var collectionViewTopAnchor: NSLayoutConstraint!
     
     private var listener: ListenerRegistration?
+    
     private var isFilterOn = false {
         didSet {
             if isFilterOn {
@@ -40,11 +41,14 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    
     public var filterState: FilterState = .all {
         didSet {
             questionsCollectionView.reloadData()
+            allQuestions = Array(allQuestions).removingDuplicates()
         }
     }
+    
     private var commonInterviewQuestions = [InterviewQuestion]() {
         didSet{
             if filterState == .common {
@@ -52,6 +56,7 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    
     private var customQuestions = [InterviewQuestion]() {
         didSet {
             if filterState == .custom {
@@ -60,19 +65,21 @@ class InterviewQuestionsMainController: UIViewController {
                 } else {
                     questionsCollectionView.reloadData()
                     questionsCollectionView.backgroundView = nil
+                    customQuestions = Array(customQuestions).removingDuplicates()
                 }
             }
         }
     }
+    
     private var allQuestions = [InterviewQuestion]() {
         didSet {
-            if filterState == .all {
+                allQuestions = Array(allQuestions).removingDuplicates()
                 questionsCollectionView.reloadData()
                 questionsCollectionView.backgroundView = nil
-                allQuestions = Array(allQuestions).removingDuplicates()
-            }
+                print(allQuestions.count)
         }
     }
+    
     private var bookmarkedQuestions = [InterviewQuestion]() {
         didSet {
             if filterState == .bookmarked {
@@ -86,6 +93,7 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    
     private var searchQuery = String() {
         didSet {
             DispatchQueue.main.async {
@@ -102,21 +110,23 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-       
+        
         guard let user = Auth.auth().currentUser else {return}
         listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
             if let error = error {
                 print("listener could not recieve changes for custom questions error: \(error.localizedDescription)")
             } else if let snapshot = snapshot {
                 let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
+                self?.getUserCreatedQuestions()
                 self?.questionsCollectionView.reloadData()
                 self?.customQuestions = customQs
-                self?.getUserCreatedQuestions()
             }
         })
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -126,9 +136,11 @@ class InterviewQuestionsMainController: UIViewController {
         getInterviewQuestions()
         getBookmarkedQuestions()
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
     }
+    
     //MARK:- UI
     private func updateUI() {
         view.backgroundColor = AppColors.complimentaryBackgroundColor
@@ -137,11 +149,12 @@ class InterviewQuestionsMainController: UIViewController {
         buttonsUI()
         roundButtons()
     }
+    
     private func buttonsUI() {
-        allButton.titleLabel?.font = AppFonts.semiBoldSmall
-        bookmarksButton.titleLabel?.font = AppFonts.semiBoldSmall
-        commonButton.titleLabel?.font = AppFonts.semiBoldSmall
-        customButton.titleLabel?.font = AppFonts.semiBoldSmall
+        allButton.titleLabel?.font = AppFonts.subtitleFont
+        bookmarksButton.titleLabel?.font = AppFonts.subtitleFont
+        commonButton.titleLabel?.font = AppFonts.subtitleFont
+        customButton.titleLabel?.font = AppFonts.subtitleFont
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.secondaryPurpleColor
         bookmarksButton.tintColor = AppColors.whiteTextColor
@@ -151,12 +164,14 @@ class InterviewQuestionsMainController: UIViewController {
         customButton.tintColor = AppColors.whiteTextColor
         customButton.backgroundColor = AppColors.secondaryPurpleColor
     }
+    
     private func roundButtons() {
         allButton.layer.cornerRadius = 13
         bookmarksButton.layer.cornerRadius = 13
         commonButton.layer.cornerRadius = 13
         customButton.layer.cornerRadius = 13
     }
+    
     //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
@@ -164,14 +179,17 @@ class InterviewQuestionsMainController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.filterIcon, style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
     }
+    
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
         present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
     }
+    
     //MARK:- FilterMenu
     @objc func presentfilterMenuButtonPressed(_ sender: UIBarButtonItem) {
         isFilterOn.toggle()
     }
+    
     //MARK:- Config Collection View
     private func configureCollectionView() {
         questionsCollectionView.keyboardDismissMode = .onDrag
@@ -179,6 +197,7 @@ class InterviewQuestionsMainController: UIViewController {
         questionsCollectionView.dataSource = self
         questionsCollectionView.register(UINib(nibName: "InterviewQuestionCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewQuestionCell")
     }
+    
     //MARK:- Get Data
     private func getInterviewQuestions() {
         DatabaseService.shared.fetchCommonInterviewQuestions { [weak self] (result) in
@@ -193,6 +212,7 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    
     private func getUserCreatedQuestions() {
         DatabaseService.shared.fetchCustomInterviewQuestions { [weak self] (result) in
             switch result {
@@ -206,6 +226,7 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    
     private func getBookmarkedQuestions() {
         DatabaseService.shared.fetchBookmarkedQuestions { [weak self] (result) in
             switch result {
@@ -218,6 +239,7 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
+    
     @IBAction func allButtonPressed(_ sender: UIButton) {
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.primaryPurpleColor
@@ -229,6 +251,7 @@ class InterviewQuestionsMainController: UIViewController {
         customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .all
     }
+    
     @IBAction func bookmarksButtonPressed(_ sender: UIButton) {
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.secondaryPurpleColor
@@ -240,6 +263,7 @@ class InterviewQuestionsMainController: UIViewController {
         customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .bookmarked
     }
+    
     @IBAction func commonButtonPressed(_ sender: UIButton) {
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.secondaryPurpleColor
@@ -251,6 +275,7 @@ class InterviewQuestionsMainController: UIViewController {
         customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .common
     }
+    
     @IBAction func customButtomPressed(_ sender: UIButton) {
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.secondaryPurpleColor
@@ -263,17 +288,20 @@ class InterviewQuestionsMainController: UIViewController {
         filterState = .custom
     }
 }
+
 //MARK:- CollectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let maxsize: CGSize = UIScreen.main.bounds.size
+        let maxsize: CGSize = view.frame.size
         let itemWidth: CGFloat = maxsize.width * 0.9
         let itemHeight: CGFloat = maxsize.height * 0.2
         return CGSize(width: itemWidth, height: itemHeight)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
         switch filterState{
@@ -293,6 +321,7 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
 }
+
 extension InterviewQuestionsMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch filterState {
@@ -306,11 +335,11 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
             return commonInterviewQuestions.count
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = questionsCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewQuestionCell", for: indexPath) as? InterviewQuestionCell else {
             fatalError("could not cast to interviewquestioncell")
         }
-        
         
         switch filterState {
         case .all:
@@ -353,6 +382,7 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
         return cell
     }
 }
+
 //MARK:- Search Bar Delegate
 extension InterviewQuestionsMainController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -362,11 +392,14 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
             searchQuery = searchBar.text ?? ""
         }
     }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+    
 }
 extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
+    
     func presentMenu(cell: InterviewQuestionCell, question: InterviewQuestion) {
         guard let indexPath = questionsCollectionView.indexPath(for: cell) else {
             return

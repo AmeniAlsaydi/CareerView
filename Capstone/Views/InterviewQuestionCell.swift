@@ -37,7 +37,8 @@ class InterviewQuestionCell: UICollectionViewCell {
         answeredLabel.font = AppFonts.subtitleFont
         answeredLabel.textColor = AppColors.darkGrayHighlightColor
         answerCheckBox.tintColor = AppColors.darkGrayHighlightColor
-        AppColors.colors.gradientBackground(view: cellHeaderView)
+        cellHeaderView.backgroundColor = AppColors.primaryPurpleColor
+        //AppColors.colors.gradientBackground(view: cellHeaderView)
         editButton.tintColor = AppColors.secondaryPurpleColor
     }
     

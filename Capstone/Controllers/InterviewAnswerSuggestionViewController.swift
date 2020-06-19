@@ -35,6 +35,7 @@ class InterviewAnswerSuggestionViewController: UIViewController {
         AppColors.colors.gradientBackground(view: purpleView)
         view.backgroundColor = .clear
         whiteView.layer.cornerRadius = 13
+        purpleView.clipsToBounds = true
     }
     public func configureLabel(for question: InterviewQuestion?) {
         suggestionLabel.text = question?.suggestion
