@@ -23,7 +23,7 @@ class StarSituationCell: UICollectionViewCell {
     public var starSituationIsSelected = false
     
     override func layoutSubviews() {
-        self.layer.cornerRadius = 13
+        self.layer.cornerRadius = AppRoundedViews.cornerRadius
         setupAppUI()
     }
     private func setupAppUI(){

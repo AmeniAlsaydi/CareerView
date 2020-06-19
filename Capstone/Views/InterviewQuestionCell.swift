@@ -24,7 +24,7 @@ class InterviewQuestionCell: UICollectionViewCell {
     var currentQuestion: InterviewQuestion?
     
     override func layoutSubviews() {
-        self.layer.cornerRadius = 13
+        self.layer.cornerRadius = AppRoundedViews.cornerRadius
         self.backgroundColor = AppColors.systemBackgroundColor
         setAppColorsandFonts()
     }
