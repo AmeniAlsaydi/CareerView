@@ -37,7 +37,7 @@ class FloatingLabelInput: UITextField, UITextFieldDelegate {
     var _placeholder: String? // we cannot override 'placeholder'
     
     @IBInspectable
-    var floatingLabelColor: UIColor = #colorLiteral(red: 0.2105118036, green: 0.0652000457, blue: 0.2819291055, alpha: 1)  { //UIColor.black {
+    var floatingLabelColor: UIColor = AppColors.secondaryPurpleColor { 
         didSet {
             self.floatingLabel.textColor = floatingLabelColor
             

@@ -15,13 +15,30 @@ class SignUpController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton! // for ui purposes 
     @IBOutlet weak var alertLabel: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
     
-
+    private lazy var tapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer()
+        gesture.addTarget(self, action: #selector(didTap(_:)))
+        return gesture
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        view.addGestureRecognizer(tapGesture)
+        setUpUI()
 
+    }
+    
+    private func setUpUI() {
+        loginButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
+    }
+    
+    @objc private func didTap(_ gesture: UITapGestureRecognizer ) {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
     }
     
     
