@@ -41,13 +41,13 @@ class NewJobEntryController: UIViewController {
     
     @IBOutlet weak var situationsCVHeight: NSLayoutConstraint!
     @IBOutlet weak var contactsCVHeight: NSLayoutConstraint!
-   
+    
     
     private var activeTextField = UITextField()
     
     public var uniqueStarIDs = [String]() {
         didSet {
-             getStarSituations()
+            getStarSituations()
         }
     }
     
@@ -176,7 +176,7 @@ class NewJobEntryController: UIViewController {
     private func loadUserJob() {
         
         if editingJob {
-             guard let job = userJob else { return }
+            guard let job = userJob else { return }
             positionTitleTextField.text = job.title
             companyNameTextField.text = job.companyName
             isCurrentEmployer = job.currentEmployer
@@ -222,24 +222,12 @@ class NewJobEntryController: UIViewController {
     }
     
     private func setUpTextFieldsReturnType() {
-       let _ = textFields.map { $0.returnKeyType = .next }
+        let _ = textFields.map { $0.returnKeyType = .next }
         responsibility3TextField.returnKeyType = .done
     }
     
     private func setUpDelegateForTextFields() {
-        
-        // refactor and use map
-        // textFields.map { $0.delegate = self }
-        
-        companyNameTextField.delegate = self
-        positionTitleTextField.delegate = self
-        locationTextField.delegate = self
-        descriptionTextField.delegate = self
-        beginDateTextField.delegate = self
-        endDateTextField.delegate = self
-        responsibility1TextField.delegate = self
-        responsibility2TextField.delegate = self
-        responsibility3TextField.delegate = self
+        let _ = textFields.map { $0.delegate = self }
     }
     
     private func getStarSituations() {
@@ -291,7 +279,6 @@ class NewJobEntryController: UIViewController {
         
         currentTextFieldIndex += 1
         textFields[currentTextFieldIndex].becomeFirstResponder()
-        //self.view.endEditing(true)
     }
     
     private func configureNavBar() {
@@ -324,8 +311,8 @@ class NewJobEntryController: UIViewController {
             !companyName.isEmpty,
             let description = descriptionTextField.text,
             !description.isEmpty else {
-              self.showAlert(title: "Missing fields", message: "Check all mandatory fields.")
-            return
+                self.showAlert(title: "Missing fields", message: "Check all mandatory fields.")
+                return
         }
         
         let location = locationTextField.text
@@ -347,7 +334,7 @@ class NewJobEntryController: UIViewController {
         
         // optional responsibilties
         if let responsibility2 = responsibility2TextField.text {
-             responsibilties.append(responsibility2)
+            responsibilties.append(responsibility2)
         }
         
         if let responsibility3 = responsibility3TextField.text {
@@ -414,19 +401,14 @@ class NewJobEntryController: UIViewController {
     }
     
     @IBAction func addStarSituationButtonPressed(_ sender: UIButton) {
-        // display star situations
         let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
         starStoryVC.starSituationIDs = starSituationIDsToAdd
         starStoryVC.isAddingToUserJob = true
         starStoryVC.delegate = self
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
-        // allow them to select
-        // add ids to an array (used in the created of the job)
-        // display them on the collection view
     }
     
     @IBAction func addContactsButtonPressed(_ sender: UIButton) {
-        // display contacts controller
         
         //Note: This will check for access to contact permission and if not determined, ask again
         // If the user denied permission, they will directed to settings where they can give permission to the app
@@ -482,8 +464,8 @@ extension NewJobEntryController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.returnKeyType == .next {
-              currentTextFieldIndex += 1
-              textFields[currentTextFieldIndex].becomeFirstResponder()
+            currentTextFieldIndex += 1
+            textFields[currentTextFieldIndex].becomeFirstResponder()
         } else if textField.returnKeyType == .done {
             textField.resignFirstResponder()
         }
@@ -507,7 +489,7 @@ extension NewJobEntryController: UICollectionViewDelegateFlowLayout {
             let width: CGFloat = maxsize.width * 0.9
             return CGSize(width: width, height: 90) // FIXME: hardcoded values - this is no good
         }
-         return CGSize(width: 0, height: 0)
+        return CGSize(width: 0, height: 0)
     }
 }
 
@@ -516,7 +498,7 @@ extension NewJobEntryController: UICollectionViewDelegate {
         
         if collectionView == contactsCollectionView {
             
-           let contact = userContacts[indexPath.row]
+            let contact = userContacts[indexPath.row]
             let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
             navigationController?.pushViewController(contactViewController, animated: true)
             
@@ -530,7 +512,7 @@ extension NewJobEntryController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == contactsCollectionView {
-           return userContacts.count
+            return userContacts.count
         } else if collectionView == starSituationsCollectionView {
             return starSituations.count
         }
@@ -548,7 +530,7 @@ extension NewJobEntryController: UICollectionViewDataSource {
             cell.configureCell(contact: contact)
             return cell
         }
-        
+            
         else if collectionView == starSituationsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicSituationCell", for: indexPath) as? BasicStarSituationCell else {
                 fatalError("could not down cast to BasicStarSituationCell")
@@ -560,10 +542,11 @@ extension NewJobEntryController: UICollectionViewDataSource {
             cell.backgroundColor = .white
             return cell
         }
-
+        
         return UICollectionViewCell()
     }
 }
+
 
 extension NewJobEntryController: BasicSituationDelegate {
     func didPressMoreButton(starSituation: StarSituation, starSituationCell: BasicStarSituationCell) {
