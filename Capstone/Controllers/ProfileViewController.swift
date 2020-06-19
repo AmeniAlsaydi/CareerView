@@ -51,12 +51,12 @@ class ProfileViewController: UIViewController {
         allSettings = ProfileCells.loadProfileCells()
         navigationItem.title = "Profile"
         appLabel.text = "\(appName) \(appVersion)"
-        
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+    
     private func configureTableView() {
         settingsTableView.dataSource = self
         settingsTableView.delegate = self
@@ -79,7 +79,7 @@ extension ProfileViewController: UITableViewDataSource {
         let aSetting = allSettings[indexPath.row]
         cell.configureCell(setting: aSetting)
         cell.settingsImage.tintColor = AppColors.primaryPurpleColor
-        cell.settingsName.font = AppFonts.boldFont
+        cell.settingsName.font = AppFonts.primaryFont
         cell.selectionStyle = .none
         return cell
     }
