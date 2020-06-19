@@ -149,6 +149,7 @@ class NewJobEntryController: UIViewController {
         loadUserJob()
         listenForKeyboardEvents()
         setUpTextFieldsReturnType()
+        scrollView.delegate = self
     }
     
     private func listenForKeyboardEvents() {
@@ -568,5 +569,13 @@ extension NewJobEntryController: BasicSituationDelegate {
             return
         }
         uniqueStarIDs.remove(at: index)
+    }
+}
+
+extension NewJobEntryController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0){
+            activeTextField.resignFirstResponder()
+        }
     }
 }

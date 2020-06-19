@@ -116,6 +116,7 @@ class NewApplicationController: UIViewController {
         listenForKeyboardEvents()
         setUpTextFieldsReturnType()
         setUpDelegateForTextFields()
+        scrollView.delegate = self
     }
     
     // MARK: Keyboard handling
@@ -504,3 +505,10 @@ extension NewApplicationController: UITextFieldDelegate {
     }
 }
 
+extension NewApplicationController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0){
+            activeTextField.resignFirstResponder()
+        }
+    }
+}

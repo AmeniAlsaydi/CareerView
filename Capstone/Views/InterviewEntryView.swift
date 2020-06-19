@@ -60,12 +60,12 @@ class InterviewEntryView: UIView {
     }()
     
     public lazy var deleteButton: UIButton = {
-           let button = UIButton()
-           let image = UIImage(systemName: "x.circle.fill")
-           button.tintColor = .black
-           button.setImage(image, for: .normal)
-           return button
-       }()
+        let button = UIButton()
+        let image = UIImage(systemName: "x.circle.fill")
+        button.tintColor = .black
+        button.setImage(image, for: .normal)
+        return button
+    }()
     
     
     override init(frame: CGRect) {
@@ -79,7 +79,7 @@ class InterviewEntryView: UIView {
     }
     
     override func layoutSubviews() {
-      //  backgroundColor = .systemGroupedBackground
+        //backgroundColor = .systemGroupedBackground
     }
     
     private func commonInit() {
@@ -128,7 +128,8 @@ class InterviewEntryView: UIView {
         NSLayoutConstraint.activate([
             dateTextField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             dateTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            dateTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+            dateTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            dateTextField.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25)
         ])
     }
     
@@ -139,7 +140,8 @@ class InterviewEntryView: UIView {
         NSLayoutConstraint.activate([
             notesTextField.topAnchor.constraint(equalTo: dateTextField.bottomAnchor, constant: 10),
             notesTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            notesTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+            notesTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            notesTextField.heightAnchor.constraint(equalTo: dateTextField.heightAnchor)
         ])
         
     }
@@ -162,8 +164,10 @@ class InterviewEntryView: UIView {
             deleteButton.heightAnchor.constraint(equalTo: thankYouButton.heightAnchor),
             deleteButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
             deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            deleteButton.topAnchor.constraint(equalTo: notesTextField.bottomAnchor, constant: 10)
+            deleteButton.topAnchor.constraint(equalTo: notesTextField.bottomAnchor, constant: 10),
+            deleteButton.widthAnchor.constraint(equalToConstant: 44)
         ])
+
     }
     
     private func constrainThankYouLabel() {
@@ -171,10 +175,9 @@ class InterviewEntryView: UIView {
         thankYouLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             thankYouLabel.topAnchor.constraint(equalTo: notesTextField.bottomAnchor, constant: 10),
-            thankYouLabel.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor
-            ),
+            //thankYouLabel.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor),
             thankYouLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            thankYouLabel.leadingAnchor.constraint(equalTo: thankYouButton.trailingAnchor, constant: 20)
+            thankYouLabel.leadingAnchor.constraint(equalTo: thankYouButton.trailingAnchor, constant: 10)
         ])
     }
 }
