@@ -25,6 +25,10 @@ class FloatingLabelInput: UITextField, UITextFieldDelegate {
         // Implement default logic
         textFieldDelegate?.textFieldDidBeginEditing?(textField)
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textFieldDelegate?.textFieldShouldReturn?(textField) ?? true 
+    }
 
     var floatingLabel: UILabel = UILabel(frame: CGRect.zero) // Label
     var floatingLabelHeight: CGFloat = 10 // 14 is Default height

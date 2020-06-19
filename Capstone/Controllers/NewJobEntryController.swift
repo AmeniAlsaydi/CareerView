@@ -27,6 +27,9 @@ class NewJobEntryController: UIViewController {
     @IBOutlet weak var responsibility2TextField: FloatingLabelInput!
     @IBOutlet weak var responsibility3TextField: FloatingLabelInput!
     
+    lazy var textFields: [FloatingLabelInput] = [positionTitleTextField, companyNameTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
+    private var currentTextFieldIndex = 0
+    
     //MARK: CollectionViews
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     @IBOutlet weak var starSituationsCollectionView: UICollectionView!
@@ -145,6 +148,7 @@ class NewJobEntryController: UIViewController {
         configureSituationsCollectionView()
         loadUserJob()
         listenForKeyboardEvents()
+        setUpTextFieldsReturnType()
     }
     
     private func listenForKeyboardEvents() {
@@ -217,9 +221,25 @@ class NewJobEntryController: UIViewController {
         }
     }
     
+    private func setUpTextFieldsReturnType() {
+       let _ = textFields.map { $0.returnKeyType = .next }
+        responsibility3TextField.returnKeyType = .done
+    }
+    
     private func setUpDelegateForTextFields() {
+        
+        // refactor and use map
+        // textFields.map { $0.delegate = self }
+        
+        companyNameTextField.delegate = self
+        positionTitleTextField.delegate = self
+        locationTextField.delegate = self
+        descriptionTextField.delegate = self
         beginDateTextField.delegate = self
         endDateTextField.delegate = self
+        responsibility1TextField.delegate = self
+        responsibility2TextField.delegate = self
+        responsibility3TextField.delegate = self
     }
     
     private func getStarSituations() {
@@ -269,7 +289,9 @@ class NewJobEntryController: UIViewController {
             endDate = datePicker.date
         }
         
-        self.view.endEditing(true)
+        currentTextFieldIndex += 1
+        textFields[currentTextFieldIndex].becomeFirstResponder()
+        //self.view.endEditing(true)
     }
     
     private func configureNavBar() {
@@ -452,9 +474,20 @@ extension NewJobEntryController: StarStoryMainControllerDelegate {
     }
 }
 
+//MARK: TextField Delegate
 extension NewJobEntryController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField as! FloatingLabelInput
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.returnKeyType == .next {
+              currentTextFieldIndex += 1
+              textFields[currentTextFieldIndex].becomeFirstResponder()
+        } else if textField.returnKeyType == .done {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }
 
@@ -534,11 +567,6 @@ extension NewJobEntryController: UICollectionViewDataSource {
 
 extension NewJobEntryController: BasicSituationDelegate {
     func didPressMoreButton(starSituation: StarSituation, starSituationCell: BasicStarSituationCell) {
-        print("present action sheet")
-        // display action sheet to allow delete
-        // using the situation delete from ids -> hopefully this will trigger the didSet and subsequently update the collection view
-        
-        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteSituationID(starSituation: starSituation) }
@@ -551,7 +579,7 @@ extension NewJobEntryController: BasicSituationDelegate {
     private func deleteSituationID(starSituation: StarSituation) {
         
         guard let index = uniqueStarIDs.firstIndex(of: starSituation.id) else {
-            print("")
+            print("star situation id not found")
             return
         }
         uniqueStarIDs.remove(at: index)
