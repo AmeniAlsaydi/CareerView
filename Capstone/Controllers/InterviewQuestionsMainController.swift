@@ -234,6 +234,9 @@ class InterviewQuestionsMainController: UIViewController {
         customButton.tintColor = AppColors.whiteTextColor
         customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .all
+        allQuestions.removeAll()
+        getUserCreatedQuestions()
+        getInterviewQuestions()
     }
     
     @IBAction func bookmarksButtonPressed(_ sender: UIButton) {
@@ -273,7 +276,6 @@ class InterviewQuestionsMainController: UIViewController {
         print("custom pressed")
         filterState = .custom
         getUserCreatedQuestions()
-        
     }
     private func checkForEmptyCustomQuestionsArray() {
         if filterState == .custom {
