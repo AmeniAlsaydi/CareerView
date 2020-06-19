@@ -13,6 +13,9 @@ import ContactsUI
 
 class NewJobEntryController: UIViewController {
     
+    // MARK: ScrollView
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     //MARK: TextFields
     @IBOutlet weak var positionTitleTextField: FloatingLabelInput!
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
@@ -23,6 +26,9 @@ class NewJobEntryController: UIViewController {
     @IBOutlet weak var responsibility1TextField: FloatingLabelInput!
     @IBOutlet weak var responsibility2TextField: FloatingLabelInput!
     @IBOutlet weak var responsibility3TextField: FloatingLabelInput!
+    
+    lazy var textFields: [FloatingLabelInput] = [positionTitleTextField, companyNameTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
+    private var currentTextFieldIndex = 0
     
     //MARK: CollectionViews
     @IBOutlet weak var contactsCollectionView: UICollectionView!
@@ -35,13 +41,13 @@ class NewJobEntryController: UIViewController {
     
     @IBOutlet weak var situationsCVHeight: NSLayoutConstraint!
     @IBOutlet weak var contactsCVHeight: NSLayoutConstraint!
-   
+    
     
     private var activeTextField = UITextField()
     
     public var uniqueStarIDs = [String]() {
         didSet {
-             getStarSituations()
+            getStarSituations()
         }
     }
     
@@ -141,12 +147,37 @@ class NewJobEntryController: UIViewController {
         configureStarSituationCollectionView()
         configureSituationsCollectionView()
         loadUserJob()
+        listenForKeyboardEvents()
+        setUpTextFieldsReturnType()
+        scrollView.delegate = self
     }
+    
+    private func listenForKeyboardEvents() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        let userInfo = notification.userInfo!
+        
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
+        
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
+        } else {
+            scrollView.contentInset = UIEdgeInsets.zero
+        }
+        
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+    }
+    
     
     private func loadUserJob() {
         
         if editingJob {
-             guard let job = userJob else { return }
+            guard let job = userJob else { return }
             positionTitleTextField.text = job.title
             companyNameTextField.text = job.companyName
             isCurrentEmployer = job.currentEmployer
@@ -191,9 +222,13 @@ class NewJobEntryController: UIViewController {
         }
     }
     
+    private func setUpTextFieldsReturnType() {
+        let _ = textFields.map { $0.returnKeyType = .next }
+        responsibility3TextField.returnKeyType = .done
+    }
+    
     private func setUpDelegateForTextFields() {
-        beginDateTextField.delegate = self
-        endDateTextField.delegate = self
+        let _ = textFields.map { $0.delegate = self }
     }
     
     private func getStarSituations() {
@@ -243,7 +278,8 @@ class NewJobEntryController: UIViewController {
             endDate = datePicker.date
         }
         
-        self.view.endEditing(true)
+        currentTextFieldIndex += 1
+        textFields[currentTextFieldIndex].becomeFirstResponder()
     }
     
     private func configureNavBar() {
@@ -276,8 +312,8 @@ class NewJobEntryController: UIViewController {
             !companyName.isEmpty,
             let description = descriptionTextField.text,
             !description.isEmpty else {
-              self.showAlert(title: "Missing fields", message: "Check all mandatory fields.")
-            return
+                self.showAlert(title: "Missing fields", message: "Check all mandatory fields.")
+                return
         }
         
         let location = locationTextField.text
@@ -299,7 +335,7 @@ class NewJobEntryController: UIViewController {
         
         // optional responsibilties
         if let responsibility2 = responsibility2TextField.text {
-             responsibilties.append(responsibility2)
+            responsibilties.append(responsibility2)
         }
         
         if let responsibility3 = responsibility3TextField.text {
@@ -366,19 +402,14 @@ class NewJobEntryController: UIViewController {
     }
     
     @IBAction func addStarSituationButtonPressed(_ sender: UIButton) {
-        // display star situations
         let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
         starStoryVC.starSituationIDs = starSituationIDsToAdd
         starStoryVC.isAddingToUserJob = true
         starStoryVC.delegate = self
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
-        // allow them to select
-        // add ids to an array (used in the created of the job)
-        // display them on the collection view
     }
     
     @IBAction func addContactsButtonPressed(_ sender: UIButton) {
-        // display contacts controller
         
         //Note: This will check for access to contact permission and if not determined, ask again
         // If the user denied permission, they will directed to settings where they can give permission to the app
@@ -426,9 +457,22 @@ extension NewJobEntryController: StarStoryMainControllerDelegate {
     }
 }
 
+//MARK: TextField Delegate
 extension NewJobEntryController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField as! FloatingLabelInput
+        currentTextFieldIndex = textFields.firstIndex(of: activeTextField as! FloatingLabelInput)!
+
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.returnKeyType == .next {
+            currentTextFieldIndex += 1
+            textFields[currentTextFieldIndex].becomeFirstResponder()
+        } else if textField.returnKeyType == .done {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }
 
@@ -448,7 +492,7 @@ extension NewJobEntryController: UICollectionViewDelegateFlowLayout {
             let width: CGFloat = maxsize.width * 0.9
             return CGSize(width: width, height: 90) // FIXME: hardcoded values - this is no good
         }
-         return CGSize(width: 0, height: 0)
+        return CGSize(width: 0, height: 0)
     }
 }
 
@@ -457,7 +501,7 @@ extension NewJobEntryController: UICollectionViewDelegate {
         
         if collectionView == contactsCollectionView {
             
-           let contact = userContacts[indexPath.row]
+            let contact = userContacts[indexPath.row]
             let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
             navigationController?.pushViewController(contactViewController, animated: true)
             
@@ -471,7 +515,7 @@ extension NewJobEntryController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == contactsCollectionView {
-           return userContacts.count
+            return userContacts.count
         } else if collectionView == starSituationsCollectionView {
             return starSituations.count
         }
@@ -489,7 +533,7 @@ extension NewJobEntryController: UICollectionViewDataSource {
             cell.configureCell(contact: contact)
             return cell
         }
-        
+            
         else if collectionView == starSituationsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicSituationCell", for: indexPath) as? BasicStarSituationCell else {
                 fatalError("could not down cast to BasicStarSituationCell")
@@ -501,18 +545,14 @@ extension NewJobEntryController: UICollectionViewDataSource {
             cell.backgroundColor = .white
             return cell
         }
-
+        
         return UICollectionViewCell()
     }
 }
 
+
 extension NewJobEntryController: BasicSituationDelegate {
     func didPressMoreButton(starSituation: StarSituation, starSituationCell: BasicStarSituationCell) {
-        print("present action sheet")
-        // display action sheet to allow delete
-        // using the situation delete from ids -> hopefully this will trigger the didSet and subsequently update the collection view
-        
-        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteSituationID(starSituation: starSituation) }
@@ -525,9 +565,17 @@ extension NewJobEntryController: BasicSituationDelegate {
     private func deleteSituationID(starSituation: StarSituation) {
         
         guard let index = uniqueStarIDs.firstIndex(of: starSituation.id) else {
-            print("")
+            print("star situation id not found")
             return
         }
         uniqueStarIDs.remove(at: index)
+    }
+}
+
+extension NewJobEntryController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0){
+            activeTextField.resignFirstResponder()
+        }
     }
 }

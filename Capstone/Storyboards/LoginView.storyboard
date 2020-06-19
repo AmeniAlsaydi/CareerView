@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -30,14 +30,14 @@
                                     <action selector="loginButtonPressed:" destination="cNh-jk-5Ro" eventType="touchUpInside" id="eZx-e5-C0Q"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CallBack" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5U1-2H-L1x">
-                                <rect key="frame" x="20" y="263.5" width="374" height="33.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CareerView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5U1-2H-L1x">
+                                <rect key="frame" x="20" y="263.33333333333331" width="374" height="33.666666666666686"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tSa-Nu-Nf5">
-                                <rect key="frame" x="87.5" y="732" width="239" height="30"/>
+                                <rect key="frame" x="87.666666666666686" y="732" width="239" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dont have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k45-Sz-CK1">
                                         <rect key="frame" x="0.0" y="0.0" width="175" height="30"/>
@@ -87,6 +87,7 @@
                         <outlet property="emailTextField" destination="C6O-H3-2Kp" id="EPe-xC-JKt"/>
                         <outlet property="loginButton" destination="XH6-T4-qbS" id="uCj-H1-58M"/>
                         <outlet property="passwordTextField" destination="HUo-KJ-ju9" id="0r5-DR-b2e"/>
+                        <outlet property="signUpButton" destination="uf3-Kk-qpA" id="lx8-9d-fCQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEt-JI-fGj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -111,8 +112,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CallBack" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfw-hj-nhX">
-                                <rect key="frame" x="20" y="263.5" width="374" height="33.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CareerView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfw-hj-nhX">
+                                <rect key="frame" x="20" y="263.33333333333331" width="374" height="33.666666666666686"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -180,6 +181,7 @@
                     <connections>
                         <outlet property="alertLabel" destination="dhi-e9-NKV" id="UNA-p1-vxQ"/>
                         <outlet property="emailTextField" destination="MRD-6t-9Zy" id="hcN-RR-xdj"/>
+                        <outlet property="loginButton" destination="ebg-Bq-dCS" id="bdt-RL-hXx"/>
                         <outlet property="passwordTextField" destination="5Rc-d8-euA" id="xmD-KU-hWj"/>
                         <outlet property="signUpButton" destination="99u-aq-ViE" id="BOa-q2-stk"/>
                     </connections>

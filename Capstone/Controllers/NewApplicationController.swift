@@ -13,6 +13,8 @@ import CoreLocation
 class NewApplicationController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    //MARK: TextFields
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
     @IBOutlet weak var positionTitleTextField: FloatingLabelInput!
     @IBOutlet weak var positionURLTextField: FloatingLabelInput!
@@ -20,8 +22,10 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var notesTextField: FloatingLabelInput!
     @IBOutlet weak var dateTextField: FloatingLabelInput!
     
-    // InterviewEntryViews + height constraints
+    lazy var textFields: [FloatingLabelInput] = [companyNameTextField, positionTitleTextField, positionURLTextField, locationTextField, notesTextField, dateTextField]
+    private var currentTextFieldIndex = 0
     
+    //MARK: InterviewEntryViews + height constraints
     @IBOutlet weak var interviewEntryView1: InterviewEntryView!
     @IBOutlet weak var interviewEntryView1Height: NSLayoutConstraint!
     
@@ -35,12 +39,13 @@ class NewApplicationController: UIViewController {
     
     @IBOutlet weak var recievedRelpyStackHeight: NSLayoutConstraint!
     
-    // check mark buttons
+    // MARK: Buttons
     @IBOutlet weak var isRemoteButton: UIButton!
     @IBOutlet weak var hasAppliedButton: UIButton!
     @IBOutlet weak var hasRecievedReplyButton: UIButton!
     
     public var editingApplication = false
+    private var activeTextField = UITextField()
     
     public var jobApplication: JobApplication?  // FIXME: Is this the right way, use dependency injection?
     
@@ -108,7 +113,41 @@ class NewApplicationController: UIViewController {
         createDatePicker()
         addTargets()
         updateApplicationUI()
+        listenForKeyboardEvents()
+        setUpTextFieldsReturnType()
+        setUpDelegateForTextFields()
+        scrollView.delegate = self
     }
+    
+    // MARK: Keyboard handling
+    private func listenForKeyboardEvents() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        let userInfo = notification.userInfo!
+        
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
+        
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
+        } else {
+            scrollView.contentInset = UIEdgeInsets.zero
+        }
+        
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+    }
+    
+    private func setUpTextFieldsReturnType() {
+        let _ = textFields.map { $0.returnKeyType = .next }
+    }
+    
+    private func setUpDelegateForTextFields() {
+        let _ = textFields.map { $0.delegate = self }
+    }
+    
     
     private func updateApplicationUI() {
         if editingApplication {
@@ -444,8 +483,32 @@ class NewApplicationController: UIViewController {
     }
 }
 
-/*
- key board handling:
- - manipulate scroll view frame - height constraint
- - maniplute scroll view to move to current text field
- */
+//MARK: TextField Delegate
+
+extension NewApplicationController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField as! FloatingLabelInput
+        // use active textfield to assign current textfield index
+        
+        currentTextFieldIndex = textFields.firstIndex(of: activeTextField as! FloatingLabelInput)!
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.returnKeyType == .next {
+            currentTextFieldIndex += 1
+            textFields[currentTextFieldIndex].becomeFirstResponder()
+        } else if textField.returnKeyType == .done {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+}
+
+extension NewApplicationController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0){
+            activeTextField.resignFirstResponder()
+        }
+    }
+}
