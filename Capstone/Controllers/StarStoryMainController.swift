@@ -196,9 +196,9 @@ extension StarStoryMainController: UICollectionViewDataSource {
             guard let cell = collectionView.cellForItem(at: indexPath) as? StarSituationCell else { return }
             cell.starSituationIsSelected.toggle()
             if cell.starSituationIsSelected {
-            cell.backgroundColor = .red //TODO: refactor! Make a button with a checkmark image to show the cell was selected
+            cell.backgroundColor = .red
             } else {
-                cell.backgroundColor = .systemBackground
+                cell.backgroundColor = AppColors.systemBackgroundColor
             }
             selectedSTARStory = starStory
         }
