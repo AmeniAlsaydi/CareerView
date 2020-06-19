@@ -13,13 +13,20 @@ import FirebaseAuth
 class ApplicationTrackerController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionLayout: UICollectionViewFlowLayout! {
+        didSet {
+            collectionLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
+    }
     
     private var jobApplications = [JobApplication]() {
         didSet {
             if jobApplications.count == 0 {
+                 collectionView.contentInsetAdjustmentBehavior = .never
                  collectionView.backgroundView = EmptyView(title: "No Applications yet", message: "Click on the add button on the top right and start keeping track of progress!", imageName: "square.and.pencil")
             } else {
                 collectionView.backgroundView = nil
+                collectionView.contentInsetAdjustmentBehavior = .always
             }
             
             DispatchQueue.main.async {
@@ -28,7 +35,6 @@ class ApplicationTrackerController: UIViewController {
             
         }
     }
-    
     private var listener: ListenerRegistration?
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,10 +44,15 @@ class ApplicationTrackerController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        configureCollectionView()
+//        getApplications()
+//        configureNavBar()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
         configureCollectionView()
         getApplications()
         configureNavBar()
-        
     }
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
@@ -84,7 +95,6 @@ class ApplicationTrackerController: UIViewController {
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         collectionView.register(UINib(nibName: "JobApplicationCellXib", bundle: nil), forCellWithReuseIdentifier: "applicationCell")
         
     }
@@ -109,8 +119,8 @@ extension ApplicationTrackerController: UICollectionViewDataSource {
         }
         
         let application = jobApplications[indexPath.row]
+        cell.maxWidth = collectionView.bounds.width
         cell.configureCell(application: application)
-        
         return cell
         
     }
@@ -133,9 +143,8 @@ extension ApplicationTrackerController: UICollectionViewDelegateFlowLayout {
         let itemHeight: CGFloat = maxsize.height * 0.15
         return CGSize(width: itemWidth, height: itemHeight)
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-       }
+        return UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+    }
     
 }

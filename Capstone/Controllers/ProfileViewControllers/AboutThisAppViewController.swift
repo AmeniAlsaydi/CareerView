@@ -16,10 +16,11 @@ class AboutThisAppViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
+        configureNavBar()
     }
     private func configureNavBar() {
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.sizeToFit()
     }
     private func setupView() {
         imageView.layer.cornerRadius = 4

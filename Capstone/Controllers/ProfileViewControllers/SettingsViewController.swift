@@ -38,12 +38,17 @@ class SettingsViewController: UIViewController {
     }
     private func configureNavBar() {
         navigationItem.title = "Settings"
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SettingTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.contentInsetAdjustmentBehavior = .never
+        navigationItem.largeTitleDisplayMode = .automatic
+        tableView.scrollsToTop = true
     }
     private func loadSettings() {
         settings = SettingsCell.loadSettingsCells()

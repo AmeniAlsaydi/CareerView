@@ -54,7 +54,7 @@ class AccountViewController: UIViewController {
         let signoutButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(signout(_:)))
         signoutButton.tintColor = .red
         navigationItem.rightBarButtonItem = signoutButton
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     @objc private func signout(_ sender: UIBarButtonItem) {
         DispatchQueue.main.async {
