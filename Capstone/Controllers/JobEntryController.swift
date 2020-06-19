@@ -132,6 +132,9 @@ class JobEntryController: UIViewController {
         let rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed(_:)))
         navigationItem.rightBarButtonItem = rightBarButton
     }
+    
+    
+    // IGNORE **** ✅
     private func setupTextFields() {
         let textFields = [jobTitleTextField, companyNameTextField, beginDateYearTextField, beginDateMonthTextField, endDateYearTextField, endDateMonthTextField, locationTextField, descriptionTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
         for field in textFields {
@@ -140,6 +143,8 @@ class JobEntryController: UIViewController {
             field?.setBottomBorder()
         }
     }
+    
+    // HANDLED **** ✅
     @IBAction func addStarSituationButtonPressed(_ sender: UIButton) {
         let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
         starStoryVC.starSituationIDs = starSituationIDsToAdd
@@ -147,6 +152,8 @@ class JobEntryController: UIViewController {
         starStoryVC.delegate = self
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
+    
+    // to delete a repsonsibilty
     @IBAction func deleteResponsibiltyCellButtonPressed(_ sender: UIButton) {
         // TODO: Have user confirm the responsibility is going to be deleted before deleting
         //        showAlert(title: "Are you sure?", message: "You are about to delete this resonsibility: \(userJobResponsibilities[sender.tag])")
@@ -161,10 +168,14 @@ class JobEntryController: UIViewController {
         }
         responsibilities?.remove(at: sender.tag)
     }
+    
+    // to add a ressponsibility
     @IBAction func addResponsibilityButtonPressed(_ sender: UIButton) {
         responsibilityCells += 1
         responsibilities?.append("")
     }
+    
+    // HANDLED *** ✅
     @IBAction func addContactButtonPressed(_ sender: UIButton) {
         //Note: This will check for access to contact permission and if not determined, ask again
         // If the user denied permission, they will directed to settings where they can give permission to the app
@@ -183,11 +194,14 @@ class JobEntryController: UIViewController {
             retrieveContacts()
         }
     }
+     // HANDLED *** ✅
     private func retrieveContacts() {
         let contactPicker = CNContactPickerViewController()
         contactPicker.delegate = self
         present(contactPicker, animated: true)
     }
+    
+    
     private func listenForKeyboardEvents() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -202,6 +216,7 @@ class JobEntryController: UIViewController {
     @objc func doneButtonAction() {
         self.view.endEditing(true)
     }
+    
     private func configureCurrentlyEmployedButton(_ currentlyEmployed: Bool) {
         if currentlyEmployed {
             currentlyEmployedButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
@@ -220,24 +235,36 @@ class JobEntryController: UIViewController {
     }
     //MARK: Save userJob
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
+        
         populateUserJobResponsibilities()
+        
+        // Handling dates
         let beginDateFromField = formatDates(month: beginDateMonthTextField.text ?? "", year: beginDateYearTextField.text ?? "")
         let endDateFromField = formatDates(month: endDateMonthTextField.text ?? "", year: endDateYearTextField.text ?? "")
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/yyyy"
         let beginDateTimeStamp = Timestamp(date: (beginDateFromField ?? dateFormatter.date(from: "1/1970"))!)
         let endDateTimeStamp = Timestamp(date: (endDateFromField ?? Date()))
+        
+        // Handling Responsibilities
         guard let jobResponsibilities = responsibilities else {
             showAlert(title: "Responsibilities empty", message: "please enter at least one responsibility to save your job")
             return
         }
+        
+        // id
         var id = UUID().uuidString
         if editingJob {
             id = userJob?.id ?? UUID().uuidString
         }
+        
+        // remove dups from star situations array
         let uniqueStarIDs = starSituationIDsToAdd.removingDuplicates()
         
+        // creating user job object
         let userJobToSave = UserJob(id: id, title: jobTitleTextField.text ?? "", companyName: companyNameTextField.text ?? "", location: locationTextField?.text ?? "", beginDate: beginDateTimeStamp, endDate: endDateTimeStamp, currentEmployer: currentlyEmployed, description: descriptionTextField.text ?? "", responsibilities: jobResponsibilities, starSituationIDs: uniqueStarIDs, interviewQuestionIDs: linkedInterviewQuestions)
+        
+        // sending object to firebase
         DatabaseService.shared.addToUserJobs(userJob: userJobToSave, completion: { [weak self] (result) in
             switch result {
             case .failure(let error):
@@ -245,6 +272,7 @@ class JobEntryController: UIViewController {
                     self?.showAlert(title: "Failed to save job", message: error.localizedDescription)
                 }
             case .success:
+                // show alert plus pop VC
                 DispatchQueue.main.async {
                     if self?.editingJob ?? false {
                         self?.showAlert(title: "Job Updated!", message: "Success!")  { (alert) in
@@ -258,6 +286,8 @@ class JobEntryController: UIViewController {
                 }
             }
         })
+        
+        // send contacts to contacts collection for user job
         if userContacts.count != 0 {
             for contact in userContacts {
                 DatabaseService.shared.addContactsToUserJob(userJobId: userJobToSave.id, contact: contact, completion: { [weak self] (results) in
@@ -273,10 +303,14 @@ class JobEntryController: UIViewController {
             }
         }
     }
+    
+    // IGNORE THIS - i handled it differently ****
     @IBAction func currentlyEmployedButtonPressed(_ sender: UIButton) {
         currentlyEmployed.toggle()
         configureCurrentlyEmployedButton(currentlyEmployed)
     }
+    
+    
     @objc func keyboardWillChange(notification: Notification) {
         let userInfo = notification.userInfo!
         let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
@@ -492,6 +526,7 @@ extension JobEntryController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
 extension JobEntryController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let contact = userContacts[indexPath.row]
@@ -499,6 +534,7 @@ extension JobEntryController: UICollectionViewDelegate {
         navigationController?.pushViewController(contactViewController, animated: true)
     }
 }
+ // HANDLED *** ✅
 extension JobEntryController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return userContacts.count
@@ -512,6 +548,8 @@ extension JobEntryController: UICollectionViewDataSource {
         return cell
     }
 }
+
+ // HANDLED *** ✅
 //MARK:- CNContactPickerDelegate
 extension JobEntryController: CNContactPickerDelegate {
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
@@ -526,6 +564,7 @@ extension JobEntryController: CNContactPickerDelegate {
     }
 }
 
+ // HANDLED *** ✅
 extension JobEntryController: StarStoryMainControllerDelegate {
     func starStoryMainViewControllerDismissed(starSituations: [String]) {
         starSituationIDsToAdd = starSituations

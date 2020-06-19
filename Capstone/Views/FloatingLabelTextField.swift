@@ -8,7 +8,23 @@
 
 import UIKit
 
-class FloatingLabelInput: UITextField {
+class FloatingLabelInput: UITextField, UITextFieldDelegate {
+    
+    weak var textFieldDelegate: UITextFieldDelegate?
+    
+    override var delegate: UITextFieldDelegate? {
+        didSet {
+            if !(delegate === self) {
+                textFieldDelegate = self.delegate
+                self.delegate = self
+            }
+        }
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // Implement default logic
+        textFieldDelegate?.textFieldDidBeginEditing?(textField)
+    }
 
     var floatingLabel: UILabel = UILabel(frame: CGRect.zero) // Label
     var floatingLabelHeight: CGFloat = 10 // 14 is Default height

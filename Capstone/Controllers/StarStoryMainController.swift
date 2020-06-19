@@ -153,11 +153,12 @@ extension StarStoryMainController: UICollectionViewDataSource {
         let starSituation = starSituations[indexPath.row]
 
         cell.configureCell(starSituation: starSituation)
-        
+      
         if starSituationIDs.contains(starSituation.id) {
             cell.starSituationIsSelected = true
             cell.backgroundColor = .red
         }
+
         if isAddingToAnswer || isAddingToUserJob {
             cell.editButton.isHidden = true
         } else {
