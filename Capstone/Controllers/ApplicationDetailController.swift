@@ -153,6 +153,18 @@ class ApplicationDetailController: UIViewController {
 //            mapHeight.constant = 0
 //            mapView.isHidden = true
 //        }
+        
+        if let city = jobApplication.city {
+            getCoordinateFrom(address: city) { (coordinates, error) in
+                if let coordinates = coordinates {
+                    
+                }
+            }
+            
+        } else {
+            mapHeight.constant = 0
+            mapView.isHidden = true
+        }
         return annotations
     }
     
@@ -259,4 +271,8 @@ extension ApplicationDetailController: MKMapViewDelegate {
         }
         return annotationView
     }
+    
+    private func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
+           CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
+       }
 }
