@@ -112,7 +112,7 @@ class NewApplicationController: UIViewController {
         configureNavBar()
         createDatePicker()
         addTargets()
-        updateApplicationUI()
+        loadApplicationToEdit()
         listenForKeyboardEvents()
         setUpTextFieldsReturnType()
         setUpDelegateForTextFields()
@@ -149,7 +149,8 @@ class NewApplicationController: UIViewController {
     }
     
     
-    private func updateApplicationUI() {
+    private func loadApplicationToEdit() {
+        
         if editingApplication {
             // update UI - Ameni
             
@@ -288,6 +289,7 @@ class NewApplicationController: UIViewController {
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
         interviewCount += 1
         
+        // if addInterview Button is pressed it checks the /hasInterviewData/ property of each view and presents the one that doesnt
         
         if  !interviewEntryView1.hasInterviewData {
             
@@ -373,14 +375,17 @@ class NewApplicationController: UIViewController {
                     
                     self?.createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
                     
-                    self?.addInterviews(jobID)
+                   // self?.addInterviews(jobID)
                 }
             }
         } else {
             createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
             
-            addInterviews(jobID)
+            //addInterviews(jobID)
+            
         }
+    
+        
     }
     
     private func createNewApplication(id: String , companyName: String, positionTitle: String, positionURL: String?, notes: String?, location: GeoPoint?, deadline: Timestamp?, dateApplied: Timestamp?, isInterviewing: Bool) {
@@ -397,6 +402,8 @@ class NewApplicationController: UIViewController {
                 print("success adding application")
                 
                 if self?.editingApplication ?? false {
+                   
+                    self?.addInterviews(id)
                     self?.showAlert(title: "Sucess!", message: "Your application was edited!", completion: { (alertAction) in
                         self?.navigationController?.popViewController(animated: true)
                     })
@@ -435,7 +442,14 @@ class NewApplicationController: UIViewController {
         }
         
         // create interview
-        let interviewID = UUID().uuidString
+        var interviewID = UUID().uuidString
+        
+        if let interview = view.interview {
+            // if the interview has an interview (meaning the interview property is not nil we will update the interview using the interview ID
+            interviewID = interview.id
+        }
+        
+        
         let interview = Interview(id: interviewID, interviewDate: Timestamp(date: interviewDate), thankYouSent: thankyouSent, notes: notes)
         
         // post
@@ -447,30 +461,56 @@ class NewApplicationController: UIViewController {
                 print("interview was added successfully to application")
             }
         }
+        
     }
     
     private func editingInterviewViews() {
         if editingApplication {
             guard let interviewData = interviewData else {return}
             
+            // TODO: CREATE A FUNCTION THAT WILL SET UP VIEWS WITH INTEVIEWS
+            
             switch interviewData.count {
             case 0:
                 print("no interview")
             case 1:
                 interviewEntryView1Height.constant = 150
-                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString()
+                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString("MM/dd/yyyy")
+                interviewEntryView1.hasInterviewData = true
+                interviewEntryView1.interview = interviewData[0]
+                interviewEntryView1.date = interviewData[0].interviewDate?.dateValue()
             case 2:
                 interviewEntryView1Height.constant = 150
                 interviewEntryView2Height.constant = 150
-                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString()
-                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString()
+                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString("MM/dd/yyyy")
+                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString("MM/dd/yyyy")
+                interviewEntryView1.interview = interviewData[0]
+                interviewEntryView2.interview = interviewData[1]
+                interviewEntryView1.hasInterviewData = true
+                interviewEntryView2.hasInterviewData = true
+                
+                interviewEntryView1.date = interviewData[0].interviewDate?.dateValue()
+                interviewEntryView2.date = interviewData[1].interviewDate?.dateValue()
+                
             case 3:
                 interviewEntryView1Height.constant = 150
                 interviewEntryView2Height.constant = 150
                 interviewEntryView3Height.constant = 150
-                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString()
-                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString()
-                interviewEntryView3.dateTextField.text = interviewData[2].interviewDate?.dateValue().dateString()
+                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString("MM/dd/yyyy")
+                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString("MM/dd/yyyy")
+                interviewEntryView3.dateTextField.text = interviewData[2].interviewDate?.dateValue().dateString("MM/dd/yyyy")
+                interviewEntryView1.interview = interviewData[0]
+                interviewEntryView2.interview = interviewData[1]
+                interviewEntryView3.interview = interviewData[2]
+                
+                interviewEntryView1.hasInterviewData = true
+                interviewEntryView2.hasInterviewData = true
+                interviewEntryView3.hasInterviewData = true
+                
+                interviewEntryView1.date = interviewData[0].interviewDate?.dateValue()
+                interviewEntryView2.date = interviewData[1].interviewDate?.dateValue()
+                interviewEntryView3.date = interviewData[2].interviewDate?.dateValue()
+                
                 addInterviewStack.isHidden = true
             default:
                 print("break")
