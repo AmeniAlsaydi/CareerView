@@ -57,9 +57,9 @@ class FirstTimeUserExperienceViewController: UIViewController {
 extension FirstTimeUserExperienceViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxWidth: CGFloat = collectionView.frame.width
-        let itemWidth: CGFloat = maxWidth * 0.95
+        //let itemWidth: CGFloat = maxWidth * 0.95
         let maxHeight: CGFloat = collectionView.frame.height
-        let itemHeight: CGFloat = maxHeight * 0.95
+        //let itemHeight: CGFloat = maxHeight * 0.95
         return CGSize(width: maxWidth, height: maxHeight)
     }
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
