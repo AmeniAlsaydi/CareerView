@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewApplicationController" customModule="Capstone" customModuleProvider="target">
             <connections>
                 <outlet property="addInterviewStack" destination="5bb-nj-ZZ4" id="8Fj-3j-zoF"/>
+                <outlet property="cityTextField" destination="c9D-U3-bqx" id="tB3-xv-TPK"/>
                 <outlet property="companyNameTextField" destination="iXe-1p-Ltr" id="aj1-Bu-AfK"/>
                 <outlet property="dateTextField" destination="pQM-tE-bM3" id="HaB-Qq-PLW"/>
                 <outlet property="hasAppliedButton" destination="8Cg-gh-vrv" id="iaP-Fa-gga"/>
@@ -21,7 +22,6 @@
                 <outlet property="interviewEntryView3" destination="Hhc-cq-NK7" id="IvA-7N-gaE"/>
                 <outlet property="interviewEntryView3Height" destination="YvJ-4w-eVZ" id="jGT-eG-MwT"/>
                 <outlet property="isRemoteButton" destination="XfY-Fk-qHH" id="tdF-hc-KeQ"/>
-                <outlet property="locationTextField" destination="c9D-U3-bqx" id="tB3-xv-TPK"/>
                 <outlet property="notesTextField" destination="VUz-fQ-HdT" id="DqZ-LZ-rI1"/>
                 <outlet property="positionTitleTextField" destination="sRR-Rf-gqU" id="Bgb-aa-w0k"/>
                 <outlet property="positionURLTextField" destination="pfd-LL-FcK" id="bxj-2n-KYg"/>
@@ -62,7 +62,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location (optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c9D-U3-bqx" customClass="FloatingLabelInput" customModule="Capstone" customModuleProvider="target">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City (optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c9D-U3-bqx" customClass="FloatingLabelInput" customModule="Capstone" customModuleProvider="target">
                                     <rect key="frame" x="20" y="423" width="374" height="34"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>

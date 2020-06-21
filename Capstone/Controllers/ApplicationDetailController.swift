@@ -144,14 +144,15 @@ class ApplicationDetailController: UIViewController {
         let annotation = MKPointAnnotation()
         annotation.title = jobApplication.companyName
         
-        if let locationCoordinates = jobApplication.location {
-            let coordinate = CLLocationCoordinate2DMake(Double(locationCoordinates.latitude), Double(locationCoordinates.longitude))
-            annotation.coordinate = coordinate
-            annotations.append(annotation)
-        } else {
-            mapHeight.constant = 0 
-            mapView.isHidden = true
-        }
+        // MUST BE FIXED !!!!!
+//        if let locationCoordinates = jobApplication.location {
+//            let coordinate = CLLocationCoordinate2DMake(Double(locationCoordinates.latitude), Double(locationCoordinates.longitude))
+//            annotation.coordinate = coordinate
+//            annotations.append(annotation)
+//        } else {
+//            mapHeight.constant = 0
+//            mapView.isHidden = true
+//        }
         return annotations
     }
     
