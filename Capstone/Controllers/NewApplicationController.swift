@@ -458,54 +458,59 @@ class NewApplicationController: UIViewController {
     private func editingInterviewViews() {
         if editingApplication {
             guard let interviewData = interviewData else {return}
-            
-            // TODO: CREATE A FUNCTION THAT WILL SET UP VIEWS WITH INTEVIEWS
-            
+                        
             switch interviewData.count {
             case 0:
                 print("no interview")
             case 1:
-                interviewEntryView1Height.constant = 150
-                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString("MM/dd/yyyy")
-                interviewEntryView1.hasInterviewData = true
-                interviewEntryView1.interview = interviewData[0]
-                interviewEntryView1.date = interviewData[0].interviewDate?.dateValue()
+                loadInterview(interview: interviewData[0], view: interviewEntryView1)
+                
             case 2:
-                interviewEntryView1Height.constant = 150
-                interviewEntryView2Height.constant = 150
-                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString("MM/dd/yyyy")
-                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString("MM/dd/yyyy")
-                interviewEntryView1.interview = interviewData[0]
-                interviewEntryView2.interview = interviewData[1]
-                interviewEntryView1.hasInterviewData = true
-                interviewEntryView2.hasInterviewData = true
-                
-                interviewEntryView1.date = interviewData[0].interviewDate?.dateValue()
-                interviewEntryView2.date = interviewData[1].interviewDate?.dateValue()
-                
+                loadInterview(interview: interviewData[0], view: interviewEntryView1)
+                loadInterview(interview: interviewData[1], view: interviewEntryView2)
+
             case 3:
-                interviewEntryView1Height.constant = 150
-                interviewEntryView2Height.constant = 150
-                interviewEntryView3Height.constant = 150
-                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString("MM/dd/yyyy")
-                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString("MM/dd/yyyy")
-                interviewEntryView3.dateTextField.text = interviewData[2].interviewDate?.dateValue().dateString("MM/dd/yyyy")
-                interviewEntryView1.interview = interviewData[0]
-                interviewEntryView2.interview = interviewData[1]
-                interviewEntryView3.interview = interviewData[2]
-                
-                interviewEntryView1.hasInterviewData = true
-                interviewEntryView2.hasInterviewData = true
-                interviewEntryView3.hasInterviewData = true
-                
-                interviewEntryView1.date = interviewData[0].interviewDate?.dateValue()
-                interviewEntryView2.date = interviewData[1].interviewDate?.dateValue()
-                interviewEntryView3.date = interviewData[2].interviewDate?.dateValue()
+                loadInterview(interview: interviewData[0], view: interviewEntryView1)
+                loadInterview(interview: interviewData[1], view: interviewEntryView2)
+                loadInterview(interview: interviewData[2], view: interviewEntryView3)
                 
                 addInterviewStack.isHidden = true
             default:
                 print("break")
             }
+        }
+    }
+    
+    
+    private func loadInterview(interview: Interview, view: InterviewEntryView) {
+        view.interview = interview
+        // change height
+        switch view {
+        case interviewEntryView1:
+            interviewEntryView1Height.constant = 150
+        case interviewEntryView2:
+            interviewEntryView2Height.constant = 150
+        case interviewEntryView3:
+             interviewEntryView3Height.constant = 150
+        default:
+            print("view not found")
+        }
+        
+        view.hasInterviewData = true
+        
+        // set date
+        view.date = interview.interviewDate?.dateValue()
+        
+        // load interview date
+        view.dateTextField.text = interview.interviewDate?.dateValue().dateString("MM/dd/yyyy")
+        
+        if let notes = interview.notes { // if there are notes load notes
+            view.notesTextField.text = notes
+        }
+        
+        if interview.thankYouSent { // if thank you set as checked
+            let image = UIImage(systemName: "checkmark.square")
+            view.thankYouButton.setImage(image, for: .normal)
         }
     }
     
