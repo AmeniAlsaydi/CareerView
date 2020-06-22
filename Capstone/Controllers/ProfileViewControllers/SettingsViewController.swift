@@ -62,6 +62,7 @@ class SettingsViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.contentInsetAdjustmentBehavior = .never
         navigationItem.largeTitleDisplayMode = .automatic
+        tableView.keyboardDismissMode = .interactive
         tableView.scrollsToTop = true
     }
     private func loadSettings() {
@@ -130,8 +131,10 @@ extension SettingsViewController: UITableViewDelegate {
 
 extension SettingsViewController: defaultLaunchScreenButtonDelegate {
     func changeDefaultLaunchScreenButtonPressed() {
-        self.view.addSubview(defaultLaunchScreenPicker)
-        self.view.addSubview(toolbar)
+        UIView.transition(with: self.view, duration: 3.0, options: [], animations: {
+            self.view.addSubview(self.defaultLaunchScreenPicker)
+            self.view.addSubview(self.toolbar)
+        }, completion: nil)
     }
 }
 

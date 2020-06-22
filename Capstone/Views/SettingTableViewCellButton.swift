@@ -38,6 +38,7 @@ class SettingTableViewCellButton: UITableViewCell {
     
     public func configureCell(setting: SettingsCell) {
         loadDefaultLaunchScreen()
+        defaultButton.tintColor = AppColors.secondaryPurpleColor
         defaultButton.addTarget(self, action: #selector(changeLaunchScreenButtonPressed(_:)), for: .touchUpInside)
         defaultLabel.text = ("Launch Screen: \(defaultLaunchScreenPreference?.rawValue ?? DefaultLaunchScreen.jobHistory.rawValue)")
     }

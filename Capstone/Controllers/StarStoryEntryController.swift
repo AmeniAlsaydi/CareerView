@@ -213,6 +213,7 @@ class StarStoryEntryController: UIViewController {
         taskBkgdView.isHidden = true
         actionBkgdView.isHidden = true
         resultBkgdView.isHidden = true
+        
     }
     private func transitionFromOptionToMainView() {
         let duration = 0.3
