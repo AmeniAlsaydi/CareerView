@@ -26,7 +26,7 @@ class FoldingCell: UITableViewCell {
     @IBInspectable open var itemCount: NSInteger = 4
     
     /// The color of the back cell
-    @IBInspectable open var backViewColor: UIColor = UIColor.white
+    @IBInspectable open var backViewColor: UIColor = AppColors.complimentaryBackgroundColor
     
     var animationItemViews: [RotatedView]?
     
@@ -36,10 +36,8 @@ class FoldingCell: UITableViewCell {
     }
     
     // MARK: Life Cycle
-    
     open override func awakeFromNib() {
         super.awakeFromNib()
-        
         commonInit()
     }
     
@@ -48,27 +46,17 @@ class FoldingCell: UITableViewCell {
      */
     @objc open func commonInit() {
         configureDefaultState()
-   
         selectionStyle = .none
-        
+        contentView.backgroundColor = AppColors.complimentaryBackgroundColor
+        foregroundView.layer.cornerRadius = AppRoundedViews.cornerRadius
         containerView.layer.cornerRadius = foregroundView.layer.cornerRadius
         containerView.layer.masksToBounds = true
-        
-        foregroundView.layer.borderWidth = 1.0
-        foregroundView.layer.borderColor = UIColor.black.cgColor
-        
-        firstView.layer.borderWidth = 1.0
-        firstView.layer.borderColor = UIColor.black.cgColor
-        
-        secondView.layer.borderWidth = 1.0
-        secondView.layer.borderColor = UIColor.black.cgColor
-        
-        thirdView.layer.borderWidth = 1.0
-        thirdView.layer.borderColor = UIColor.black.cgColor
-        
-        forthView.layer.borderWidth = 1.0
-        forthView.layer.borderColor = UIColor.black.cgColor
-        
+        containerView.backgroundColor = AppColors.systemBackgroundColor
+        foregroundView.backgroundColor = AppColors.systemBackgroundColor
+        firstView.backgroundColor = AppColors.systemBackgroundColor
+        secondView.backgroundColor = AppColors.systemBackgroundColor
+        thirdView.backgroundColor = AppColors.systemBackgroundColor
+        forthView.backgroundColor = AppColors.systemBackgroundColor
     }
     
     // MARK: configure

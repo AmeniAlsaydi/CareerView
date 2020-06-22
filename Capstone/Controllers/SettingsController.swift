@@ -18,9 +18,9 @@ struct Settings {
             Settings(tabs: "Account", images: UIImage(systemName: "person.fill")!),
             Settings(tabs: "Settings", images: UIImage(systemName: "gear")!),
             Settings(tabs: "Notifications", images: UIImage(systemName: "message")!),
-            Settings(tabs: "About this app", images: UIImage(systemName: "questionmark.circle")!),
-            Settings(tabs: "FAQ", images: UIImage(systemName: "questionmark.circle.fill")!),
-            Settings(tabs: "Contact Us", images: UIImage(systemName: "phone.fill")!)
+            Settings(tabs: "About this app", images: UIImage(systemName: "info.circle")!),
+            Settings(tabs: "FAQ", images: UIImage(systemName: "questionmark.circle")!),
+            Settings(tabs: "Contact Us", images: UIImage(systemName: "phone")!)
         ]
     }
 }
@@ -29,19 +29,15 @@ class SettingsController: UIViewController {
     
     @IBOutlet weak var starSituationInputToggle: UISwitch!
     
-
     @IBOutlet weak var settingsTableView: UITableView!
     
     @IBOutlet weak var appLabel: UILabel!
     
     private var allSettings = [Settings]()
     
-
     private var appName = ApplicationInfo.getAppName()
     private var appVersion = ApplicationInfo.getVersionBuildNumber()
     
-    
-
     private var showUserStarSituationInputOption: ShowUserStarInputOption? {
 
         didSet {
@@ -58,6 +54,7 @@ class SettingsController: UIViewController {
         super.viewDidLoad()
 
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         loadSettings()
         configureTableView()
@@ -116,8 +113,6 @@ extension SettingsController: UITableViewDataSource {
         cell.configureCell(setting: aSetting)
         return cell
     }
-    
-    
 }
 
 extension SettingsController: UITableViewDelegate {

@@ -8,27 +8,44 @@
 
 import UIKit
 
+protocol StarStoryMainControllerDelegate {
+    func starStoryMainViewControllerDismissed(starSituations: [String])
+}
+
 class StarStoryMainController: UIViewController {
     
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    public var filterByJob = false
+    public var userJob: UserJob?
     public var isAddingToAnswer = false
+    public var isAddingToUserJob = false
     public var selectedSTARStory: StarSituation?
+    public var selectedSTARStories = [StarSituation]()
+    public var starSituationIDs = [String]()
     public var answerId: String?
     public var question: String?
-    
     private var starSituations = [StarSituation]() {
         didSet {
+            if filterByJob {
+                guard let starSituationID = userJob?.starSituationIDs else { return }
+                starSituations = starSituations.filter { starSituationID.contains($0.id) }
+            }
             collectionView.reloadData()
             navigationItem.title = "STAR Stories: \(starSituations.count)"
         }
     }
     
+    var delegate: StarStoryMainControllerDelegate?
+    
     //MARK:- ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        loadStarSituations()
+    }
+    override func viewDidAppear(_ animated: Bool) {
         loadStarSituations()
     }
     //MARK:- Private funcs
@@ -38,13 +55,19 @@ class StarStoryMainController: UIViewController {
         collectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
         collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        collectionView.backgroundColor = AppColors.complimentaryBackgroundColor
         if isAddingToAnswer {
-            navigationItem.title = "Add STAR Story to your answer"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
-            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
+            navigationItem.title = "Add a STAR Story to your answer"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.checkmarkIcon, style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.xmarkIcon, style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
+        } else if isAddingToUserJob {
+            navigationItem.title = "Add a STAR Story to your Job"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.checkmarkIcon, style: .plain, target: self, action: #selector(addStarStoriesToUserJob(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.xmarkIcon, style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
         } else {
             navigationItem.title = "STAR Stories: \(starSituations.count)"
-          navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(segueToSTARStoryInfoVC(_:)))
         }
     }
     
@@ -57,12 +80,16 @@ class StarStoryMainController: UIViewController {
                 }
             case .success(let starSituationsData):
                 DispatchQueue.main.async {
-                    print("Star situation load successful")
                     self?.starSituations = starSituationsData
                     self?.navigationItem.title = "STAR Stories: \(self?.starSituations.count ?? 0)"
                 }
             }
         }
+    }
+    @objc private func segueToSTARStoryInfoVC(_ sender: UIBarButtonItem) {
+        let starStoryInfoVC = InterviewAnswerSuggestionViewController(nibName: "InterviewAnswerSuggestionXib", bundle: nil)
+        starStoryInfoVC.comingFromSTARSVC = true
+        present(starStoryInfoVC, animated: true)
     }
     @objc private func segueToAddStarStoryViewController(_ sender: UIBarButtonItem) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
@@ -74,6 +101,12 @@ class StarStoryMainController: UIViewController {
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
+    @objc private func addStarStoriesToUserJob(_ sender: UIBarButtonItem) {
+        let starSituationsToSendBack = starSituationIDs
+        delegate?.starStoryMainViewControllerDismissed(starSituations: starSituationsToSendBack)
+        dismiss(animated: true)
+    }
+
     @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
         //When a user selects a star story, save it to db function
         if selectedSTARStory == nil {
@@ -123,30 +156,65 @@ extension StarStoryMainController: UICollectionViewDataSource {
             fatalError("Failed to dequeue starSituationCell")
         }
         let starSituation = starSituations[indexPath.row]
+
         cell.configureCell(starSituation: starSituation)
+      
+        if starSituationIDs.contains(starSituation.id) {
+            cell.starSituationIsSelected = true
+            cell.backgroundColor = .red
+        }
+
+        if isAddingToAnswer || isAddingToUserJob {
+            cell.editButton.isHidden = true
+        } else {
+            cell.editButton.isHidden = false
+        }
+        
         cell.delegate = self
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if isAddingToAnswer {
+        if isAddingToUserJob {
             let starStory = starSituations[indexPath.row]
-            let cell = collectionView.cellForItem(at: indexPath)
-            cell?.backgroundColor = .red //TODO: refactor! Make a button with a checkmark image to show the cell was selected
+            guard let cell = collectionView.cellForItem(at: indexPath) as? StarSituationCell else { return }
+            
+            cell.starSituationIsSelected.toggle()
+            
+            if cell.starSituationIsSelected {
+                cell.backgroundColor = .red //TODO: refactor! Make a button with a checkmark image to show the cell was selected
+                starSituationIDs.append(starStory.id)
+            } else if cell.starSituationIsSelected == false {
+                guard let indexPathForStarStorySelected = starSituationIDs.firstIndex(where: {$0 == starStory.id }) else {
+                    print("No stary story index Path was found")
+                    return }
+                cell.backgroundColor = .systemBackground
+                starSituationIDs.remove(at: indexPathForStarStorySelected)
+            }
+            
+        } else if isAddingToAnswer {
+            let starStory = starSituations[indexPath.row]
+            guard let cell = collectionView.cellForItem(at: indexPath) as? StarSituationCell else { return }
+            cell.starSituationIsSelected.toggle()
+            if cell.starSituationIsSelected {
+            cell.backgroundColor = .red
+            } else {
+                cell.backgroundColor = AppColors.systemBackgroundColor
+            }
             selectedSTARStory = starStory
         }
     }
-    
-}
-extension StarStoryMainController: UICollectionViewDelegate {
     
 }
 extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxWidth = view.frame.width
         let maxHeight = view.frame.height
-        let adjustedWidth = CGFloat(maxWidth * 0.95)
+        let adjustedWidth = CGFloat(maxWidth * 0.9)
         let adjustedHeight = CGFloat(maxHeight / 4)
         return CGSize(width: adjustedWidth, height: adjustedHeight)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
 }
 //MARK:- StarSituationCell Delegate

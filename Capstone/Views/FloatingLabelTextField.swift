@@ -8,7 +8,27 @@
 
 import UIKit
 
-class FloatingLabelInput: UITextField {
+class FloatingLabelInput: UITextField, UITextFieldDelegate {
+    
+    weak var textFieldDelegate: UITextFieldDelegate?
+    
+    override var delegate: UITextFieldDelegate? {
+        didSet {
+            if !(delegate === self) {
+                textFieldDelegate = self.delegate
+                self.delegate = self
+            }
+        }
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // Implement default logic
+        textFieldDelegate?.textFieldDidBeginEditing?(textField)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textFieldDelegate?.textFieldShouldReturn?(textField) ?? true 
+    }
 
     var floatingLabel: UILabel = UILabel(frame: CGRect.zero) // Label
     var floatingLabelHeight: CGFloat = 10 // 14 is Default height
@@ -17,7 +37,7 @@ class FloatingLabelInput: UITextField {
     var _placeholder: String? // we cannot override 'placeholder'
     
     @IBInspectable
-    var floatingLabelColor: UIColor = #colorLiteral(red: 0.2105118036, green: 0.0652000457, blue: 0.2819291055, alpha: 1)  { //UIColor.black {
+    var floatingLabelColor: UIColor = AppColors.secondaryPurpleColor { 
         didSet {
             self.floatingLabel.textColor = floatingLabelColor
             
