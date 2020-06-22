@@ -8,16 +8,18 @@
 
 import UIKit
 // Conflict amirite?
-struct SettingsCell {
+struct SettingsCell: Equatable {
     let title: String
     
     static func loadSettingsCells() -> [SettingsCell] {
         return [
-            SettingsCell(title: settings.showUserSTARStoryOption.rawValue)
+            SettingsCell(title: settingsEnum.showUserSTARStoryOption.rawValue),
+            SettingsCell(title: settingsEnum.defaultLaunchScreen.rawValue)
         ]
     }
-    public enum settings: String {
+    public enum settingsEnum: String {
         case showUserSTARStoryOption = "Show User STAR Story Option"
+        case defaultLaunchScreen = "Default Launch Screen"
     }
 }
 
@@ -44,6 +46,7 @@ class SettingsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SettingTableViewCell", bundle: nil), forCellReuseIdentifier: "settingsCell")
+        tableView.register(UINib(nibName: "SettingTableViewCellButton", bundle: nil), forCellReuseIdentifier: "settingsCellButton")
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.contentInsetAdjustmentBehavior = .never
@@ -62,13 +65,28 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as? SettingTableViewCellSwitch else {
-            fatalError("Failed to dequeue Settings Cell")
+        let setting = settings[indexPath.row]
+        switch setting {
+        case setting where setting.title == SettingsCell.settingsEnum.showUserSTARStoryOption.rawValue:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as? SettingTableViewCellSwitch else {
+                fatalError("Failed to dequeue Settings switch Cell")
+            }
+            cell.configureCell(setting: setting)
+            return cell
+        case setting where setting.title == SettingsCell.settingsEnum.defaultLaunchScreen.rawValue:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCellButton", for: indexPath) as? SettingTableViewCellButton else {
+                fatalError("Failed to dequeue settings button cell")
+            }
+            cell.configureCell(setting: setting)
+            return cell
+        default:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as? SettingTableViewCellSwitch else {
+                fatalError("Failed to dequeue Settings switch Cell")
+            }
+            cell.configureCell(setting: setting)
+            return cell
         }
-        cell.configureCell(setting: settings[indexPath.row])
-        return cell
     }
-
 }
 
 extension SettingsViewController: UITableViewDelegate {

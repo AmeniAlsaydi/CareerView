@@ -17,16 +17,32 @@ enum ShowUserStarInputOption: String {
     case on = "on"
     case off = "off"
 }
-
+enum DefaultLaunchScreen: Int {
+    case jobHistory = 1
+    case starStories = 2
+    case interviewQuestions = 3
+    case applicationTracker = 4
+}
 struct UserPreferenceKey {
     static let GuidedInputPreference = "GuidedInputPreference"
     static let ShowUserStarInputOption = "ShowUserStarInputOption"
+    static let defaultLaunchScreen = "DefaultLaunchScreen"
 }
 
 class UserPreference {
     private init() {}
     private let standard = UserDefaults.standard
     static let shared = UserPreference()
+    
+    func updateDefaultLaunchScreen(with preference: DefaultLaunchScreen) {
+        standard.set(preference.rawValue, forKey: UserPreferenceKey.defaultLaunchScreen)
+    }
+    func getDefaultLaunchScreen() -> DefaultLaunchScreen?{
+        guard let preference = standard.object(forKey: UserPreferenceKey.defaultLaunchScreen) as? Int else {
+            return nil
+        }
+        return DefaultLaunchScreen(rawValue: preference)
+    }
     // Note: Guided or freeform preference
     func updateShowGuidedStarSituationInput(with preference: GuidedStarSitutionInput) {
         standard.set(preference.rawValue, forKey: UserPreferenceKey.GuidedInputPreference)
