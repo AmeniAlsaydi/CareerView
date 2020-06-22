@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AccountViewController" customModule="Capstone" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="7nW-R4-d1h" id="Pyk-Ti-Jqx"/>
+                <outlet property="collectionViewLayout" destination="vNV-IZ-Opy" id="UhR-W3-PPF"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Jx0-PF-jQm"/>
             </connections>
         </placeholder>

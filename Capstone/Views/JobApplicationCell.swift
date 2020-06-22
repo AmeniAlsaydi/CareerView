@@ -28,7 +28,7 @@ class JobApplicationCell: UICollectionViewCell {
                 return
             }
             maxWidthConstraint.isActive = true
-            maxWidthConstraint.constant = maxWidth
+            maxWidthConstraint.constant = maxWidth * 0.95
         }
     }
     override func layoutSubviews() {
@@ -38,14 +38,14 @@ class JobApplicationCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         
-//        NSLayoutConstraint.activate([
-//            contentView.leftAnchor.constraint(equalTo: leftAnchor),
-//            contentView.rightAnchor.constraint(equalTo: rightAnchor),
-//            contentView.topAnchor.constraint(equalTo: topAnchor),
-//            contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
-//        ])
+        NSLayoutConstraint.activate([
+            contentView.leftAnchor.constraint(equalTo: leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: rightAnchor),
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
     
     // FIXME: understand public - private - internal

@@ -28,6 +28,7 @@ struct UserInfo: Equatable {
 class AccountViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     
     private var userInfo: [UserInfo.userInfoSection]? {
         didSet {
@@ -48,6 +49,11 @@ class AccountViewController: UIViewController {
         collectionView.delegate = self
         collectionView.register(UINib(nibName: "FAQCollectionViewCellXib", bundle: nil), forCellWithReuseIdentifier: "FAQCell")
         
+        if let flowLayout = collectionViewLayout,
+           let collectionView = collectionView {
+            let w = collectionView.frame.width
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+        }
     }
     private func configureNavBar() {
         navigationItem.title = "Account"
@@ -89,5 +95,8 @@ extension AccountViewController: UICollectionViewDelegateFlowLayout {
         let maxWidth = collectionView.frame.width
         let maxHeight = collectionView.frame.height
         return CGSize(width: maxWidth * 0.90, height: maxHeight / 5)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
     }
 }
