@@ -84,3 +84,6 @@ class AppButtonIcons {
         navigationItem.backBarButtonItem = backItem
     }
 }
+class AppRoundedViews {
+    static let cornerRadius: CGFloat = 8
+}

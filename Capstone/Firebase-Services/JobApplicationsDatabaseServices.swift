@@ -30,7 +30,7 @@ extension DatabaseService {
          guard let user = Auth.auth().currentUser else {return}
          let userID = user.uid
          
-         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).document(application.id).setData(["id": application.id, "companyName": application.companyName, "positionTitle": application.positionTitle, "positionURL": application.positionURL, "remoteStatus": application.remoteStatus, "location": application.location, "notes": application.notes, "applicationDeadline": application.applicationDeadline, "dateApplied": application.dateApplied, "interested": application.interested, "didApply": application.didApply, "currentlyInterviewing": application.currentlyInterviewing, "receivedReply": application.receivedReply, "receivedOffer": application.receivedOffer]) { (error) in
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).document(application.id).setData(["id": application.id, "companyName": application.companyName, "positionTitle": application.positionTitle, "positionURL": application.positionURL as Any, "remoteStatus": application.remoteStatus, "city": application.city as Any, "notes": application.notes as Any, "applicationDeadline": application.applicationDeadline as Any, "dateApplied": application.dateApplied as Any, "interested": application.interested, "didApply": application.didApply, "currentlyInterviewing": application.currentlyInterviewing, "receivedReply": application.receivedReply, "receivedOffer": application.receivedOffer]) { (error) in
              
              if let error = error {
                  completion(.failure(error))
@@ -44,7 +44,7 @@ extension DatabaseService {
          guard let user = Auth.auth().currentUser else {return}
          let userID = user.uid
          
-         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).document(applicationID).collection(DatabaseService.interviewCollection).document(interview.id).setData(["id": interview.id, "interviewDate": interview.interviewDate, "thankYouSent": interview.thankYouSent, "notes": interview.notes]) { error in
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.jobApplicationCollection).document(applicationID).collection(DatabaseService.interviewCollection).document(interview.id).setData(["id": interview.id, "interviewDate": interview.interviewDate as Any, "thankYouSent": interview.thankYouSent, "notes": interview.notes as Any]) { error in
              if let error = error {
                  completion(.failure(error))
              } else {

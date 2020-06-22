@@ -25,6 +25,8 @@ struct FAQInfo {
 class FAQViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
+    
     
     private var FAQs = [FAQInfo]()
     
@@ -42,6 +44,12 @@ class FAQViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "FAQCollectionViewCellXib", bundle: nil), forCellWithReuseIdentifier: "FAQCell")
+        
+        if let flowLayout = collectionViewLayout,
+           let collectionView = collectionView {
+            let w = collectionView.frame.width - 20
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+        }
     }
     private func loadFAQInfo() {
         FAQs = FAQInfo.loadFAQs()

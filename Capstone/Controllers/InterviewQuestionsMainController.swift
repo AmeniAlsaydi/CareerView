@@ -36,8 +36,8 @@ class InterviewQuestionsMainController: UIViewController {
                 collectionViewTopAnchor.constant = 8
                 filterButtonsStack.isHidden = false
             } else {
-                collectionViewTopAnchor.constant = -44
-                filterButtonsStack.isHidden = true
+                    self.collectionViewTopAnchor.constant = -44
+                    self.filterButtonsStack.isHidden = true
             }
         }
     }
@@ -45,6 +45,7 @@ class InterviewQuestionsMainController: UIViewController {
     public var filterState: FilterState = .all {
         didSet {
             questionsCollectionView.reloadData()
+            print("filter state changed")
             allQuestions = Array(allQuestions).removingDuplicates()
         }
     }
@@ -57,19 +58,7 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     
-    private var customQuestions = [InterviewQuestion]() {
-        didSet {
-            if filterState == .custom {
-                if customQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "questionmark.square.fill")
-                } else {
-                    questionsCollectionView.reloadData()
-                    questionsCollectionView.backgroundView = nil
-                    customQuestions = Array(customQuestions).removingDuplicates()
-                }
-            }
-        }
-    }
+    private var customQuestions = [InterviewQuestion]()
     
     private var allQuestions = [InterviewQuestion]() {
         didSet {
@@ -82,15 +71,6 @@ class InterviewQuestionsMainController: UIViewController {
     
     private var bookmarkedQuestions = [InterviewQuestion]() {
         didSet {
-            if filterState == .bookmarked {
-                questionsCollectionView.reloadData()
-                if bookmarkedQuestions.isEmpty {
-                    questionsCollectionView.backgroundView = EmptyView.init(title: "No Bookmarks", message: "Add to your bookmarks collection by selecting a question and pressing the bookmark button", imageName: "bookmark")
-                } else {
-                    questionsCollectionView.reloadData()
-                    questionsCollectionView.backgroundView = nil
-                }
-            }
         }
     }
     
@@ -121,6 +101,7 @@ class InterviewQuestionsMainController: UIViewController {
             } else if let snapshot = snapshot {
                 let customQs = snapshot.documents.map {InterviewQuestion($0.data())}
                 self?.getUserCreatedQuestions()
+                self?.getBookmarkedQuestions()
                 self?.questionsCollectionView.reloadData()
                 self?.customQuestions = customQs
             }
@@ -220,8 +201,10 @@ class InterviewQuestionsMainController: UIViewController {
                 print("unable to retrieve custom questions error: \(error.localizedDescription)")
             case .success(let customQuestions):
                 DispatchQueue.main.async {
+                    print("custom questions count: \(customQuestions.count)")
                     self?.customQuestions = customQuestions
                     self?.allQuestions.append(contentsOf: customQuestions)
+                    self?.checkForEmptyCustomQuestionsArray()
                 }
             }
         }
@@ -235,6 +218,7 @@ class InterviewQuestionsMainController: UIViewController {
             case .success(let bookmarks):
                 DispatchQueue.main.async {
                     self?.bookmarkedQuestions = bookmarks
+                    self?.checkForEmptyBookMarkQuestionsArray()
                 }
             }
         }
@@ -250,6 +234,9 @@ class InterviewQuestionsMainController: UIViewController {
         customButton.tintColor = AppColors.whiteTextColor
         customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .all
+        allQuestions.removeAll()
+        getUserCreatedQuestions()
+        getInterviewQuestions()
     }
     
     @IBAction func bookmarksButtonPressed(_ sender: UIButton) {
@@ -262,6 +249,7 @@ class InterviewQuestionsMainController: UIViewController {
         customButton.tintColor = AppColors.whiteTextColor
         customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .bookmarked
+        getBookmarkedQuestions()
     }
     
     @IBAction func commonButtonPressed(_ sender: UIButton) {
@@ -285,7 +273,36 @@ class InterviewQuestionsMainController: UIViewController {
         commonButton.backgroundColor = AppColors.secondaryPurpleColor
         customButton.tintColor = AppColors.whiteTextColor
         customButton.backgroundColor = AppColors.primaryPurpleColor
+        print("custom pressed")
         filterState = .custom
+        getUserCreatedQuestions()
+    }
+    private func checkForEmptyCustomQuestionsArray() {
+        if filterState == .custom {
+            questionsCollectionView.reloadData()
+            if customQuestions.isEmpty {
+                questionsCollectionView.backgroundView = EmptyView.init(title: "No Custom Questions Created", message: "Add a question by pressing the plus button", imageName: "questionmark.square.fill")
+            } else {
+                print("custom questions NOT empty")
+                questionsCollectionView.reloadData()
+                questionsCollectionView.backgroundView = nil
+                customQuestions = Array(customQuestions).removingDuplicates()
+            }
+        }
+    }
+    private func checkForEmptyBookMarkQuestionsArray() {
+        if filterState == .bookmarked {
+            questionsCollectionView.reloadData()
+            if bookmarkedQuestions.isEmpty {
+                print("bookmarks empty")
+                questionsCollectionView.backgroundView = EmptyView.init(title: "No Bookmarks", message: "Add to your bookmarks collection by selecting a question and pressing the bookmark button", imageName: "bookmark")
+            } else {
+                print("bookmarks NOT empty")
+                questionsCollectionView.reloadData()
+                questionsCollectionView.backgroundView = nil
+            }
+        }
+
     }
 }
 
@@ -432,7 +449,7 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
                         self?.showAlert(title: "Question Removed", message: "\(customQuestion!.question) has been removed")
                         if self?.filterState == .custom {
                             if !(self?.customQuestions.isEmpty ?? false) {
-                                self?.customQuestions.remove(at: indexPath.row)
+//                                self?.customQuestions.remove(at: indexPath.row)
                                 self?.questionsCollectionView.reloadData()
                             }
                         } else {

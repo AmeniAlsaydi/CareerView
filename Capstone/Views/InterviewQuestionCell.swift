@@ -24,12 +24,12 @@ class InterviewQuestionCell: UICollectionViewCell {
     var currentQuestion: InterviewQuestion?
     
     override func layoutSubviews() {
-        self.layer.cornerRadius = 13
+        self.layer.cornerRadius = AppRoundedViews.cornerRadius
         self.backgroundColor = AppColors.systemBackgroundColor
         setAppColorsandFonts()
     }
     private func setAppColorsandFonts() {
-        interviewQuestionLabel.font = AppFonts.semiBoldLarge
+        interviewQuestionLabel.font = AppFonts.semiBoldSmall
         connectedStarsLabel.font = AppFonts.subtitleFont
         connectedStarsLabel.textColor = AppColors.darkGrayHighlightColor
         numberOfStarsLabel.font = AppFonts.subtitleFont
@@ -38,7 +38,6 @@ class InterviewQuestionCell: UICollectionViewCell {
         answeredLabel.textColor = AppColors.darkGrayHighlightColor
         answerCheckBox.tintColor = AppColors.darkGrayHighlightColor
         cellHeaderView.backgroundColor = AppColors.primaryPurpleColor
-        //AppColors.colors.gradientBackground(view: cellHeaderView)
         editButton.tintColor = AppColors.secondaryPurpleColor
     }
     
