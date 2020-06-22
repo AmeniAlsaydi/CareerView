@@ -441,6 +441,7 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
             interviewQuestionEntryVC.editingMode = true
             interviewQuestionEntryVC.customQuestion = customQuestion
+            
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
         }
         let delete = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
