@@ -29,7 +29,7 @@ class InterviewQuestionCell: UICollectionViewCell {
         setAppColorsandFonts()
     }
     private func setAppColorsandFonts() {
-        interviewQuestionLabel.font = AppFonts.semiBoldLarge
+        interviewQuestionLabel.font = AppFonts.semiBoldSmall
         connectedStarsLabel.font = AppFonts.subtitleFont
         connectedStarsLabel.textColor = AppColors.darkGrayHighlightColor
         numberOfStarsLabel.font = AppFonts.subtitleFont
@@ -38,7 +38,6 @@ class InterviewQuestionCell: UICollectionViewCell {
         answeredLabel.textColor = AppColors.darkGrayHighlightColor
         answerCheckBox.tintColor = AppColors.darkGrayHighlightColor
         cellHeaderView.backgroundColor = AppColors.primaryPurpleColor
-        //AppColors.colors.gradientBackground(view: cellHeaderView)
         editButton.tintColor = AppColors.secondaryPurpleColor
     }
     
