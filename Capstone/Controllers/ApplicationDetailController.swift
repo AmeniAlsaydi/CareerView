@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class ApplicationDetailController: UIViewController {
     
@@ -18,10 +19,9 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var applicationStatusLabel: UILabel!
     @IBOutlet weak var appliedAsLabel: UILabel!
     @IBOutlet weak var remoteLabel: UILabel!
-    @IBOutlet weak var hyperlinkLabel: UILabel!
     @IBOutlet weak var dateAppliedLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
-    
+    @IBOutlet weak var websiteButton: UIButton!
     @IBOutlet weak var view1: ApplicationDetailView!
     @IBOutlet weak var view1Height: NSLayoutConstraint!
     
@@ -55,7 +55,7 @@ class ApplicationDetailController: UIViewController {
         configureDetailVC(application: jobApplication)
         getInterview(application: jobApplication)
         configureMapView()
-        loadMap()
+        loadMapAnnotations()
         configureNavBar()
     }
     
@@ -80,6 +80,8 @@ class ApplicationDetailController: UIViewController {
     }
     
     public func configureDetailVC(application: JobApplication) {
+        
+        websiteButton.setTitleColor(.systemBlue, for: .normal)
         
         appliedAsLabel.text = "Applied as: \(application.positionTitle)"
         appliedToLabel.text = application.companyName.capitalized
@@ -125,34 +127,35 @@ class ApplicationDetailController: UIViewController {
             dateAppliedLabel.text = "Date Applied: N/A"
         }
         
-        hyperlinkLabel.text = application.positionURL
     }
+    
     
     private func configureMapView() {
         mapView.delegate = self
         mapView.isUserInteractionEnabled = false 
     }
     
-    private func loadMap() {
-        let annotations = makeAnnotations()
-        mapView.addAnnotations(annotations)
-        mapView.showAnnotations(annotations, animated: true)
-    }
-    
-    private func makeAnnotations() -> [MKPointAnnotation] {
-        var annotations = [MKPointAnnotation]()
+    private func loadMapAnnotations()  {
         let annotation = MKPointAnnotation()
         annotation.title = jobApplication.companyName
         
-        if let locationCoordinates = jobApplication.location {
-            let coordinate = CLLocationCoordinate2DMake(Double(locationCoordinates.latitude), Double(locationCoordinates.longitude))
-            annotation.coordinate = coordinate
-            annotations.append(annotation)
+        if let city = jobApplication.city {
+            
+            getCoordinateFrom(address: city) { [weak self] (coordinate, error) in
+                guard let coordinate = coordinate, error == nil else { return }
+                let cityCoordinate = CLLocationCoordinate2DMake(Double(coordinate.latitude), Double(coordinate.longitude))
+                annotation.coordinate = cityCoordinate
+                self?.mapView.addAnnotation(annotation)
+                DispatchQueue.main.async {
+                     self?.mapView.showAnnotations([annotation], animated: true)
+                }
+            }
+            
         } else {
-            mapHeight.constant = 0 
+            mapHeight.constant = 0
             mapView.isHidden = true
+            
         }
-        return annotations
     }
     
     private func updateInterview() {
@@ -241,6 +244,17 @@ class ApplicationDetailController: UIViewController {
         alertController.addAction(editAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    @IBAction func websitePressed(_ sender: UIButton) {
+        guard let url = URL(string: jobApplication.positionURL ?? "") else {
+            showAlert(title: "Error", message: "No website linked with the application")
+            return
+        }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
+    }
+    
 }
 
 extension ApplicationDetailController: MKMapViewDelegate {
@@ -258,4 +272,8 @@ extension ApplicationDetailController: MKMapViewDelegate {
         }
         return annotationView
     }
+    
+    private func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
+           CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
+       }
 }

@@ -18,11 +18,11 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
     @IBOutlet weak var positionTitleTextField: FloatingLabelInput!
     @IBOutlet weak var positionURLTextField: FloatingLabelInput!
-    @IBOutlet weak var locationTextField: FloatingLabelInput!
+    @IBOutlet weak var cityTextField: FloatingLabelInput!
     @IBOutlet weak var notesTextField: FloatingLabelInput!
     @IBOutlet weak var dateTextField: FloatingLabelInput!
     
-    lazy var textFields: [FloatingLabelInput] = [companyNameTextField, positionTitleTextField, positionURLTextField, locationTextField, notesTextField, dateTextField]
+    lazy var textFields: [FloatingLabelInput] = [companyNameTextField, positionTitleTextField, positionURLTextField, cityTextField, notesTextField, dateTextField]
     private var currentTextFieldIndex = 0
     
     //MARK: InterviewEntryViews + height constraints
@@ -112,7 +112,7 @@ class NewApplicationController: UIViewController {
         configureNavBar()
         createDatePicker()
         addTargets()
-        updateApplicationUI()
+        loadApplicationToEdit()
         listenForKeyboardEvents()
         setUpTextFieldsReturnType()
         setUpDelegateForTextFields()
@@ -149,7 +149,8 @@ class NewApplicationController: UIViewController {
     }
     
     
-    private func updateApplicationUI() {
+    private func loadApplicationToEdit() {
+        
         if editingApplication {
             // update UI - Ameni
             
@@ -157,15 +158,18 @@ class NewApplicationController: UIViewController {
             companyNameTextField.text = application.companyName
             positionTitleTextField.text = application.positionTitle
             positionURLTextField.text = application.positionURL
-            
-            locationTextField.text = application.location.debugDescription
+             
+            if let city = application.city {
+                // if it has a city load it
+                cityTextField.text = city
+            }
             
             if application.didApply {
                 hasApplied = true
-                dateTextField.text = application.dateApplied?.dateValue().dateString()
+                dateTextField.text = application.dateApplied?.dateValue().dateString("MM/dd/yyyy")
             } else {
                 hasApplied = false
-                dateTextField.text = application.applicationDeadline?.dateValue().dateString()
+                dateTextField.text = application.applicationDeadline?.dateValue().dateString("MM/dd/yyyy")
             }
             
             isRemote = application.remoteStatus
@@ -260,7 +264,7 @@ class NewApplicationController: UIViewController {
     
     private func styleAllTextFields() {
         
-        let textFields = [companyNameTextField, positionTitleTextField, positionURLTextField, locationTextField, notesTextField, dateTextField]
+        let textFields = [companyNameTextField, positionTitleTextField, positionURLTextField, cityTextField, notesTextField, dateTextField]
         
         for field in textFields {
             field?.styleTextField()
@@ -288,6 +292,7 @@ class NewApplicationController: UIViewController {
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
         interviewCount += 1
         
+        // if addInterview Button is pressed it checks the /hasInterviewData/ property of each view and presents the one that doesnt
         
         if  !interviewEntryView1.hasInterviewData {
             
@@ -360,34 +365,24 @@ class NewApplicationController: UIViewController {
         // optional fields
         let positionURL = positionURLTextField.text
         let notes = notesTextField.text
-        let locationAsString = locationTextField.text
-        var locationAsCoordinates: GeoPoint? = nil
-        
-        // this is the problem
-        if let location = locationAsString, !location.isEmpty {
-            getCoordinateFrom(address: location) { [weak self] coordinate, error in
-                guard let coordinate = coordinate, error == nil else { return }
-                // don't forget to update the UI from the main thread
-                DispatchQueue.main.async {
-                    locationAsCoordinates = GeoPoint(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                    
-                    self?.createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
-                    
-                    self?.addInterviews(jobID)
-                }
-            }
-        } else {
-            createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, location: locationAsCoordinates, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
+//        let locationAsString = cityTextField.text
+//        var locationAsCoordinates: GeoPoint? = nil
+     
+        if let city = cityTextField.text, !city.isEmpty {
+            // create job application with city
+             createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, city: city, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
             
-            addInterviews(jobID)
+        } else {
+            // create job application with nil city
+             createNewApplication(id: jobID, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, notes: notes, city: nil, deadline: deadline, dateApplied: dateApplied, isInterviewing: isInterviewing)
         }
     }
     
-    private func createNewApplication(id: String , companyName: String, positionTitle: String, positionURL: String?, notes: String?, location: GeoPoint?, deadline: Timestamp?, dateApplied: Timestamp?, isInterviewing: Bool) {
+    private func createNewApplication(id: String , companyName: String, positionTitle: String, positionURL: String?, notes: String?, city: String?, deadline: Timestamp?, dateApplied: Timestamp?, isInterviewing: Bool) {
         
         
         // FIXME: this assumes that first time application means they have not recieved offer - should this be handled differently?
-        let jobApplication = JobApplication(id: id, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, remoteStatus: isRemote, location: location, notes: notes, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: false)
+        let jobApplication = JobApplication(id: id, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, remoteStatus: isRemote, city: city, notes: notes, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: false)
         
         DatabaseService.shared.addApplication(application: jobApplication) { [weak self] (result) in
             switch result {
@@ -397,10 +392,13 @@ class NewApplicationController: UIViewController {
                 print("success adding application")
                 
                 if self?.editingApplication ?? false {
+                   
+                    self?.addInterviews(id)
                     self?.showAlert(title: "Sucess!", message: "Your application was edited!", completion: { (alertAction) in
                         self?.navigationController?.popViewController(animated: true)
                     })
                 } else {
+                    self?.addInterviews(id)
                     self?.showAlert(title: "Sucess!", message: "Your application was added!", completion: { (alertAction) in
                         self?.navigationController?.popViewController(animated: true)
                     })
@@ -435,7 +433,14 @@ class NewApplicationController: UIViewController {
         }
         
         // create interview
-        let interviewID = UUID().uuidString
+        var interviewID = UUID().uuidString
+        
+        if let interview = view.interview {
+            // if the interview has an interview (meaning the interview property is not nil we will update the interview using the interview ID
+            interviewID = interview.id
+        }
+        
+        
         let interview = Interview(id: interviewID, interviewDate: Timestamp(date: interviewDate), thankYouSent: thankyouSent, notes: notes)
         
         // post
@@ -447,30 +452,28 @@ class NewApplicationController: UIViewController {
                 print("interview was added successfully to application")
             }
         }
+        
     }
     
     private func editingInterviewViews() {
         if editingApplication {
             guard let interviewData = interviewData else {return}
-            
+                        
             switch interviewData.count {
             case 0:
                 print("no interview")
             case 1:
-                interviewEntryView1Height.constant = 150
-                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString()
+                loadInterview(interview: interviewData[0], view: interviewEntryView1)
+                
             case 2:
-                interviewEntryView1Height.constant = 150
-                interviewEntryView2Height.constant = 150
-                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString()
-                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString()
+                loadInterview(interview: interviewData[0], view: interviewEntryView1)
+                loadInterview(interview: interviewData[1], view: interviewEntryView2)
+
             case 3:
-                interviewEntryView1Height.constant = 150
-                interviewEntryView2Height.constant = 150
-                interviewEntryView3Height.constant = 150
-                interviewEntryView1.dateTextField.text = interviewData[0].interviewDate?.dateValue().dateString()
-                interviewEntryView2.dateTextField.text = interviewData[1].interviewDate?.dateValue().dateString()
-                interviewEntryView3.dateTextField.text = interviewData[2].interviewDate?.dateValue().dateString()
+                loadInterview(interview: interviewData[0], view: interviewEntryView1)
+                loadInterview(interview: interviewData[1], view: interviewEntryView2)
+                loadInterview(interview: interviewData[2], view: interviewEntryView3)
+                
                 addInterviewStack.isHidden = true
             default:
                 print("break")
@@ -478,8 +481,37 @@ class NewApplicationController: UIViewController {
         }
     }
     
-    private func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
-        CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
+    
+    private func loadInterview(interview: Interview, view: InterviewEntryView) {
+        view.interview = interview
+        // change height
+        switch view {
+        case interviewEntryView1:
+            interviewEntryView1Height.constant = 150
+        case interviewEntryView2:
+            interviewEntryView2Height.constant = 150
+        case interviewEntryView3:
+             interviewEntryView3Height.constant = 150
+        default:
+            print("view not found")
+        }
+        
+        view.hasInterviewData = true
+        
+        // set date
+        view.date = interview.interviewDate?.dateValue()
+        
+        // load interview date
+        view.dateTextField.text = interview.interviewDate?.dateValue().dateString("MM/dd/yyyy")
+        
+        if let notes = interview.notes { // if there are notes load notes
+            view.notesTextField.text = notes
+        }
+        
+        if interview.thankYouSent { // if thank you set as checked
+            let image = UIImage(systemName: "checkmark.square")
+            view.thankYouButton.setImage(image, for: .normal)
+        }
     }
 }
 

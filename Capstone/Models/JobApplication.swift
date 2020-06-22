@@ -15,7 +15,8 @@ struct JobApplication {
     var positionTitle: String
     var positionURL: String?
     var remoteStatus: Bool
-    var location: GeoPoint? //CLLocation?
+    var city: String?
+    //var location: GeoPoint? //CLLocation?
     var notes: String?
     var applicationDeadline: Timestamp?
     var dateApplied: Timestamp?
@@ -34,7 +35,7 @@ extension JobApplication {
         self.positionTitle = dictionary["positionTitle"] as? String ?? "Position title is NA"
         self.positionURL = dictionary["positionURL"] as? String ?? "Position URL is NA"
         self.remoteStatus = dictionary["remoteStatus"] as? Bool ?? false
-        self.location = dictionary["location"] as? GeoPoint? ?? nil
+        self.city = dictionary["city"] as? String? ?? nil
         self.notes = dictionary["notes"] as? String? ?? nil
         self.applicationDeadline = dictionary["applicationDeadline"] as? Timestamp? ?? nil
         self.dateApplied = dictionary["dateApplied"] as? Timestamp? ?? nil
