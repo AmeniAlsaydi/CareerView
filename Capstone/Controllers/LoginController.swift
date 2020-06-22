@@ -23,13 +23,17 @@ class LoginController: UIViewController {
         return gesture
     }()
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        registerForKeyBoardNotifications()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
         view.addGestureRecognizer(tapGesture)
         setUpUI()
-        registerForKeyBoardNotifications()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
