@@ -17,10 +17,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea2-Zc-Ofa">
-                        <rect key="frame" x="0.0" y="0.0" width="455" height="29.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="455" height="36.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequently Asked Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xim-hA-CmA">
-                                <rect key="frame" x="8" y="8" width="439" height="13.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequently Asked Question" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xim-hA-CmA">
+                                <rect key="frame" x="8" y="8" width="439" height="20.5"/>
                                 <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
@@ -29,7 +29,6 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" secondItem="Xim-hA-CmA" secondAttribute="height" multiplier="2.19048" id="Dz7-ci-5Hn"/>
                             <constraint firstAttribute="trailing" secondItem="Xim-hA-CmA" secondAttribute="trailing" constant="8" id="HIp-sv-f4X"/>
                             <constraint firstItem="Xim-hA-CmA" firstAttribute="leading" secondItem="ea2-Zc-Ofa" secondAttribute="leading" constant="8" id="OAb-fR-iPr"/>
                             <constraint firstItem="Xim-hA-CmA" firstAttribute="top" secondItem="ea2-Zc-Ofa" secondAttribute="top" constant="8" id="h5G-I4-hoc"/>
@@ -37,7 +36,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Le3-MO-mUq">
-                        <rect key="frame" x="20" y="37.5" width="415" height="20.5"/>
+                        <rect key="frame" x="20" y="44.5" width="415" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
