@@ -48,7 +48,7 @@ class FoldingCell: UITableViewCell {
         configureDefaultState()
         selectionStyle = .none
         contentView.backgroundColor = AppColors.complimentaryBackgroundColor
-        foregroundView.layer.cornerRadius = 13
+        foregroundView.layer.cornerRadius = AppRoundedViews.cornerRadius
         containerView.layer.cornerRadius = foregroundView.layer.cornerRadius
         containerView.layer.masksToBounds = true
         containerView.backgroundColor = AppColors.systemBackgroundColor

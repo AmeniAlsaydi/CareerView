@@ -157,6 +157,7 @@ class InterviewAnswerDetailController: UIViewController {
     
     @objc private func suggestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionSuggestionViewController = InterviewAnswerSuggestionViewController(nibName: "InterviewAnswerSuggestionXib", bundle: nil)
+        interviewQuestionSuggestionViewController.comingFromSTARSVC = false
         interviewQuestionSuggestionViewController.interviewQuestion = question
         present(interviewQuestionSuggestionViewController, animated: true)
     }

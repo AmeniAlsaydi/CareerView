@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InterviewAnswerSuggestionViewController" customModule="Capstone" customModuleProvider="target">
             <connections>
+                <outlet property="answeringMethodsLabel" destination="Y5M-xq-EWF" id="I56-jJ-2eh"/>
                 <outlet property="directionsLabel" destination="Y5M-xq-EWF" id="uZk-OC-kqK"/>
                 <outlet property="promptLabel" destination="gPj-Uh-MBl" id="yLI-Ci-M5s"/>
                 <outlet property="purpleView" destination="poI-Ey-vWo" id="LVk-CR-ftS"/>
