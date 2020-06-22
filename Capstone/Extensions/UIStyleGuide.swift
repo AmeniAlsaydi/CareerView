@@ -74,6 +74,7 @@ class AppButtonIcons {
     static let emptySquareIcon = UIImage(systemName: "square")
     static let squareCheckmarkIcon = UIImage(systemName: "checkmark.square")
     static let squareCheckmarkFillIcon = UIImage(systemName: "checkmark.square.fill")
+    static let clearIcon = UIImage(systemName: "delete.left.fill")
     private let navBarBackButton = UIImage(systemName: "arrow.left")
     
     private init() {}

@@ -10,14 +10,20 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StarStoryEntryController" customModule="Capstone" customModuleProvider="target">
             <connections>
                 <outlet property="actionBkgdView" destination="gxS-HI-Ap0" id="1It-lL-VYI"/>
+                <outlet property="actionLabel" destination="9FR-K0-k1U" id="hvo-0J-Vvd"/>
                 <outlet property="actionTextView" destination="TGU-i0-aj6" id="he1-Qa-vKe"/>
                 <outlet property="actionTextViewHeightConstraint" destination="KTI-lz-V9I" id="rx4-8y-QkY"/>
                 <outlet property="blurEffect" destination="mDn-v1-nBd" id="VDX-w8-Wjq"/>
+                <outlet property="clearActionButton" destination="aVV-aU-ae7" id="KFP-5E-bOm"/>
+                <outlet property="clearResultButton" destination="kEp-dz-ipy" id="fcB-Ba-2vq"/>
+                <outlet property="clearSituationButton" destination="o8l-7J-eTN" id="gTO-LM-SMi"/>
+                <outlet property="clearTaskButton" destination="GLc-5L-jtd" id="70R-WU-Lag"/>
                 <outlet property="entryPromptLabel" destination="COh-Ke-7n9" id="TRO-ZJ-GR0"/>
                 <outlet property="freeFormButton" destination="bKC-WY-elg" id="AIM-l6-Yds"/>
                 <outlet property="inputOptionView" destination="uem-N7-VN9" id="nkD-5i-Om0"/>
                 <outlet property="purpleView" destination="qRS-s8-W6S" id="CLE-3u-9eA"/>
                 <outlet property="resultBkgdView" destination="i62-IV-dFe" id="Vqq-s0-7Q8"/>
+                <outlet property="resultLabel" destination="kua-fc-Nbv" id="9FA-y4-24U"/>
                 <outlet property="resultTextView" destination="LhX-G2-Sp6" id="3fx-5W-nvN"/>
                 <outlet property="resultTextViewHeightConstraint" destination="DVt-iF-rmi" id="Lak-xj-2C8"/>
                 <outlet property="saveAsDefaultButton" destination="ayn-O8-VCt" id="tql-B1-bVd"/>
@@ -29,6 +35,7 @@
                 <outlet property="starStoryExplanation" destination="mmW-qr-yhf" id="77E-Wj-wdi"/>
                 <outlet property="starStoryInputLabel" destination="8iu-os-Q3F" id="6In-MA-xTX"/>
                 <outlet property="taskBkgdView" destination="o3y-aE-uj4" id="yeN-v7-38H"/>
+                <outlet property="taskLabel" destination="bFh-2I-b8F" id="zUo-KI-ufH"/>
                 <outlet property="taskTextView" destination="x0U-KQ-0lb" id="xJU-VD-Sci"/>
                 <outlet property="taskTextViewHeightContraint" destination="2m3-sS-Ce1" id="s7X-dO-ncr"/>
                 <outlet property="view" destination="iN0-l3-epB" id="NJZ-Mm-3zk"/>
@@ -64,9 +71,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8l-7J-eTN">
-                                            <rect key="frame" x="354" y="8" width="36" height="30"/>
-                                            <state key="normal" title="Clear"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8l-7J-eTN">
+                                            <rect key="frame" x="368.5" y="8" width="21.5" height="30"/>
+                                            <state key="normal" image="delete.left.fill" catalog="system"/>
                                             <connections>
                                                 <action selector="clearSituationButtonPressed:" destination="-1" eventType="touchUpInside" id="nH2-44-28e"/>
                                             </connections>
@@ -104,9 +111,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLc-5L-jtd">
-                                            <rect key="frame" x="354" y="8" width="36" height="30"/>
-                                            <state key="normal" title="Clear"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLc-5L-jtd">
+                                            <rect key="frame" x="368.5" y="8" width="21.5" height="30"/>
+                                            <state key="normal" image="delete.left.fill" catalog="system"/>
                                             <connections>
                                                 <action selector="clearTaskButtonPressed:" destination="-1" eventType="touchUpInside" id="B4y-ri-0cR"/>
                                             </connections>
@@ -144,9 +151,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVV-aU-ae7">
-                                            <rect key="frame" x="354" y="8" width="36" height="30"/>
-                                            <state key="normal" title="Clear"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVV-aU-ae7">
+                                            <rect key="frame" x="368.5" y="8" width="21.5" height="30"/>
+                                            <state key="normal" image="delete.left.fill" catalog="system"/>
                                             <connections>
                                                 <action selector="clearActionButtonPressed:" destination="-1" eventType="touchUpInside" id="mXk-Nc-Zf0"/>
                                             </connections>
@@ -184,9 +191,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEp-dz-ipy">
-                                            <rect key="frame" x="354" y="8" width="36" height="30"/>
-                                            <state key="normal" title="Clear"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEp-dz-ipy">
+                                            <rect key="frame" x="368.5" y="8" width="21.5" height="30"/>
+                                            <state key="normal" image="delete.left.fill" catalog="system"/>
                                             <connections>
                                                 <action selector="clearResultButtonPressed:" destination="-1" eventType="touchUpInside" id="eZA-X4-Al4"/>
                                             </connections>
@@ -301,7 +308,7 @@
                                         <constraint firstAttribute="height" constant="44" id="NUF-K0-UWX"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title="Always hide this message" image="square" catalog="system">
+                                    <state key="normal" title=" Always hide this message" image="square" catalog="system">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
@@ -356,6 +363,7 @@
         </view>
     </objects>
     <resources>
+        <image name="delete.left.fill" catalog="system" width="128" height="104"/>
         <image name="square" catalog="system" width="128" height="114"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
     </resources>

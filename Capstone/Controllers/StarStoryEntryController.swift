@@ -25,7 +25,7 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var taskTextView: UITextView!
     @IBOutlet weak var actionTextView: UITextView!
     @IBOutlet weak var resultTextView: UITextView!
-    
+
     @IBOutlet weak var situationTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var taskTextViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var actionTextViewHeightConstraint: NSLayoutConstraint!
@@ -37,8 +37,14 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var resultBkgdView: UIView!
     
     @IBOutlet weak var situationLabel: UILabel!
+    @IBOutlet weak var clearSituationButton: UIButton!
+    @IBOutlet weak var taskLabel: UILabel!
+    @IBOutlet weak var clearTaskButton: UIButton!
+    @IBOutlet weak var actionLabel: UILabel!
+    @IBOutlet weak var clearActionButton: UIButton!
+    @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet weak var clearResultButton: UIButton!
     
-
     private var saveChoiceAsDefault = false {
         didSet {
             if saveChoiceAsDefault {
@@ -48,9 +54,7 @@ class StarStoryEntryController: UIViewController {
             }
         }
     }
-
     var isEditingStarSituation = false
-    
     private var guidedEntryPreference = GuidedStarSitutionInput.guided
     //Note: Default option for showing the user an option for guided/freeform is true
     private var showUserOption: ShowUserStarInputOption? {
@@ -64,7 +68,6 @@ class StarStoryEntryController: UIViewController {
             }
         }
     }
-    
     var starSituation: StarSituation?
     //MARK:- viewDidLoad
     override func viewDidLoad() {
@@ -76,6 +79,8 @@ class StarStoryEntryController: UIViewController {
     }
     //MARK:- Private Functions
     private func setUpAppUI() {
+        view.backgroundColor = AppColors.systemBackgroundColor
+        
         starStoryButton.tintColor = AppColors.secondaryPurpleColor
         starStoryButton.titleLabel?.font = AppFonts.primaryFont
         freeFormButton.tintColor = AppColors.secondaryPurpleColor
@@ -92,10 +97,30 @@ class StarStoryEntryController: UIViewController {
         starStoryExplanation.textColor = AppColors.primaryBlackColor
         entryPromptLabel.font = AppFonts.semiBoldSmall
         entryPromptLabel.textColor = AppColors.primaryBlackColor
+        
+        situationLabel.font = AppFonts.semiBoldSmall
+        situationLabel.textColor = AppColors.primaryBlackColor
+        situationBkgdView.backgroundColor = AppColors.complimentaryBackgroundColor
+        taskLabel.font = AppFonts.semiBoldSmall
+        taskLabel.textColor = AppColors.primaryBlackColor
+        taskBkgdView.backgroundColor = AppColors.complimentaryBackgroundColor
+        actionLabel.font = AppFonts.semiBoldSmall
+        actionLabel.textColor = AppColors.primaryBlackColor
+        actionBkgdView.backgroundColor = AppColors.complimentaryBackgroundColor
+        resultLabel.font = AppFonts.semiBoldSmall
+        resultLabel.textColor = AppColors.primaryBlackColor
+        resultBkgdView.backgroundColor = AppColors.complimentaryBackgroundColor
+    }
+    private func configureButtonUI() {
+        clearSituationButton.tintColor = AppColors.secondaryPurpleColor
+        clearTaskButton.tintColor = AppColors.secondaryPurpleColor
+        clearActionButton.tintColor = AppColors.secondaryPurpleColor
+        clearResultButton.tintColor = AppColors.secondaryPurpleColor
     }
     private func configureView() {
 //        navigationController?.navigationBar.topItem?.title = "Back"
         setUpAppUI()
+        configureButtonUI()
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "checkmark"),
             style: .plain,
