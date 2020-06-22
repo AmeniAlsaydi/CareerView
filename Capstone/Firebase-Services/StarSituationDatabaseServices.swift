@@ -17,7 +17,7 @@ extension DatabaseService {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
         
-        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(starSituation.id).setData(["id": starSituation.id, "situation": starSituation.situation, "task": starSituation.task as Any, "action": starSituation.action as Any, "result": starSituation.result as Any, "userJobID": starSituation.userJobID, "interviewQuestionsIDs": starSituation.interviewQuestionsIDs]) { (error) in
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(starSituation.id).setData(["id": starSituation.id, "situation": starSituation.situation, "task": starSituation.task as Any, "action": starSituation.action as Any, "result": starSituation.result as Any, "userJobID": starSituation.userJobID as Any, "interviewQuestionsIDs": starSituation.interviewQuestionsIDs]) { (error) in
             
             if let error = error {
                 completion(.failure(error))

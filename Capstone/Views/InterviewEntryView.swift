@@ -24,8 +24,9 @@ class InterviewEntryView: UIView {
     
     private let datePicker = UIDatePicker()
     
-    public var hasInterviewData: Bool = false // should be made positive when interview is added 
+    public var hasInterviewData: Bool = false // should be made true when interview is added
     
+    public var interview: Interview?
     
     public lazy var dateTextField: UITextField = {
         let textfield = UITextField()
