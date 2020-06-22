@@ -55,7 +55,7 @@ class ApplicationDetailController: UIViewController {
         configureDetailVC(application: jobApplication)
         getInterview(application: jobApplication)
         configureMapView()
-        loadMap()
+        loadMapAnnotations()
         configureNavBar()
     }
     
@@ -133,39 +133,27 @@ class ApplicationDetailController: UIViewController {
         mapView.isUserInteractionEnabled = false 
     }
     
-    private func loadMap() {
-        let annotations = makeAnnotations()
-        mapView.addAnnotations(annotations)
-        mapView.showAnnotations(annotations, animated: true)
-    }
-    
-    private func makeAnnotations() -> [MKPointAnnotation] {
-        var annotations = [MKPointAnnotation]()
+    private func loadMapAnnotations()  {
         let annotation = MKPointAnnotation()
         annotation.title = jobApplication.companyName
         
-        // MUST BE FIXED !!!!!
-//        if let locationCoordinates = jobApplication.location {
-//            let coordinate = CLLocationCoordinate2DMake(Double(locationCoordinates.latitude), Double(locationCoordinates.longitude))
-//            annotation.coordinate = coordinate
-//            annotations.append(annotation)
-//        } else {
-//            mapHeight.constant = 0
-//            mapView.isHidden = true
-//        }
-        
         if let city = jobApplication.city {
-            getCoordinateFrom(address: city) { (coordinates, error) in
-                if let coordinates = coordinates {
-                    
+            
+            getCoordinateFrom(address: city) { [weak self] (coordinate, error) in
+                guard let coordinate = coordinate, error == nil else { return }
+                let cityCoordinate = CLLocationCoordinate2DMake(Double(coordinate.latitude), Double(coordinate.longitude))
+                annotation.coordinate = cityCoordinate
+                self?.mapView.addAnnotation(annotation)
+                DispatchQueue.main.async {
+                     self?.mapView.showAnnotations([annotation], animated: true)
                 }
             }
             
         } else {
             mapHeight.constant = 0
             mapView.isHidden = true
+            
         }
-        return annotations
     }
     
     private func updateInterview() {
