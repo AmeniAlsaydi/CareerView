@@ -29,14 +29,14 @@
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" image="ellipsis.circle" catalog="system">
-                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28" scale="medium" weight="light"/>
+                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="light"/>
                         </state>
                         <connections>
                             <action selector="contextButtonPressed:" destination="taH-0Q-BiL" eventType="touchUpInside" id="65l-2Y-j8d"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Situation" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-Rh-tp3">
-                        <rect key="frame" x="10" y="35" width="871" height="20.5"/>
+                        <rect key="frame" x="10" y="69" width="871" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -44,14 +44,14 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="fNr-nQ-gFq" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" id="C1N-01-BNg"/>
-                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="10" id="GSb-jx-LUm"/>
+                    <constraint firstAttribute="trailing" secondItem="T6V-Rh-tp3" secondAttribute="trailing" constant="10" id="LkL-LD-ZTj"/>
                     <constraint firstItem="vq9-AP-Qwq" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" id="Pp6-sY-po5"/>
-                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="10" id="VnJ-b3-jOI"/>
                     <constraint firstAttribute="trailing" secondItem="vq9-AP-Qwq" secondAttribute="trailing" constant="8" id="j7N-aK-lwq"/>
                     <constraint firstItem="fNr-nQ-gFq" firstAttribute="height" secondItem="wbv-Hu-H1f" secondAttribute="height" multiplier="0.05" id="pyb-tE-gdH"/>
+                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="top" secondItem="vq9-AP-Qwq" secondAttribute="bottom" id="q9S-hQ-a0F"/>
                     <constraint firstAttribute="trailing" secondItem="fNr-nQ-gFq" secondAttribute="trailing" id="rR8-uJ-ZMY"/>
-                    <constraint firstAttribute="trailing" secondItem="T6V-Rh-tp3" secondAttribute="trailing" constant="10" id="vKa-aO-oRj"/>
                     <constraint firstItem="fNr-nQ-gFq" firstAttribute="top" secondItem="wbv-Hu-H1f" secondAttribute="top" id="y7E-qi-Vjg"/>
+                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="10" id="zax-F3-uAT"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="891" height="497"/>

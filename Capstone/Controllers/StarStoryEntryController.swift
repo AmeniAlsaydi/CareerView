@@ -13,6 +13,10 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var starStoryButton: UIButton!
     @IBOutlet weak var freeFormButton: UIButton!
     @IBOutlet weak var saveAsDefaultButton: UIButton!
+    @IBOutlet weak var purpleView: UIView!
+    @IBOutlet weak var starStoryInputLabel: UILabel!
+    @IBOutlet weak var starStoryExplanation: UILabel!
+    @IBOutlet weak var entryPromptLabel: UILabel!
     
     @IBOutlet weak var inputOptionView: UIView!
     @IBOutlet weak var blurEffect: UIVisualEffectView!
@@ -71,21 +75,38 @@ class StarStoryEntryController: UIViewController {
         loadGuidedStarSituationPreference()
     }
     //MARK:- Private Functions
+    private func setUpAppUI() {
+        starStoryButton.tintColor = AppColors.secondaryPurpleColor
+        starStoryButton.titleLabel?.font = AppFonts.primaryFont
+        freeFormButton.tintColor = AppColors.secondaryPurpleColor
+        freeFormButton.titleLabel?.font = AppFonts.primaryFont
+        saveAsDefaultButton.tintColor = AppColors.darkGrayHighlightColor
+        saveAsDefaultButton.titleLabel?.textColor = AppColors.darkGrayHighlightColor
+        saveAsDefaultButton.setTitleColor(AppColors.darkGrayHighlightColor, for: .normal)
+        freeFormButton.titleLabel?.font = AppFonts.secondaryFont
+        AppColors.colors.gradientBackground(view: purpleView)
+        
+        starStoryInputLabel.font = AppFonts.semiBoldLarge
+        starStoryInputLabel.textColor = AppColors.whiteTextColor
+        starStoryExplanation.font = AppFonts.primaryFont
+        starStoryExplanation.textColor = AppColors.primaryBlackColor
+        entryPromptLabel.font = AppFonts.semiBoldSmall
+        entryPromptLabel.textColor = AppColors.primaryBlackColor
+    }
     private func configureView() {
 //        navigationController?.navigationBar.topItem?.title = "Back"
+        setUpAppUI()
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "checkmark"),
             style: .plain,
             target: self,
             action: #selector(saveButtonPressed(_:)))
-        
-        starStoryButton.layer.borderWidth = CGFloat(1.0)
-        freeFormButton.layer.borderWidth = CGFloat(1.0)
-        starStoryButton.layer.cornerRadius = 4
+
+        starStoryButton.layer.cornerRadius = AppRoundedViews.cornerRadius
         starStoryButton.layer.masksToBounds = true
-        freeFormButton.layer.cornerRadius = 4
+        freeFormButton.layer.cornerRadius = AppRoundedViews.cornerRadius
         freeFormButton.layer.masksToBounds = true
-        inputOptionView.layer.cornerRadius = 4
+        inputOptionView.layer.cornerRadius = AppRoundedViews.cornerRadius
         inputOptionView.layer.masksToBounds = true
         
         situationTextView.delegate = self
@@ -93,10 +114,10 @@ class StarStoryEntryController: UIViewController {
         actionTextView.delegate = self
         resultTextView.delegate = self
         
-        situationTextView.layer.cornerRadius = 4
-        taskTextView.layer.cornerRadius = 4
-        actionTextView.layer.cornerRadius = 4
-        resultTextView.layer.cornerRadius = 4
+        situationTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        taskTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        actionTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        resultTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
         setTextViewHeights()
         
         configureTextViews(view: situationBkgdView)
@@ -106,7 +127,7 @@ class StarStoryEntryController: UIViewController {
         
     }
     private func configureTextViews(view: UIView) {
-        view.layer.cornerRadius = 4
+        view.layer.cornerRadius = AppRoundedViews.cornerRadius
     }
     private func setTextViewHeights() {
         situationTextView.sizeToFit()

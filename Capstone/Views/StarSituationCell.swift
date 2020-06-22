@@ -22,6 +22,15 @@ class StarSituationCell: UICollectionViewCell {
     private var starSituationForDelegate: StarSituation?
     public var starSituationIsSelected = false
     
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        setNeedsLayout()
+        layoutIfNeeded()
+        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+        var frame = layoutAttributes.frame
+        frame.size.height = ceil(size.height)
+        layoutAttributes.frame = frame
+        return layoutAttributes
+    }
     override func layoutSubviews() {
         self.layer.cornerRadius = AppRoundedViews.cornerRadius
         setupAppUI()
@@ -36,11 +45,22 @@ class StarSituationCell: UICollectionViewCell {
     }
     public func configureCell(starSituation: StarSituation) {
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
-        situationLabel.text = starSituation.situation
+        
+        if let task = starSituation.task, let action = starSituation.action, let result = starSituation.result {
+            situationLabel.text = """
+            Situation: \(starSituation.situation)
+            Task: \(task)
+            Action: \(action)
+            Result: \(result)
+            """
+        } else {
+            situationLabel.text = starSituation.situation
+        }
+        
         starSituationForDelegate = starSituation
     }
     @objc private func contextButtonPressed(_ sender: UIButton) {
         delegate?.editStarSituationPressed(starSituation: starSituationForDelegate!, starSituationCell: self)
     }
-
+    
 }
