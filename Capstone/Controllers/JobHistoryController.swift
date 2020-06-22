@@ -60,6 +60,7 @@ class JobHistoryController: UIViewController {
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
         let jobEntryController = NewJobEntryController(nibName: "NewJobEntryXib", bundle: nil)
+        jobEntryController.editingJob = false
         show(jobEntryController, sender: nil)
     }
     private func getUserData() {
@@ -138,10 +139,10 @@ extension JobHistoryController: JobHistoryExpandableCellDelegate {
         present(alertController, animated: true, completion: nil)
     }
     private func editUserJob(userJob: UserJob) {
-        
         let destinationViewController = NewJobEntryController(nibName: "NewJobEntryXib", bundle: nil)
         destinationViewController.userJob = userJob
         destinationViewController.editingJob = true
+        AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
     private func deleteUserJob(userJob: UserJob) {
