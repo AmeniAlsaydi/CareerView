@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class ApplicationDetailController: UIViewController {
     
@@ -18,10 +19,9 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var applicationStatusLabel: UILabel!
     @IBOutlet weak var appliedAsLabel: UILabel!
     @IBOutlet weak var remoteLabel: UILabel!
-    @IBOutlet weak var hyperlinkLabel: UILabel!
     @IBOutlet weak var dateAppliedLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
-    
+    @IBOutlet weak var websiteButton: UIButton!
     @IBOutlet weak var view1: ApplicationDetailView!
     @IBOutlet weak var view1Height: NSLayoutConstraint!
     
@@ -81,6 +81,8 @@ class ApplicationDetailController: UIViewController {
     
     public func configureDetailVC(application: JobApplication) {
         
+        websiteButton.setTitleColor(.systemBlue, for: .normal)
+        
         appliedAsLabel.text = "Applied as: \(application.positionTitle)"
         appliedToLabel.text = application.companyName.capitalized
         
@@ -125,8 +127,8 @@ class ApplicationDetailController: UIViewController {
             dateAppliedLabel.text = "Date Applied: N/A"
         }
         
-        hyperlinkLabel.text = application.positionURL
     }
+    
     
     private func configureMapView() {
         mapView.delegate = self
@@ -241,6 +243,17 @@ class ApplicationDetailController: UIViewController {
         alertController.addAction(editAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    @IBAction func websitePressed(_ sender: UIButton) {
+        guard let url = URL(string: jobApplication.positionURL ?? "") else {
+            showAlert(title: "Error", message: "No website linked with the application")
+            return
+        }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
+    }
+    
 }
 
 extension ApplicationDetailController: MKMapViewDelegate {
