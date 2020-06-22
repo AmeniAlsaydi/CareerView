@@ -20,14 +20,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="891" height="25"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Situation" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-Rh-tp3">
-                        <rect key="frame" x="8" y="33" width="821" height="44"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-AP-Qwq">
-                        <rect key="frame" x="839" y="33" width="44" height="44"/>
+                        <rect key="frame" x="839" y="25" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="1Tn-PF-FM6"/>
                             <constraint firstAttribute="height" constant="44" id="pfj-JB-nNG"/>
@@ -41,17 +35,22 @@
                             <action selector="contextButtonPressed:" destination="taH-0Q-BiL" eventType="touchUpInside" id="65l-2Y-j8d"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Situation" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-Rh-tp3">
+                        <rect key="frame" x="10" y="35" width="871" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="vq9-AP-Qwq" firstAttribute="leading" secondItem="T6V-Rh-tp3" secondAttribute="trailing" constant="10" id="A1D-wO-5MW"/>
                     <constraint firstItem="fNr-nQ-gFq" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" id="C1N-01-BNg"/>
-                    <constraint firstItem="vq9-AP-Qwq" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="8" id="Pp6-sY-po5"/>
-                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="8" id="VZq-Xa-Knb"/>
-                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="centerY" secondItem="vq9-AP-Qwq" secondAttribute="centerY" id="a7U-vb-MpC"/>
+                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="10" id="GSb-jx-LUm"/>
+                    <constraint firstItem="vq9-AP-Qwq" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" id="Pp6-sY-po5"/>
+                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="10" id="VnJ-b3-jOI"/>
                     <constraint firstAttribute="trailing" secondItem="vq9-AP-Qwq" secondAttribute="trailing" constant="8" id="j7N-aK-lwq"/>
-                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="8" id="oUt-qg-TAf"/>
                     <constraint firstItem="fNr-nQ-gFq" firstAttribute="height" secondItem="wbv-Hu-H1f" secondAttribute="height" multiplier="0.0503018" id="pyb-tE-gdH"/>
                     <constraint firstAttribute="trailing" secondItem="fNr-nQ-gFq" secondAttribute="trailing" id="rR8-uJ-ZMY"/>
+                    <constraint firstAttribute="trailing" secondItem="T6V-Rh-tp3" secondAttribute="trailing" constant="10" id="vKa-aO-oRj"/>
                     <constraint firstItem="fNr-nQ-gFq" firstAttribute="top" secondItem="wbv-Hu-H1f" secondAttribute="top" id="y7E-qi-Vjg"/>
                 </constraints>
             </collectionViewCellContentView>
