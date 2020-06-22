@@ -14,6 +14,7 @@ protocol StarStoryMainControllerDelegate {
 
 class StarStoryMainController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     public var filterByJob = false
     public var userJob: UserJob?
@@ -52,10 +53,13 @@ class StarStoryMainController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
         collectionView.backgroundColor = AppColors.complimentaryBackgroundColor
-        let flowLayout = UICollectionViewFlowLayout()
-        let width = collectionView.frame.width - 20
-        flowLayout.estimatedItemSize = CGSize(width: width, height: collectionView.frame.height * 0.5)
-        collectionView.collectionViewLayout = flowLayout
+        
+        if let flowLayout = flowLayout,
+           let collectionView = collectionView {
+            let w = collectionView.frame.width - 20
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+        }
+        
     }
     private func configureView() {
         if isAddingToAnswer {
@@ -180,7 +184,10 @@ extension StarStoryMainController: UICollectionViewDataSource {
             cell.starSituationIsSelected.toggle()
             
             if cell.starSituationIsSelected {
-                cell.backgroundColor = .red //TODO: refactor! Make a button with a checkmark image to show the cell was selected
+                cell.backgroundColor = AppColors.primaryPurpleColor
+                cell.situationLabel.textColor = AppColors.whiteTextColor
+                cell.layer.borderWidth = 2
+                cell.layer.borderColor = AppColors.whiteTextColor.cgColor
                 starSituationIDs.append(starStory.id)
             } else if cell.starSituationIsSelected == false {
                 guard let indexPathForStarStorySelected = starSituationIDs.firstIndex(where: {$0 == starStory.id }) else {
@@ -195,7 +202,10 @@ extension StarStoryMainController: UICollectionViewDataSource {
             guard let cell = collectionView.cellForItem(at: indexPath) as? StarSituationCell else { return }
             cell.starSituationIsSelected.toggle()
             if cell.starSituationIsSelected {
-                cell.backgroundColor = .red
+                cell.backgroundColor = AppColors.primaryPurpleColor
+                cell.situationLabel.textColor = AppColors.whiteTextColor
+                cell.layer.borderWidth = 2
+                cell.layer.borderColor = AppColors.whiteTextColor.cgColor
             } else {
                 cell.backgroundColor = AppColors.systemBackgroundColor
             }

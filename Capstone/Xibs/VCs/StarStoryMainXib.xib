@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StarStoryMainController" customModule="Capstone" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="GmP-nH-s9C" id="dX4-58-EOV"/>
+                <outlet property="flowLayout" destination="3C1-vn-AmJ" id="2jO-Wp-3cu"/>
                 <outlet property="view" destination="iN0-l3-epB" id="AH7-eq-oDb"/>
             </connections>
         </placeholder>
