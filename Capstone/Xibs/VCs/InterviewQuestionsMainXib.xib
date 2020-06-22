@@ -15,6 +15,7 @@
                 <outlet property="commonButton" destination="l62-Mx-rF1" id="JsC-Rb-B7V"/>
                 <outlet property="customButton" destination="yq3-QZ-KaE" id="nH8-dl-LDA"/>
                 <outlet property="filterButtonsStack" destination="1fq-9L-DVe" id="eQ2-EV-rqs"/>
+                <outlet property="flowLayout" destination="xCB-jS-uMc" id="iG5-bk-TTJ"/>
                 <outlet property="questionsCollectionView" destination="SGx-8c-HZA" id="1mh-4O-HhG"/>
                 <outlet property="searchBar" destination="9w5-ui-qrJ" id="qLL-D5-cKn"/>
                 <outlet property="view" destination="iN0-l3-epB" id="hMN-IE-PU8"/>
