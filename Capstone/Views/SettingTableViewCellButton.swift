@@ -12,6 +12,21 @@ protocol defaultLaunchScreenButtonDelegate: AnyObject {
     func changeDefaultLaunchScreenButtonPressed()
 }
 
+//struct LaunchScreen {
+//    let title: String
+//    static func getLaunchScreens() -> [LaunchScreen] {
+//        return [LaunchScreen(title: "Job History"),
+//                LaunchScreen(title: "STAR Stories"),
+//                LaunchScreen(title: "Interview Questions"),
+//                LaunchScreen(title: "Application Tracker")]
+//    }
+//    public enum launchScreens: String {
+//        case jobHistory = "Job History"
+//        case starStories = "STAR Stories"
+//        case interviewQuestions = "Interview Questions"
+//        case applicationTracker = "Application Tracker"
+//    }
+//}
 class SettingTableViewCellButton: UITableViewCell {
     
     @IBOutlet weak var defaultLabel: UILabel!
@@ -19,30 +34,17 @@ class SettingTableViewCellButton: UITableViewCell {
     
     weak var delegate: defaultLaunchScreenButtonDelegate?
     
-    private var defaultLaunchScreen: String?
+    private var defaultLaunchScreenPreference: DefaultLaunchScreen?
     
     public func configureCell(setting: SettingsCell) {
         loadDefaultLaunchScreen()
         defaultButton.addTarget(self, action: #selector(changeLaunchScreenButtonPressed(_:)), for: .touchUpInside)
-        defaultLabel.text = ("Launch Screen: \(defaultLaunchScreen ?? "Not set")")
+        defaultLabel.text = ("Launch Screen: \(defaultLaunchScreenPreference?.rawValue ?? DefaultLaunchScreen.jobHistory.rawValue)")
     }
     @objc private func changeLaunchScreenButtonPressed(_ sender: UIButton) {
         delegate?.changeDefaultLaunchScreenButtonPressed()
     }
     private func loadDefaultLaunchScreen() {
-        if let defaultLaunchScreenPreference = UserPreference.shared.getDefaultLaunchScreen() {
-            switch defaultLaunchScreenPreference.rawValue {
-            case 1:
-                defaultLaunchScreen = "Job History"
-            case 2:
-                defaultLaunchScreen = "STAR Stories"
-            case 3:
-                defaultLaunchScreen = "Interview Questions"
-            case 4:
-                defaultLaunchScreen = "Application Tracker"
-            default:
-                defaultLaunchScreen = "Job History"
-            }
-        }
+        defaultLaunchScreenPreference = UserPreference.shared.getDefaultLaunchScreen()
     }
 }

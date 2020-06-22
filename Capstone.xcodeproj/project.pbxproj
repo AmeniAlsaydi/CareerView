@@ -33,6 +33,7 @@
 		887851E024A0F415008966A9 /* SettingTableViewCellButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 887851DF24A0F415008966A9 /* SettingTableViewCellButton.xib */; };
 		887851E224A0F5C8008966A9 /* SettingTableViewCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887851E124A0F5C8008966A9 /* SettingTableViewCellButton.swift */; };
 		887851E624A10F83008966A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 887851E524A10F83008966A9 /* GoogleService-Info.plist */; };
+		887851E824A13BA9008966A9 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887851E724A13BA9008966A9 /* UserPreferences.swift */; };
 		889FCAA6249966EC00CC9153 /* AccountViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAA5249966EC00CC9153 /* AccountViewControllerXib.xib */; };
 		889FCAA82499670300CC9153 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAA72499670300CC9153 /* AccountViewController.swift */; };
 		889FCAAA2499671D00CC9153 /* SettingsViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAA92499671D00CC9153 /* SettingsViewControllerXib.xib */; };
@@ -159,6 +160,7 @@
 		887851DF24A0F415008966A9 /* SettingTableViewCellButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCellButton.xib; sourceTree = "<group>"; };
 		887851E124A0F5C8008966A9 /* SettingTableViewCellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellButton.swift; sourceTree = "<group>"; };
 		887851E524A10F83008966A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		887851E724A13BA9008966A9 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		889FCAA5249966EC00CC9153 /* AccountViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountViewControllerXib.xib; sourceTree = "<group>"; };
 		889FCAA72499670300CC9153 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		889FCAA92499671D00CC9153 /* SettingsViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewControllerXib.xib; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 			children = (
 				8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */,
 				8838A4D2248E60E100217DA1 /* UserDefaults.swift */,
+				887851E724A13BA9008966A9 /* UserPreferences.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -794,6 +797,7 @@
 				C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */,
 				881CD3422499CCA3008AB0C8 /* FAQCollectionViewCell.swift in Sources */,
 				B79F4B4A248F6573009523EE /* StarSituationDatabaseServices.swift in Sources */,
+				887851E824A13BA9008966A9 /* UserPreferences.swift in Sources */,
 				B7976E5A247EA404001AE3B3 /* SignUpController.swift in Sources */,
 				C6E214EC2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift in Sources */,
 				B7976E58247EA3E7001AE3B3 /* LoginController.swift in Sources */,

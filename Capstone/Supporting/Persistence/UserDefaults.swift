@@ -8,7 +8,6 @@
 
 import Foundation
 
-// FIXME: Can we do these with booleans?
 enum GuidedStarSitutionInput: String {
     case guided = "guided"
     case freeForm = "freeForm"
@@ -17,11 +16,11 @@ enum ShowUserStarInputOption: String {
     case on = "on"
     case off = "off"
 }
-enum DefaultLaunchScreen: Int {
-    case jobHistory = 1
-    case starStories = 2
-    case interviewQuestions = 3
-    case applicationTracker = 4
+enum DefaultLaunchScreen: String {
+    case jobHistory = "Job History"
+    case starStories = "STAR Stories"
+    case interviewQuestions = "Interview Questions"
+    case applicationTracker = "Application Tracker"
 }
 struct UserPreferenceKey {
     static let GuidedInputPreference = "GuidedInputPreference"
@@ -30,15 +29,17 @@ struct UserPreferenceKey {
 }
 
 class UserPreference {
+    
     private init() {}
     private let standard = UserDefaults.standard
     static let shared = UserPreference()
     
-    func updateDefaultLaunchScreen(with preference: DefaultLaunchScreen) {
-        standard.set(preference.rawValue, forKey: UserPreferenceKey.defaultLaunchScreen)
+    func updateDefaultLaunchScreen(with preference: String) {
+        print("default launch screen set to: \(preference)")
+        standard.set(preference, forKey: UserPreferenceKey.defaultLaunchScreen)
     }
-    func getDefaultLaunchScreen() -> DefaultLaunchScreen?{
-        guard let preference = standard.object(forKey: UserPreferenceKey.defaultLaunchScreen) as? Int else {
+    func getDefaultLaunchScreen() -> DefaultLaunchScreen? {
+        guard let preference = standard.object(forKey: UserPreferenceKey.defaultLaunchScreen) as? String else {
             return nil
         }
         return DefaultLaunchScreen(rawValue: preference)
