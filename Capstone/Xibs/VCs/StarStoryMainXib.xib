@@ -30,7 +30,6 @@
                     </collectionViewFlowLayout>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="JEQ-xX-iiW"/>
-                        <outlet property="delegate" destination="-1" id="RHV-FJ-Yrx"/>
                     </connections>
                 </collectionView>
             </subviews>

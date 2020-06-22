@@ -33,6 +33,7 @@ class StarSituationCell: UICollectionViewCell {
     }
     override func layoutSubviews() {
         self.layer.cornerRadius = AppRoundedViews.cornerRadius
+        self.situationLabel.sizeToFit()
         setupAppUI()
     }
     private func setupAppUI(){
@@ -40,23 +41,23 @@ class StarSituationCell: UICollectionViewCell {
         situationLabel.font = AppFonts.semiBoldSmall
         situationLabel.textColor = AppColors.primaryBlackColor
         editButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
-        editButton.tintColor = AppColors.secondaryPurpleColor
+        editButton.tintColor = AppColors.whiteTextColor
         cellFooterView.backgroundColor = AppColors.primaryPurpleColor
     }
     public func configureCell(starSituation: StarSituation) {
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
         
-        if let task = starSituation.task, let action = starSituation.action, let result = starSituation.result {
-            situationLabel.text = """
-            Situation: \(starSituation.situation)
-            Task: \(task)
-            Action: \(action)
-            Result: \(result)
-            """
-        } else {
+        //TODO: refactor
+        guard let task = starSituation.task, let action = starSituation.action, let result = starSituation.result else {
             situationLabel.text = starSituation.situation
+            return
         }
-        
+        situationLabel.text = """
+        Situation: \(starSituation.situation)
+        Task: \(task)
+        Action: \(action)
+        Result: \(result)
+        """
         starSituationForDelegate = starSituation
     }
     @objc private func contextButtonPressed(_ sender: UIButton) {

@@ -258,8 +258,11 @@ class StarStoryEntryController: UIViewController {
     private func loadFreeFormView() {
         //TODO: Animate views leaving screen
         taskBkgdView.isHidden = true
+        taskTextView.text = nil
         actionBkgdView.isHidden = true
+        actionTextView.text = nil
         resultBkgdView.isHidden = true
+        resultTextView.text = nil
     }
     private func transitionFromOptionToMainView() {
         let duration = 0.3
