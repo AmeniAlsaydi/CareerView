@@ -31,7 +31,6 @@ class StarStoryMainController: UIViewController {
                 starSituations = starSituations.filter { starSituationID.contains($0.id) }
             }
             collectionView.reloadData()
-            navigationItem.title = "STAR Stories: \(starSituations.count)"
         }
     }
     
@@ -71,6 +70,7 @@ class StarStoryMainController: UIViewController {
             navigationItem.title = "STAR Stories"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
             navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(segueToSTARStoryInfoVC(_:)))
+            AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
         }
     }
     
@@ -84,7 +84,6 @@ class StarStoryMainController: UIViewController {
             case .success(let starSituationsData):
                 DispatchQueue.main.async {
                     self?.starSituations = starSituationsData
-                    self?.navigationItem.title = "STAR Stories: \(self?.starSituations.count ?? 0)"
                 }
             }
         }
@@ -96,9 +95,6 @@ class StarStoryMainController: UIViewController {
     }
     @objc private func segueToAddStarStoryViewController(_ sender: UIBarButtonItem) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
-        let backItem = UIBarButtonItem()
-        backItem.title = "Back"
-        navigationItem.backBarButtonItem = backItem
         show(destinationViewController, sender: nil)
     }
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -240,9 +236,6 @@ extension StarStoryMainController: StarSituationCellDelegate {
     
     private func editStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
-        let backItem = UIBarButtonItem()
-        backItem.title = "Back"
-        navigationItem.backBarButtonItem = backItem
         destinationViewController.starSituation = starSituation
         destinationViewController.isEditingStarSituation = true
         navigationController?.pushViewController(destinationViewController, animated: true)

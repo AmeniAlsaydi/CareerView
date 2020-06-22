@@ -121,6 +121,7 @@ class StarStoryEntryController: UIViewController {
 //        navigationController?.navigationBar.topItem?.title = "Back"
         setUpAppUI()
         configureButtonUI()
+        navigationItem.title = "Add a STAR Story"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "checkmark"),
             style: .plain,
