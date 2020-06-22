@@ -8,17 +8,26 @@
 
 import UIKit
 
+protocol defaultLaunchScreenButtonDelegate: AnyObject {
+    func changeDefaultLaunchScreenButtonPressed()
+}
+
 class SettingTableViewCellButton: UITableViewCell {
     
     @IBOutlet weak var defaultLabel: UILabel!
     @IBOutlet weak var defaultButton: UIButton!
     
+    weak var delegate: defaultLaunchScreenButtonDelegate?
+    
     private var defaultLaunchScreen: String?
     
     public func configureCell(setting: SettingsCell) {
         loadDefaultLaunchScreen()
+        defaultButton.addTarget(self, action: #selector(changeLaunchScreenButtonPressed(_:)), for: .touchUpInside)
         defaultLabel.text = ("Launch Screen: \(defaultLaunchScreen ?? "Not set")")
-        
+    }
+    @objc private func changeLaunchScreenButtonPressed(_ sender: UIButton) {
+        delegate?.changeDefaultLaunchScreenButtonPressed()
     }
     private func loadDefaultLaunchScreen() {
         if let defaultLaunchScreenPreference = UserPreference.shared.getDefaultLaunchScreen() {

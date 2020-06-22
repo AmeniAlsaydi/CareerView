@@ -28,6 +28,9 @@ class SettingsViewController: UIViewController {
     private var settings = [SettingsCell]()
     @IBOutlet weak var tableView: UITableView!
     
+    var toolbar = UIToolbar()
+    var defaultLaunchScreenPicker = UIPickerView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
@@ -78,6 +81,7 @@ extension SettingsViewController: UITableViewDataSource {
                 fatalError("Failed to dequeue settings button cell")
             }
             cell.configureCell(setting: setting)
+            cell.delegate = self
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as? SettingTableViewCellSwitch else {
@@ -90,5 +94,43 @@ extension SettingsViewController: UITableViewDataSource {
 }
 
 extension SettingsViewController: UITableViewDelegate {
+    
+}
+
+extension SettingsViewController: defaultLaunchScreenButtonDelegate {
+    func changeDefaultLaunchScreenButtonPressed() {
+        defaultLaunchScreenPicker = UIPickerView.init()
+        defaultLaunchScreenPicker.delegate = self
+        defaultLaunchScreenPicker.autoresizingMask = .flexibleWidth
+        defaultLaunchScreenPicker.contentMode = .center
+        defaultLaunchScreenPicker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
+        defaultLaunchScreenPicker.backgroundColor = .green
+        self.view.addSubview(defaultLaunchScreenPicker)
+        
+        toolbar.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50)
+        toolbar.barStyle = .black
+        toolbar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
+        self.view.addSubview(toolbar)
+        
+    }
+    @objc func onDoneButtonTapped() {
+        toolbar.removeFromSuperview()
+        defaultLaunchScreenPicker.removeFromSuperview()
+    }
+}
+
+extension SettingsViewController: UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 4
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "Title goes here"
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print([row])
+    }
     
 }
