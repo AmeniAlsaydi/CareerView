@@ -30,6 +30,10 @@
 		884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */; };
 		884E557A2488298B00BA180F /* ScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */; };
 		886B5134248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */; };
+		887851E024A0F415008966A9 /* SettingTableViewCellButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 887851DF24A0F415008966A9 /* SettingTableViewCellButton.xib */; };
+		887851E224A0F5C8008966A9 /* SettingTableViewCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887851E124A0F5C8008966A9 /* SettingTableViewCellButton.swift */; };
+		887851E624A10F83008966A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 887851E524A10F83008966A9 /* GoogleService-Info.plist */; };
+		887851E824A13BA9008966A9 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887851E724A13BA9008966A9 /* UserPreferences.swift */; };
 		889FCAA6249966EC00CC9153 /* AccountViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAA5249966EC00CC9153 /* AccountViewControllerXib.xib */; };
 		889FCAA82499670300CC9153 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAA72499670300CC9153 /* AccountViewController.swift */; };
 		889FCAAA2499671D00CC9153 /* SettingsViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAA92499671D00CC9153 /* SettingsViewControllerXib.xib */; };
@@ -155,6 +159,10 @@
 		884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeUserExperienceViewController.swift; sourceTree = "<group>"; };
 		884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
 		886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshotCollectionViewCellXib.xib; sourceTree = "<group>"; };
+		887851DF24A0F415008966A9 /* SettingTableViewCellButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCellButton.xib; sourceTree = "<group>"; };
+		887851E124A0F5C8008966A9 /* SettingTableViewCellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellButton.swift; sourceTree = "<group>"; };
+		887851E524A10F83008966A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		887851E724A13BA9008966A9 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		889FCAA5249966EC00CC9153 /* AccountViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountViewControllerXib.xib; sourceTree = "<group>"; };
 		889FCAA72499670300CC9153 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		889FCAA92499671D00CC9153 /* SettingsViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewControllerXib.xib; sourceTree = "<group>"; };
@@ -297,8 +305,17 @@
 			children = (
 				8838A4D0248E60D400217DA1 /* PersistenceHelper.swift */,
 				8838A4D2248E60E100217DA1 /* UserDefaults.swift */,
+				887851E724A13BA9008966A9 /* UserPreferences.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		887851DE24A0F39F008966A9 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				B78EE843249BFE1700F7E973 /* GoogleService-Info.plist */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		889FCAA124995A0C00CC9153 /* ProfileViewControllerXibs */ = {
@@ -341,7 +358,7 @@
 				B725C2372476832F000811C5 /* Products */,
 				5956DD7DDBAFC9F24FDEE2CA /* Pods */,
 				4249468C7066E63C865B619C /* Frameworks */,
-				88ECFEBB249D513700F2A05B /* Recovered References */,
+				887851DE24A0F39F008966A9 /* Recovered References */,
 
 			);
 			sourceTree = "<group>";
@@ -366,9 +383,8 @@
 				B7976E832480504C001AE3B3 /* Xibs */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
-				88ECFEBC249D515400F2A05B /* GoogleService-Info.plist */,
-				B725C24724768331000811C5 /* Info.plist */,
 
+				B725C24724768331000811C5 /* Info.plist */,
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -502,6 +518,7 @@
 				52D4D19524981140004FD7EE /* ApplicationDetailView.swift */,
 				52F81DBC249260710052532B /* ProfileCell.swift */,
 				881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */,
+				887851E124A0F5C8008966A9 /* SettingTableViewCellButton.swift */,
 				881CD3412499CCA3008AB0C8 /* FAQCollectionViewCell.swift */,
 			);
 			path = Views;
@@ -553,6 +570,7 @@
 				886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */,
 				52F81DBA249260300052532B /* ProfileCell.xib */,
 				881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */,
+				887851DF24A0F415008966A9 /* SettingTableViewCellButton.xib */,
 				881CD33F2499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib */,
 			);
 			path = Cells;
@@ -661,6 +679,7 @@
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
 				B7976E8524805085001AE3B3 /* JobHistoryXib.xib in Resources */,
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
+				887851E624A10F83008966A9 /* GoogleService-Info.plist in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
@@ -675,6 +694,7 @@
 				881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */,
 				B7976E9524805C9B001AE3B3 /* StarStoryEntryXib.xib in Resources */,
 				889FCAAE2499677100CC9153 /* AboutThisAppViewControllerXib.xib in Resources */,
+				887851E024A0F415008966A9 /* SettingTableViewCellButton.xib in Resources */,
 				881CD3402499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib in Resources */,
 				B7976E87248051D8001AE3B3 /* JobEntryXib.xib in Resources */,
 				B7976E9724805CDA001AE3B3 /* InterviewQuestionsMainXib.xib in Resources */,
@@ -799,6 +819,7 @@
 				C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */,
 				881CD3422499CCA3008AB0C8 /* FAQCollectionViewCell.swift in Sources */,
 				B79F4B4A248F6573009523EE /* StarSituationDatabaseServices.swift in Sources */,
+				887851E824A13BA9008966A9 /* UserPreferences.swift in Sources */,
 				B7976E5A247EA404001AE3B3 /* SignUpController.swift in Sources */,
 				C6E214EC2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift in Sources */,
 				B7976E58247EA3E7001AE3B3 /* LoginController.swift in Sources */,
@@ -838,6 +859,7 @@
 				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
 				B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */,
 				B7A865C42490EB1300AC456F /* FloatingLabelTextField.swift in Sources */,
+				887851E224A0F5C8008966A9 /* SettingTableViewCellButton.swift in Sources */,
 				B74108C1248E120900EEFBA8 /* ProgressBar.swift in Sources */,
 				884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */,
 				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
