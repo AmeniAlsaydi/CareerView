@@ -44,7 +44,6 @@ class MoreInfoViewController: UIViewController {
     private func setUpViewUI() {
         contentView.layer.cornerRadius = AppRoundedViews.cornerRadius
         scrollView.layer.cornerRadius = AppRoundedViews.cornerRadius
-        
         contentView.backgroundColor = AppColors.systemBackgroundColor
         scrollView.backgroundColor = AppColors.systemBackgroundColor
         infoIconImageView.tintColor = AppColors.primaryPurpleColor
