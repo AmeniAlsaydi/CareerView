@@ -75,11 +75,13 @@ class ApplicationTrackerController: UIViewController {
     }
     
     private func getApplications() {
+        self.showIndicator()
         DatabaseService.shared.fetchApplications { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print("error getting applications: \(error)")
             case .success(let jobApplications):
+                self?.removeIndicator()
                 self?.jobApplications = jobApplications
             }
         }

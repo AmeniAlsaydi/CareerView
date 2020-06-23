@@ -12,7 +12,7 @@ class LoginController: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var loginButton: TransitionButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var positionYConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewHeight: NSLayoutConstraint!
@@ -98,6 +98,11 @@ class LoginController: UIViewController {
         signUpButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
         signUpButton.titleLabel?.font = AppFonts.primaryFont
         loginButton.titleLabel?.font = AppFonts.primaryFont
+        loginButton.setTitleColor(AppColors.primaryBlackColor, for: .normal)
+        loginButton.backgroundColor = AppColors.secondaryPurpleColor
+        loginButton.layer.cornerRadius = AppRoundedViews.cornerRadius
+        emailTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
+        passwordTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
     }
     
     @objc private func didTap(_ gesture: UITapGestureRecognizer ) {
@@ -105,21 +110,56 @@ class LoginController: UIViewController {
         passwordTextField.resignFirstResponder()
     }
     
-    @IBAction func loginButtonPressed(_ sender: UIButton) {
-        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
-            self.showAlert(title: "Missing feilds", message: "Missing email or password.")
+    @IBAction func loginButtonPressed(_ sender: TransitionButton) {
+        
+        sender.startAnimation()
+        
+        guard let email = emailTextField.text, !email.isEmpty else {
+            //self.showAlert(title: "Missing feilds", message: "Missing email or password.")
+            let animation = CABasicAnimation(keyPath: "position")
+            animation.duration = 0.07
+            animation.repeatCount = 4
+            animation.autoreverses = true
+            animation.fromValue = NSValue(cgPoint: CGPoint(x: emailTextField.center.x - 10, y: emailTextField.center.y))
+            animation.toValue = NSValue(cgPoint: CGPoint(x: emailTextField.center.x + 10, y: emailTextField.center.y))
+            
+            emailTextField.layer.add(animation, forKey: "position")
+            emailTextField.setBorder(color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), width: 1.0)
+            emailTextField.placeholder = "Please enter an email"
+            
+            sender.stopAnimation()
             return
         }
         
-        AuthenticationSession.shared.signExisitingUser(email: email, password: password) { (result) in
+        guard let password = passwordTextField.text, !password.isEmpty else {
+            
+            let animation1 = CABasicAnimation(keyPath: "position")
+            animation1.duration = 0.07
+            animation1.repeatCount = 4
+            animation1.autoreverses = true
+            animation1.fromValue = NSValue(cgPoint: CGPoint(x: passwordTextField.center.x - 10, y: passwordTextField.center.y))
+            animation1.toValue = NSValue(cgPoint: CGPoint(x: passwordTextField.center.x + 10, y: passwordTextField.center.y))
+            
+            passwordTextField.layer.add(animation1, forKey: "position")
+            passwordTextField.setBorder(color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), width: 1.0)
+            passwordTextField.placeholder = "Please enter a password"
+            
+            sender.stopAnimation()
+            return
+        }
+        
+        AuthenticationSession.shared.signExisitingUser(email: email, password: password) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.showAlert(title: "Error signing in", message: error.localizedDescription)
+                    self?.showAlert(title: "Error signing in", message: error.localizedDescription)
+                    sender.stopAnimation()
                 }
             case .success:
                 DispatchQueue.main.async {
-                    UIViewController.showMainAppView()
+                    sender.stopAnimation(animationStyle: .expand, completion: {
+                        UIViewController.showMainAppView()
+                    })
                 }
             }
         }
@@ -131,5 +171,10 @@ extension LoginController: UITextFieldDelegate {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        emailTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
+        passwordTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
     }
 }

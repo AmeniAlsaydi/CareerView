@@ -39,6 +39,7 @@ class InterviewQuestionsMainController: UIViewController {
             } else {
                     self.collectionViewTopAnchor.constant = -44
                     self.filterButtonsStack.isHidden = true
+                    self.getInterviewQuestions()
             }
         }
     }
@@ -195,14 +196,18 @@ class InterviewQuestionsMainController: UIViewController {
     
     //MARK:- Get Data
     private func getInterviewQuestions() {
+        self.showIndicator()
         DatabaseService.shared.fetchCommonInterviewQuestions { [weak self] (result) in
             switch result {
             case .failure(let error) :
+                self?.removeIndicator()
                 print("could not fetch common interview questions from firebase error: \(error.localizedDescription)")
             case .success(let questions):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.commonInterviewQuestions = questions
                     self?.allQuestions.append(contentsOf: questions)
+                    self?.checkForEmptyCustomQuestionsArray()
                 }
             }
         }
@@ -429,6 +434,7 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
 extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
     
     func presentMenu(cell: InterviewQuestionCell, question: InterviewQuestion) {
+        self.showIndicator()
         guard let indexPath = questionsCollectionView.indexPath(for: cell) else {
             return
         }
@@ -458,10 +464,12 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Error", message: "Could not remove question at this time error: \(error.localizedDescription)")
                     }
                 case .success:
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Question Removed", message: "\(customQuestion!.question) has been removed")
                         if self?.filterState == .custom {
                             if !(self?.customQuestions.isEmpty ?? false) {
