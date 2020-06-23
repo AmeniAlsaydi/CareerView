@@ -44,8 +44,8 @@ class MoreInfoViewController: UIViewController {
         contentView.layer.cornerRadius = AppRoundedViews.cornerRadius
         scrollView.layer.cornerRadius = AppRoundedViews.cornerRadius
         
-        contentView.backgroundColor = .tertiarySystemBackground
-        scrollView.backgroundColor = .tertiarySystemBackground
+        contentView.backgroundColor = AppColors.systemBackgroundColor
+        scrollView.backgroundColor = AppColors.systemBackgroundColor
     }
     
     private func setUpAppFonts() {
