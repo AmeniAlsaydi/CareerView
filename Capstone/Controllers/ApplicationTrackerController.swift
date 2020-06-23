@@ -86,7 +86,17 @@ class ApplicationTrackerController: UIViewController {
     
     private func configureNavBar() {
         navigationItem.title = "Tracked Applications"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addJobApplicationButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(displayInfoViewController(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addJobApplicationButtonPressed(_:)))
+        
+    }
+    
+    @objc func displayInfoViewController(_ sender: UIBarButtonItem) {
+        let infoVC = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
+//        infoVC.modalTransitionStyle = .crossDissolve
+//        infoVC.modalPresentationStyle = .overCurrentContext
+        
+        present(infoVC, animated: true)
     }
     
     
