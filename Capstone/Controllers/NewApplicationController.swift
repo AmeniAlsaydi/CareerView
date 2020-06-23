@@ -326,6 +326,8 @@ class NewApplicationController: UIViewController {
     
     
     private func submitNewJobApplication() {
+        
+        self.showIndicator()
         // create id
         var jobID = ""
         
@@ -392,12 +394,13 @@ class NewApplicationController: UIViewController {
                 print("success adding application")
                 
                 if self?.editingApplication ?? false {
-                   
+                    self?.removeIndicator()
                     self?.addInterviews(id)
                     self?.showAlert(title: "Sucess!", message: "Your application was edited!", completion: { (alertAction) in
                         self?.navigationController?.popViewController(animated: true)
                     })
                 } else {
+                    self?.removeIndicator()
                     self?.addInterviews(id)
                     self?.showAlert(title: "Sucess!", message: "Your application was added!", completion: { (alertAction) in
                         self?.navigationController?.popViewController(animated: true)

@@ -123,13 +123,13 @@ class JobHistoryExpandableCell: FoldingCell {
     }
     func loadUserContacts(userJob: UserJob) {
         let userJobID = userJob.id
-        DatabaseService.shared.fetchContactsForJob(userJobId: userJobID) { (result) in
+        DatabaseService.shared.fetchContactsForJob(userJobId: userJobID) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print("Failure loading jobs: \(error.localizedDescription)")
             case .success(let contactData):
                 DispatchQueue.main.async {
-                    self.contacts = contactData
+                    self?.contacts = contactData
                 }
             }
         }

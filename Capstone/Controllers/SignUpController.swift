@@ -13,7 +13,7 @@ class SignUpController: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var signUpButton: UIButton! // for ui purposes 
+    @IBOutlet weak var signUpButton: TransitionButton! // for ui purposes 
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var positionYConstraint: NSLayoutConstraint!
@@ -43,6 +43,9 @@ class SignUpController: UIViewController {
         loginButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
         loginButton.titleLabel?.font = AppFonts.primaryFont
         signUpButton.titleLabel?.font = AppFonts.primaryFont
+        signUpButton.backgroundColor = AppColors.secondaryPurpleColor
+        emailTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
+        passwordTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
     }
     
     @objc private func didTap(_ gesture: UITapGestureRecognizer ) {
@@ -104,36 +107,59 @@ class SignUpController: UIViewController {
     }
     
     
-    @IBAction func signUpButonPressed(_ sender: UIButton) {
+    @IBAction func signUpButonPressed(_ sender: TransitionButton) {
+        sender.startAnimation()
         // reset border
         emailTextField.setBorder(color: nil, width: 0)
         passwordTextField.setBorder(color: nil, width: 0)
         
         // check fields
         guard let email = emailTextField.text, !email.isEmpty else {
+            let animation = CABasicAnimation(keyPath: "position")
+            animation.duration = 0.07
+            animation.repeatCount = 4
+            animation.autoreverses = true
+            animation.fromValue = NSValue(cgPoint: CGPoint(x: emailTextField.center.x - 10, y: emailTextField.center.y))
+            animation.toValue = NSValue(cgPoint: CGPoint(x: emailTextField.center.x + 10, y: emailTextField.center.y))
+            
+            emailTextField.layer.add(animation, forKey: "position")
             emailTextField.setBorder(color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), width: 1.0)
             alertLabel.text = "please enter email to sign up"
+            
+            sender.stopAnimation()
             return
         }
         
         guard let password = passwordTextField.text, !password.isEmpty else {
+            let animation1 = CABasicAnimation(keyPath: "position")
+            animation1.duration = 0.07
+            animation1.repeatCount = 4
+            animation1.autoreverses = true
+            animation1.fromValue = NSValue(cgPoint: CGPoint(x: passwordTextField.center.x - 10, y: passwordTextField.center.y))
+            animation1.toValue = NSValue(cgPoint: CGPoint(x: passwordTextField.center.x + 10, y: passwordTextField.center.y))
+            
+            passwordTextField.layer.add(animation1, forKey: "position")
             passwordTextField.setBorder(color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), width: 1.0)
             alertLabel.text = "please enter password to sign up"
+            
+            sender.stopAnimation()
             return
         }
         
         // create user
-        AuthenticationSession.shared.createNewUser(email: email, password: password) { (result) in
+        AuthenticationSession.shared.createNewUser(email: email, password: password) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.showAlert(title: "Error Signing up", message: "\(error.localizedDescription)")
-                    
+                    self?.showAlert(title: "Error Signing up", message: "\(error.localizedDescription)")
                 }
             case .success(let authDataResult):
                 DispatchQueue.main.async {
                     //create a data base user and navigate to app view:
-                    self.createDatabaseUser(authDataResult: authDataResult)
+                    self?.createDatabaseUser(authDataResult: authDataResult)
+                    sender.stopAnimation(animationStyle: .expand, completion: {
+                        UIViewController.showMainAppView()
+                    })
                 }
             }
         }
@@ -146,11 +172,8 @@ class SignUpController: UIViewController {
                    self?.showAlert(title: "Account error", message: error.localizedDescription)
                case .success:
                    DispatchQueue.main.async {
-                    
                     UIViewController.showMainAppView()
-                    
                    }
-                   
                }
            }
        }
@@ -167,6 +190,11 @@ extension SignUpController: UITextFieldDelegate {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        emailTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
+        passwordTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
     }
 }
 

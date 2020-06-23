@@ -34,7 +34,7 @@ class JobHistoryController: UIViewController {
     }
     
     var cellHeights = [CGFloat]()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
@@ -68,14 +68,44 @@ class JobHistoryController: UIViewController {
         jobEntryController.editingJob = false
         show(jobEntryController, sender: nil)
     }
-    private func loadUserJobs() {
-        DatabaseService.shared.fetchUserJobs { (result) in
+    private func getUserData() {
+        DatabaseService.shared.fetchUserData { [weak self] (result) in
             switch result {
             case .failure(let error):
+                DispatchQueue.main.async {
+                    print("Error fetching user Data: \(error.localizedDescription)")
+                }
+            case .success(let userData):
+                DispatchQueue.main.async {
+                    self?.userData = userData
+                    self?.checkFirstTimeLogin()
+                }
+            }
+        }
+    }
+    private func checkFirstTimeLogin() {
+        guard let user = userData else { return }
+        if user.firstTimeLogin {
+            print("First time logging in")
+            //Eventually move this to the viewcontroller file once the user has completed the on boarding experience
+            let firstTimeUserExperienceViewController = FirstTimeUserExperienceViewController(nibName: "FirstTimeUserExperienceViewControllerXib", bundle: nil)
+            show(firstTimeUserExperienceViewController, sender: nil)
+        } else {
+            print("User has logged in before")
+        }
+
+    }
+    private func loadUserJobs() {
+        self.showIndicator()
+        DatabaseService.shared.fetchUserJobs { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                self?.removeIndicator()
                 print("error fetching user jobs\(error.localizedDescription)")
             case .success(let userJobHistory):
                 DispatchQueue.main.async {
-                    self.userJobHistory = userJobHistory
+                    self?.removeIndicator()
+                    self?.userJobHistory = userJobHistory
                 }
             }
         }
@@ -86,7 +116,7 @@ extension JobHistoryController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userJobHistory.count
     }
-    
+        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "foldingCell", for: indexPath) as? JobHistoryExpandableCell else {
             fatalError("could not cast to jobHistoryBasicCell")
@@ -125,17 +155,20 @@ extension JobHistoryController: JobHistoryExpandableCellDelegate {
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
     private func deleteUserJob(userJob: UserJob) {
+        self.showIndicator()
         guard let index = userJobHistory.firstIndex(of: userJob) else {
             return }
         DispatchQueue.main.async {
             DatabaseService.shared.removeUserJob(userJobId: userJob.id) {
-                (result) in
+               [weak self] (result) in
                 switch result {
                 case .failure(let error):
-                    self.showAlert(title: "Failed to delete job", message: error.localizedDescription)
+                    self?.removeIndicator()
+                    self?.showAlert(title: "Failed to delete job", message: error.localizedDescription)
                 case .success:
-                    self.showAlert(title: "Success", message: "User job deleted")
-                    self.userJobHistory.remove(at: index)
+                    self?.removeIndicator()
+                    self?.showAlert(title: "Success", message: "User job deleted")
+                    self?.userJobHistory.remove(at: index)
                 }
             }
         }

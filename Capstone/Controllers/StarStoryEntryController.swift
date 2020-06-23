@@ -204,6 +204,7 @@ class StarStoryEntryController: UIViewController {
     }
     //MARK:- Save STAR Situation Function
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
+        self.showIndicator()
         guard let situationText = situationTextView.text else {
             showAlert(title: "Missing Field", message: "Please enter a situation to save")
             return
@@ -224,33 +225,37 @@ class StarStoryEntryController: UIViewController {
         let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: starSituationID, userJobID: nil, interviewQuestionsIDs: [""])
         //TODO: Activity Indicators
         if guidedEntryPreference.rawValue == GuidedStarSitutionInput.guided.rawValue {
-            DatabaseService.shared.addToStarSituations(starSituation: guidedStarSituation, completion: { (result) in
+            DatabaseService.shared.addToStarSituations(starSituation: guidedStarSituation, completion: { [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Error", message: error.localizedDescription)
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Error", message: error.localizedDescription)
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Star Story Saved!", message: "Success")
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Star Story Saved!", message: "Success")
                         
                     }
-                    self.navigationController?.popToRootViewController(animated: true)
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }
             })
         } else {
-            DatabaseService.shared.addToStarSituations(starSituation: freeFormStarSituation, completion: { (result) in
+            DatabaseService.shared.addToStarSituations(starSituation: freeFormStarSituation, completion: { [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Error", message: error.localizedDescription)
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Error", message: error.localizedDescription)
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Star Story Saved!", message: "Success")
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Star Story Saved!", message: "Success")
                         
                     }
-                    self.navigationController?.popToRootViewController(animated: true)
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }
             })
         }
