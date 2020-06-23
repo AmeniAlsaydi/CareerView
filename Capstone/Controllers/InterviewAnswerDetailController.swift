@@ -80,15 +80,15 @@ class InterviewAnswerDetailController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         guard let user = Auth.auth().currentUser else {return}
-            listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
-                if let error = error {
-                    print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
-                } else if let snapshot = snapshot {
-                    let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data()) }
-                    self?.answers = userAnswers.filter {$0.question == self?.question?.question}
-                    self?.getUserSTARS()
-                }
-            })
+        listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+            if let error = error {
+                print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
+            } else if let snapshot = snapshot {
+                let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data()) }
+                self?.answers = userAnswers.filter {$0.question == self?.question?.question}
+                self?.getUserSTARS()
+            }
+        })
     }
     
     override func viewDidLoad() {
@@ -150,18 +150,18 @@ class InterviewAnswerDetailController: UIViewController {
     //MARK:- Config NavBar & Nav Bar Button functions
     private func configureNavBar() {
         navigationItem.title = "Answer Question"
-        let suggestionButton = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
         let saveQuestionButton = UIBarButtonItem(image: AppButtonIcons.bookmarkIcon, style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
+        let suggestionButton = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
         navigationItem.rightBarButtonItems = [saveQuestionButton, suggestionButton]
     }
-    
     @objc private func suggestionButtonPressed(_ sender: UIBarButtonItem) {
-        let interviewQuestionSuggestionViewController = InterviewAnswerSuggestionViewController(nibName: "InterviewAnswerSuggestionXib", bundle: nil)
-        interviewQuestionSuggestionViewController.comingFromSTARSVC = false
-        interviewQuestionSuggestionViewController.interviewQuestion = question
-        present(interviewQuestionSuggestionViewController, animated: true)
+        let infoViewController = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
+        infoViewController.modalTransitionStyle = .crossDissolve
+        infoViewController.modalPresentationStyle = .overFullScreen
+        infoViewController.enterFrom = .interviewAnswer
+        infoViewController.interviewQuestion = question
+        present(infoViewController, animated: true)
     }
-    
     @objc private func addQuestionToSavedQuestionsButtonPressed(_ sender: UIBarButtonItem) {
         guard let question = question else {return}
         if isBookmarked {

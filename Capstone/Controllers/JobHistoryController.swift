@@ -65,14 +65,14 @@ class JobHistoryController: UIViewController {
         navigationItem.title = "Job History"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
         AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(displayInfoScreen(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(presentInfoVC(_:)))
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
         let jobEntryController = NewJobEntryController(nibName: "NewJobEntryXib", bundle: nil)
         jobEntryController.editingJob = false
         show(jobEntryController, sender: nil)
     }
-    @objc private func displayInfoScreen(_ sender: UIBarButtonItem) {
+    @objc private func presentInfoVC(_ sender: UIBarButtonItem) {
         let infoViewController = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
         infoViewController.modalTransitionStyle = .crossDissolve
         infoViewController.modalPresentationStyle = .overFullScreen
