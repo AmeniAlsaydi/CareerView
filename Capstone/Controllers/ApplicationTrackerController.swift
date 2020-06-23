@@ -93,8 +93,8 @@ class ApplicationTrackerController: UIViewController {
     
     @objc func displayInfoViewController(_ sender: UIBarButtonItem) {
         let infoVC = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
-//        infoVC.modalTransitionStyle = .crossDissolve
-//        infoVC.modalPresentationStyle = .overCurrentContext
+        infoVC.modalTransitionStyle = .crossDissolve
+        infoVC.modalPresentationStyle = .overCurrentContext
         
         present(infoVC, animated: true)
     }
