@@ -21,6 +21,14 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQr-56-tpe">
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fYk-Ek-ieh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aba-3y-IAS">
                     <rect key="frame" x="0.0" y="44" width="414" height="788"/>
                     <subviews>
@@ -47,7 +55,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="eOE-mc-4SJ" secondAttribute="bottom" constant="8" id="381-H8-zHZ"/>
                                 <constraint firstItem="7lF-if-x6v" firstAttribute="top" secondItem="1Sx-l7-Gfj" secondAttribute="top" constant="8" id="7E2-Ma-4gC"/>
@@ -61,6 +69,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="1Sx-l7-Gfj" firstAttribute="top" secondItem="qso-Um-aHD" secondAttribute="top" id="IpN-tQ-5C2"/>
                         <constraint firstItem="1Sx-l7-Gfj" firstAttribute="leading" secondItem="qso-Um-aHD" secondAttribute="leading" id="LQl-YT-gPl"/>
@@ -81,12 +90,16 @@
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="yQr-56-tpe" secondAttribute="bottom" id="BkG-Be-mTG"/>
                 <constraint firstItem="aba-3y-IAS" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Caa-1J-9Hm"/>
                 <constraint firstItem="XFN-3v-NQ8" firstAttribute="top" secondItem="aba-3y-IAS" secondAttribute="bottom" constant="8" id="I4G-TV-ofu"/>
                 <constraint firstItem="XFN-3v-NQ8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="IPq-Hp-YCe"/>
                 <constraint firstItem="aba-3y-IAS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Oyb-4t-2TC"/>
+                <constraint firstItem="yQr-56-tpe" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="XUT-96-h0B"/>
                 <constraint firstItem="aba-3y-IAS" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="dpU-CI-orF"/>
                 <constraint firstItem="XFN-3v-NQ8" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="8" id="fwy-Ir-CGO"/>
+                <constraint firstItem="yQr-56-tpe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="jTZ-3e-X6l"/>
+                <constraint firstItem="yQr-56-tpe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="nCG-If-RCB"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="137.68115942028987" y="150"/>

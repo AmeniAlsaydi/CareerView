@@ -27,12 +27,12 @@ class WelcomeScreenViewController: UIViewController {
         }
     }
 
+
     private func configureView() {
         logoImageView.layer.cornerRadius = AppRoundedViews.cornerRadius
         textView.font = AppFonts.secondaryFont
         welcomeLabel.font = AppFonts.primaryFont
         continueButton.tintColor = AppColors.primaryPurpleColor
-        continueButton.setTitle("Do not show this message again", for: .normal)
         loadWelcomeText()
     }
 
