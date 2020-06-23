@@ -31,7 +31,7 @@ class ProgressBar: UIView {
         
         let lineWidth = 0.10 * min(width, height)
         
-        backgroundLayer = createCircularLayer(strokeColor: UIColor.systemGroupedBackground.cgColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
+        backgroundLayer = createCircularLayer(strokeColor: AppColors.complimentaryBackgroundColor.cgColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
         
         // aka progress layer
         foregroundLayer = createCircularLayer(strokeColor: UIColor.purple.cgColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
@@ -90,7 +90,7 @@ class ProgressBar: UIView {
         let layer = CATextLayer()
         
         layer.string = "\(Int(progress * 100))"
-        layer.backgroundColor = UIColor.clear.cgColor
+        layer.backgroundColor = AppColors.complimentaryBackgroundColor.cgColor // UIColor.clear.cgColor
         layer.foregroundColor = textColor.cgColor
         layer.fontSize = fontSize
         layer.frame = CGRect(x: 0, y: (height - fontSize - offset) / 2, width: width, height: height)

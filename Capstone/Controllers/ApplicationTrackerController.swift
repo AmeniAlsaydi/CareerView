@@ -23,7 +23,7 @@ class ApplicationTrackerController: UIViewController {
         didSet {
             if jobApplications.count == 0 {
                  collectionView.contentInsetAdjustmentBehavior = .never
-                 collectionView.backgroundView = EmptyView(title: "No Applications yet", message: "Click on the add button on the top right and start keeping track of progress!", imageName: "square.and.pencil")
+                 collectionView.backgroundView = EmptyView(title: "No Applications yet", message: "Click on the add button on the top right and start keeping track of progress!", imageName: "chart.bar.fill")
             } else {
                 collectionView.backgroundView = nil
                 collectionView.contentInsetAdjustmentBehavior = .always
@@ -53,6 +53,7 @@ class ApplicationTrackerController: UIViewController {
         configureCollectionView()
         getApplications()
         configureNavBar()
+        collectionView.backgroundColor = AppColors.complimentaryBackgroundColor
     }
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
@@ -88,7 +89,17 @@ class ApplicationTrackerController: UIViewController {
     
     private func configureNavBar() {
         navigationItem.title = "Tracked Applications"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addJobApplicationButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(displayInfoViewController(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addJobApplicationButtonPressed(_:)))
+        
+    }
+    
+    @objc func displayInfoViewController(_ sender: UIBarButtonItem) {
+        let infoVC = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
+        infoVC.modalTransitionStyle = .crossDissolve
+        infoVC.modalPresentationStyle = .overFullScreen
+        
+        present(infoVC, animated: true)
     }
     
     

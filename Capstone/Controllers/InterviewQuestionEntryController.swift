@@ -8,18 +8,26 @@
 
 import UIKit
 
+protocol EditInterviewQuestionDelegate: AnyObject {
+    func didEditInterviewQuestion()
+}
+
 class InterviewQuestionEntryController: UIViewController {
     
     @IBOutlet weak var questionTextfield: UITextField!
     
     var editingMode = false
+    var wasEdited = false
     var customQuestion: InterviewQuestion?
     var createdQuestion: InterviewQuestion?
-
+    
+    weak var delegate: EditInterviewQuestionDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
         configureNavBar()
+        
     }
     
     private func updateUI() {
@@ -38,6 +46,7 @@ class InterviewQuestionEntryController: UIViewController {
     }
     
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        wasEdited = false
         dismiss(animated: true)
     }
     
@@ -56,10 +65,12 @@ class InterviewQuestionEntryController: UIViewController {
                         self?.showAlert(title: "Error", message: "Could not update \(questionText) at this time error: \(error.localizedDescription)")
                     }
                 case .success:
+                    self?.wasEdited = true
                     DispatchQueue.main.async {
                         self?.removeIndicator()
                         self?.showAlert(title: "Question Updated", message: "Question has now been updated with changes", completion: { (action) in
                             self?.dismiss(animated: true)
+                            self?.delegate?.didEditInterviewQuestion()
                         })
                     }
                 }

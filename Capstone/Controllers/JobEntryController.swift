@@ -47,6 +47,7 @@ class JobEntryController: UIViewController {
     @IBOutlet weak var responsibility2TextField: UITextField!
     @IBOutlet weak var responsibility3TextField: UITextField!
     
+    
     @IBOutlet weak var userContactsCollectionView: UICollectionView!
     
     //MARK:- Variables
@@ -127,7 +128,7 @@ class JobEntryController: UIViewController {
         if editingJob {
             navigationItem.title = "Edit Job"
         } else {
-            navigationItem.title = "Create new Job"
+            navigationItem.title = "Add a Job"
         }
         let rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed(_:)))
         navigationItem.rightBarButtonItem = rightBarButton

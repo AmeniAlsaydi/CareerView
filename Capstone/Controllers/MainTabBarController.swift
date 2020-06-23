@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, UIAdaptivePresentationControllerDelegate {
 
    
     private lazy var jobHistoryController: UINavigationController = {
@@ -52,10 +52,53 @@ class MainTabBarController: UITabBarController {
            return navController
     }()
     
+    private var userData: User?
+    
+    private var defaultIndex: Int = 0
+    private func loadDefaultLaunchScreen() {
+        let defaultLaunchScreen = UserPreference.shared.getDefaultLaunchScreen()
+        switch defaultLaunchScreen {
+        case .jobHistory:
+            defaultIndex = 0
+        case .starStories:
+            defaultIndex = 1
+        case .interviewQuestions:
+            defaultIndex = 2
+        case .applicationTracker:
+            defaultIndex = 3
+        default:
+            defaultIndex = 0
+        }
+    }
     override func viewDidLoad() {
            super.viewDidLoad()
+        
         self.tabBar.tintColor = AppColors.primaryBlackColor
            viewControllers = [jobHistoryController, starSituationController, interviewQuestionsController, applicationTrackerController, settingsController]
+        loadDefaultLaunchScreen()
+        selectedIndex = defaultIndex
+        getUserData()
+    }
+    private func getUserData() {
+           DatabaseService.shared.fetchUserData { [weak self] (result) in
+               switch result {
+               case .failure(let error):
+                   DispatchQueue.main.async {
+                       print("Error fetching user Data: \(error.localizedDescription)")
+                   }
+               case .success(let userData):
+                   DispatchQueue.main.async {
+                       self?.userData = userData
+                       self?.checkFirstTimeLogin()
+                   }
+               }
+           }
        }
-       
+    private func checkFirstTimeLogin() {
+        guard let user = userData else { return }
+        if user.firstTimeLogin {
+            let welcomeScreenViewController = WelcomeScreenViewController(nibName: "WelcomeScreenXib", bundle: nil)
+            present(welcomeScreenViewController, animated: true, completion: nil)
+        }
+    }
 }

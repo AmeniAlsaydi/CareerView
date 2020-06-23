@@ -13,9 +13,8 @@ protocol StarStoryMainControllerDelegate {
 }
 
 class StarStoryMainController: UIViewController {
-    
-    
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     public var filterByJob = false
     public var userJob: UserJob?
@@ -33,7 +32,12 @@ class StarStoryMainController: UIViewController {
                 starSituations = starSituations.filter { starSituationID.contains($0.id) }
             }
             collectionView.reloadData()
-            navigationItem.title = "STAR Stories: \(starSituations.count)"
+            if starSituations.isEmpty {
+                collectionView.backgroundView = EmptyView.init(title: "Enter Your STAR Stories", message: "Add a STAR Story to your collection by pressing the plus button above", imageName: "star.fill")
+            } else {
+                collectionView.reloadData()
+                collectionView.backgroundView = nil
+            }
         }
     }
     
@@ -42,6 +46,7 @@ class StarStoryMainController: UIViewController {
     //MARK:- ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureCollectionView()
         configureView()
         loadStarSituations()
     }
@@ -49,13 +54,19 @@ class StarStoryMainController: UIViewController {
         loadStarSituations()
     }
     //MARK:- Private funcs
-    private func configureView() {
+    private func configureCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
-        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         collectionView.backgroundColor = AppColors.complimentaryBackgroundColor
+        
+        if let flowLayout = flowLayout,
+            let collectionView = collectionView {
+            let w = collectionView.frame.width - 20
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+        }
+    }
+    private func configureView() {
         if isAddingToAnswer {
             navigationItem.title = "Add a STAR Story to your answer"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.checkmarkIcon, style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
@@ -65,9 +76,10 @@ class StarStoryMainController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.checkmarkIcon, style: .plain, target: self, action: #selector(addStarStoriesToUserJob(_:)))
             navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.xmarkIcon, style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
         } else {
-            navigationItem.title = "STAR Stories: \(starSituations.count)"
+            navigationItem.title = "STAR Stories"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
             navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(segueToSTARStoryInfoVC(_:)))
+            AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
         }
     }
     
@@ -84,7 +96,6 @@ class StarStoryMainController: UIViewController {
                 DispatchQueue.main.async {
                     self?.removeIndicator()
                     self?.starSituations = starSituationsData
-                    self?.navigationItem.title = "STAR Stories: \(self?.starSituations.count ?? 0)"
                 }
             }
         }
@@ -96,9 +107,6 @@ class StarStoryMainController: UIViewController {
     }
     @objc private func segueToAddStarStoryViewController(_ sender: UIBarButtonItem) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
-        let backItem = UIBarButtonItem()
-        backItem.title = "Back"
-        navigationItem.backBarButtonItem = backItem
         show(destinationViewController, sender: nil)
     }
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -109,7 +117,7 @@ class StarStoryMainController: UIViewController {
         delegate?.starStoryMainViewControllerDismissed(starSituations: starSituationsToSendBack)
         dismiss(animated: true)
     }
-
+    
     @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
         
         self.showIndicator()
@@ -130,7 +138,7 @@ class StarStoryMainController: UIViewController {
                             self?.removeIndicator()
                             self?.dismiss(animated: true)
                         }
-                       
+                        
                     }
                 }
             } else {
@@ -167,30 +175,37 @@ extension StarStoryMainController: UICollectionViewDataSource {
         let starSituation = starSituations[indexPath.row]
         
         cell.configureCell(starSituation: starSituation)
-      
+        
         if starSituationIDs.contains(starSituation.id) {
             cell.starSituationIsSelected = true
-            cell.backgroundColor = .red
+            cell.backgroundColor = AppColors.primaryPurpleColor
+            cell.situationLabel.textColor = AppColors.whiteTextColor
+            cell.layer.borderWidth = 2
+            cell.layer.borderColor = AppColors.whiteTextColor.cgColor
         }
-
+        
         if isAddingToAnswer || isAddingToUserJob {
             cell.editButton.isHidden = true
         } else {
             cell.editButton.isHidden = false
         }
-        
         cell.delegate = self
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let starStory = starSituations[indexPath.row]
+        guard let cell = collectionView.cellForItem(at: indexPath) as? StarSituationCell else {
+            fatalError("could not cast to StarSituationCell")
+        }
+        
         if isAddingToUserJob {
-            let starStory = starSituations[indexPath.row]
-            guard let cell = collectionView.cellForItem(at: indexPath) as? StarSituationCell else { return }
-            
             cell.starSituationIsSelected.toggle()
             
             if cell.starSituationIsSelected {
-                cell.backgroundColor = .red //TODO: refactor! Make a button with a checkmark image to show the cell was selected
+                cell.backgroundColor = AppColors.primaryPurpleColor
+                cell.situationLabel.textColor = AppColors.whiteTextColor
+                cell.layer.borderWidth = 2
+                cell.layer.borderColor = AppColors.whiteTextColor.cgColor
                 starSituationIDs.append(starStory.id)
             } else if cell.starSituationIsSelected == false {
                 guard let indexPathForStarStorySelected = starSituationIDs.firstIndex(where: {$0 == starStory.id }) else {
@@ -201,11 +216,13 @@ extension StarStoryMainController: UICollectionViewDataSource {
             }
             
         } else if isAddingToAnswer {
-            let starStory = starSituations[indexPath.row]
-            guard let cell = collectionView.cellForItem(at: indexPath) as? StarSituationCell else { return }
+            
             cell.starSituationIsSelected.toggle()
             if cell.starSituationIsSelected {
-            cell.backgroundColor = .red
+                cell.backgroundColor = AppColors.primaryPurpleColor
+                cell.situationLabel.textColor = AppColors.whiteTextColor
+                cell.layer.borderWidth = 2
+                cell.layer.borderColor = AppColors.whiteTextColor.cgColor
             } else {
                 cell.backgroundColor = AppColors.systemBackgroundColor
             }
@@ -214,6 +231,7 @@ extension StarStoryMainController: UICollectionViewDataSource {
     }
     
 }
+
 extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxWidth = view.frame.width
@@ -230,7 +248,7 @@ extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
 extension StarStoryMainController: StarSituationCellDelegate {
     
     func editStarSituationPressed(starSituation: StarSituation, starSituationCell: StarSituationCell) {
-
+        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell) }
@@ -245,14 +263,11 @@ extension StarStoryMainController: StarSituationCellDelegate {
     
     private func editStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
-        let backItem = UIBarButtonItem()
-        backItem.title = "Back"
-        navigationItem.backBarButtonItem = backItem
         destinationViewController.starSituation = starSituation
         destinationViewController.isEditingStarSituation = true
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
-
+    
     private func deleteStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
         self.showIndicator()
         guard let index = starSituations.firstIndex(of: starSituation) else { return }

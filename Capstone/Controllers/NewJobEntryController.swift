@@ -26,6 +26,8 @@ class NewJobEntryController: UIViewController {
     @IBOutlet weak var responsibility1TextField: FloatingLabelInput!
     @IBOutlet weak var responsibility2TextField: FloatingLabelInput!
     @IBOutlet weak var responsibility3TextField: FloatingLabelInput!
+    @IBOutlet weak var addAnotherJobLabel: UILabel!
+    @IBOutlet weak var promptLabel: UILabel!
     
     lazy var textFields: [FloatingLabelInput] = [positionTitleTextField, companyNameTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
     private var currentTextFieldIndex = 0
@@ -177,6 +179,10 @@ class NewJobEntryController: UIViewController {
     private func loadUserJob() {
         
         if editingJob {
+            
+            addAnotherJobLabel.text = "Edit Job"
+            promptLabel.text = "Edit and update changes to this job below"
+            
             guard let job = userJob else { return }
             positionTitleTextField.text = job.title
             companyNameTextField.text = job.companyName

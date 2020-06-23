@@ -12,14 +12,19 @@ class JobHistoryController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private var userData: User?
-    
     private var displayContactCollectionView = false
     
     var userJobHistory = [UserJob]() {
         didSet {
-            self.tableView.reloadData()
-            self.setup()
+            tableView.reloadData()
+            setup()
+            if userJobHistory.isEmpty {
+                tableView.backgroundView = EmptyView.init(title: "Enter Your Job History", message: "Add any previous or current job history by pressing the plus button above", imageName: "rectangle.grid.1x2.fill")
+                tableView.separatorStyle = .none
+            } else {
+                tableView.reloadData()
+                tableView.backgroundView = nil
+            }
         }
     }
     
@@ -34,20 +39,17 @@ class JobHistoryController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureNavBar()
-        
+        view.backgroundColor = AppColors.complimentaryBackgroundColor
         getUserData()
         checkFirstTimeLogin()
-        
         loadUserJobs()
         setup()
-        
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         loadUserJobs()
-//        tableView.reloadData()
     }
     private func configureTableView() {
+        tableView.backgroundColor = AppColors.complimentaryBackgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "UserJobFoldingCellXib", bundle: nil), forCellReuseIdentifier: "foldingCell")
@@ -56,22 +58,16 @@ class JobHistoryController: UIViewController {
     private func setup() {
         cellHeights = Array(repeating: Const.closeCellHeight, count: userJobHistory.count)
     }
-    
     private func configureNavBar() {
-
-        navigationItem.title = "CareerView"
-
+        navigationItem.title = "Job History"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
+        AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
-//        let jobEntryController = JobEntryController(nibName: "JobEntryXib", bundle: nil)
-//        show(jobEntryController, sender: nil)
-        
         let jobEntryController = NewJobEntryController(nibName: "NewJobEntryXib", bundle: nil)
+        jobEntryController.editingJob = false
         show(jobEntryController, sender: nil)
-        
     }
-
     private func getUserData() {
         DatabaseService.shared.fetchUserData { [weak self] (result) in
             switch result {
@@ -97,8 +93,8 @@ class JobHistoryController: UIViewController {
         } else {
             print("User has logged in before")
         }
+
     }
-    //TODO:- Add database function to grab user jobs data from firebase
     private func loadUserJobs() {
         self.showIndicator()
         DatabaseService.shared.fetchUserJobs { [weak self] (result) in
@@ -118,12 +114,10 @@ class JobHistoryController: UIViewController {
 
 extension JobHistoryController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO:- add data count
         return userJobHistory.count
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //TODO:- Update this function to take in foldable cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "foldingCell", for: indexPath) as? JobHistoryExpandableCell else {
             fatalError("could not cast to jobHistoryBasicCell")
         }
@@ -154,10 +148,10 @@ extension JobHistoryController: JobHistoryExpandableCellDelegate {
         present(alertController, animated: true, completion: nil)
     }
     private func editUserJob(userJob: UserJob) {
-        
         let destinationViewController = NewJobEntryController(nibName: "NewJobEntryXib", bundle: nil)
         destinationViewController.userJob = userJob
         destinationViewController.editingJob = true
+        AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
     private func deleteUserJob(userJob: UserJob) {

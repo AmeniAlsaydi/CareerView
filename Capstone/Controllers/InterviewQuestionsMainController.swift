@@ -20,6 +20,7 @@ enum FilterState {
 class InterviewQuestionsMainController: UIViewController {
     
     @IBOutlet weak var questionsCollectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var filterButtonsStack: UIStackView!
     @IBOutlet weak var allButton: UIButton!
@@ -46,7 +47,6 @@ class InterviewQuestionsMainController: UIViewController {
     public var filterState: FilterState = .all {
         didSet {
             questionsCollectionView.reloadData()
-            print("filter state changed")
             allQuestions = Array(allQuestions).removingDuplicates()
         }
     }
@@ -59,14 +59,17 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     
-    private var customQuestions = [InterviewQuestion]()
+    private var customQuestions = [InterviewQuestion]() {
+        didSet {
+            questionsCollectionView.reloadData()
+        }
+    }
     
     private var allQuestions = [InterviewQuestion]() {
         didSet {
                 allQuestions = Array(allQuestions).removingDuplicates()
                 questionsCollectionView.reloadData()
                 questionsCollectionView.backgroundView = nil
-                print(allQuestions.count)
         }
     }
     
@@ -92,9 +95,20 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchBar.delegate = self
+        updateUI()
+        configureCollectionView()
+        configureNavBar()
+
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
+        getInterviewQuestions()
+        getBookmarkedQuestions()
         guard let user = Auth.auth().currentUser else {return}
         listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
             if let error = error {
@@ -108,18 +122,8 @@ class InterviewQuestionsMainController: UIViewController {
             }
         })
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchBar.delegate = self
-        updateUI()
-        configureCollectionView()
-        configureNavBar()
-        getInterviewQuestions()
-        getBookmarkedQuestions()
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
+        allQuestions.removeAll()
         listener?.remove()
     }
     
@@ -178,6 +182,11 @@ class InterviewQuestionsMainController: UIViewController {
         questionsCollectionView.delegate = self
         questionsCollectionView.dataSource = self
         questionsCollectionView.register(UINib(nibName: "InterviewQuestionCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewQuestionCell")
+        if let flowLayout = flowLayout,
+            let collectionView = questionsCollectionView {
+            let w = collectionView.frame.width - 20
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+        }
     }
     
     //MARK:- Get Data
@@ -278,7 +287,6 @@ class InterviewQuestionsMainController: UIViewController {
         commonButton.backgroundColor = AppColors.secondaryPurpleColor
         customButton.tintColor = AppColors.whiteTextColor
         customButton.backgroundColor = AppColors.primaryPurpleColor
-        print("custom pressed")
         filterState = .custom
         getUserCreatedQuestions()
     }
@@ -299,10 +307,8 @@ class InterviewQuestionsMainController: UIViewController {
         if filterState == .bookmarked {
             questionsCollectionView.reloadData()
             if bookmarkedQuestions.isEmpty {
-                print("bookmarks empty")
-                questionsCollectionView.backgroundView = EmptyView.init(title: "No Bookmarks", message: "Add to your bookmarks collection by selecting a question and pressing the bookmark button", imageName: "bookmark")
+                questionsCollectionView.backgroundView = EmptyView.init(title: "You Have No Bookmarks", message: "Add to your bookmarks collection by selecting an interview question and pressing the bookmark button", imageName: "bookmark")
             } else {
-                print("bookmarks NOT empty")
                 questionsCollectionView.reloadData()
                 questionsCollectionView.backgroundView = nil
             }
@@ -441,7 +447,12 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
             interviewQuestionEntryVC.editingMode = true
             interviewQuestionEntryVC.customQuestion = customQuestion
+            interviewQuestionEntryVC.delegate = self
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
+            // Note: I don't think this block is getting hit
+//            if interviewQuestionEntryVC.wasEdited {
+//                self?.allQuestions.remove(at: indexPath.row)
+//            }
         }
         let delete = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
             DatabaseService.shared.deleteCustomQuestion(customQuestion: customQuestion!) { [weak self] (result) in
@@ -475,5 +486,13 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
         optionsMenu.addAction(delete)
         optionsMenu.addAction(cancel)
         present(optionsMenu, animated: true, completion: nil)
+    }
+}
+extension InterviewQuestionsMainController: EditInterviewQuestionDelegate {
+    func didEditInterviewQuestion() {
+        allQuestions.removeAll()
+        getUserCreatedQuestions()
+        getInterviewQuestions()
+        questionsCollectionView.reloadData()
     }
 }
