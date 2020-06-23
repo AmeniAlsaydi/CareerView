@@ -43,8 +43,8 @@ class InterviewAnswerSuggestionViewController: UIViewController {
     }
     public func configureLabels(for question: InterviewQuestion? = nil) {
         if comingFromSTARSVC {
-            promptLabel.text = "Understand the STAR method"
-            suggestionLabel.text = "The STAR method allows you to respond to interview questions with real examples to prove to the interviewer that you possess the right skills and experience for the job. STAR stands for:\nSituation - describe a time when...\n\nTask - what task did you need to perfrom for the best outcome in the situation\n\nAction - what actions did you take?\n\nResult - describe the results of the actions you took. It is important to focus on STAR stories that ended with positive results."
+            promptLabel.text = "The STAR method"
+            suggestionLabel.text = "The STAR method allows you to respond to interview questions with real examples to prove to the interviewer that you possess the right skills and experience for the job. STAR stands for:\n\nSituation - describe a specific moment from a previous job that resulted in a postive outcome.\nTask - what task did you need to perform for the best outcome in the situation?\nAction - what actions did you take?\nResult - describe the results of the actions you took. It is important to focus on STAR stories that ended with positive results."
             answeringMethodsLabel.text = "Add a STAR Story by pressing on the plus icon on the previous screen. \nYou can attach STAR Stories to your logged jobs and interview questions"
         } else {
             suggestionLabel.text = question?.suggestion

@@ -13,6 +13,7 @@ class InterviewQuestionEntryController: UIViewController {
     @IBOutlet weak var questionTextfield: UITextField!
     
     var editingMode = false
+    var wasEdited = false
     var customQuestion: InterviewQuestion?
     var createdQuestion: InterviewQuestion?
 
@@ -38,6 +39,7 @@ class InterviewQuestionEntryController: UIViewController {
     }
     
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        wasEdited = false
         dismiss(animated: true)
     }
     
@@ -54,6 +56,7 @@ class InterviewQuestionEntryController: UIViewController {
                         self?.showAlert(title: "Error", message: "Could not update \(questionText) at this time error: \(error.localizedDescription)")
                     }
                 case .success:
+                    self?.wasEdited = true
                     DispatchQueue.main.async {
                         self?.showAlert(title: "Question Updated", message: "Question has now been updated with changes", completion: { (action) in
                             self?.dismiss(animated: true)
@@ -77,7 +80,6 @@ class InterviewQuestionEntryController: UIViewController {
                         self?.showAlert(title: "Error", message: "Could not create your custom question at this time error: \(error.localizedDescription)")
                     }
                 case .success:
-                    
                     DispatchQueue.main.async {
                         self?.showAlert(title: "Question Added", message: "You can now add an answer and/or attach a STAR Story to the question", completion: { (action) in
                             self?.dismiss(animated: true)

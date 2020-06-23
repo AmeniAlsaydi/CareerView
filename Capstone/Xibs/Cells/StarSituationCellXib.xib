@@ -17,41 +17,46 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fNr-nQ-gFq">
-                        <rect key="frame" x="0.0" y="0.0" width="891" height="25"/>
+                        <rect key="frame" x="0.0" y="0.0" width="891" height="44"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-AP-Qwq">
+                                <rect key="frame" x="839" y="0.0" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6PP-Xn-waH"/>
+                                    <constraint firstAttribute="width" constant="44" id="b0R-lc-1e7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="ellipsis.circle" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="light"/>
+                                </state>
+                                <connections>
+                                    <action selector="contextButtonPressed:" destination="taH-0Q-BiL" eventType="touchUpInside" id="65l-2Y-j8d"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-AP-Qwq">
-                        <rect key="frame" x="839" y="25" width="44" height="44"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="44" id="1Tn-PF-FM6"/>
-                            <constraint firstAttribute="height" constant="44" id="pfj-JB-nNG"/>
+                            <constraint firstItem="vq9-AP-Qwq" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="top" id="G4r-rz-Y27"/>
+                            <constraint firstAttribute="height" secondItem="vq9-AP-Qwq" secondAttribute="height" id="f6y-Ge-c2C"/>
+                            <constraint firstAttribute="trailing" secondItem="vq9-AP-Qwq" secondAttribute="trailing" constant="8" id="kb0-Qn-HfQ"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <state key="normal" image="ellipsis.circle" catalog="system">
-                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28" scale="medium" weight="light"/>
-                        </state>
-                        <connections>
-                            <action selector="contextButtonPressed:" destination="taH-0Q-BiL" eventType="touchUpInside" id="65l-2Y-j8d"/>
-                        </connections>
-                    </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Situation" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-Rh-tp3">
-                        <rect key="frame" x="10" y="35" width="871" height="20.5"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Situation" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-Rh-tp3">
+                        <rect key="frame" x="10" y="54" width="871" height="435"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="T6V-Rh-tp3" secondAttribute="trailing" constant="10" id="20M-yE-XpW"/>
+                    <constraint firstAttribute="bottom" secondItem="T6V-Rh-tp3" secondAttribute="bottom" constant="8" id="624-Yz-Pks"/>
                     <constraint firstItem="fNr-nQ-gFq" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" id="C1N-01-BNg"/>
-                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="10" id="GSb-jx-LUm"/>
-                    <constraint firstItem="vq9-AP-Qwq" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" id="Pp6-sY-po5"/>
-                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="10" id="VnJ-b3-jOI"/>
-                    <constraint firstAttribute="trailing" secondItem="vq9-AP-Qwq" secondAttribute="trailing" constant="8" id="j7N-aK-lwq"/>
-                    <constraint firstItem="fNr-nQ-gFq" firstAttribute="height" secondItem="wbv-Hu-H1f" secondAttribute="height" multiplier="0.05" id="pyb-tE-gdH"/>
+                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="10" id="nXl-f2-0Hf"/>
                     <constraint firstAttribute="trailing" secondItem="fNr-nQ-gFq" secondAttribute="trailing" id="rR8-uJ-ZMY"/>
-                    <constraint firstAttribute="trailing" secondItem="T6V-Rh-tp3" secondAttribute="trailing" constant="10" id="vKa-aO-oRj"/>
                     <constraint firstItem="fNr-nQ-gFq" firstAttribute="top" secondItem="wbv-Hu-H1f" secondAttribute="top" id="y7E-qi-Vjg"/>
+                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="10" id="zax-F3-uAT"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="891" height="497"/>

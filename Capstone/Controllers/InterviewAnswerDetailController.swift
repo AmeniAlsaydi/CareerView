@@ -105,7 +105,7 @@ class InterviewAnswerDetailController: UIViewController {
     }
     //MARK:- UI
     private func appFonts() {
-        questionLabel.font = AppFonts.boldFont
+        questionLabel.font = AppFonts.semiBoldLarge
         promptLabel.font = AppFonts.secondaryFont
         answersLabel.font = AppFonts.secondaryFont
         starstoriesLabel.font = AppFonts.secondaryFont

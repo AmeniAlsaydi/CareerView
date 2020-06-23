@@ -20,6 +20,7 @@ enum FilterState {
 class InterviewQuestionsMainController: UIViewController {
     
     @IBOutlet weak var questionsCollectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var filterButtonsStack: UIStackView!
     @IBOutlet weak var allButton: UIButton!
@@ -177,6 +178,11 @@ class InterviewQuestionsMainController: UIViewController {
         questionsCollectionView.delegate = self
         questionsCollectionView.dataSource = self
         questionsCollectionView.register(UINib(nibName: "InterviewQuestionCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewQuestionCell")
+        if let flowLayout = flowLayout,
+            let collectionView = questionsCollectionView {
+            let w = collectionView.frame.width - 20
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+        }
     }
     
     //MARK:- Get Data
@@ -436,6 +442,9 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             interviewQuestionEntryVC.editingMode = true
             interviewQuestionEntryVC.customQuestion = customQuestion
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
+            if interviewQuestionEntryVC.wasEdited {
+                self?.allQuestions.remove(at: indexPath.row)
+            }
         }
         let delete = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
             DatabaseService.shared.deleteCustomQuestion(customQuestion: customQuestion!) { [weak self] (result) in
