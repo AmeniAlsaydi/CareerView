@@ -64,12 +64,14 @@ class ApplicationDetailController: UIViewController {
     }
     
     public func getInterview(application: JobApplication) {
+        self.showIndicator()
         DatabaseService.shared.getApplicationInterview(applicationID: application.id) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print("couldnt get any interviews \(error.localizedDescription)")
             case .success(let interviews):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.interviewCount = interviews.count
                     self?.interviewData = interviews
                     self?.updateInterview()
@@ -136,6 +138,8 @@ class ApplicationDetailController: UIViewController {
     }
     
     private func loadMapAnnotations()  {
+        self.showIndicator()
+        
         let annotation = MKPointAnnotation()
         annotation.title = jobApplication.companyName
         
@@ -147,6 +151,7 @@ class ApplicationDetailController: UIViewController {
                 annotation.coordinate = cityCoordinate
                 self?.mapView.addAnnotation(annotation)
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                      self?.mapView.showAnnotations([annotation], animated: true)
                 }
             }

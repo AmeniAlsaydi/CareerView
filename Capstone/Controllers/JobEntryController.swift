@@ -238,6 +238,8 @@ class JobEntryController: UIViewController {
     //MARK: Save userJob
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
         
+        self.showIndicator()
+        
         populateUserJobResponsibilities()
         
         // Handling dates
@@ -271,16 +273,19 @@ class JobEntryController: UIViewController {
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.showAlert(title: "Failed to save job", message: error.localizedDescription)
                 }
             case .success:
                 // show alert plus pop VC
                 DispatchQueue.main.async {
                     if self?.editingJob ?? false {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Job Updated!", message: "Success!")  { (alert) in
                             self?.navigationController?.popToRootViewController(animated: true)
                         }
                     } else {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Job Saved", message: "Success!")  { (alert) in
                             self?.navigationController?.popToRootViewController(animated: true)
                         }
@@ -296,9 +301,11 @@ class JobEntryController: UIViewController {
                     switch results {
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Error saving contact", message: error.localizedDescription)
                         }
                     case .success:
+                        self?.removeIndicator()
                         break
                     }
                 })

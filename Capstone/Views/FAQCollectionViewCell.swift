@@ -40,31 +40,31 @@ class FAQCollectionViewCell: UICollectionViewCell {
                 }
             case userInfo where userInfo?.rawValue == UserInfo.userInfoSection.jobApplicationCount.rawValue:
                 titleLabel.text = userInfo?.rawValue
-                DatabaseService.shared.fetchApplications { (result) in
+                DatabaseService.shared.fetchApplications { [weak self](result) in
                     switch result {
                     case .failure(let error):
                         print("error getting applications: \(error)")
                     case .success(let jobApplications):
                         DispatchQueue.main.async {
-                            self.answerLabel.text = String(jobApplications.count)
+                            self?.answerLabel.text = String(jobApplications.count)
                         }
                     }
                 }
             case userInfo where userInfo?.rawValue == UserInfo.userInfoSection.jobHistoryCount.rawValue:
                 titleLabel.text = userInfo?.rawValue
-                DatabaseService.shared.fetchUserJobs { (result) in
+                DatabaseService.shared.fetchUserJobs { [weak self] (result) in
                     switch result {
                     case .failure(let error):
                         print("error fetching user jobs\(error.localizedDescription)")
                     case .success(let userJobHistory):
                         DispatchQueue.main.async {
-                            self.answerLabel.text = String(userJobHistory.count)
+                            self?.answerLabel.text = String(userJobHistory.count)
                         }
                     }
                 }
             case userInfo where userInfo?.rawValue == UserInfo.userInfoSection.starStoryCount.rawValue:
                 titleLabel.text = userInfo?.rawValue
-                DatabaseService.shared.fetchStarSituations { (results) in
+                DatabaseService.shared.fetchStarSituations { [weak self] (results) in
                     switch results {
                     case .failure(let error):
                         DispatchQueue.main.async {
@@ -72,7 +72,7 @@ class FAQCollectionViewCell: UICollectionViewCell {
                         }
                     case .success(let starSituationsData):
                         DispatchQueue.main.async {
-                            self.answerLabel.text = String(starSituationsData.count)
+                            self?.answerLabel.text = String(starSituationsData.count)
                         }
                     }
                 }

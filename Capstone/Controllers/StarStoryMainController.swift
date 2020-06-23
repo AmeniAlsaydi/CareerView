@@ -38,7 +38,7 @@ class StarStoryMainController: UIViewController {
     }
     
     var delegate: StarStoryMainControllerDelegate?
-    
+        
     //MARK:- ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,14 +72,17 @@ class StarStoryMainController: UIViewController {
     }
     
     private func loadStarSituations() {
+        self.showIndicator()
         DatabaseService.shared.fetchStarSituations { [weak self] (results) in
             switch results {
             case .failure(let error):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.showAlert(title: "Failed to load STAR Situations", message: error.localizedDescription)
                 }
             case .success(let starSituationsData):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.starSituations = starSituationsData
                     self?.navigationItem.title = "STAR Stories: \(self?.starSituations.count ?? 0)"
                 }
@@ -108,6 +111,8 @@ class StarStoryMainController: UIViewController {
     }
 
     @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
+        
+        self.showIndicator()
         //When a user selects a star story, save it to db function
         if selectedSTARStory == nil {
             sender.isEnabled = false
@@ -117,10 +122,12 @@ class StarStoryMainController: UIViewController {
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Error", message: "Could not add STAR Story at this time error: \(error.localizedDescription)")
                         }
                     case .success:
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.dismiss(animated: true)
                         }
                        
@@ -132,10 +139,12 @@ class StarStoryMainController: UIViewController {
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Error", message: "Unable to create a new answer error: \(error.localizedDescription)")
                         }
                     case .success:
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.dismiss(animated: true)
                         }
                     }
@@ -156,7 +165,7 @@ extension StarStoryMainController: UICollectionViewDataSource {
             fatalError("Failed to dequeue starSituationCell")
         }
         let starSituation = starSituations[indexPath.row]
-
+        
         cell.configureCell(starSituation: starSituation)
       
         if starSituationIDs.contains(starSituation.id) {
@@ -245,15 +254,18 @@ extension StarStoryMainController: StarSituationCellDelegate {
     }
 
     private func deleteStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        self.showIndicator()
         guard let index = starSituations.firstIndex(of: starSituation) else { return }
         DispatchQueue.main.async {
-            DatabaseService.shared.removeStarSituation(situation: starSituation) { (result) in
+            DatabaseService.shared.removeStarSituation(situation: starSituation) { [weak self](result) in
                 switch result {
                 case .failure(let error):
-                    self.showAlert(title: "Failed to delete STAR Situation", message: error.localizedDescription)
+                    self?.removeIndicator()
+                    self?.showAlert(title: "Failed to delete STAR Situation", message: error.localizedDescription)
                 case .success:
-                    self.showAlert(title: "Success", message: "STAR Situation deleted")
-                    self.starSituations.remove(at: index)
+                    self?.removeIndicator()
+                    self?.showAlert(title: "Success", message: "STAR Situation deleted")
+                    self?.starSituations.remove(at: index)
                 }
             }
         }
