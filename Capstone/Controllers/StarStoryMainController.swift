@@ -47,7 +47,7 @@ class StarStoryMainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        configureView()
+        configureNavBar()
         loadStarSituations()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -66,7 +66,7 @@ class StarStoryMainController: UIViewController {
             flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
         }
     }
-    private func configureView() {
+    private func configureNavBar() {
         if isAddingToAnswer {
             navigationItem.title = "Add a STAR Story to your answer"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.checkmarkIcon, style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
@@ -116,7 +116,6 @@ class StarStoryMainController: UIViewController {
     }
     
     @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
-        //When a user selects a star story, save it to db function
         if selectedSTARStory == nil {
             sender.isEnabled = false
         } else {
