@@ -21,7 +21,7 @@ class JobHistoryController: UIViewController {
             tableView.reloadData()
             setup()
             if userJobHistory.isEmpty {
-                tableView.backgroundView = EmptyView.init(title: "No Job History", message: "Add any previous or current job history by pressing the plus button above", imageName: "rectangle.grid.1x2.fill")
+                tableView.backgroundView = EmptyView.init(title: "Enter Your Job History", message: "Add any previous or current job history by pressing the plus button above", imageName: "rectangle.grid.1x2.fill")
                 tableView.separatorStyle = .none
             } else {
                 tableView.reloadData()

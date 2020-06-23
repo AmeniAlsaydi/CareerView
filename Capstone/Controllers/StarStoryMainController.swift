@@ -33,7 +33,7 @@ class StarStoryMainController: UIViewController {
             }
             collectionView.reloadData()
             if starSituations.isEmpty {
-                collectionView.backgroundView = EmptyView.init(title: "No STAR Stories", message: "Enter a STAR story by pressing the plus button above", imageName: "star.fill")
+                collectionView.backgroundView = EmptyView.init(title: "Enter Your STAR Stories", message: "Add a STAR Story to your collection by pressing the plus button above", imageName: "star.fill")
             } else {
                 collectionView.reloadData()
                 collectionView.backgroundView = nil

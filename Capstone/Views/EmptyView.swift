@@ -74,8 +74,8 @@ class EmptyView: UIView {
         msgLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             msgLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            msgLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            msgLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            msgLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            msgLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
     }
 }
