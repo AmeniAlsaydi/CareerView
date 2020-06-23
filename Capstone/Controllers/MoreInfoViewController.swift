@@ -25,6 +25,7 @@ class MoreInfoViewController: UIViewController {
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var infoIconImageView: UIImageView!
     
     var enterFrom: EnterFromViewController = .jobHistory
     var interviewQuestion: InterviewQuestion?
@@ -46,6 +47,7 @@ class MoreInfoViewController: UIViewController {
         
         contentView.backgroundColor = AppColors.systemBackgroundColor
         scrollView.backgroundColor = AppColors.systemBackgroundColor
+        infoIconImageView.tintColor = AppColors.primaryPurpleColor
     }
     
     private func setUpAppFonts() {
@@ -60,7 +62,7 @@ class MoreInfoViewController: UIViewController {
         signatureLabel.textColor = AppColors.primaryBlackColor
         
         dismissButton.setImage(AppButtonIcons.xmarkIcon, for: .normal)
-        dismissButton.tintColor = AppColors.darkGrayHighlightColor
+        dismissButton.tintColor = AppColors.secondaryPurpleColor
     }
     
     private func applicationInfoUI() {
