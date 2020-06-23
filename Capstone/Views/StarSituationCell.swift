@@ -48,16 +48,16 @@ class StarSituationCell: UICollectionViewCell {
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
         
         //TODO: refactor
-        guard let task = starSituation.task, let action = starSituation.action, let result = starSituation.result else {
+        if starSituation.task == nil || starSituation.action == nil || starSituation.result == nil {
             situationLabel.text = starSituation.situation
-            return
+        } else {
+            situationLabel.text = """
+            Situation: \(starSituation.situation)
+            Task: \(starSituation.task ?? "")
+            Action: \(starSituation.action ?? "")
+            Result: \(starSituation.result ?? "")
+            """
         }
-        situationLabel.text = """
-        Situation: \(starSituation.situation)
-        Task: \(task)
-        Action: \(action)
-        Result: \(result)
-        """
         starSituationForDelegate = starSituation
     }
     @objc private func contextButtonPressed(_ sender: UIButton) {
