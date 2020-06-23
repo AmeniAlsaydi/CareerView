@@ -41,7 +41,7 @@ class JobHistoryController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureNavBar()
-        
+        view.backgroundColor = AppColors.complimentaryBackgroundColor
         getUserData()
         checkFirstTimeLogin()
         
@@ -52,6 +52,7 @@ class JobHistoryController: UIViewController {
         loadUserJobs()
     }
     private func configureTableView() {
+        tableView.backgroundColor = AppColors.complimentaryBackgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "UserJobFoldingCellXib", bundle: nil), forCellReuseIdentifier: "foldingCell")
