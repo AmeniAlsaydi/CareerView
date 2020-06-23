@@ -25,13 +25,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8y3-Bg-PUh">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qBh-a6-Arc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v4D-1Q-TNY">
-                                <rect key="frame" x="40" y="80" width="334" height="678"/>
+                                <rect key="frame" x="40" y="80" width="334" height="756"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G1u-bN-Wte" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="287"/>
@@ -136,10 +136,10 @@
                 </visualEffectView>
             </subviews>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="8y3-Bg-PUh" secondAttribute="bottom" id="IhT-ya-IeM"/>
+                <constraint firstAttribute="bottom" secondItem="8y3-Bg-PUh" secondAttribute="bottom" id="IhT-ya-IeM"/>
                 <constraint firstItem="8y3-Bg-PUh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ODV-gb-qvB"/>
                 <constraint firstItem="8y3-Bg-PUh" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="gX1-Sa-dEy"/>
-                <constraint firstItem="8y3-Bg-PUh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="sZo-hy-pb6"/>
+                <constraint firstItem="8y3-Bg-PUh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="sZo-hy-pb6"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="137.68115942028987" y="144.64285714285714"/>

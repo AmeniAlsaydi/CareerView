@@ -30,10 +30,8 @@
 		884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */; };
 		884E557A2488298B00BA180F /* ScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */; };
 		886B5134248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */; };
-		88784D7A24A1858900EE9852 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88784D7924A1858900EE9852 /* GoogleService-Info.plist */; };
 		887851E024A0F415008966A9 /* SettingTableViewCellButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 887851DF24A0F415008966A9 /* SettingTableViewCellButton.xib */; };
 		887851E224A0F5C8008966A9 /* SettingTableViewCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887851E124A0F5C8008966A9 /* SettingTableViewCellButton.swift */; };
-		887851E624A10F83008966A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 887851E524A10F83008966A9 /* GoogleService-Info.plist */; };
 		887851E824A13BA9008966A9 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887851E724A13BA9008966A9 /* UserPreferences.swift */; };
 		889FCAA6249966EC00CC9153 /* AccountViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAA5249966EC00CC9153 /* AccountViewControllerXib.xib */; };
 		889FCAA82499670300CC9153 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAA72499670300CC9153 /* AccountViewController.swift */; };
@@ -59,10 +57,9 @@
 		B78EE8382497EAB700F7E973 /* NewJobEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78EE8372497EAB700F7E973 /* NewJobEntryController.swift */; };
 		B78EE83E249A6C9100F7E973 /* BasicStarSituationCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B78EE83D249A6C9000F7E973 /* BasicStarSituationCellXib.xib */; };
 		B78EE840249A6F4300F7E973 /* BasicStarSituationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78EE83F249A6F4300F7E973 /* BasicStarSituationCell.swift */; };
-
 		B78EE86824A1663600F7E973 /* MoreInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78EE86724A1663600F7E973 /* MoreInfoViewController.swift */; };
 		B78EE86A24A1664F00F7E973 /* MoreInfoControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B78EE86924A1664F00F7E973 /* MoreInfoControllerXib.xib */; };
-
+		B78EE86E24A2731C00F7E973 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B78EE86D24A2731C00F7E973 /* GoogleService-Info.plist */; };
 		B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1924777593001AE3B3 /* JobApplication.swift */; };
 		B7976E22247D4A15001AE3B3 /* CapstoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E21247D4A15001AE3B3 /* CapstoneTests.swift */; };
 		B7976E2B247D4AD8001AE3B3 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E2A247D4AD8001AE3B3 /* DatabaseService.swift */; };
@@ -195,7 +192,7 @@
 		B78EE83F249A6F4300F7E973 /* BasicStarSituationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicStarSituationCell.swift; sourceTree = "<group>"; };
 		B78EE86724A1663600F7E973 /* MoreInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoViewController.swift; sourceTree = "<group>"; };
 		B78EE86924A1664F00F7E973 /* MoreInfoControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreInfoControllerXib.xib; sourceTree = "<group>"; };
-
+		B78EE86D24A2731C00F7E973 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7976E1924777593001AE3B3 /* JobApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplication.swift; sourceTree = "<group>"; };
 		B7976E1F247D4A15001AE3B3 /* CapstoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7976E21247D4A15001AE3B3 /* CapstoneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapstoneTests.swift; sourceTree = "<group>"; };
@@ -315,15 +312,6 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
-		887851DE24A0F39F008966A9 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				88ECFEBC249D515400F2A05B /* GoogleService-Info.plist */,
-				887851E524A10F83008966A9 /* GoogleService-Info.plist */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		889FCAA124995A0C00CC9153 /* ProfileViewControllerXibs */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,11 +339,12 @@
 		88ECFEBB249D513700F2A05B /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				887851E524A10F83008966A9 /* GoogleService-Info.plist */,
+				88784D7924A1858900EE9852 /* GoogleService-Info.plist */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-
 		B725C22D2476832F000811C5 = {
 			isa = PBXGroup;
 			children = (
@@ -364,9 +353,7 @@
 				B725C2372476832F000811C5 /* Products */,
 				5956DD7DDBAFC9F24FDEE2CA /* Pods */,
 				4249468C7066E63C865B619C /* Frameworks */,
-
 				88ECFEBB249D513700F2A05B /* Recovered References */,
-
 			);
 			sourceTree = "<group>";
 		};
@@ -390,9 +377,8 @@
 				B7976E832480504C001AE3B3 /* Xibs */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
-
 				B725C24724768331000811C5 /* Info.plist */,
-
+				B78EE86D24A2731C00F7E973 /* GoogleService-Info.plist */,
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -680,7 +666,7 @@
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
 				B7976E8524805085001AE3B3 /* JobHistoryXib.xib in Resources */,
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
-				887851E624A10F83008966A9 /* GoogleService-Info.plist in Resources */,
+				B78EE86E24A2731C00F7E973 /* GoogleService-Info.plist in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
@@ -695,14 +681,12 @@
 				889FCAAA2499671D00CC9153 /* SettingsViewControllerXib.xib in Resources */,
 				881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */,
 				B7976E9524805C9B001AE3B3 /* StarStoryEntryXib.xib in Resources */,
-				88784D7A24A1858900EE9852 /* GoogleService-Info.plist in Resources */,
 				889FCAAE2499677100CC9153 /* AboutThisAppViewControllerXib.xib in Resources */,
 				887851E024A0F415008966A9 /* SettingTableViewCellButton.xib in Resources */,
 				881CD3402499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib in Resources */,
 				B7976E87248051D8001AE3B3 /* JobEntryXib.xib in Resources */,
 				B7976E9724805CDA001AE3B3 /* InterviewQuestionsMainXib.xib in Resources */,
 				B7976E9F24805E21001AE3B3 /* NewApplicationXib.xib in Resources */,
-
 				52F81DBB249260300052532B /* ProfileCell.xib in Resources */,
 				886B5134248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib in Resources */,
 				884E5572248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib in Resources */,
