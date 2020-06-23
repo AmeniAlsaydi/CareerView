@@ -31,10 +31,7 @@ class JobApplicationCell: UICollectionViewCell {
             maxWidthConstraint.constant = maxWidth * 0.95
         }
     }
-    override func layoutSubviews() {
-        backgroundColor = .white
-        layer.cornerRadius = 12
-    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -47,6 +44,25 @@ class JobApplicationCell: UICollectionViewCell {
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+    
+    override func layoutSubviews() {
+        self.layer.cornerRadius = AppRoundedViews.cornerRadius
+        setupAppUI()
+    }
+    private func setupAppUI(){
+        self.backgroundColor = AppColors.systemBackgroundColor
+        positionLabel.textColor = AppColors.primaryBlackColor
+        companyNameLabel.textColor = AppColors.primaryBlackColor
+        submittedDateLabel.textColor = AppColors.primaryBlackColor
+        staticStatusLabel.textColor = AppColors.primaryPurpleColor //AppColors.primaryBlackColor
+        
+//        situationLabel.font = AppFonts.semiBoldSmall
+//        situationLabel.textColor = AppColors.primaryBlackColor
+//        editButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
+//        editButton.tintColor = AppColors.secondaryPurpleColor
+//        cellFooterView.backgroundColor = AppColors.primaryPurpleColor
+    }
+    
     
     // FIXME: understand public - private - internal
     public func configureCell(application: JobApplication) {
