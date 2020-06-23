@@ -124,6 +124,12 @@
 		C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */; };
 		C6E214EA248941E50054CC3C /* InterviewAnswerSuggestionXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E214E9248941E50054CC3C /* InterviewAnswerSuggestionXib.xib */; };
 		C6E214EC2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E214EB2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift */; };
+		C6E623B724A2B27700A15808 /* IndicatorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623B624A2B27700A15808 /* IndicatorExt.swift */; };
+		C6E623C024A2B35000A15808 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BB24A2B34F00A15808 /* CGRectExtension.swift */; };
+		C6E623C124A2B35000A15808 /* SpinerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BC24A2B34F00A15808 /* SpinerLayer.swift */; };
+		C6E623C224A2B35000A15808 /* TransitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BD24A2B34F00A15808 /* TransitionButton.swift */; };
+		C6E623C324A2B35000A15808 /* CustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BE24A2B34F00A15808 /* CustomTransitionViewController.swift */; };
+		C6E623C424A2B35000A15808 /* FadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BF24A2B35000A15808 /* FadeTransition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -262,6 +268,12 @@
 		C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMenuViewController.swift; sourceTree = "<group>"; };
 		C6E214E9248941E50054CC3C /* InterviewAnswerSuggestionXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterviewAnswerSuggestionXib.xib; sourceTree = "<group>"; };
 		C6E214EB2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAnswerSuggestionViewController.swift; sourceTree = "<group>"; };
+		C6E623B624A2B27700A15808 /* IndicatorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorExt.swift; sourceTree = "<group>"; };
+		C6E623BB24A2B34F00A15808 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
+		C6E623BC24A2B34F00A15808 /* SpinerLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinerLayer.swift; sourceTree = "<group>"; };
+		C6E623BD24A2B34F00A15808 /* TransitionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionButton.swift; sourceTree = "<group>"; };
+		C6E623BE24A2B34F00A15808 /* CustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTransitionViewController.swift; sourceTree = "<group>"; };
+		C6E623BF24A2B35000A15808 /* FadeTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeTransition.swift; sourceTree = "<group>"; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -443,12 +455,14 @@
 		B7976E102476881E001AE3B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C6E623BA24A2B33D00A15808 /* ButtonExt */,
 				B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */,
 				B7A865BD2490D60F00AC456F /* UITextFieldExt.swift */,
 				8809883C24956537006EA9D0 /* UIViewExt.swift */,
 				521402172493F01900ADF7BE /* ApplicationInfo.swift */,
 				8828B97024981F0E00151F10 /* ArrayExt.swift */,
 				C61E0EBE249904EA00AA7A9E /* UIStyleGuide.swift */,
+				C6E623B624A2B27700A15808 /* IndicatorExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -568,6 +582,18 @@
 				881CD33F2499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		C6E623BA24A2B33D00A15808 /* ButtonExt */ = {
+			isa = PBXGroup;
+			children = (
+				C6E623BB24A2B34F00A15808 /* CGRectExtension.swift */,
+				C6E623BE24A2B34F00A15808 /* CustomTransitionViewController.swift */,
+				C6E623BF24A2B35000A15808 /* FadeTransition.swift */,
+				C6E623BC24A2B34F00A15808 /* SpinerLayer.swift */,
+				C6E623BD24A2B34F00A15808 /* TransitionButton.swift */,
+			);
+			path = ButtonExt;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -811,6 +837,7 @@
 				52D4D19624981141004FD7EE /* ApplicationDetailView.swift in Sources */,
 				521402182493F01900ADF7BE /* ApplicationInfo.swift in Sources */,
 				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
+				C6E623C124A2B35000A15808 /* SpinerLayer.swift in Sources */,
 				C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */,
 				881CD3422499CCA3008AB0C8 /* FAQCollectionViewCell.swift in Sources */,
 				B79F4B4A248F6573009523EE /* StarSituationDatabaseServices.swift in Sources */,
@@ -819,7 +846,10 @@
 				C6E214EC2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift in Sources */,
 				B7976E58247EA3E7001AE3B3 /* LoginController.swift in Sources */,
 				B7976E51247E9D16001AE3B3 /* MainTabBarController.swift in Sources */,
+				C6E623C024A2B35000A15808 /* CGRectExtension.swift in Sources */,
+				C6E623C324A2B35000A15808 /* CustomTransitionViewController.swift in Sources */,
 				B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */,
+				C6E623C224A2B35000A15808 /* TransitionButton.swift in Sources */,
 				B7976E2B247D4AD8001AE3B3 /* DatabaseService.swift in Sources */,
 				B78EE86824A1663600F7E973 /* MoreInfoViewController.swift in Sources */,
 				B79F4B46248F633E009523EE /* JobApplicationsDatabaseServices.swift in Sources */,
@@ -853,6 +883,7 @@
 				889FCAB824996A0D00CC9153 /* ContactUsViewController.swift in Sources */,
 				B7976E5C247EAD84001AE3B3 /* Contact.swift in Sources */,
 				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
+				C6E623B724A2B27700A15808 /* IndicatorExt.swift in Sources */,
 				B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */,
 				B7A865C42490EB1300AC456F /* FloatingLabelTextField.swift in Sources */,
 				887851E224A0F5C8008966A9 /* SettingTableViewCellButton.swift in Sources */,
@@ -869,6 +900,7 @@
 				884E557024873F3700BA180F /* User.swift in Sources */,
 				B7976E2F247D50FF001AE3B3 /* StarSituation.swift in Sources */,
 				B79F4B42248F6281009523EE /* UserJobsDatabaseServices.swift in Sources */,
+				C6E623C424A2B35000A15808 /* FadeTransition.swift in Sources */,
 				B7976E3B247D580A001AE3B3 /* JobEntryController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
