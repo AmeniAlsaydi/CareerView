@@ -52,10 +52,28 @@ class MainTabBarController: UITabBarController {
            return navController
     }()
     
+    private var defaultIndex: Int = 0
+    private func loadDefaultLaunchScreen() {
+        let defaultLaunchScreen = UserPreference.shared.getDefaultLaunchScreen()
+        switch defaultLaunchScreen {
+        case .jobHistory:
+            defaultIndex = 0
+        case .starStories:
+            defaultIndex = 1
+        case .interviewQuestions:
+            defaultIndex = 2
+        case .applicationTracker:
+            defaultIndex = 3
+        default:
+            defaultIndex = 0
+        }
+    }
     override func viewDidLoad() {
            super.viewDidLoad()
         self.tabBar.tintColor = AppColors.primaryBlackColor
            viewControllers = [jobHistoryController, starSituationController, interviewQuestionsController, applicationTrackerController, settingsController]
-       }
+        loadDefaultLaunchScreen()
+        selectedIndex = defaultIndex
+    }
        
 }

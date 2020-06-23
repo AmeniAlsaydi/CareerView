@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCellButton" id="pYx-lQ-14M" customClass="SettingTableViewCellButton" customModule="Capstone" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pYx-lQ-14M" id="vqO-gH-4sW">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tga-na-rdi">
+                        <rect key="frame" x="334" y="8" width="60" height="28"/>
+                        <state key="normal" title="Change"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Default setting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFY-Bp-ELa">
+                        <rect key="frame" x="20" y="8" width="306" height="28"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Tga-na-rdi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HFY-Bp-ELa" secondAttribute="trailing" constant="8" id="0Jo-4K-YT3"/>
+                    <constraint firstAttribute="trailing" secondItem="Tga-na-rdi" secondAttribute="trailing" constant="20" id="ADP-1K-MtA"/>
+                    <constraint firstItem="Tga-na-rdi" firstAttribute="centerY" secondItem="HFY-Bp-ELa" secondAttribute="centerY" id="Iub-ap-a4U"/>
+                    <constraint firstAttribute="bottom" secondItem="Tga-na-rdi" secondAttribute="bottom" constant="8" id="P62-yC-xW5"/>
+                    <constraint firstItem="Tga-na-rdi" firstAttribute="top" secondItem="vqO-gH-4sW" secondAttribute="top" constant="8" id="QDm-tL-Z2q"/>
+                    <constraint firstAttribute="bottom" secondItem="HFY-Bp-ELa" secondAttribute="bottom" constant="8" id="YKE-7T-luT"/>
+                    <constraint firstItem="HFY-Bp-ELa" firstAttribute="centerY" secondItem="vqO-gH-4sW" secondAttribute="centerY" id="cmE-0e-q1P"/>
+                    <constraint firstItem="HFY-Bp-ELa" firstAttribute="top" secondItem="vqO-gH-4sW" secondAttribute="top" constant="8" id="jld-9c-8iL"/>
+                    <constraint firstItem="HFY-Bp-ELa" firstAttribute="leading" secondItem="vqO-gH-4sW" secondAttribute="leading" constant="20" id="qxo-br-PlR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="defaultButton" destination="Tga-na-rdi" id="Qr6-b2-jzH"/>
+                <outlet property="defaultLabel" destination="HFY-Bp-ELa" id="hue-6V-fkR"/>
+            </connections>
+            <point key="canvasLocation" x="60.869565217391312" y="51.5625"/>
+        </tableViewCell>
+    </objects>
+</document>
