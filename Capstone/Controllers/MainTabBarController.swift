@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, UIAdaptivePresentationControllerDelegate {
 
    
     private lazy var jobHistoryController: UINavigationController = {
@@ -98,7 +98,7 @@ class MainTabBarController: UITabBarController {
         guard let user = userData else { return }
         if user.firstTimeLogin {
             let welcomeScreenViewController = WelcomeScreenViewController(nibName: "WelcomeScreenXib", bundle: nil)
-            show(welcomeScreenViewController, sender: nil)
+            present(welcomeScreenViewController, animated: true, completion: nil)
         }
     }
 }

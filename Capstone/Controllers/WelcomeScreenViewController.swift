@@ -19,13 +19,23 @@ class WelcomeScreenViewController: UIViewController {
         super.viewDidLoad()
         configureView()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Is their a better boolean to check?
+        if isBeingDismissed {
+            markFirstTimeLoginFalse()
+        }
+    }
+
     private func configureView() {
         logoImageView.layer.cornerRadius = AppRoundedViews.cornerRadius
         textView.font = AppFonts.secondaryFont
         welcomeLabel.font = AppFonts.primaryFont
         continueButton.tintColor = AppColors.primaryPurpleColor
+        continueButton.setTitle("Do not show this message again", for: .normal)
         loadWelcomeText()
     }
+
     private func loadWelcomeText() {
         textView.text = """
                             Thank you for downloading CareerView: Job Journal!
@@ -48,16 +58,19 @@ class WelcomeScreenViewController: UIViewController {
                             Good luck!
                         """
     }
-    
-    @IBAction func continueButtonPressed(_ sender: UIButton) {
-        DatabaseService.shared.updateUserFirstTimeLogin(firstTimeLogin: false) { (result) in
-            switch result {
-            case.failure(let error):
-                print("error updating user first time login: \(error.localizedDescription)")
-            case .success:
-                print("User first time login update successfully")
+    private func markFirstTimeLoginFalse() {
+            DatabaseService.shared.updateUserFirstTimeLogin(firstTimeLogin: false) { (result) in
+                switch result {
+                case.failure(let error):
+                    print("error updating user first time login: \(error.localizedDescription)")
+                case .success:
+                    print("User first time login update successfully")
+                }
             }
-        }
-        UIViewController.showMainAppView()
+    }
+    @IBAction func continueButtonPressed(_ sender: UIButton) {
+        markFirstTimeLoginFalse()
+        dismiss(animated: true, completion: nil)
     }
 }
+
