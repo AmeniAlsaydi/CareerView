@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomeScreenViewController" customModule="Capstone" customModuleProvider="target">
+            <connections>
+                <outlet property="continueButton" destination="XFN-3v-NQ8" id="Xfr-cz-7kq"/>
+                <outlet property="logoImageView" destination="7lF-if-x6v" id="aPE-fR-YUq"/>
+                <outlet property="textView" destination="eOE-mc-4SJ" id="PdW-Ie-VMK"/>
+                <outlet property="view" destination="iN0-l3-epB" id="znH-85-Jzt"/>
+                <outlet property="welcomeLabel" destination="LDI-ma-1Nu" id="moD-Lf-ErO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aba-3y-IAS">
+                    <rect key="frame" x="0.0" y="44" width="414" height="788"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sx-l7-Gfj" userLabel="Content View">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="230"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CareerViewlogo" translatesAutoresizingMaskIntoConstraints="NO" id="7lF-if-x6v">
+                                    <rect key="frame" x="138.5" y="8" width="137" height="136.5"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="7lF-if-x6v" secondAttribute="height" multiplier="1:1" id="YF4-IA-1JM"/>
+                                    </constraints>
+                                </imageView>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Welcome text goes here" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOE-mc-4SJ">
+                                    <rect key="frame" x="8" y="189" width="398" height="33"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to CareerView: Job Journal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDI-ma-1Nu">
+                                    <rect key="frame" x="66" y="152.5" width="282" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="eOE-mc-4SJ" secondAttribute="bottom" constant="8" id="381-H8-zHZ"/>
+                                <constraint firstItem="7lF-if-x6v" firstAttribute="top" secondItem="1Sx-l7-Gfj" secondAttribute="top" constant="8" id="7E2-Ma-4gC"/>
+                                <constraint firstItem="LDI-ma-1Nu" firstAttribute="top" secondItem="7lF-if-x6v" secondAttribute="bottom" constant="8" id="H0y-ho-ogD"/>
+                                <constraint firstItem="7lF-if-x6v" firstAttribute="width" secondItem="1Sx-l7-Gfj" secondAttribute="width" multiplier="0.33" id="IbL-vF-aAJ"/>
+                                <constraint firstAttribute="trailing" secondItem="eOE-mc-4SJ" secondAttribute="trailing" constant="8" id="Xlq-FU-cq5"/>
+                                <constraint firstItem="7lF-if-x6v" firstAttribute="centerX" secondItem="1Sx-l7-Gfj" secondAttribute="centerX" id="iVF-Xd-UhW"/>
+                                <constraint firstItem="eOE-mc-4SJ" firstAttribute="top" secondItem="LDI-ma-1Nu" secondAttribute="bottom" constant="16" id="k2V-KQ-Aml"/>
+                                <constraint firstItem="eOE-mc-4SJ" firstAttribute="leading" secondItem="1Sx-l7-Gfj" secondAttribute="leading" constant="8" id="mq7-sx-f0a"/>
+                                <constraint firstItem="LDI-ma-1Nu" firstAttribute="centerX" secondItem="1Sx-l7-Gfj" secondAttribute="centerX" id="uy1-Wz-HcX"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="1Sx-l7-Gfj" firstAttribute="top" secondItem="qso-Um-aHD" secondAttribute="top" id="IpN-tQ-5C2"/>
+                        <constraint firstItem="1Sx-l7-Gfj" firstAttribute="leading" secondItem="qso-Um-aHD" secondAttribute="leading" id="LQl-YT-gPl"/>
+                        <constraint firstItem="1Sx-l7-Gfj" firstAttribute="width" secondItem="ejW-iZ-LPy" secondAttribute="width" id="Rv3-2G-hne"/>
+                        <constraint firstItem="1Sx-l7-Gfj" firstAttribute="bottom" secondItem="qso-Um-aHD" secondAttribute="bottom" id="kz7-5e-K5Z"/>
+                        <constraint firstItem="1Sx-l7-Gfj" firstAttribute="trailing" secondItem="qso-Um-aHD" secondAttribute="trailing" id="tVs-Px-VXc"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="qso-Um-aHD"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="ejW-iZ-LPy"/>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFN-3v-NQ8">
+                    <rect key="frame" x="176" y="840" width="62" height="30"/>
+                    <state key="normal" title="Continue"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="aba-3y-IAS" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Caa-1J-9Hm"/>
+                <constraint firstItem="XFN-3v-NQ8" firstAttribute="top" secondItem="aba-3y-IAS" secondAttribute="bottom" constant="8" id="I4G-TV-ofu"/>
+                <constraint firstItem="XFN-3v-NQ8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="IPq-Hp-YCe"/>
+                <constraint firstItem="aba-3y-IAS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Oyb-4t-2TC"/>
+                <constraint firstItem="aba-3y-IAS" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="dpU-CI-orF"/>
+                <constraint firstItem="XFN-3v-NQ8" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="8" id="fwy-Ir-CGO"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="137.68115942028987" y="150"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="CareerViewlogo" width="1024" height="1024"/>
+    </resources>
+</document>
