@@ -27,7 +27,6 @@ class WelcomeScreenViewController: UIViewController {
         loadWelcomeText()
     }
     private func loadWelcomeText() {
-        
         textView.text = """
                             Thank you for downloading CareerView: Job Journal!
                         
@@ -48,5 +47,17 @@ class WelcomeScreenViewController: UIViewController {
                         
                             Good luck!
                         """
+    }
+    
+    @IBAction func continueButtonPressed(_ sender: UIButton) {
+        DatabaseService.shared.updateUserFirstTimeLogin(firstTimeLogin: false) { (result) in
+            switch result {
+            case.failure(let error):
+                print("error updating user first time login: \(error.localizedDescription)")
+            case .success:
+                print("User first time login update successfully")
+            }
+        }
+        UIViewController.showMainAppView()
     }
 }
