@@ -46,7 +46,6 @@ class InterviewQuestionsMainController: UIViewController {
     public var filterState: FilterState = .all {
         didSet {
             questionsCollectionView.reloadData()
-            print("filter state changed")
             allQuestions = Array(allQuestions).removingDuplicates()
         }
     }
@@ -59,14 +58,17 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     
-    private var customQuestions = [InterviewQuestion]()
+    private var customQuestions = [InterviewQuestion]() {
+        didSet {
+            questionsCollectionView.reloadData()
+        }
+    }
     
     private var allQuestions = [InterviewQuestion]() {
         didSet {
                 allQuestions = Array(allQuestions).removingDuplicates()
                 questionsCollectionView.reloadData()
                 questionsCollectionView.backgroundView = nil
-                print(allQuestions.count)
         }
     }
     
@@ -92,9 +94,20 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchBar.delegate = self
+        updateUI()
+        configureCollectionView()
+        configureNavBar()
+
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
+        getInterviewQuestions()
+        getBookmarkedQuestions()
         guard let user = Auth.auth().currentUser else {return}
         listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
             if let error = error {
@@ -108,18 +121,8 @@ class InterviewQuestionsMainController: UIViewController {
             }
         })
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchBar.delegate = self
-        updateUI()
-        configureCollectionView()
-        configureNavBar()
-        getInterviewQuestions()
-        getBookmarkedQuestions()
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
+        allQuestions.removeAll()
         listener?.remove()
     }
     
@@ -279,7 +282,6 @@ class InterviewQuestionsMainController: UIViewController {
         commonButton.backgroundColor = AppColors.secondaryPurpleColor
         customButton.tintColor = AppColors.whiteTextColor
         customButton.backgroundColor = AppColors.primaryPurpleColor
-        print("custom pressed")
         filterState = .custom
         getUserCreatedQuestions()
     }
@@ -441,10 +443,12 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
             interviewQuestionEntryVC.editingMode = true
             interviewQuestionEntryVC.customQuestion = customQuestion
+            interviewQuestionEntryVC.delegate = self
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
-            if interviewQuestionEntryVC.wasEdited {
-                self?.allQuestions.remove(at: indexPath.row)
-            }
+            // Note: I don't think this block is getting hit
+//            if interviewQuestionEntryVC.wasEdited {
+//                self?.allQuestions.remove(at: indexPath.row)
+//            }
         }
         let delete = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
             DatabaseService.shared.deleteCustomQuestion(customQuestion: customQuestion!) { [weak self] (result) in
@@ -476,5 +480,13 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
         optionsMenu.addAction(delete)
         optionsMenu.addAction(cancel)
         present(optionsMenu, animated: true, completion: nil)
+    }
+}
+extension InterviewQuestionsMainController: EditInterviewQuestionDelegate {
+    func didEditInterviewQuestion() {
+        allQuestions.removeAll()
+        getUserCreatedQuestions()
+        getInterviewQuestions()
+        questionsCollectionView.reloadData()
     }
 }

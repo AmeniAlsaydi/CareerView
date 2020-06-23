@@ -30,6 +30,7 @@
 		884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */; };
 		884E557A2488298B00BA180F /* ScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */; };
 		886B5134248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */; };
+		88784D7A24A1858900EE9852 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88784D7924A1858900EE9852 /* GoogleService-Info.plist */; };
 		887851E024A0F415008966A9 /* SettingTableViewCellButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 887851DF24A0F415008966A9 /* SettingTableViewCellButton.xib */; };
 		887851E224A0F5C8008966A9 /* SettingTableViewCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887851E124A0F5C8008966A9 /* SettingTableViewCellButton.swift */; };
 		887851E624A10F83008966A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 887851E524A10F83008966A9 /* GoogleService-Info.plist */; };
@@ -59,7 +60,6 @@
 		B78EE8382497EAB700F7E973 /* NewJobEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78EE8372497EAB700F7E973 /* NewJobEntryController.swift */; };
 		B78EE83E249A6C9100F7E973 /* BasicStarSituationCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B78EE83D249A6C9000F7E973 /* BasicStarSituationCellXib.xib */; };
 		B78EE840249A6F4300F7E973 /* BasicStarSituationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78EE83F249A6F4300F7E973 /* BasicStarSituationCell.swift */; };
-
 		B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E1924777593001AE3B3 /* JobApplication.swift */; };
 		B7976E22247D4A15001AE3B3 /* CapstoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E21247D4A15001AE3B3 /* CapstoneTests.swift */; };
 		B7976E2B247D4AD8001AE3B3 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E2A247D4AD8001AE3B3 /* DatabaseService.swift */; };
@@ -159,6 +159,7 @@
 		884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeUserExperienceViewController.swift; sourceTree = "<group>"; };
 		884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
 		886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshotCollectionViewCellXib.xib; sourceTree = "<group>"; };
+		88784D7924A1858900EE9852 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		887851DF24A0F415008966A9 /* SettingTableViewCellButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCellButton.xib; sourceTree = "<group>"; };
 		887851E124A0F5C8008966A9 /* SettingTableViewCellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellButton.swift; sourceTree = "<group>"; };
 		887851E524A10F83008966A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -190,7 +191,6 @@
 		B78EE8372497EAB700F7E973 /* NewJobEntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewJobEntryController.swift; sourceTree = "<group>"; };
 		B78EE83D249A6C9000F7E973 /* BasicStarSituationCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicStarSituationCellXib.xib; sourceTree = "<group>"; };
 		B78EE83F249A6F4300F7E973 /* BasicStarSituationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicStarSituationCell.swift; sourceTree = "<group>"; };
-
 		B7976E1924777593001AE3B3 /* JobApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplication.swift; sourceTree = "<group>"; };
 		B7976E1F247D4A15001AE3B3 /* CapstoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7976E21247D4A15001AE3B3 /* CapstoneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapstoneTests.swift; sourceTree = "<group>"; };
@@ -313,7 +313,8 @@
 		887851DE24A0F39F008966A9 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				B78EE843249BFE1700F7E973 /* GoogleService-Info.plist */,
+				88ECFEBC249D515400F2A05B /* GoogleService-Info.plist */,
+				887851E524A10F83008966A9 /* GoogleService-Info.plist */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -342,14 +343,6 @@
 			path = ProfileViewControllers;
 			sourceTree = "<group>";
 		};
-		88ECFEBB249D513700F2A05B /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				B78EE843249BFE1700F7E973 /* GoogleService-Info.plist */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		B725C22D2476832F000811C5 = {
 			isa = PBXGroup;
 			children = (
@@ -359,7 +352,6 @@
 				5956DD7DDBAFC9F24FDEE2CA /* Pods */,
 				4249468C7066E63C865B619C /* Frameworks */,
 				887851DE24A0F39F008966A9 /* Recovered References */,
-
 			);
 			sourceTree = "<group>";
 		};
@@ -383,18 +375,10 @@
 				B7976E832480504C001AE3B3 /* Xibs */,
 				B7976E0C247687FB001AE3B3 /* Controllers */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
-
+				88784D7924A1858900EE9852 /* GoogleService-Info.plist */,
 				B725C24724768331000811C5 /* Info.plist */,
 			);
 			path = Capstone;
-			sourceTree = "<group>";
-		};
-		B78EE852249EF11700F7E973 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				B78EE843249BFE1700F7E973 /* GoogleService-Info.plist */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		B7976E0C247687FB001AE3B3 /* Controllers */ = {
@@ -693,13 +677,13 @@
 				889FCAAA2499671D00CC9153 /* SettingsViewControllerXib.xib in Resources */,
 				881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */,
 				B7976E9524805C9B001AE3B3 /* StarStoryEntryXib.xib in Resources */,
+				88784D7A24A1858900EE9852 /* GoogleService-Info.plist in Resources */,
 				889FCAAE2499677100CC9153 /* AboutThisAppViewControllerXib.xib in Resources */,
 				887851E024A0F415008966A9 /* SettingTableViewCellButton.xib in Resources */,
 				881CD3402499CBA2008AB0C8 /* FAQCollectionViewCellXib.xib in Resources */,
 				B7976E87248051D8001AE3B3 /* JobEntryXib.xib in Resources */,
 				B7976E9724805CDA001AE3B3 /* InterviewQuestionsMainXib.xib in Resources */,
 				B7976E9F24805E21001AE3B3 /* NewApplicationXib.xib in Resources */,
-
 				52F81DBB249260300052532B /* ProfileCell.xib in Resources */,
 				886B5134248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib in Resources */,
 				884E5572248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib in Resources */,

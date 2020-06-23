@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol EditInterviewQuestionDelegate: AnyObject {
+    func didEditInterviewQuestion()
+}
+
 class InterviewQuestionEntryController: UIViewController {
     
     @IBOutlet weak var questionTextfield: UITextField!
@@ -16,11 +20,14 @@ class InterviewQuestionEntryController: UIViewController {
     var wasEdited = false
     var customQuestion: InterviewQuestion?
     var createdQuestion: InterviewQuestion?
-
+    
+    weak var delegate: EditInterviewQuestionDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
         configureNavBar()
+        
     }
     
     private func updateUI() {
@@ -60,6 +67,7 @@ class InterviewQuestionEntryController: UIViewController {
                     DispatchQueue.main.async {
                         self?.showAlert(title: "Question Updated", message: "Question has now been updated with changes", completion: { (action) in
                             self?.dismiss(animated: true)
+                            self?.delegate?.didEditInterviewQuestion()
                         })
                     }
                 }
