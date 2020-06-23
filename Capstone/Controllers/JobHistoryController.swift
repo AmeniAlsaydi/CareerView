@@ -40,8 +40,8 @@ class JobHistoryController: UIViewController {
         configureTableView()
         configureNavBar()
         view.backgroundColor = AppColors.complimentaryBackgroundColor
-        getUserData()
-        checkFirstTimeLogin()
+        //getUserData()
+        //checkFirstTimeLogin()
         loadUserJobs()
         setup()
     }
@@ -76,33 +76,33 @@ class JobHistoryController: UIViewController {
         infoViewController.enterFrom = .jobHistory
         present(infoViewController, animated: true)
     }
-    private func getUserData() {
-        DatabaseService.shared.fetchUserData { [weak self] (result) in
-            switch result {
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print("Error fetching user Data: \(error.localizedDescription)")
-                }
-            case .success(let userData):
-                DispatchQueue.main.async {
-                    self?.userData = userData
-                    self?.checkFirstTimeLogin()
-                }
-            }
-        }
-    }
-    private func checkFirstTimeLogin() {
-        guard let user = userData else { return }
-        if user.firstTimeLogin {
-            print("First time logging in")
-            //Eventually move this to the viewcontroller file once the user has completed the on boarding experience
-            let firstTimeUserExperienceViewController = FirstTimeUserExperienceViewController(nibName: "FirstTimeUserExperienceViewControllerXib", bundle: nil)
-            show(firstTimeUserExperienceViewController, sender: nil)
-        } else {
-            print("User has logged in before")
-        }
-
-    }
+//    private func getUserData() {
+//        DatabaseService.shared.fetchUserData { [weak self] (result) in
+//            switch result {
+//            case .failure(let error):
+//                DispatchQueue.main.async {
+//                    print("Error fetching user Data: \(error.localizedDescription)")
+//                }
+//            case .success(let userData):
+//                DispatchQueue.main.async {
+//                    //self?.userData = userData
+//                    self?.checkFirstTimeLogin()
+//                }
+//            }
+//        }
+//    }
+//    private func checkFirstTimeLogin() {
+//        guard let user = userData else { return }
+//        if user.firstTimeLogin {
+//            print("First time logging in")
+//            //Eventually move this to the viewcontroller file once the user has completed the on boarding experience
+//            let firstTimeUserExperienceViewController = FirstTimeUserExperienceViewController(nibName: "FirstTimeUserExperienceViewControllerXib", bundle: nil)
+//            show(firstTimeUserExperienceViewController, sender: nil)
+//        } else {
+//            print("User has logged in before")
+//        }
+//
+//    }
     private func loadUserJobs() {
         self.showIndicator()
         DatabaseService.shared.fetchUserJobs { [weak self] (result) in
