@@ -32,6 +32,12 @@ class StarStoryMainController: UIViewController {
                 starSituations = starSituations.filter { starSituationID.contains($0.id) }
             }
             collectionView.reloadData()
+            if starSituations.isEmpty {
+                collectionView.backgroundView = EmptyView.init(title: "Enter Your STAR Stories", message: "Add a STAR Story to your collection by pressing the plus button above", imageName: "star.fill")
+            } else {
+                collectionView.reloadData()
+                collectionView.backgroundView = nil
+            }
         }
     }
     
