@@ -48,7 +48,7 @@ class StarSituationCell: UICollectionViewCell {
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
         
         //TODO: refactor
-        if starSituation.task == nil || starSituation.action == nil || starSituation.result == nil {
+        if starSituation.task == "" || starSituation.action == "" || starSituation.result == "" {
             situationLabel.text = starSituation.situation
         } else {
             situationLabel.text = """
