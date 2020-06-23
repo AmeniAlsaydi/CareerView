@@ -53,6 +53,7 @@ class ApplicationTrackerController: UIViewController {
         configureCollectionView()
         getApplications()
         configureNavBar()
+        collectionView.backgroundColor = AppColors.complimentaryBackgroundColor
     }
     override func viewDidDisappear(_ animated: Bool) {
         listener?.remove()
@@ -94,7 +95,7 @@ class ApplicationTrackerController: UIViewController {
     @objc func displayInfoViewController(_ sender: UIBarButtonItem) {
         let infoVC = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
         infoVC.modalTransitionStyle = .crossDissolve
-        infoVC.modalPresentationStyle = .overCurrentContext
+        infoVC.modalPresentationStyle = .overFullScreen
         
         present(infoVC, animated: true)
     }

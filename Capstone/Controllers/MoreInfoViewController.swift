@@ -55,7 +55,7 @@ class MoreInfoViewController: UIViewController {
     private func applicationInfoUI() {
         promptLabel.text = "Tracking your job applications!"
         descriptionLabel.text = "Keeping track of all the jobs you've applied to and the progess with them can get pretty messy, but is extremely necessary! \nClear up all those spreadsheets, keeping track of all your applications has never been easier."
-        instructionsLabel.text = "Click on ➕ icon on the top right, fill out the application info and update as you go!"
+        instructionsLabel.text = "Tep on ➕ icon on the top right, fill out the application info and update as you go!"
         signatureLabel.text = "Happy Job Hunting! \n \n - CV Team"
     }
     
