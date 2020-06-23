@@ -52,7 +52,7 @@ class EmptyView: UIView {
         addSubview(image)
         image.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            image.bottomAnchor.constraint(equalTo: image.topAnchor, constant: -20),
             image.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1),
             image.heightAnchor.constraint(equalTo: image.widthAnchor),
             image.centerXAnchor.constraint(equalTo: centerXAnchor)
@@ -65,7 +65,8 @@ class EmptyView: UIView {
             titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     private func setupMsgConstaints() {
@@ -73,8 +74,8 @@ class EmptyView: UIView {
         msgLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             msgLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            msgLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7),
-            msgLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            msgLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            msgLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
     }
 }

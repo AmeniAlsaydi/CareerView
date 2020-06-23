@@ -22,6 +22,7 @@ class JobHistoryController: UIViewController {
             setup()
             if userJobHistory.isEmpty {
                 tableView.backgroundView = EmptyView.init(title: "No Job History", message: "Add any previous or current job history by pressing the plus button above", imageName: "rectangle.grid.1x2.fill")
+                tableView.separatorStyle = .none
             } else {
                 tableView.reloadData()
                 tableView.backgroundView = nil
