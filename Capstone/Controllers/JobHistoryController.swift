@@ -18,8 +18,15 @@ class JobHistoryController: UIViewController {
     
     var userJobHistory = [UserJob]() {
         didSet {
-            self.tableView.reloadData()
-            self.setup()
+            tableView.reloadData()
+            setup()
+            if userJobHistory.isEmpty {
+                tableView.backgroundView = EmptyView.init(title: "Enter Your Job History", message: "Add any previous or current job history by pressing the plus button above", imageName: "rectangle.grid.1x2.fill")
+                tableView.separatorStyle = .none
+            } else {
+                tableView.reloadData()
+                tableView.backgroundView = nil
+            }
         }
     }
     
@@ -34,7 +41,7 @@ class JobHistoryController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureNavBar()
-        
+        view.backgroundColor = AppColors.complimentaryBackgroundColor
         getUserData()
         checkFirstTimeLogin()
         
@@ -45,6 +52,7 @@ class JobHistoryController: UIViewController {
         loadUserJobs()
     }
     private func configureTableView() {
+        tableView.backgroundColor = AppColors.complimentaryBackgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "UserJobFoldingCellXib", bundle: nil), forCellReuseIdentifier: "foldingCell")

@@ -302,10 +302,8 @@ class InterviewQuestionsMainController: UIViewController {
         if filterState == .bookmarked {
             questionsCollectionView.reloadData()
             if bookmarkedQuestions.isEmpty {
-                print("bookmarks empty")
-                questionsCollectionView.backgroundView = EmptyView.init(title: "No Bookmarks", message: "Add to your bookmarks collection by selecting a question and pressing the bookmark button", imageName: "bookmark")
+                questionsCollectionView.backgroundView = EmptyView.init(title: "You Have No Bookmarks", message: "Add to your bookmarks collection by selecting an interview question and pressing the bookmark button", imageName: "bookmark")
             } else {
-                print("bookmarks NOT empty")
                 questionsCollectionView.reloadData()
                 questionsCollectionView.backgroundView = nil
             }
