@@ -60,13 +60,21 @@ class JobHistoryController: UIViewController {
     }
     private func configureNavBar() {
         navigationItem.title = "Job History"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(segueToJobEntryVC(_:)))
         AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(presentInfoVC(_:)))
     }
     @objc private func segueToJobEntryVC(_ sender: UIBarButtonItem) {
         let jobEntryController = NewJobEntryController(nibName: "NewJobEntryXib", bundle: nil)
         jobEntryController.editingJob = false
         show(jobEntryController, sender: nil)
+    }
+    @objc private func presentInfoVC(_ sender: UIBarButtonItem) {
+        let infoViewController = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
+        infoViewController.modalTransitionStyle = .crossDissolve
+        infoViewController.modalPresentationStyle = .overFullScreen
+        infoViewController.enterFrom = .jobHistory
+        present(infoViewController, animated: true)
     }
     private func getUserData() {
         DatabaseService.shared.fetchUserData { [weak self] (result) in

@@ -124,6 +124,7 @@
 		C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */; };
 		C6E214EA248941E50054CC3C /* InterviewAnswerSuggestionXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E214E9248941E50054CC3C /* InterviewAnswerSuggestionXib.xib */; };
 		C6E214EC2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E214EB2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift */; };
+		C6E623B524A28D3300A15808 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6E623B424A28D3300A15808 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -262,6 +263,7 @@
 		C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMenuViewController.swift; sourceTree = "<group>"; };
 		C6E214E9248941E50054CC3C /* InterviewAnswerSuggestionXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterviewAnswerSuggestionXib.xib; sourceTree = "<group>"; };
 		C6E214EB2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAnswerSuggestionViewController.swift; sourceTree = "<group>"; };
+		C6E623B424A28D3300A15808 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7037A2A4316CFAC5ABB84AD /* Pods-Capstone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capstone.debug.xcconfig"; path = "Target Support Files/Pods-Capstone/Pods-Capstone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -383,6 +385,7 @@
 				B7976E0D24768806001AE3B3 /* Supporting */,
 				88784D7B24A27D3900EE9852 /* GoogleService-Info.plist */,
 				B725C24724768331000811C5 /* Info.plist */,
+
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -673,7 +676,7 @@
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
 				B7976E8524805085001AE3B3 /* JobHistoryXib.xib in Resources */,
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
-				88784D7C24A27D3900EE9852 /* GoogleService-Info.plist in Resources */,
+
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,

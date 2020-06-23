@@ -98,7 +98,7 @@ class ApplicationTrackerController: UIViewController {
         let infoVC = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
         infoVC.modalTransitionStyle = .crossDissolve
         infoVC.modalPresentationStyle = .overFullScreen
-        
+        infoVC.enterFrom = .applicationsTracker
         present(infoVC, animated: true)
     }
     
