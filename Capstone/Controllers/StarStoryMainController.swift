@@ -98,9 +98,11 @@ class StarStoryMainController: UIViewController {
         }
     }
     @objc private func segueToSTARStoryInfoVC(_ sender: UIBarButtonItem) {
-        let starStoryInfoVC = InterviewAnswerSuggestionViewController(nibName: "InterviewAnswerSuggestionXib", bundle: nil)
-        starStoryInfoVC.comingFromSTARSVC = true
-        present(starStoryInfoVC, animated: true)
+        let infoViewController = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
+        infoViewController.modalTransitionStyle = .crossDissolve
+        infoViewController.modalPresentationStyle = .overFullScreen
+        infoViewController.enterFrom = .starStories
+        present(infoViewController, animated: true)
     }
     @objc private func segueToAddStarStoryViewController(_ sender: UIBarButtonItem) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)

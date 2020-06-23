@@ -76,6 +76,7 @@ class JobHistoryController: UIViewController {
         let infoViewController = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
         infoViewController.modalTransitionStyle = .crossDissolve
         infoViewController.modalPresentationStyle = .overFullScreen
+        infoViewController.enterFrom = .jobHistory
         present(infoViewController, animated: true)
     }
     private func getUserData() {
