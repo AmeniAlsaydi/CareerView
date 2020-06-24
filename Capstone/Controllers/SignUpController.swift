@@ -46,6 +46,7 @@ class SignUpController: UIViewController {
         loginButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
         loginButton.titleLabel?.font = AppFonts.primaryFont
         signUpButton.titleLabel?.font = AppFonts.primaryFont
+        signUpButton.setTitleColor(AppColors.whiteTextColor, for: .normal)
         signUpButton.backgroundColor = AppColors.secondaryPurpleColor
         signUpButton.layer.cornerRadius = AppRoundedViews.cornerRadius
         careerViewLabel.font = AppFonts.boldFont

@@ -41,7 +41,7 @@ class StarSituationCell: UICollectionViewCell {
         situationLabel.font = AppFonts.semiBoldSmall
         situationLabel.textColor = AppColors.primaryBlackColor
         editButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
-        editButton.tintColor = AppColors.whiteTextColor
+        editButton.tintColor = AppColors.secondaryPurpleColor
         cellFooterView.backgroundColor = AppColors.primaryPurpleColor
     }
     public func configureCell(starSituation: StarSituation) {
