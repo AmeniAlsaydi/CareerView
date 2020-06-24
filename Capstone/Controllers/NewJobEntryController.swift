@@ -141,6 +141,7 @@ class NewJobEntryController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentEmployerButton.tintColor = AppColors.primaryBlackColor
         configureNavBar()
         styleAllTextFields()
         createDatePicker()

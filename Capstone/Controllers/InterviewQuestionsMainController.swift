@@ -30,7 +30,6 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var collectionViewTopAnchor: NSLayoutConstraint!
     
     private var listener: ListenerRegistration?
-    
     private var isFilterOn = false {
         didSet {
             if isFilterOn {
@@ -162,10 +161,11 @@ class InterviewQuestionsMainController: UIViewController {
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
         AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
+        let addCustomQuestionButton = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
         let infoButton = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(presentInfoVC(_:)))
         let filterButton = UIBarButtonItem(image: AppButtonIcons.filterIcon, style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
-        navigationItem.leftBarButtonItems = [filterButton, infoButton]
+        navigationItem.leftBarButtonItem = infoButton
+        navigationItem.rightBarButtonItems = [addCustomQuestionButton,filterButton]
     }
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
@@ -454,10 +454,6 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             interviewQuestionEntryVC.customQuestion = customQuestion
             interviewQuestionEntryVC.delegate = self
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
-            // Note: I don't think this block is getting hit
-//            if interviewQuestionEntryVC.wasEdited {
-//                self?.allQuestions.remove(at: indexPath.row)
-//            }
         }
         let delete = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
             DatabaseService.shared.deleteCustomQuestion(customQuestion: customQuestion!) { [weak self] (result) in
@@ -473,10 +469,12 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
                         self?.showAlert(title: "Question Removed", message: "\(customQuestion!.question) has been removed")
                         if self?.filterState == .custom {
                             if !(self?.customQuestions.isEmpty ?? false) {
-//                                self?.customQuestions.remove(at: indexPath.row)
                                 self?.questionsCollectionView.reloadData()
                             }
                         } else {
+                            if (self?.bookmarkedQuestions.contains(question))! {
+                                self?.deleteFromBookmarks(question: question)
+                            }
                             self?.allQuestions.remove(at: indexPath.row)
                             self?.questionsCollectionView.reloadData()
                         }
@@ -492,6 +490,16 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
         optionsMenu.addAction(cancel)
         present(optionsMenu, animated: true, completion: nil)
     }
+    private func deleteFromBookmarks(question: InterviewQuestion) {
+        DatabaseService.shared.removeQuestionFromBookmarks(question: question) { (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to remove custom question from bookmarks: \(error.localizedDescription)")
+            case .success:
+                print("removed from bookmarks")
+            }
+        }
+    }
 }
 extension InterviewQuestionsMainController: EditInterviewQuestionDelegate {
     func didEditInterviewQuestion() {
@@ -501,3 +509,4 @@ extension InterviewQuestionsMainController: EditInterviewQuestionDelegate {
         questionsCollectionView.reloadData()
     }
 }
+

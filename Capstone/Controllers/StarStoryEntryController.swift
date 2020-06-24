@@ -220,9 +220,9 @@ class StarStoryEntryController: UIViewController {
             }
             starSituationID = starID
         }
-        let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: starSituationID, userJobID: nil, interviewQuestionsIDs: [""])
+        let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: starSituationID, userJobID: nil, interviewQuestionsIDs: nil)
         //Note: When user has selected to enter star situation freeForm, to allow Task, Action, and Result fields to be nil
-        let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: starSituationID, userJobID: nil, interviewQuestionsIDs: [""])
+        let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: starSituationID, userJobID: nil, interviewQuestionsIDs: nil)
         //TODO: Activity Indicators
         if guidedEntryPreference.rawValue == GuidedStarSitutionInput.guided.rawValue {
             DatabaseService.shared.addToStarSituations(starSituation: guidedStarSituation, completion: { [weak self] (result) in
