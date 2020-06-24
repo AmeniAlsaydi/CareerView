@@ -42,7 +42,7 @@ class StarStoryMainController: UIViewController {
     }
     
     var delegate: StarStoryMainControllerDelegate?
-        
+    
     //MARK:- ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class StarStoryMainController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         loadStarSituations()
     }
-    //MARK:- Private funcs
+    //MARK:- Configure Collection View and Navigation Bar
     private func configureCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -82,7 +82,7 @@ class StarStoryMainController: UIViewController {
             AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
         }
     }
-    
+    //MARK:- Load data from Firebase
     private func loadStarSituations() {
         self.showIndicator()
         DatabaseService.shared.fetchStarSituations { [weak self] (results) in
@@ -100,6 +100,7 @@ class StarStoryMainController: UIViewController {
             }
         }
     }
+    //MARK:- NavBar Items functions
     @objc private func segueToSTARStoryInfoVC(_ sender: UIBarButtonItem) {
         let infoViewController = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
         infoViewController.modalTransitionStyle = .crossDissolve
@@ -119,16 +120,25 @@ class StarStoryMainController: UIViewController {
         delegate?.starStoryMainViewControllerDismissed(starSituations: starSituationsToSendBack)
         dismiss(animated: true)
     }
-    
+    private func addAnswerIDToSTARStory(answerID: String, starID: String) {
+        DatabaseService.shared.addAnswerIDToSTARSituation(answerID: answerID, starSituationID: starID) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("could not add id to star story: \(error.localizedDescription)")
+            case .success:
+                print("answer id has been added to star story")
+            }
+        }
+    }
     @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
         self.showIndicator()
-        //When a user selects a star story, save it to db function
-
+        guard let starID = selectedSTARStory?.id else {return}
         if selectedSTARStory == nil {
             sender.isEnabled = false
         } else {
             if let answerID = answerId {
-                DatabaseService.shared.addStarSituationToAnswer(answerID: answerID, starSolutionID: selectedSTARStory?.id ?? "") { [weak self] (result) in
+                
+                DatabaseService.shared.addStarSituationToAnswer(answerID: answerID, starSolutionID: starID) { [weak self] (result) in
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
@@ -138,13 +148,14 @@ class StarStoryMainController: UIViewController {
                     case .success:
                         DispatchQueue.main.async {
                             self?.removeIndicator()
+                            self?.addAnswerIDToSTARStory(answerID: answerID, starID: starID)
                             self?.dismiss(animated: true)
                         }
                         
                     }
                 }
             } else {
-                let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question ?? "", answers: [], starSituationIDs: [selectedSTARStory?.id ?? ""])
+                let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question ?? "", answers: [], starSituationIDs: [starID])
                 DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: newAnswer) { [weak self] (result) in
                     switch result {
                     case .failure(let error):
@@ -155,6 +166,7 @@ class StarStoryMainController: UIViewController {
                     case .success:
                         DispatchQueue.main.async {
                             self?.removeIndicator()
+                            self?.addAnswerIDToSTARStory(answerID: newAnswer.id, starID: starID)
                             self?.dismiss(animated: true)
                         }
                     }
@@ -164,7 +176,7 @@ class StarStoryMainController: UIViewController {
         }
     }
 }
-//MARK:- Extensions on view controller
+//MARK:- CollectionView DataSource
 extension StarStoryMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return starSituations.count
@@ -233,7 +245,7 @@ extension StarStoryMainController: UICollectionViewDataSource {
     }
     
 }
-
+//MARK:- CollectionView Delegate
 extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxWidth = view.frame.width
@@ -253,7 +265,9 @@ extension StarStoryMainController: StarSituationCellDelegate {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell) }
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell)
+            self.removeSTARStoryFromAnswer(starStory: starSituation)
+        }
         let editAction = UIAlertAction(title: "Edit", style: .default) {
             alertAction in self.editStarSituation(starSituation: starSituation, starSituationCell: starSituationCell)
         }
@@ -286,5 +300,19 @@ extension StarStoryMainController: StarSituationCellDelegate {
                 }
             }
         }
+    }
+    private func removeSTARStoryFromAnswer(starStory: StarSituation) {
+        guard let answerIDs = starStory.interviewQuestionsIDs else { return }
+        for answerID in answerIDs {
+            DatabaseService.shared.removeStarSituationFromAnswer(answerID: answerID, starSolutionID: starStory.id) { (result) in
+                switch result {
+                case .failure(let error):
+                    print("unable to remove this story from an interview answer: \(error.localizedDescription)")
+                case .success:
+                    print("removed from user interview answer")
+                }
+            }
+        }
+        
     }
 }
