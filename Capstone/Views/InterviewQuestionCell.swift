@@ -46,7 +46,7 @@ class InterviewQuestionCell: UICollectionViewCell {
         answeredLabel.textColor = AppColors.darkGrayHighlightColor
         answerCheckBox.tintColor = AppColors.darkGrayHighlightColor
         cellHeaderView.backgroundColor = AppColors.primaryPurpleColor
-        editButton.tintColor = AppColors.whiteTextColor
+        editButton.tintColor = AppColors.secondaryPurpleColor
     }
     
     @IBAction func editButtonPressed(_ sender: UIButton) {

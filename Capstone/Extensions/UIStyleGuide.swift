@@ -86,5 +86,5 @@ class AppButtonIcons {
     }
 }
 class AppRoundedViews {
-    static let cornerRadius: CGFloat = 8
+    static let cornerRadius: CGFloat = 10
 }
