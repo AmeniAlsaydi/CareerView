@@ -126,23 +126,23 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CareerView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfw-hj-nhX">
-                                <rect key="frame" x="20" y="263.33333333333331" width="374" height="33.666666666666686"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CareerView" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfw-hj-nhX">
+                                <rect key="frame" x="20" y="303.33333333333331" width="374" height="33.666666666666686"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="65a-jL-6LM">
-                                <rect key="frame" x="80" y="682" width="254" height="30"/>
+                                <rect key="frame" x="79.666666666666671" y="682" width="254.66666666666663" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkn-GF-lYM">
-                                        <rect key="frame" x="0.0" y="0.0" width="196" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have an account already?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkn-GF-lYM">
+                                        <rect key="frame" x="0.0" y="0.0" width="196.66666666666666" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebg-Bq-dCS">
-                                        <rect key="frame" x="206" y="0.0" width="48" height="30"/>
+                                        <rect key="frame" x="206.66666666666663" y="0.0" width="48" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Log In ">
                                             <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -169,13 +169,21 @@
                                     <action selector="signUpButonPressed:" destination="M3O-lL-If0" eventType="touchUpInside" id="Tse-bX-LTI"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CareerViewlogo" translatesAutoresizingMaskIntoConstraints="NO" id="szm-yb-Xfm">
+                                <rect key="frame" x="117.33333333333333" y="114.00000000000001" width="179.33333333333337" height="179.33333333333337"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="szm-yb-Xfm" secondAttribute="height" multiplier="1:1" id="xPo-j9-HtR"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="dhi-e9-NKV" firstAttribute="leading" secondItem="m7L-qk-hn4" secondAttribute="leading" constant="20" id="3YP-dB-XWy"/>
+                            <constraint firstItem="szm-yb-Xfm" firstAttribute="centerX" secondItem="hfw-hj-nhX" secondAttribute="centerX" id="5lG-Nt-NiX"/>
                             <constraint firstItem="m7L-qk-hn4" firstAttribute="bottom" secondItem="65a-jL-6LM" secondAttribute="bottom" constant="150" id="6dO-cy-54H"/>
                             <constraint firstItem="99u-aq-ViE" firstAttribute="leading" secondItem="m7L-qk-hn4" secondAttribute="leading" constant="20" id="70O-Fq-vH0"/>
                             <constraint firstItem="m7L-qk-hn4" firstAttribute="trailing" secondItem="hfw-hj-nhX" secondAttribute="trailing" constant="20" id="79P-Rf-aGW"/>
+                            <constraint firstItem="hfw-hj-nhX" firstAttribute="top" secondItem="szm-yb-Xfm" secondAttribute="bottom" constant="10" id="8UM-9A-xcd"/>
                             <constraint firstItem="5Rc-d8-euA" firstAttribute="leading" secondItem="m7L-qk-hn4" secondAttribute="leading" constant="20" id="C3g-Zx-sbf"/>
                             <constraint firstItem="hfw-hj-nhX" firstAttribute="leading" secondItem="m7L-qk-hn4" secondAttribute="leading" constant="20" id="Rpl-T6-19N"/>
                             <constraint firstItem="m7L-qk-hn4" firstAttribute="trailing" secondItem="99u-aq-ViE" secondAttribute="trailing" constant="20" id="RzM-nq-Ba7"/>
@@ -187,15 +195,19 @@
                             <constraint firstItem="99u-aq-ViE" firstAttribute="top" secondItem="dhi-e9-NKV" secondAttribute="bottom" constant="20" id="nMf-I2-aqh"/>
                             <constraint firstItem="5Rc-d8-euA" firstAttribute="top" secondItem="MRD-6t-9Zy" secondAttribute="bottom" constant="20" id="rBU-2A-PND"/>
                             <constraint firstItem="m7L-qk-hn4" firstAttribute="trailing" secondItem="dhi-e9-NKV" secondAttribute="trailing" constant="20" id="tcy-Or-Hxn"/>
+                            <constraint firstItem="szm-yb-Xfm" firstAttribute="height" secondItem="4Vr-ky-N9a" secondAttribute="height" multiplier="0.2" id="ulh-rf-rFA"/>
                             <constraint firstItem="dhi-e9-NKV" firstAttribute="top" secondItem="5Rc-d8-euA" secondAttribute="bottom" constant="10" id="x2N-2D-E0h"/>
-                            <constraint firstItem="MRD-6t-9Zy" firstAttribute="top" secondItem="hfw-hj-nhX" secondAttribute="bottom" constant="80" id="zEz-qj-JFX"/>
+                            <constraint firstItem="MRD-6t-9Zy" firstAttribute="top" secondItem="hfw-hj-nhX" secondAttribute="bottom" constant="40" id="zEz-qj-JFX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="m7L-qk-hn4"/>
                     </view>
                     <connections>
                         <outlet property="alertLabel" destination="dhi-e9-NKV" id="UNA-p1-vxQ"/>
+                        <outlet property="careerViewLabel" destination="hfw-hj-nhX" id="wmi-oW-q57"/>
                         <outlet property="emailTextField" destination="MRD-6t-9Zy" id="hcN-RR-xdj"/>
                         <outlet property="loginButton" destination="ebg-Bq-dCS" id="bdt-RL-hXx"/>
+                        <outlet property="loginPrompt" destination="qkn-GF-lYM" id="Uah-Pz-vgA"/>
+                        <outlet property="logoImageView" destination="szm-yb-Xfm" id="eAa-U6-0m5"/>
                         <outlet property="passwordTextField" destination="5Rc-d8-euA" id="xmD-KU-hWj"/>
                         <outlet property="positionYConstraint" destination="UWs-Te-fcI" id="Fyz-ap-H4M"/>
                         <outlet property="signUpButton" destination="99u-aq-ViE" id="BOa-q2-stk"/>
