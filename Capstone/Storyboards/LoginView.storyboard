@@ -37,16 +37,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tSa-Nu-Nf5">
-                                <rect key="frame" x="87.666666666666686" y="682" width="239" height="30"/>
+                                <rect key="frame" x="85.666666666666686" y="682" width="243" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dont have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k45-Sz-CK1">
-                                        <rect key="frame" x="0.0" y="0.0" width="175" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k45-Sz-CK1">
+                                        <rect key="frame" x="0.0" y="0.0" width="179" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uf3-Kk-qpA">
-                                        <rect key="frame" x="185" y="0.0" width="54" height="30"/>
+                                        <rect key="frame" x="189" y="0.0" width="54" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Sign up">
                                             <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -93,12 +93,14 @@
                         <viewLayoutGuide key="safeArea" id="X2I-9p-hAc"/>
                     </view>
                     <connections>
+                        <outlet property="careerViewLabel" destination="5U1-2H-L1x" id="J6d-2h-wR5"/>
                         <outlet property="emailTextField" destination="C6O-H3-2Kp" id="EPe-xC-JKt"/>
                         <outlet property="loginButton" destination="XH6-T4-qbS" id="uCj-H1-58M"/>
                         <outlet property="logoImageView" destination="NjK-FW-Lk5" id="Eeh-Vp-qLk"/>
                         <outlet property="passwordTextField" destination="HUo-KJ-ju9" id="0r5-DR-b2e"/>
                         <outlet property="positionYConstraint" destination="2j0-lJ-AOh" id="Mrk-qp-jXb"/>
                         <outlet property="signUpButton" destination="uf3-Kk-qpA" id="lx8-9d-fCQ"/>
+                        <outlet property="signUpPrompt" destination="k45-Sz-CK1" id="AE6-DQ-ZJz"/>
                         <outlet property="stackViewHeight" destination="pm0-J7-XEC" id="qH9-vx-WZi"/>
                     </connections>
                 </viewController>

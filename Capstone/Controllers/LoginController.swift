@@ -17,6 +17,8 @@ class LoginController: UIViewController {
     @IBOutlet weak var positionYConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewHeight: NSLayoutConstraint!
     @IBOutlet weak var logoImageView: UIImageView!
+    @IBOutlet weak var signUpPrompt: UILabel!
+    @IBOutlet weak var careerViewLabel: UILabel!
     
     private lazy var tapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer()
@@ -85,7 +87,7 @@ class LoginController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-    //MARK:- Set Up UI functions
+    //MARK:- UI
     private func setUpUI() {
         logoImageView.layer.cornerRadius = AppRoundedViews.cornerRadius
         signUpButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
@@ -94,20 +96,19 @@ class LoginController: UIViewController {
         loginButton.setTitleColor(AppColors.whiteTextColor, for: .normal)
         loginButton.backgroundColor = AppColors.secondaryPurpleColor
         loginButton.layer.cornerRadius = AppRoundedViews.cornerRadius
-        //emailTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
-        //passwordTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
+        signUpPrompt.font = AppFonts.secondaryFont
+        careerViewLabel.font = AppFonts.boldFont
+        careerViewLabel.textColor = AppColors.primaryBlackColor
     }
-    
     @objc private func didTap(_ gesture: UITapGestureRecognizer ) {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
-    
+    //MARK:- Login functions
     @IBAction func loginButtonPressed(_ sender: TransitionButton) {
         sender.startAnimation()
         
         guard let email = emailTextField.text, !email.isEmpty else {
-            //self.showAlert(title: "Missing feilds", message: "Missing email or password.")
             let animation = CABasicAnimation(keyPath: "position")
             animation.duration = 0.07
             animation.repeatCount = 4
@@ -122,7 +123,6 @@ class LoginController: UIViewController {
             sender.stopAnimation()
             return
         }
-        
         guard let password = passwordTextField.text, !password.isEmpty else {
             
             let animation1 = CABasicAnimation(keyPath: "position")
@@ -139,7 +139,6 @@ class LoginController: UIViewController {
             sender.stopAnimation()
             return
         }
-        
         AuthenticationSession.shared.signExisitingUser(email: email, password: password) { [weak self] (result) in
             switch result {
             case .failure(let error):
@@ -157,14 +156,13 @@ class LoginController: UIViewController {
         }
     }
 }
-
+//MARK:- TextField Delegate
 extension LoginController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         return true
     }
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         emailTextField.setBorder(color: AppColors.lightGrayHighlightColor.cgColor, width: 0)
         passwordTextField.setBorder(color: AppColors.lightGrayHighlightColor.cgColor, width: 0)
