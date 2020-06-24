@@ -30,7 +30,6 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var collectionViewTopAnchor: NSLayoutConstraint!
     
     private var listener: ListenerRegistration?
-    
     private var isFilterOn = false {
         didSet {
             if isFilterOn {
