@@ -47,6 +47,10 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var interviewTitle: UILabel!
     @IBOutlet weak var noInterviewsLabel: UILabel!
     
+    // button height
+    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
+    
+    
     var jobApplication: JobApplication 
     
     private var interviewCount = 0
@@ -168,6 +172,14 @@ class ApplicationDetailController: UIViewController {
         } else {
             notesLabel.text = "No notes for this application."
         }
+        
+        guard let url = application.positionURL, !url.isEmpty else {
+            buttonHeight.constant = 0
+            websiteButton.isHidden = true
+            return
+        }
+        
+        
     }
     
     

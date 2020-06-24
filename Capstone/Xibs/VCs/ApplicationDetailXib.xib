@@ -13,6 +13,7 @@
                 <outlet property="applicationStatusLabel" destination="MPQ-bb-COS" id="ju6-f0-6iQ"/>
                 <outlet property="appliedAsLabel" destination="4Ct-KT-HKE" id="dJ5-aT-5SW"/>
                 <outlet property="appliedToLabel" destination="94P-5l-wtT" id="aeI-ir-7jK"/>
+                <outlet property="buttonHeight" destination="8IY-AZ-SBD" id="AhX-2A-bD4"/>
                 <outlet property="contentView" destination="89K-Is-oGd" id="mSD-5O-Nlu"/>
                 <outlet property="dateAppliedLabel" destination="nhF-K5-6KO" id="yCT-DB-cd3"/>
                 <outlet property="interviewIcon" destination="Uj1-F0-Ecz" id="Wdd-ca-aLg"/>
@@ -107,9 +108,12 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="71M-0z-V5V">
-                                    <rect key="frame" x="20" y="95" width="62" height="33"/>
+                                    <rect key="frame" x="20" y="95" width="127" height="33"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="33" id="8IY-AZ-SBD"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <state key="normal" title="Website"/>
+                                    <state key="normal" title="Job Posting Link"/>
                                     <connections>
                                         <action selector="websitePressed:" destination="-1" eventType="touchUpInside" id="SFa-p1-Slt"/>
                                     </connections>
@@ -172,7 +176,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zxa-38-nmY" customClass="HairlineView" customModule="Capstone" customModuleProvider="target">
-                                    <rect key="frame" x="36.5" y="542.5" width="341" height="1"/>
+                                    <rect key="frame" x="62" y="542.5" width="290" height="1"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="5pX-rc-Nje"/>
@@ -194,7 +198,7 @@
                                 <constraint firstItem="Uj1-F0-Ecz" firstAttribute="centerY" secondItem="UDp-Y2-DAT" secondAttribute="centerY" id="6fI-sg-vPf"/>
                                 <constraint firstItem="Zxa-38-nmY" firstAttribute="top" secondItem="Cae-XS-a30" secondAttribute="bottom" constant="30" id="722-Wb-FQw"/>
                                 <constraint firstItem="dem-ki-EYW" firstAttribute="top" secondItem="8gs-O2-vVX" secondAttribute="bottom" constant="10" id="7bu-58-FiK"/>
-                                <constraint firstItem="Zxa-38-nmY" firstAttribute="width" secondItem="89K-Is-oGd" secondAttribute="width" multiplier="0.823671" id="7lt-Js-uxx"/>
+                                <constraint firstItem="Zxa-38-nmY" firstAttribute="width" secondItem="89K-Is-oGd" secondAttribute="width" multiplier="0.7" id="7lt-Js-uxx"/>
                                 <constraint firstItem="Zh4-AE-htq" firstAttribute="leading" secondItem="SaA-Zk-cn0" secondAttribute="leading" id="BJD-dq-ksG"/>
                                 <constraint firstItem="MPQ-bb-COS" firstAttribute="leading" secondItem="vgo-uG-0fe" secondAttribute="leading" id="Bsk-Jc-Xtx"/>
                                 <constraint firstItem="8gs-O2-vVX" firstAttribute="leading" secondItem="89K-Is-oGd" secondAttribute="leading" constant="20" id="CZB-CV-OmW"/>
