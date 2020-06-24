@@ -19,6 +19,9 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var applicationStatusLabel: UILabel!
     @IBOutlet weak var appliedAsLabel: UILabel!
     @IBOutlet weak var remoteLabel: UILabel!
+    @IBOutlet weak var addressOrCityLabel: UILabel!
+    @IBOutlet weak var notesLabel: UILabel!
+    
     @IBOutlet weak var dateAppliedLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var websiteButton: UIButton!
@@ -57,6 +60,7 @@ class ApplicationDetailController: UIViewController {
         configureMapView()
         loadMapAnnotations()
         configureNavBar()
+        
     }
     
     private func configureNavBar() {
@@ -85,7 +89,7 @@ class ApplicationDetailController: UIViewController {
         
         websiteButton.setTitleColor(.systemBlue, for: .normal)
         
-        appliedAsLabel.text = "Applied as: \(application.positionTitle)"
+        appliedAsLabel.text = application.positionTitle.capitalized
         appliedToLabel.text = application.companyName.capitalized
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
@@ -116,12 +120,9 @@ class ApplicationDetailController: UIViewController {
             }
         }
         
-//        switch application.remoteStatus {
-//        case true:
-//            remoteLabel.text = "Remote: Yes"
-//        case false:
-//            remoteLabel.text = "Remote: No"
-//        }
+        if application.remoteStatus {
+            addressOrCityLabel.text = "Remote"
+        }
         
         if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
             dateAppliedLabel.text = "Date Applied: \(submittedDate)"
@@ -129,6 +130,9 @@ class ApplicationDetailController: UIViewController {
             dateAppliedLabel.text = "Date Applied: N/A"
         }
         
+        if let notes = application.notes, !notes.isEmpty {
+            notesLabel.text = notes
+        }
     }
     
     
@@ -144,6 +148,8 @@ class ApplicationDetailController: UIViewController {
         annotation.title = jobApplication.companyName
         
         if let city = jobApplication.city {
+            
+            addressOrCityLabel.text = city
             
             getCoordinateFrom(address: city) { [weak self] (coordinate, error) in
                 guard let coordinate = coordinate, error == nil else { return }
@@ -186,6 +192,7 @@ class ApplicationDetailController: UIViewController {
             view3.isHidden = true
             
             view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
+            
             if interviewData[0].thankYouSent {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }

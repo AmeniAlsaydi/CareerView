@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ApplicationDetailController" customModule="Capstone" customModuleProvider="target">
             <connections>
+                <outlet property="addressOrCityLabel" destination="Zh4-AE-htq" id="7RQ-EM-8v8"/>
                 <outlet property="applicationStatusLabel" destination="MPQ-bb-COS" id="ju6-f0-6iQ"/>
                 <outlet property="appliedAsLabel" destination="4Ct-KT-HKE" id="dJ5-aT-5SW"/>
                 <outlet property="appliedToLabel" destination="94P-5l-wtT" id="aeI-ir-7jK"/>
@@ -16,6 +17,7 @@
                 <outlet property="dateAppliedLabel" destination="nhF-K5-6KO" id="yCT-DB-cd3"/>
                 <outlet property="mapHeight" destination="Rjk-hv-CHe" id="e5p-Uj-l1u"/>
                 <outlet property="mapView" destination="qha-ww-Y2a" id="E9M-VE-Fxh"/>
+                <outlet property="notesLabel" destination="Cae-XS-a30" id="ksM-8v-chb"/>
                 <outlet property="progressBar" destination="vgo-uG-0fe" id="5Ts-W3-Ray"/>
                 <outlet property="scrollView" destination="ZXM-QB-XqC" id="9rT-yE-FBO"/>
                 <outlet property="view" destination="iN0-l3-epB" id="qXI-4D-pKF"/>
@@ -91,8 +93,8 @@
                                         <constraint firstAttribute="height" id="fd4-sF-4ys"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interview Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDp-Y2-DAT">
-                                    <rect key="frame" x="53" y="542.5" width="112.5" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDp-Y2-DAT">
+                                    <rect key="frame" x="53" y="542.5" width="85.5" height="21"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
