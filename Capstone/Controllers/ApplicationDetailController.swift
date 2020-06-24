@@ -116,12 +116,12 @@ class ApplicationDetailController: UIViewController {
             }
         }
         
-        switch application.remoteStatus {
-        case true:
-            remoteLabel.text = "Remote: Yes"
-        case false:
-            remoteLabel.text = "Remote: No"
-        }
+//        switch application.remoteStatus {
+//        case true:
+//            remoteLabel.text = "Remote: Yes"
+//        case false:
+//            remoteLabel.text = "Remote: No"
+//        }
         
         if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
             dateAppliedLabel.text = "Date Applied: \(submittedDate)"
