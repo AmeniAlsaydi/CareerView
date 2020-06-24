@@ -16,6 +16,7 @@ class LoginController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var positionYConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var logoImageView: UIImageView!
     
     private lazy var tapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer()
@@ -40,39 +41,31 @@ class LoginController: UIViewController {
         super.viewWillDisappear(true)
         unregisterForKeyBoardNotifications()
     }
-    
+    //MARK:- Keyboard Handeling
     private var isKeyboardThere = false
-    
     private var originalState: NSLayoutConstraint!
-    
     private var originalStack: NSLayoutConstraint!
-    
+
     private func registerForKeyBoardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
     private func unregisterForKeyBoardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
     @objc
     private func keyboardWillShow(notification: NSNotification) {
         guard let keyboardFrame = notification.userInfo?["UIKeyboardFrameBeginUserInfoKey"] as? CGRect else {
             return
         }
-        print(keyboardFrame)
-        print(keyboardFrame.size.height)
         moveKeyboardUp(height: keyboardFrame.size.height / 2)
     }
-    
     @objc
     private func keyboardWillHide(notification: NSNotification) {
         resetUI()
     }
-    
     private func resetUI() {
         isKeyboardThere = false
         positionYConstraint.constant -= originalState.constant
@@ -81,7 +74,6 @@ class LoginController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-    
     private func moveKeyboardUp(height: CGFloat) {
         if isKeyboardThere {return}
         originalState = positionYConstraint
@@ -93,16 +85,17 @@ class LoginController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-    
+    //MARK:- Set Up UI functions
     private func setUpUI() {
+        logoImageView.layer.cornerRadius = AppRoundedViews.cornerRadius
         signUpButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
         signUpButton.titleLabel?.font = AppFonts.primaryFont
         loginButton.titleLabel?.font = AppFonts.primaryFont
-        loginButton.setTitleColor(AppColors.primaryBlackColor, for: .normal)
+        loginButton.setTitleColor(AppColors.whiteTextColor, for: .normal)
         loginButton.backgroundColor = AppColors.secondaryPurpleColor
         loginButton.layer.cornerRadius = AppRoundedViews.cornerRadius
-        emailTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
-        passwordTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
+        //emailTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
+        //passwordTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
     }
     
     @objc private func didTap(_ gesture: UITapGestureRecognizer ) {
@@ -111,7 +104,6 @@ class LoginController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(_ sender: TransitionButton) {
-        
         sender.startAnimation()
         
         guard let email = emailTextField.text, !email.isEmpty else {
@@ -174,7 +166,7 @@ extension LoginController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        emailTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
-        passwordTextField.setBorder(color: AppColors.primaryPurpleColor.cgColor, width: 1.0)
+        emailTextField.setBorder(color: AppColors.lightGrayHighlightColor.cgColor, width: 0)
+        passwordTextField.setBorder(color: AppColors.lightGrayHighlightColor.cgColor, width: 0)
     }
 }
