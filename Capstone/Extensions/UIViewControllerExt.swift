@@ -30,6 +30,13 @@ extension UIViewController {
         resetWindow(newVC)
         
     }
+    public static func showLoginView() {
+        showViewController(storyBoardName: "LoginView", viewControllerId: "LoginController")
+        
+    }
+    public static func showMainAppView() {
+        resetWindow(MainTabBarController())
+    }
     
     public func showAlert(title: String?, message: String) {
         
@@ -38,5 +45,36 @@ extension UIViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
-
+    
+    public func addInputAccessoryForTextFields(textFields: [UITextField], dismissable: Bool = true, previousNextable: Bool) {
+        for (index, textField) in textFields.enumerated() {
+            let toolbar: UIToolbar = UIToolbar()
+            toolbar.sizeToFit()
+            var items = [UIBarButtonItem]()
+            if previousNextable {
+                let previousButton = UIBarButtonItem(title: "Prev", style: .plain, target: nil, action: nil)
+                previousButton.width = 30
+                if textField == textFields.first {
+                    previousButton.isEnabled = false
+                } else {
+                    previousButton.target = textFields[index - 1]
+                    previousButton.action = #selector(UITextField.becomeFirstResponder)
+                }
+                let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: nil, action: nil)
+                nextButton.width = 30
+                if textField == textFields.last {
+                    nextButton.isEnabled = false
+                } else {
+                    nextButton.target = textFields[index + 1]
+                    nextButton.action = #selector(UITextField.becomeFirstResponder)
+                }
+                items.append(contentsOf: [previousButton, nextButton])
+            }
+            let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: view, action: #selector(UIView.endEditing))
+            items.append(contentsOf: [spacer, doneButton])
+            toolbar.setItems(items, animated: false)
+            textField.inputAccessoryView = toolbar
+        }
+    }
 }

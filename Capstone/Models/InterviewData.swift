@@ -7,10 +7,14 @@
 //
 
 import Foundation
+import Firebase
 
 struct Interview {
-    var interviewDate: Date
+    var id: String
+    var interviewDate: Timestamp
     var thankYouSent: Bool
     var followUpSent: Bool
     var notes: String
 }
+
+// do we want notes for each interview ?

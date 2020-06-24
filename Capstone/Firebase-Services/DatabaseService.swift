@@ -13,21 +13,22 @@ import FirebaseAuth
 class DatabaseService {
     public static let shared = DatabaseService()
     private init() {}
+
+    static let userCollection = "users"
+    static let userJobCollection = "userJobs"
+    static let commonQuestionCollection = "commonInterviewQuestions"
+    static let contactsCollection = "contacts"
+    static let jobApplicationCollection = "jobApplications"
+    static let interviewCollection = "interviews"
+    static let customQuestionsCollection = "customInterviewQuestions"
+    static let answeredQuestionsCollection = "answeredQuestions"
+    static let starSituationsCollection = "starSituations"
     
-    static let testCollection = "tester"
+    internal let db = Firestore.firestore()
     
-    private let db = Firestore.firestore()
+    // TODO: create CRUD functions for interview data to application (is its own collection
+     
     
-    public func testFirebase(completion: @escaping (Result<[TestModel], Error>) -> ()) {
-        
-        db.collection(DatabaseService.testCollection).getDocuments { (snapshot, error) in
-            if let error = error {
-                completion(.failure(error))
-            } else if let snapshot = snapshot {
-                
-                let testJobs = snapshot.documents.map { TestModel($0.data())}
-                completion(.success(testJobs))
-            }
-        }
-    }
 }
+
+
