@@ -51,7 +51,7 @@ class AppColors {
 class AppFonts {
     static let fonts = AppFonts()
     
-    static let primaryFont = UIFont(name: "Avenir-Regular", size: 17)
+    static let primaryFont = UIFont(name: "Avenir", size: 17)
     static let boldFont = UIFont(name: "Avenir-Heavy", size: 25)
     static let semiBoldLarge = UIFont(name: "Avenir-Medium", size: 20)
     static let semiBoldSmall = UIFont(name: "Avenir-Medium", size: 17)

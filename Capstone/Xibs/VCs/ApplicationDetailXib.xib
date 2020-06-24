@@ -35,10 +35,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXM-QB-XqC">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZXM-QB-XqC">
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="89K-Is-oGd" userLabel="Content View">
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="89K-Is-oGd" userLabel="Content View">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Applied To" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94P-5l-wtT">
@@ -72,25 +72,25 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gs-O2-vVX" userLabel="view 1" customClass="ApplicationDetailView" customModule="Capstone" customModuleProvider="target">
+                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8gs-O2-vVX" userLabel="view 1" customClass="ApplicationDetailView" customModule="Capstone" customModuleProvider="target">
                                     <rect key="frame" x="20" y="573.5" width="374" height="0.0"/>
                                     <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" id="PBo-Fg-9Cf"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="PBo-Fg-9Cf"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dem-ki-EYW" userLabel="view 2" customClass="ApplicationDetailView" customModule="Capstone" customModuleProvider="target">
+                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dem-ki-EYW" userLabel="view 2" customClass="ApplicationDetailView" customModule="Capstone" customModuleProvider="target">
                                     <rect key="frame" x="20" y="583.5" width="374" height="0.0"/>
                                     <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" id="OJJ-Lr-tSJ"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="OJJ-Lr-tSJ"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bL4-gh-oH7" userLabel="view 3 " customClass="ApplicationDetailView" customModule="Capstone" customModuleProvider="target">
+                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bL4-gh-oH7" userLabel="view 3 " customClass="ApplicationDetailView" customModule="Capstone" customModuleProvider="target">
                                     <rect key="frame" x="20" y="593.5" width="374" height="0.0"/>
                                     <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" id="fd4-sF-4ys"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="fd4-sF-4ys"/>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDp-Y2-DAT">
@@ -214,6 +214,7 @@
                                 <constraint firstItem="vgo-uG-0fe" firstAttribute="leading" secondItem="4Ct-KT-HKE" secondAttribute="trailing" constant="8" id="sIm-33-Xts"/>
                                 <constraint firstItem="Uj1-F0-Ecz" firstAttribute="leading" secondItem="89K-Is-oGd" secondAttribute="leading" constant="20" id="ssK-8D-Vdx"/>
                                 <constraint firstAttribute="trailing" secondItem="dem-ki-EYW" secondAttribute="trailing" constant="20" id="v4n-QJ-g9c"/>
+                                <constraint firstAttribute="bottom" secondItem="bL4-gh-oH7" secondAttribute="bottom" constant="20" id="yCc-Yu-g33"/>
                                 <constraint firstItem="4Ct-KT-HKE" firstAttribute="leading" secondItem="89K-Is-oGd" secondAttribute="leading" constant="20" id="zYr-Ky-HUo"/>
                             </constraints>
                         </view>
@@ -223,7 +224,6 @@
                         <constraint firstItem="89K-Is-oGd" firstAttribute="top" secondItem="ZXM-QB-XqC" secondAttribute="top" id="Dg4-Vk-yKA"/>
                         <constraint firstAttribute="trailing" secondItem="89K-Is-oGd" secondAttribute="trailing" id="Jhw-0w-YGz"/>
                         <constraint firstItem="89K-Is-oGd" firstAttribute="leading" secondItem="ZXM-QB-XqC" secondAttribute="leading" id="kGD-uV-9yd"/>
-                        <constraint firstItem="89K-Is-oGd" firstAttribute="height" secondItem="ZXM-QB-XqC" secondAttribute="height" priority="250" id="pef-fH-E0N"/>
                         <constraint firstAttribute="bottom" secondItem="89K-Is-oGd" secondAttribute="bottom" id="vF7-7h-bL5"/>
                     </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="CdW-qY-TMf"/>

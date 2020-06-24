@@ -177,7 +177,7 @@ class ApplicationDetailController: UIViewController {
             view2.isHidden = true
             view3.isHidden = true
         case 1:
-            view1Height.constant = 100
+            //view1Height.constant = 100
             view2.isHidden = true
             view3.isHidden = true
             view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
@@ -186,9 +186,13 @@ class ApplicationDetailController: UIViewController {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
             
+            if let notes = interviewData[0].notes {
+                view1.notesLabel.text = notes
+            }
+            
         case 2:
-            view1Height.constant = 100
-            view2Height.constant = 100
+           //view1Height.constant = 100
+           // view2Height.constant = 100
             view3.isHidden = true
             
             view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
@@ -201,10 +205,17 @@ class ApplicationDetailController: UIViewController {
             if interviewData[1].thankYouSent {
                 view2.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
+            if let notes = interviewData[0].notes {
+                view1.notesLabel.text = notes
+            }
+            if let notes = interviewData[1].notes {
+                view2.notesLabel.text = notes
+            }
+            
         case 3:
-            view1Height.constant = 100
-            view2Height.constant = 100
-            view3Height.constant = 100
+           // view1Height.constant = 100
+           // view2Height.constant = 100
+           // view3Height.constant = 100
             view1.interviewDateLabel.text = "Interview Date #1 - \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
             if interviewData[0].thankYouSent {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
@@ -219,6 +230,17 @@ class ApplicationDetailController: UIViewController {
             if interviewData[2].thankYouSent {
                 view3.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
+            
+            if let notes = interviewData[0].notes {
+                view1.notesLabel.text = notes
+            }
+            if let notes = interviewData[1].notes {
+                view2.notesLabel.text = notes
+            }
+            if let notes = interviewData[2].notes {
+                view3.notesLabel.text = notes
+            }
+            
         default:
             print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
         }
