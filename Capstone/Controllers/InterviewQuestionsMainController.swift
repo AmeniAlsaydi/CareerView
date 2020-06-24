@@ -162,10 +162,11 @@ class InterviewQuestionsMainController: UIViewController {
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
         AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
+        let addCustomQuestionButton = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
         let infoButton = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(presentInfoVC(_:)))
         let filterButton = UIBarButtonItem(image: AppButtonIcons.filterIcon, style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
-        navigationItem.leftBarButtonItems = [filterButton, infoButton]
+        navigationItem.leftBarButtonItem = infoButton
+        navigationItem.rightBarButtonItems = [addCustomQuestionButton,filterButton]
     }
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
