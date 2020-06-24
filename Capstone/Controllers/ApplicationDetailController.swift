@@ -36,6 +36,17 @@ class ApplicationDetailController: UIViewController {
     
     @IBOutlet weak var mapHeight: NSLayoutConstraint!
     
+    // icons
+    @IBOutlet weak var mapIcon: UIImageView!
+    @IBOutlet weak var notesIcon: UIImageView!
+    @IBOutlet weak var interviewIcon: UIImageView!
+    
+    // titles
+    @IBOutlet weak var locationTitle: UILabel!
+    @IBOutlet weak var notesTitle: UILabel!
+    @IBOutlet weak var interviewTitle: UILabel!
+    @IBOutlet weak var noInterviewsLabel: UILabel!
+    
     var jobApplication: JobApplication 
     
     private var interviewCount = 0
@@ -60,11 +71,33 @@ class ApplicationDetailController: UIViewController {
         configureMapView()
         loadMapAnnotations()
         configureNavBar()
+        setUpViewUI()
         
     }
     
     private func configureNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.optionsIcon, style: .plain, target: self, action: #selector(moreOptionsButtonPressed(_:)))
+    }
+    
+    private func setUpViewUI() {
+        //icons
+        mapIcon.tintColor = AppColors.secondaryPurpleColor
+        notesIcon.tintColor = AppColors.secondaryPurpleColor
+        interviewIcon.tintColor = AppColors.secondaryPurpleColor
+        
+        //labels
+        appliedToLabel.font = AppFonts.boldFont
+        appliedAsLabel.font = AppFonts.semiBoldSmall
+        dateAppliedLabel.font = AppFonts.subtitleFont
+        websiteButton.titleLabel?.font = AppFonts.semiBoldSmall
+        applicationStatusLabel.font = AppFonts.subtitleFont
+        
+        // Titles
+        locationTitle.font = AppFonts.mediumBoldFont
+        notesTitle.font = AppFonts.mediumBoldFont
+        interviewTitle.font = AppFonts.mediumBoldFont
+        
+        
     }
     
     public func getInterview(application: JobApplication) {
@@ -132,6 +165,8 @@ class ApplicationDetailController: UIViewController {
         
         if let notes = application.notes, !notes.isEmpty {
             notesLabel.text = notes
+        } else {
+            notesLabel.text = "No notes for this application."
         }
     }
     
@@ -165,7 +200,6 @@ class ApplicationDetailController: UIViewController {
         } else {
             mapHeight.constant = 0
             mapView.isHidden = true
-            
         }
     }
     
@@ -176,8 +210,8 @@ class ApplicationDetailController: UIViewController {
             view1.isHidden = true
             view2.isHidden = true
             view3.isHidden = true
+            noInterviewsLabel.text = "No interviews for this application."
         case 1:
-            //view1Height.constant = 100
             view2.isHidden = true
             view3.isHidden = true
             view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
@@ -191,8 +225,6 @@ class ApplicationDetailController: UIViewController {
             }
             
         case 2:
-           //view1Height.constant = 100
-           // view2Height.constant = 100
             view3.isHidden = true
             
             view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
@@ -213,9 +245,6 @@ class ApplicationDetailController: UIViewController {
             }
             
         case 3:
-           // view1Height.constant = 100
-           // view2Height.constant = 100
-           // view3Height.constant = 100
             view1.interviewDateLabel.text = "Interview Date #1 - \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
             if interviewData[0].thankYouSent {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)

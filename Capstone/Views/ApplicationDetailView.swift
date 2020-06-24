@@ -33,7 +33,7 @@ class ApplicationDetailView: UIView {
     public lazy var thankYouButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "square")
-        button.tintColor = .systemPurple
+        button.tintColor = AppColors.secondaryPurpleColor
         button.setImage(image, for: .normal)
         return button
     }()
@@ -85,8 +85,7 @@ class ApplicationDetailView: UIView {
         NSLayoutConstraint.activate([
             thankYouButton.widthAnchor.constraint(equalToConstant: 44),
             thankYouButton.topAnchor.constraint(equalTo: interviewDateLabel.bottomAnchor, constant: 10),
-            thankYouButton.leadingAnchor.constraint(equalTo: thankYouLabel.trailingAnchor, constant: -40),
-            thankYouButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+            thankYouButton.leadingAnchor.constraint(equalTo: thankYouLabel.trailingAnchor, constant: 10),
         ])
     }
     
@@ -101,7 +100,6 @@ class ApplicationDetailView: UIView {
             notesLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
-    
 }
 
 
