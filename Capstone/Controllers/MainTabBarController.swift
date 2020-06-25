@@ -74,7 +74,7 @@ class MainTabBarController: UITabBarController, UIAdaptivePresentationController
            super.viewDidLoad()
         
         self.tabBar.tintColor = AppColors.primaryBlackColor
-           viewControllers = [jobHistoryController, starSituationController, interviewQuestionsController, applicationTrackerController, settingsController]
+           viewControllers = [jobHistoryController, applicationTrackerController, starSituationController, interviewQuestionsController, settingsController]
         loadDefaultLaunchScreen()
         selectedIndex = defaultIndex
         getUserData()
