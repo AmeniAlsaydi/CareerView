@@ -49,17 +49,17 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a4e-nD-XCM" customClass="ProgressBar" customModule="Capstone" customModuleProvider="target">
-                                <rect key="frame" x="295" y="23.5" width="130" height="108"/>
+                                <rect key="frame" x="301" y="15.5" width="124" height="124"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="a4e-nD-XCM" secondAttribute="height" multiplier="65:54" id="KoC-xl-a5M"/>
+                                    <constraint firstAttribute="width" secondItem="a4e-nD-XCM" secondAttribute="height" id="wCg-Ge-9lh"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="a4e-nD-XCM" firstAttribute="height" secondItem="zjM-4k-6xL" secondAttribute="height" multiplier="0.8" id="Pmu-bc-eMT"/>
                             <constraint firstItem="a4e-nD-XCM" firstAttribute="centerY" secondItem="zjM-4k-6xL" secondAttribute="centerY" id="UiO-g4-9Th"/>
-                            <constraint firstItem="a4e-nD-XCM" firstAttribute="width" secondItem="zjM-4k-6xL" secondAttribute="width" multiplier="0.3" id="Zpt-R8-MWE"/>
                             <constraint firstAttribute="trailing" secondItem="a4e-nD-XCM" secondAttribute="trailing" constant="8" id="iX0-HG-c8c"/>
                             <constraint firstAttribute="bottom" secondItem="NeJ-v5-NCB" secondAttribute="bottom" constant="16" id="jzC-hy-cTU"/>
                             <constraint firstItem="NeJ-v5-NCB" firstAttribute="leading" secondItem="zjM-4k-6xL" secondAttribute="leading" constant="16" id="lSD-K0-saB"/>

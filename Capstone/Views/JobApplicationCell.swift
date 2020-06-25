@@ -31,6 +31,11 @@ class JobApplicationCell: UICollectionViewCell {
         }
     }
     
+    override func prepareForReuse() {
+      super.prepareForReuse()
+      progressBar.layer.sublayers?.removeAll()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
