@@ -9,9 +9,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewApplicationController" customModule="Capstone" customModuleProvider="target">
             <connections>
+                <outlet property="addInterviewButton" destination="cve-pc-zbd" id="RAR-3I-1bY"/>
+                <outlet property="addInterviewIconButton" destination="h4m-66-tJb" id="ytr-Nd-uKn"/>
                 <outlet property="addInterviewStack" destination="5bb-nj-ZZ4" id="8Fj-3j-zoF"/>
                 <outlet property="cityTextField" destination="c9D-U3-bqx" id="tB3-xv-TPK"/>
                 <outlet property="companyNameTextField" destination="iXe-1p-Ltr" id="aj1-Bu-AfK"/>
+                <outlet property="contentView" destination="fZd-Yj-lRt" id="fTs-Ka-JV5"/>
                 <outlet property="dateTextField" destination="pQM-tE-bM3" id="HaB-Qq-PLW"/>
                 <outlet property="hasAppliedButton" destination="8Cg-gh-vrv" id="iaP-Fa-gga"/>
                 <outlet property="hasRecievedReplyButton" destination="SJ1-NG-gUe" id="Hbg-KA-toh"/>
@@ -26,7 +29,7 @@
                 <outlet property="positionTitleTextField" destination="sRR-Rf-gqU" id="Bgb-aa-w0k"/>
                 <outlet property="positionURLTextField" destination="pfd-LL-FcK" id="bxj-2n-KYg"/>
                 <outlet property="recievedRelpyStackHeight" destination="Aqg-kb-vr6" id="bon-p8-3dM"/>
-                <outlet property="scrollView" destination="kDr-2P-7Dy" id="oFg-v4-w7t"/>
+                <outlet property="scrollView" destination="kDr-2P-7Dy" id="Y2m-Pf-P6T"/>
                 <outlet property="view" destination="iN0-l3-epB" id="NNj-6a-xWg"/>
             </connections>
         </placeholder>
@@ -44,7 +47,6 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="General Information:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TM4-Nz-7mR">
                                     <rect key="frame" x="20" y="117.5" width="374" height="21.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                    <color key="textColor" red="0.21051180362701416" green="0.065200045704841614" blue="0.28192910552024841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Company name" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="iXe-1p-Ltr" customClass="FloatingLabelInput" customModule="Capstone" customModuleProvider="target">
@@ -75,7 +77,6 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pre-Interview Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utz-wf-tbd">
                                     <rect key="frame" x="20" y="561" width="374" height="21.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                    <color key="textColor" red="0.21051180362701416" green="0.065200045704841614" blue="0.28192910552024841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ss2-lD-jYt">
@@ -155,7 +156,7 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                             <state key="normal" title="add Interview">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </state>
                                             <connections>
                                                 <action selector="addInterviewButtonPressed:" destination="-1" eventType="touchUpInside" id="dPH-oH-5WO"/>
@@ -174,7 +175,6 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interview Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBI-S2-zcW">
                                     <rect key="frame" x="20" y="748.5" width="374" height="21.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                    <color key="textColor" red="0.21051180359999999" green="0.065200045700000001" blue="0.2819291055" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vID-G1-Od9" userLabel="InterviewEntryView1" customClass="InterviewEntryView" customModule="Capstone" customModuleProvider="target">

@@ -43,6 +43,14 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var isRemoteButton: UIButton!
     @IBOutlet weak var hasAppliedButton: UIButton!
     @IBOutlet weak var hasRecievedReplyButton: UIButton!
+    @IBOutlet weak var addInterviewButton: UIButton!
+    @IBOutlet weak var addInterviewIconButton: UIButton!
+    
+    
+    //MARK: Views
+    
+    //@IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     public var editingApplication = false
     private var activeTextField = UITextField()
@@ -116,7 +124,20 @@ class NewApplicationController: UIViewController {
         listenForKeyboardEvents()
         setUpTextFieldsReturnType()
         setUpDelegateForTextFields()
+        setUpUI()
         scrollView.delegate = self
+    }
+    
+    private func setUpUI() {
+        contentView.backgroundColor = AppColors.systemBackgroundColor
+        scrollView.backgroundColor = AppColors.systemBackgroundColor
+        view.backgroundColor = AppColors.systemBackgroundColor
+        isRemoteButton.tintColor = AppColors.primaryBlackColor
+        hasAppliedButton.tintColor = AppColors.primaryBlackColor
+        hasRecievedReplyButton.tintColor = AppColors.primaryBlackColor
+        addInterviewButton.titleLabel?.tintColor = AppColors.primaryBlackColor
+        addInterviewIconButton.tintColor = AppColors.primaryBlackColor
+    
     }
     
     // MARK: Keyboard handling
@@ -326,6 +347,8 @@ class NewApplicationController: UIViewController {
     
     
     private func submitNewJobApplication() {
+        
+        self.showIndicator()
         // create id
         var jobID = ""
         
@@ -392,12 +415,13 @@ class NewApplicationController: UIViewController {
                 print("success adding application")
                 
                 if self?.editingApplication ?? false {
-                   
+                    self?.removeIndicator()
                     self?.addInterviews(id)
                     self?.showAlert(title: "Sucess!", message: "Your application was edited!", completion: { (alertAction) in
                         self?.navigationController?.popViewController(animated: true)
                     })
                 } else {
+                    self?.removeIndicator()
                     self?.addInterviews(id)
                     self?.showAlert(title: "Sucess!", message: "Your application was added!", completion: { (alertAction) in
                         self?.navigationController?.popViewController(animated: true)

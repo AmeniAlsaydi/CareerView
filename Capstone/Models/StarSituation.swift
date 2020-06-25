@@ -19,7 +19,7 @@ struct StarSituation: Equatable & Hashable {
     var result: String?
     var id: String
     var userJobID: String?
-    var interviewQuestionsIDs: [String]
+    var interviewQuestionsIDs: [String]?
 }
 
 extension StarSituation {
@@ -30,6 +30,6 @@ extension StarSituation {
         self.result = dictionary["result"] as? String ?? nil
         self.id = dictionary["id"] as? String ?? "No ID found"
         self.userJobID = dictionary["userJobID"] as? String ?? nil
-        self.interviewQuestionsIDs = dictionary["interviewQuestionsIDs"] as? [String] ?? ["No interview questions ID found"]
+        self.interviewQuestionsIDs = dictionary["interviewQuestionsIDs"] as? [String] ?? nil
     }
 }

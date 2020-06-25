@@ -32,6 +32,12 @@ class StarStoryMainController: UIViewController {
                 starSituations = starSituations.filter { starSituationID.contains($0.id) }
             }
             collectionView.reloadData()
+            if starSituations.isEmpty {
+                collectionView.backgroundView = EmptyView.init(title: "Enter Your STAR Stories", message: "Add a STAR Story to your collection by pressing the plus button above", imageName: "star.fill")
+            } else {
+                collectionView.reloadData()
+                collectionView.backgroundView = nil
+            }
         }
     }
     
@@ -41,13 +47,13 @@ class StarStoryMainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        configureView()
+        configureNavBar()
         loadStarSituations()
     }
     override func viewDidAppear(_ animated: Bool) {
         loadStarSituations()
     }
-    //MARK:- Private funcs
+    //MARK:- Configure Collection View and Navigation Bar
     private func configureCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -60,7 +66,7 @@ class StarStoryMainController: UIViewController {
             flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
         }
     }
-    private func configureView() {
+    private func configureNavBar() {
         if isAddingToAnswer {
             navigationItem.title = "Add a STAR Story to your answer"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.checkmarkIcon, style: .plain, target: self, action: #selector(addStarStoryToAnswer(_:)))
@@ -76,25 +82,31 @@ class StarStoryMainController: UIViewController {
             AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
         }
     }
-    
+    //MARK:- Load data from Firebase
     private func loadStarSituations() {
+        self.showIndicator()
         DatabaseService.shared.fetchStarSituations { [weak self] (results) in
             switch results {
             case .failure(let error):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.showAlert(title: "Failed to load STAR Situations", message: error.localizedDescription)
                 }
             case .success(let starSituationsData):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.starSituations = starSituationsData
                 }
             }
         }
     }
+    //MARK:- NavBar Items functions
     @objc private func segueToSTARStoryInfoVC(_ sender: UIBarButtonItem) {
-        let starStoryInfoVC = InterviewAnswerSuggestionViewController(nibName: "InterviewAnswerSuggestionXib", bundle: nil)
-        starStoryInfoVC.comingFromSTARSVC = true
-        present(starStoryInfoVC, animated: true)
+        let infoViewController = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
+        infoViewController.modalTransitionStyle = .crossDissolve
+        infoViewController.modalPresentationStyle = .overFullScreen
+        infoViewController.enterFrom = .starStories
+        present(infoViewController, animated: true)
     }
     @objc private func segueToAddStarStoryViewController(_ sender: UIBarButtonItem) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
@@ -108,36 +120,53 @@ class StarStoryMainController: UIViewController {
         delegate?.starStoryMainViewControllerDismissed(starSituations: starSituationsToSendBack)
         dismiss(animated: true)
     }
-    
+    private func addAnswerIDToSTARStory(answerID: String, starID: String) {
+        DatabaseService.shared.addAnswerIDToSTARSituation(answerID: answerID, starSituationID: starID) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("could not add id to star story: \(error.localizedDescription)")
+            case .success:
+                print("answer id has been added to star story")
+            }
+        }
+    }
     @objc private func addStarStoryToAnswer(_ sender: UIBarButtonItem) {
-        //When a user selects a star story, save it to db function
+        self.showIndicator()
+        guard let starID = selectedSTARStory?.id else {return}
         if selectedSTARStory == nil {
             sender.isEnabled = false
         } else {
             if let answerID = answerId {
-                DatabaseService.shared.addStarSituationToAnswer(answerID: answerID, starSolutionID: selectedSTARStory?.id ?? "") { [weak self] (result) in
+                
+                DatabaseService.shared.addStarSituationToAnswer(answerID: answerID, starSolutionID: starID) { [weak self] (result) in
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Error", message: "Could not add STAR Story at this time error: \(error.localizedDescription)")
                         }
                     case .success:
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
+                            self?.addAnswerIDToSTARStory(answerID: answerID, starID: starID)
                             self?.dismiss(animated: true)
                         }
                         
                     }
                 }
             } else {
-                let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question ?? "", answers: [], starSituationIDs: [selectedSTARStory?.id ?? ""])
+                let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question ?? "", answers: [], starSituationIDs: [starID])
                 DatabaseService.shared.addToAnsweredQuestions(answeredQuestion: newAnswer) { [weak self] (result) in
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Error", message: "Unable to create a new answer error: \(error.localizedDescription)")
                         }
                     case .success:
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
+                            self?.addAnswerIDToSTARStory(answerID: newAnswer.id, starID: starID)
                             self?.dismiss(animated: true)
                         }
                     }
@@ -147,7 +176,7 @@ class StarStoryMainController: UIViewController {
         }
     }
 }
-//MARK:- Extensions on view controller
+//MARK:- CollectionView DataSource
 extension StarStoryMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return starSituations.count
@@ -216,7 +245,7 @@ extension StarStoryMainController: UICollectionViewDataSource {
     }
     
 }
-
+//MARK:- CollectionView Delegate
 extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxWidth = view.frame.width
@@ -236,7 +265,9 @@ extension StarStoryMainController: StarSituationCellDelegate {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell) }
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell)
+            self.removeSTARStoryFromAnswer(starStory: starSituation)
+        }
         let editAction = UIAlertAction(title: "Edit", style: .default) {
             alertAction in self.editStarSituation(starSituation: starSituation, starSituationCell: starSituationCell)
         }
@@ -254,17 +285,34 @@ extension StarStoryMainController: StarSituationCellDelegate {
     }
     
     private func deleteStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        self.showIndicator()
         guard let index = starSituations.firstIndex(of: starSituation) else { return }
         DispatchQueue.main.async {
-            DatabaseService.shared.removeStarSituation(situation: starSituation) { (result) in
+            DatabaseService.shared.removeStarSituation(situation: starSituation) { [weak self](result) in
                 switch result {
                 case .failure(let error):
-                    self.showAlert(title: "Failed to delete STAR Situation", message: error.localizedDescription)
+                    self?.removeIndicator()
+                    self?.showAlert(title: "Failed to delete STAR Situation", message: error.localizedDescription)
                 case .success:
-                    self.showAlert(title: "Success", message: "STAR Situation deleted")
-                    self.starSituations.remove(at: index)
+                    self?.removeIndicator()
+                    self?.showAlert(title: "Success", message: "STAR Situation deleted")
+                    self?.starSituations.remove(at: index)
                 }
             }
         }
+    }
+    private func removeSTARStoryFromAnswer(starStory: StarSituation) {
+        guard let answerIDs = starStory.interviewQuestionsIDs else { return }
+        for answerID in answerIDs {
+            DatabaseService.shared.removeStarSituationFromAnswer(answerID: answerID, starSolutionID: starStory.id) { (result) in
+                switch result {
+                case .failure(let error):
+                    print("unable to remove this story from an interview answer: \(error.localizedDescription)")
+                case .success:
+                    print("removed from user interview answer")
+                }
+            }
+        }
+        
     }
 }

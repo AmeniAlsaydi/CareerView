@@ -32,6 +32,7 @@ class InterviewEntryView: UIView {
         let textfield = UITextField()
         textfield.setPadding()
         textfield.setBottomBorder()
+        textfield.backgroundColor = AppColors.systemBackgroundColor
         textfield.clearButtonMode = .always
         textfield.placeholder = "Interview date"
         return textfield
@@ -46,7 +47,7 @@ class InterviewEntryView: UIView {
     public lazy var thankYouButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "square")
-        button.tintColor = .black
+        button.tintColor = AppColors.primaryBlackColor
         button.setImage(image, for: .normal)
         return button
     }()
@@ -55,6 +56,7 @@ class InterviewEntryView: UIView {
         let textfield = UITextField()
         textfield.setPadding()
         textfield.setBottomBorder()
+        textfield.backgroundColor = AppColors.systemBackgroundColor
         textfield.clearButtonMode = .always
         textfield.placeholder = "Interview notes"
         return textfield
@@ -63,7 +65,7 @@ class InterviewEntryView: UIView {
     public lazy var deleteButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "x.circle.fill")
-        button.tintColor = .black
+        button.tintColor = AppColors.primaryBlackColor
         button.setImage(image, for: .normal)
         return button
     }()
@@ -80,7 +82,7 @@ class InterviewEntryView: UIView {
     }
     
     override func layoutSubviews() {
-        //backgroundColor = .systemGroupedBackground
+        backgroundColor = AppColors.systemBackgroundColor
     }
     
     private func commonInit() {
