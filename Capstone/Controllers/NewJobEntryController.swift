@@ -26,6 +26,8 @@ class NewJobEntryController: UIViewController {
     @IBOutlet weak var responsibility1TextField: FloatingLabelInput!
     @IBOutlet weak var responsibility2TextField: FloatingLabelInput!
     @IBOutlet weak var responsibility3TextField: FloatingLabelInput!
+    @IBOutlet weak var addAnotherJobLabel: UILabel!
+    @IBOutlet weak var promptLabel: UILabel!
     
     lazy var textFields: [FloatingLabelInput] = [positionTitleTextField, companyNameTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
     private var currentTextFieldIndex = 0
@@ -139,6 +141,7 @@ class NewJobEntryController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentEmployerButton.tintColor = AppColors.primaryBlackColor
         configureNavBar()
         styleAllTextFields()
         createDatePicker()
@@ -177,6 +180,10 @@ class NewJobEntryController: UIViewController {
     private func loadUserJob() {
         
         if editingJob {
+            
+            addAnotherJobLabel.text = "Edit Job"
+            promptLabel.text = "Edit and update changes to this job below"
+            
             guard let job = userJob else { return }
             positionTitleTextField.text = job.title
             companyNameTextField.text = job.companyName
@@ -210,13 +217,13 @@ class NewJobEntryController: UIViewController {
     
     func loadUserContacts(_ userJob: UserJob) {
         let userJobID = userJob.id
-        DatabaseService.shared.fetchContactsForJob(userJobId: userJobID) { (result) in
+        DatabaseService.shared.fetchContactsForJob(userJobId: userJobID) { [weak self](result) in
             switch result {
             case .failure(let error):
                 print("Failure loading jobs: \(error.localizedDescription)")
             case .success(let contactData):
                 DispatchQueue.main.async {
-                    self.userContacts = contactData
+                    self?.userContacts = contactData
                 }
             }
         }
@@ -298,6 +305,8 @@ class NewJobEntryController: UIViewController {
     
     @objc private func saveJobButtonPressed(_ sender: UIBarButtonItem) {
         
+        self.showIndicator()
+        
         var userJobId = UUID().uuidString
         
         if editingJob {
@@ -360,16 +369,19 @@ class NewJobEntryController: UIViewController {
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.showAlert(title: "Failed to save job", message: error.localizedDescription)
                 }
             case .success:
                 // show alert and pop VC
                 DispatchQueue.main.async {
                     if self?.editingJob ?? false {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Job Updated!", message: "Success!")  { (alert) in
                             self?.navigationController?.popToRootViewController(animated: true)
                         }
                     } else {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Job Saved", message: "Success!")  { (alert) in
                             self?.navigationController?.popToRootViewController(animated: true)
                         }
@@ -385,9 +397,11 @@ class NewJobEntryController: UIViewController {
                     switch results {
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Error saving contact", message: error.localizedDescription)
                         }
                     case .success:
+                        self?.removeIndicator()
                         break
                     }
                 })

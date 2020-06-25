@@ -80,15 +80,15 @@ class InterviewAnswerDetailController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         guard let user = Auth.auth().currentUser else {return}
-            listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
-                if let error = error {
-                    print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
-                } else if let snapshot = snapshot {
-                    let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data()) }
-                    self?.answers = userAnswers.filter {$0.question == self?.question?.question}
-                    self?.getUserSTARS()
-                }
-            })
+        listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.answeredQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
+            if let error = error {
+                print("listener could not recieve changes for user answers error: \(error.localizedDescription)")
+            } else if let snapshot = snapshot {
+                let userAnswers = snapshot.documents.map { AnsweredQuestion($0.data()) }
+                self?.answers = userAnswers.filter {$0.question == self?.question?.question}
+                self?.getUserSTARS()
+            }
+        })
     }
     
     override func viewDidLoad() {
@@ -105,7 +105,7 @@ class InterviewAnswerDetailController: UIViewController {
     }
     //MARK:- UI
     private func appFonts() {
-        questionLabel.font = AppFonts.boldFont
+        questionLabel.font = AppFonts.semiBoldLarge
         promptLabel.font = AppFonts.secondaryFont
         answersLabel.font = AppFonts.secondaryFont
         starstoriesLabel.font = AppFonts.secondaryFont
@@ -150,29 +150,32 @@ class InterviewAnswerDetailController: UIViewController {
     //MARK:- Config NavBar & Nav Bar Button functions
     private func configureNavBar() {
         navigationItem.title = "Answer Question"
-        let suggestionButton = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
         let saveQuestionButton = UIBarButtonItem(image: AppButtonIcons.bookmarkIcon, style: .plain, target: self, action: #selector(addQuestionToSavedQuestionsButtonPressed(_:)))
+        let suggestionButton = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(suggestionButtonPressed(_:)))
         navigationItem.rightBarButtonItems = [saveQuestionButton, suggestionButton]
     }
-    
     @objc private func suggestionButtonPressed(_ sender: UIBarButtonItem) {
-        let interviewQuestionSuggestionViewController = InterviewAnswerSuggestionViewController(nibName: "InterviewAnswerSuggestionXib", bundle: nil)
-        interviewQuestionSuggestionViewController.comingFromSTARSVC = false
-        interviewQuestionSuggestionViewController.interviewQuestion = question
-        present(interviewQuestionSuggestionViewController, animated: true)
+        let infoViewController = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
+        infoViewController.modalTransitionStyle = .crossDissolve
+        infoViewController.modalPresentationStyle = .overFullScreen
+        infoViewController.enterFrom = .interviewAnswer
+        infoViewController.interviewQuestion = question
+        present(infoViewController, animated: true)
     }
-    
     @objc private func addQuestionToSavedQuestionsButtonPressed(_ sender: UIBarButtonItem) {
+        self.showIndicator()
         guard let question = question else {return}
         if isBookmarked {
             DatabaseService.shared.removeQuestionFromBookmarks(question: question) { [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Error", message: "Unable to remove \(question.question) from your bookmarks error: \(error.localizedDescription)")
                     }
                 case .success:
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Removed", message: "\(question.question) has been removed")
                     }
                     self?.isBookmarked = false
@@ -183,10 +186,12 @@ class InterviewAnswerDetailController: UIViewController {
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Error", message: "Unable to add \(question.question) to your bookmarks at this time error: \(error.localizedDescription)")
                     }
                 case.success:
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Added To Your Bookmarks", message: "\(question.question) has been added")
                     }
                     self?.isBookmarked = true
@@ -213,6 +218,7 @@ class InterviewAnswerDetailController: UIViewController {
     }
     //MARK:- Get Data Methods
     private func getUserAnswers() {
+        self.showIndicator()
         guard let question = question else {return}
         DatabaseService.shared.fetchAnsweredQuestions(questionString: question.question) { [weak self] (result) in
             switch result {
@@ -220,6 +226,7 @@ class InterviewAnswerDetailController: UIViewController {
                 print("unable to fetch user answers error: \(error.localizedDescription)")
             case .success(let answers):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.answers = answers
                 }
             }
@@ -227,12 +234,14 @@ class InterviewAnswerDetailController: UIViewController {
     }
     
     private func getUserSTARS() {
+        self.showIndicator()
         DatabaseService.shared.fetchStarSituations { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print("unable to fetch user STAR stories error: \(error.localizedDescription)")
             case .success(let stars):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.starStories = stars
                     var results = [StarSituation]()
                     for star in stars {
@@ -272,6 +281,7 @@ class InterviewAnswerDetailController: UIViewController {
     }
     
     @IBAction func confirmAddAnswerButtonPressed(_ sender: UIButton) {
+        self.showIndicator()
         if isEditingAnswer == false {
             
             guard let answer = enterAnswerTextfield.text, !answer.isEmpty else {
@@ -286,10 +296,12 @@ class InterviewAnswerDetailController: UIViewController {
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Error", message: "Unable to add answer at this time error: \(error.localizedDescription)")
                         }
                     case .success:
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Answer Submitted!", message: "")
                         }
                     }
@@ -300,10 +312,12 @@ class InterviewAnswerDetailController: UIViewController {
                     switch result {
                     case .failure(let error) :
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Error", message: "Unable to add answer error: \(error.localizedDescription)")
                         }
                     case .success:
                         DispatchQueue.main.async {
+                            self?.removeIndicator()
                             self?.showAlert(title: "Answer Submitted!", message: "")
                         }
                         
@@ -320,15 +334,17 @@ class InterviewAnswerDetailController: UIViewController {
                     print("removed \(self.answerBeingEdited?.answers.first ?? "")")
                 }
             }
-            DatabaseService.shared.addAnswerToAnswersArray(answerID: answerBeingEdited?.id ?? "", answerString: enterAnswerTextfield.text ?? "") { (result) in
+            DatabaseService.shared.addAnswerToAnswersArray(answerID: answerBeingEdited?.id ?? "", answerString: enterAnswerTextfield.text ?? "") { [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Error", message: "Unable to update your answer \(error.localizedDescription)")
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Error", message: "Unable to update your answer \(error.localizedDescription)")
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Updated", message: "Your answer has been updated with your edits")
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Updated", message: "Your answer has been updated with your edits")
                     }
                 }
             }
@@ -418,22 +434,25 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
 extension InterviewAnswerDetailController {
     
     private func showAnswersActionSheet(answer: AnsweredQuestion) {
+        self.showIndicator()
         let actionSheet = UIAlertController(title: "Options Menu", message: nil, preferredStyle: .actionSheet)
         let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
             self.showAddAnswerElements()
             self.isEditingAnswer = true
         }
         
-        let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { (action) in
+        let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
             DatabaseService.shared.removeAnswerFromAnswersArray(answerID: answer.id, answerString: answer.answers.first ?? "") { (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Error", message: "Answer could not be removed at this time error: \(error.localizedDescription)")
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Error", message: "Answer could not be removed at this time error: \(error.localizedDescription)")
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Removed", message: "Your answer has been removed")
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Removed", message: "Your answer has been removed")
                     }
                 }
             }
@@ -447,6 +466,10 @@ extension InterviewAnswerDetailController {
     }
     
     private func showSTARActionSheet(answer: AnsweredQuestion, starStory: StarSituation) {
+        
+        self.showIndicator()
+        
+        self.showAddAnswerElements()
         
         let actionSheet = UIAlertController(title: "Options Menu", message: nil, preferredStyle: .actionSheet)
         let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
@@ -462,10 +485,12 @@ extension InterviewAnswerDetailController {
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Error", message: "Unable to remove STAR Story from this answer at this time error: \(error.localizedDescription)")
                     }
                 case .success:
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Removed", message: "STAR Story was removed from answer")
                     }
                 }

@@ -51,8 +51,9 @@ class AppColors {
 class AppFonts {
     static let fonts = AppFonts()
     
-    static let primaryFont = UIFont(name: "Avenir-Regular", size: 17)
+    static let primaryFont = UIFont(name: "Avenir", size: 17)
     static let boldFont = UIFont(name: "Avenir-Heavy", size: 25)
+    static let mediumBoldFont = UIFont(name: "Avenir-Heavy", size: 20)
     static let semiBoldLarge = UIFont(name: "Avenir-Medium", size: 20)
     static let semiBoldSmall = UIFont(name: "Avenir-Medium", size: 17)
     static let secondaryFont = UIFont(name: "Helvetica", size: 17)
@@ -74,6 +75,7 @@ class AppButtonIcons {
     static let emptySquareIcon = UIImage(systemName: "square")
     static let squareCheckmarkIcon = UIImage(systemName: "checkmark.square")
     static let squareCheckmarkFillIcon = UIImage(systemName: "checkmark.square.fill")
+    static let clearIcon = UIImage(systemName: "delete.left.fill")
     private let navBarBackButton = UIImage(systemName: "arrow.left")
     
     private init() {}
@@ -85,5 +87,5 @@ class AppButtonIcons {
     }
 }
 class AppRoundedViews {
-    static let cornerRadius: CGFloat = 8
+    static let cornerRadius: CGFloat = 10
 }

@@ -19,6 +19,9 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var applicationStatusLabel: UILabel!
     @IBOutlet weak var appliedAsLabel: UILabel!
     @IBOutlet weak var remoteLabel: UILabel!
+    @IBOutlet weak var addressOrCityLabel: UILabel!
+    @IBOutlet weak var notesLabel: UILabel!
+    
     @IBOutlet weak var dateAppliedLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var websiteButton: UIButton!
@@ -32,6 +35,21 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var view3Height: NSLayoutConstraint!
     
     @IBOutlet weak var mapHeight: NSLayoutConstraint!
+    
+    // icons
+    @IBOutlet weak var mapIcon: UIImageView!
+    @IBOutlet weak var notesIcon: UIImageView!
+    @IBOutlet weak var interviewIcon: UIImageView!
+    
+    // titles
+    @IBOutlet weak var locationTitle: UILabel!
+    @IBOutlet weak var notesTitle: UILabel!
+    @IBOutlet weak var interviewTitle: UILabel!
+    @IBOutlet weak var noInterviewsLabel: UILabel!
+    
+    // button height
+    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
+    
     
     var jobApplication: JobApplication 
     
@@ -57,19 +75,44 @@ class ApplicationDetailController: UIViewController {
         configureMapView()
         loadMapAnnotations()
         configureNavBar()
+        setUpViewUI()
+        
     }
     
     private func configureNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.optionsIcon, style: .plain, target: self, action: #selector(moreOptionsButtonPressed(_:)))
     }
     
+    private func setUpViewUI() {
+        //icons
+        mapIcon.tintColor = AppColors.secondaryPurpleColor
+        notesIcon.tintColor = AppColors.secondaryPurpleColor
+        interviewIcon.tintColor = AppColors.secondaryPurpleColor
+        
+        //labels
+        appliedToLabel.font = AppFonts.boldFont
+        appliedAsLabel.font = AppFonts.semiBoldSmall
+        dateAppliedLabel.font = AppFonts.subtitleFont
+        websiteButton.titleLabel?.font = AppFonts.semiBoldSmall
+        applicationStatusLabel.font = AppFonts.subtitleFont
+        
+        // Titles
+        locationTitle.font = AppFonts.mediumBoldFont
+        notesTitle.font = AppFonts.mediumBoldFont
+        interviewTitle.font = AppFonts.mediumBoldFont
+        
+        
+    }
+    
     public func getInterview(application: JobApplication) {
+        self.showIndicator()
         DatabaseService.shared.getApplicationInterview(applicationID: application.id) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print("couldnt get any interviews \(error.localizedDescription)")
             case .success(let interviews):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.interviewCount = interviews.count
                     self?.interviewData = interviews
                     self?.updateInterview()
@@ -83,7 +126,7 @@ class ApplicationDetailController: UIViewController {
         
         websiteButton.setTitleColor(.systemBlue, for: .normal)
         
-        appliedAsLabel.text = "Applied as: \(application.positionTitle)"
+        appliedAsLabel.text = application.positionTitle.capitalized
         appliedToLabel.text = application.companyName.capitalized
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
@@ -114,11 +157,8 @@ class ApplicationDetailController: UIViewController {
             }
         }
         
-        switch application.remoteStatus {
-        case true:
-            remoteLabel.text = "Remote: Yes"
-        case false:
-            remoteLabel.text = "Remote: No"
+        if application.remoteStatus {
+            addressOrCityLabel.text = "Remote"
         }
         
         if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
@@ -126,6 +166,19 @@ class ApplicationDetailController: UIViewController {
         } else {
             dateAppliedLabel.text = "Date Applied: N/A"
         }
+        
+        if let notes = application.notes, !notes.isEmpty {
+            notesLabel.text = notes
+        } else {
+            notesLabel.text = "No notes for this application."
+        }
+        
+        guard let url = application.positionURL, !url.isEmpty else {
+            buttonHeight.constant = 0
+            websiteButton.isHidden = true
+            return
+        }
+        
         
     }
     
@@ -136,10 +189,14 @@ class ApplicationDetailController: UIViewController {
     }
     
     private func loadMapAnnotations()  {
+        self.showIndicator()
+        
         let annotation = MKPointAnnotation()
         annotation.title = jobApplication.companyName
         
         if let city = jobApplication.city {
+            
+            addressOrCityLabel.text = city
             
             getCoordinateFrom(address: city) { [weak self] (coordinate, error) in
                 guard let coordinate = coordinate, error == nil else { return }
@@ -147,6 +204,7 @@ class ApplicationDetailController: UIViewController {
                 annotation.coordinate = cityCoordinate
                 self?.mapView.addAnnotation(annotation)
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                      self?.mapView.showAnnotations([annotation], animated: true)
                 }
             }
@@ -154,7 +212,6 @@ class ApplicationDetailController: UIViewController {
         } else {
             mapHeight.constant = 0
             mapView.isHidden = true
-            
         }
     }
     
@@ -165,8 +222,8 @@ class ApplicationDetailController: UIViewController {
             view1.isHidden = true
             view2.isHidden = true
             view3.isHidden = true
+            noInterviewsLabel.text = "No interviews for this application."
         case 1:
-            view1Height.constant = 100
             view2.isHidden = true
             view3.isHidden = true
             view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
@@ -175,12 +232,15 @@ class ApplicationDetailController: UIViewController {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
             
+            if let notes = interviewData[0].notes {
+                view1.notesLabel.text = notes
+            }
+            
         case 2:
-            view1Height.constant = 100
-            view2Height.constant = 100
             view3.isHidden = true
             
             view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
+            
             if interviewData[0].thankYouSent {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
@@ -189,10 +249,14 @@ class ApplicationDetailController: UIViewController {
             if interviewData[1].thankYouSent {
                 view2.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
+            if let notes = interviewData[0].notes {
+                view1.notesLabel.text = notes
+            }
+            if let notes = interviewData[1].notes {
+                view2.notesLabel.text = notes
+            }
+            
         case 3:
-            view1Height.constant = 100
-            view2Height.constant = 100
-            view3Height.constant = 100
             view1.interviewDateLabel.text = "Interview Date #1 - \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
             if interviewData[0].thankYouSent {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
@@ -207,6 +271,17 @@ class ApplicationDetailController: UIViewController {
             if interviewData[2].thankYouSent {
                 view3.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
+            
+            if let notes = interviewData[0].notes {
+                view1.notesLabel.text = notes
+            }
+            if let notes = interviewData[1].notes {
+                view2.notesLabel.text = notes
+            }
+            if let notes = interviewData[2].notes {
+                view3.notesLabel.text = notes
+            }
+            
         default:
             print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
         }

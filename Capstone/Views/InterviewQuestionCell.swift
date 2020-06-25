@@ -22,7 +22,15 @@ class InterviewQuestionCell: UICollectionViewCell {
     
     weak var delegate: InterviewQuestionCellDelegate?
     var currentQuestion: InterviewQuestion?
-    
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        setNeedsLayout()
+        layoutIfNeeded()
+        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+        var frame = layoutAttributes.frame
+        frame.size.height = ceil(size.height)
+        layoutAttributes.frame = frame
+        return layoutAttributes
+    }
     override func layoutSubviews() {
         self.layer.cornerRadius = AppRoundedViews.cornerRadius
         self.backgroundColor = AppColors.systemBackgroundColor

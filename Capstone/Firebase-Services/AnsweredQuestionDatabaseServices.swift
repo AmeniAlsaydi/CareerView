@@ -47,19 +47,19 @@ extension DatabaseService {
     
     //MARK:- Remove/Add STAR Story to answer
     public func removeStarSituationFromAnswer(answerID: String, starSolutionID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
-           
-           guard let user = Auth.auth().currentUser else {return}
-           let userID = user.uid
-           
-           db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["starSituationIDs" : FieldValue.arrayRemove(["\(starSolutionID)"])]) { (error) in
-               
-               if let error = error {
-                   completion(.failure(error))
-               } else {
-                   completion(.success(true))
-               }
-           }
-       }
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["starSituationIDs" : FieldValue.arrayRemove(["\(starSolutionID)"])]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
     
     public func addStarSituationToAnswer(answerID: String, starSolutionID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
         
@@ -68,6 +68,19 @@ extension DatabaseService {
         
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["starSituationIDs" : FieldValue.arrayUnion(["\(starSolutionID)"])]) { (error) in
             
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
+    public func addAnswerIDToSTARSituation(answerID: String, starSituationID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(starSituationID).updateData(["interviewQuestionsIDs": FieldValue.arrayUnion(["\(answerID)"])]) { (error) in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -99,6 +112,17 @@ extension DatabaseService {
         
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["answers" : FieldValue.arrayRemove(["\(answerString)"])]) { (error) in
             
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    public func deleteAnsweredQuestionObject(answerID: String, question: String, completion: @escaping (Result<Bool, Error>) -> ()){
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).delete { (error) in
             if let error = error {
                 completion(.failure(error))
             } else {

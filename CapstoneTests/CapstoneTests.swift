@@ -36,23 +36,23 @@ class CapstoneTests: XCTestCase {
         wait(for:[exp], timeout: 5.0)
     }
     
-    func testAddingContactsToUserJob() {
-        
-        let exp = XCTestExpectation(description: "added contact to user job")
-        let userJobId = "27A8243C-47D5-4D8F-A0C0-835373828977"
-        let contact = Contact(firstName: "tom", lastName: "tommy", email: "tom.com", id: "12345")
-        
-        DatabaseService.shared.addContactsToUserJob(userJobId: userJobId, contact: contact) { (result) in
-            exp.fulfill()
-            switch result {
-            case(.failure(let error)):
-                XCTFail("error adding contact to user job: \(error.localizedDescription)")
-            case(.success(let result)):
-                XCTAssertTrue(result)
-            }
-        }
-        wait(for:[exp], timeout: 5.0)
-    }
+//    func testAddingContactsToUserJob() {
+//        
+//        let exp = XCTestExpectation(description: "added contact to user job")
+//        let userJobId = "27A8243C-47D5-4D8F-A0C0-835373828977"
+//        let contact = Contact(firstName: "tom", lastName: "tommy", email: "tom.com", id: "12345")
+//        
+//        DatabaseService.shared.addContactsToUserJob(userJobId: userJobId, contact: contact) { (result) in
+//            exp.fulfill()
+//            switch result {
+//            case(.failure(let error)):
+//                XCTFail("error adding contact to user job: \(error.localizedDescription)")
+//            case(.success(let result)):
+//                XCTAssertTrue(result)
+//            }
+//        }
+//        wait(for:[exp], timeout: 5.0)
+//    }
     
     func testFetchingJobApplication() {
         let exp = XCTestExpectation(description: "job applications found")
@@ -96,7 +96,7 @@ class CapstoneTests: XCTestCase {
     func testAddingApplication() {
         let exp = XCTestExpectation(description: "added job applications")
         
-        let application = JobApplication(id: "121212", companyName: "company x", positionTitle: "boss", positionURL: "url", remoteStatus: true, location: GeoPoint(latitude: 0, longitude: 0), notes: "no notes", applicationDeadline: Timestamp(date: Date()), dateApplied: Timestamp(date: Date()), interested: true, didApply: true, currentlyInterviewing: true, receivedReply: true, receivedOffer: true)
+        let application = JobApplication(id: "121212", companyName: "company x", positionTitle: "boss", positionURL: "url", remoteStatus: true, city: "Brooklyn, NY", notes: "no notes", applicationDeadline: Timestamp(date: Date()), dateApplied: Timestamp(date: Date()), interested: true, didApply: true, currentlyInterviewing: true, receivedReply: true, receivedOffer: true)
         
         
         DatabaseService.shared.addApplication(application: application) { (result) in

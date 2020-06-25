@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewJobEntryController" customModule="Capstone" customModuleProvider="target">
             <connections>
+                <outlet property="addAnotherJobLabel" destination="3Lj-RJ-vnm" id="3UQ-5l-VCG"/>
                 <outlet property="beginDateTextField" destination="eop-AS-ov7" id="4kS-MZ-3ud"/>
                 <outlet property="companyNameTextField" destination="X3u-Xd-YlK" id="wna-H6-wlL"/>
                 <outlet property="contactsCVHeight" destination="OAU-wM-bVU" id="QPb-R9-khn"/>
@@ -18,6 +19,7 @@
                 <outlet property="endDateTextField" destination="77o-g7-Jd2" id="Jhs-ND-bwn"/>
                 <outlet property="locationTextField" destination="9FQ-W9-wEm" id="Jt9-0A-Oah"/>
                 <outlet property="positionTitleTextField" destination="sgL-06-x2q" id="SfK-xv-kAZ"/>
+                <outlet property="promptLabel" destination="Urj-X4-Vq7" id="TN9-ed-ald"/>
                 <outlet property="responsibility1TextField" destination="bgc-am-9oi" id="Kks-Tu-hCL"/>
                 <outlet property="responsibility2TextField" destination="Sbx-cA-VI2" id="wJV-c5-e84"/>
                 <outlet property="responsibility3TextField" destination="gt0-X7-POk" id="xQE-mB-hXH"/>
@@ -152,7 +154,7 @@
                                     <constraints>
                                         <constraint firstAttribute="width" constant="22" id="Lbf-hk-pnJ"/>
                                     </constraints>
-                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <state key="normal" image="plus.circle.fill" catalog="system">
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="medium"/>
                                     </state>
@@ -171,7 +173,7 @@
                                     <constraints>
                                         <constraint firstAttribute="width" constant="22" id="xAJ-tB-nii"/>
                                     </constraints>
-                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <state key="normal" image="plus.circle.fill" catalog="system">
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="medium"/>
                                     </state>

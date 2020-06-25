@@ -20,6 +20,7 @@ enum FilterState {
 class InterviewQuestionsMainController: UIViewController {
     
     @IBOutlet weak var questionsCollectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var filterButtonsStack: UIStackView!
     @IBOutlet weak var allButton: UIButton!
@@ -29,7 +30,6 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var collectionViewTopAnchor: NSLayoutConstraint!
     
     private var listener: ListenerRegistration?
-    
     private var isFilterOn = false {
         didSet {
             if isFilterOn {
@@ -38,6 +38,7 @@ class InterviewQuestionsMainController: UIViewController {
             } else {
                     self.collectionViewTopAnchor.constant = -44
                     self.filterButtonsStack.isHidden = true
+                    self.getInterviewQuestions()
             }
         }
     }
@@ -45,7 +46,6 @@ class InterviewQuestionsMainController: UIViewController {
     public var filterState: FilterState = .all {
         didSet {
             questionsCollectionView.reloadData()
-            print("filter state changed")
             allQuestions = Array(allQuestions).removingDuplicates()
         }
     }
@@ -58,14 +58,17 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     
-    private var customQuestions = [InterviewQuestion]()
+    private var customQuestions = [InterviewQuestion]() {
+        didSet {
+            questionsCollectionView.reloadData()
+        }
+    }
     
     private var allQuestions = [InterviewQuestion]() {
         didSet {
                 allQuestions = Array(allQuestions).removingDuplicates()
                 questionsCollectionView.reloadData()
                 questionsCollectionView.backgroundView = nil
-                print(allQuestions.count)
         }
     }
     
@@ -91,9 +94,20 @@ class InterviewQuestionsMainController: UIViewController {
         }
     }
     
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        searchBar.delegate = self
+        updateUI()
+        configureCollectionView()
+        configureNavBar()
+
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
+        getInterviewQuestions()
+        getBookmarkedQuestions()
         guard let user = Auth.auth().currentUser else {return}
         listener = Firestore.firestore().collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.customQuestionsCollection).addSnapshotListener({ [weak self] (snapshot, error) in
             if let error = error {
@@ -107,18 +121,8 @@ class InterviewQuestionsMainController: UIViewController {
             }
         })
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchBar.delegate = self
-        updateUI()
-        configureCollectionView()
-        configureNavBar()
-        getInterviewQuestions()
-        getBookmarkedQuestions()
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
+        allQuestions.removeAll()
         listener?.remove()
     }
     
@@ -157,38 +161,53 @@ class InterviewQuestionsMainController: UIViewController {
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
         AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.filterIcon, style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
+        let addCustomQuestionButton = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(addInterviewQuestionButtonPressed(_:)))
+        let infoButton = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(presentInfoVC(_:)))
+        let filterButton = UIBarButtonItem(image: AppButtonIcons.filterIcon, style: .plain, target: self, action: #selector(presentfilterMenuButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = infoButton
+        navigationItem.rightBarButtonItems = [addCustomQuestionButton,filterButton]
     }
-    
     @objc func addInterviewQuestionButtonPressed(_ sender: UIBarButtonItem) {
         let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
         present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
     }
-    
-    //MARK:- FilterMenu
     @objc func presentfilterMenuButtonPressed(_ sender: UIBarButtonItem) {
         isFilterOn.toggle()
     }
-    
+    @objc func presentInfoVC(_ sender: UIBarButtonItem) {
+        let infoViewController = MoreInfoViewController(nibName: "MoreInfoControllerXib", bundle: nil)
+        infoViewController.modalTransitionStyle = .crossDissolve
+        infoViewController.modalPresentationStyle = .overFullScreen
+        infoViewController.enterFrom = .interviewQuestionsMain
+        present(infoViewController, animated: true)
+    }
     //MARK:- Config Collection View
     private func configureCollectionView() {
         questionsCollectionView.keyboardDismissMode = .onDrag
         questionsCollectionView.delegate = self
         questionsCollectionView.dataSource = self
         questionsCollectionView.register(UINib(nibName: "InterviewQuestionCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewQuestionCell")
+        if let flowLayout = flowLayout,
+            let collectionView = questionsCollectionView {
+            let w = collectionView.frame.width - 20
+            flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
+        }
     }
     
     //MARK:- Get Data
     private func getInterviewQuestions() {
+        self.showIndicator()
         DatabaseService.shared.fetchCommonInterviewQuestions { [weak self] (result) in
             switch result {
             case .failure(let error) :
+                self?.removeIndicator()
                 print("could not fetch common interview questions from firebase error: \(error.localizedDescription)")
             case .success(let questions):
                 DispatchQueue.main.async {
+                    self?.removeIndicator()
                     self?.commonInterviewQuestions = questions
                     self?.allQuestions.append(contentsOf: questions)
+                    self?.checkForEmptyCustomQuestionsArray()
                 }
             }
         }
@@ -273,7 +292,6 @@ class InterviewQuestionsMainController: UIViewController {
         commonButton.backgroundColor = AppColors.secondaryPurpleColor
         customButton.tintColor = AppColors.whiteTextColor
         customButton.backgroundColor = AppColors.primaryPurpleColor
-        print("custom pressed")
         filterState = .custom
         getUserCreatedQuestions()
     }
@@ -294,10 +312,8 @@ class InterviewQuestionsMainController: UIViewController {
         if filterState == .bookmarked {
             questionsCollectionView.reloadData()
             if bookmarkedQuestions.isEmpty {
-                print("bookmarks empty")
-                questionsCollectionView.backgroundView = EmptyView.init(title: "No Bookmarks", message: "Add to your bookmarks collection by selecting a question and pressing the bookmark button", imageName: "bookmark")
+                questionsCollectionView.backgroundView = EmptyView.init(title: "You Have No Bookmarks", message: "Add to your bookmarks collection by selecting an interview question and pressing the bookmark button", imageName: "bookmark")
             } else {
-                print("bookmarks NOT empty")
                 questionsCollectionView.reloadData()
                 questionsCollectionView.backgroundView = nil
             }
@@ -418,6 +434,7 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
 extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
     
     func presentMenu(cell: InterviewQuestionCell, question: InterviewQuestion) {
+        self.showIndicator()
         guard let indexPath = questionsCollectionView.indexPath(for: cell) else {
             return
         }
@@ -435,6 +452,7 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
             interviewQuestionEntryVC.editingMode = true
             interviewQuestionEntryVC.customQuestion = customQuestion
+            interviewQuestionEntryVC.delegate = self
             self?.present(UINavigationController(rootViewController: interviewQuestionEntryVC), animated: true)
         }
         let delete = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
@@ -442,17 +460,21 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Error", message: "Could not remove question at this time error: \(error.localizedDescription)")
                     }
                 case .success:
                     DispatchQueue.main.async {
+                        self?.removeIndicator()
                         self?.showAlert(title: "Question Removed", message: "\(customQuestion!.question) has been removed")
                         if self?.filterState == .custom {
                             if !(self?.customQuestions.isEmpty ?? false) {
-//                                self?.customQuestions.remove(at: indexPath.row)
                                 self?.questionsCollectionView.reloadData()
                             }
                         } else {
+                            if (self?.bookmarkedQuestions.contains(question))! {
+                                self?.deleteFromBookmarks(question: question)
+                            }
                             self?.allQuestions.remove(at: indexPath.row)
                             self?.questionsCollectionView.reloadData()
                         }
@@ -468,4 +490,23 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
         optionsMenu.addAction(cancel)
         present(optionsMenu, animated: true, completion: nil)
     }
+    private func deleteFromBookmarks(question: InterviewQuestion) {
+        DatabaseService.shared.removeQuestionFromBookmarks(question: question) { (result) in
+            switch result {
+            case .failure(let error):
+                print("unable to remove custom question from bookmarks: \(error.localizedDescription)")
+            case .success:
+                print("removed from bookmarks")
+            }
+        }
+    }
 }
+extension InterviewQuestionsMainController: EditInterviewQuestionDelegate {
+    func didEditInterviewQuestion() {
+        allQuestions.removeAll()
+        getUserCreatedQuestions()
+        getInterviewQuestions()
+        questionsCollectionView.reloadData()
+    }
+}
+

@@ -97,6 +97,7 @@ class JobHistoryExpandableCell: FoldingCell {
         currentUserJob = userJob
         userJobForDelegate = userJob
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
+        unfoldedEditButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)
         starSituationButton.addTarget(self, action: #selector(starSituationButtonPressed(_:)), for: .touchUpInside)
         jobTitleLabel.text = userJob.title
         companyNameLabel.text = "\(userJob.companyName)"
@@ -122,13 +123,13 @@ class JobHistoryExpandableCell: FoldingCell {
     }
     func loadUserContacts(userJob: UserJob) {
         let userJobID = userJob.id
-        DatabaseService.shared.fetchContactsForJob(userJobId: userJobID) { (result) in
+        DatabaseService.shared.fetchContactsForJob(userJobId: userJobID) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print("Failure loading jobs: \(error.localizedDescription)")
             case .success(let contactData):
                 DispatchQueue.main.async {
-                    self.contacts = contactData
+                    self?.contacts = contactData
                 }
             }
         }

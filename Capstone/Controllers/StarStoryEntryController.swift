@@ -13,6 +13,10 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var starStoryButton: UIButton!
     @IBOutlet weak var freeFormButton: UIButton!
     @IBOutlet weak var saveAsDefaultButton: UIButton!
+    @IBOutlet weak var purpleView: UIView!
+    @IBOutlet weak var starStoryInputLabel: UILabel!
+    @IBOutlet weak var starStoryExplanation: UILabel!
+    @IBOutlet weak var entryPromptLabel: UILabel!
     
     @IBOutlet weak var inputOptionView: UIView!
     @IBOutlet weak var blurEffect: UIVisualEffectView!
@@ -21,7 +25,7 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var taskTextView: UITextView!
     @IBOutlet weak var actionTextView: UITextView!
     @IBOutlet weak var resultTextView: UITextView!
-    
+
     @IBOutlet weak var situationTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var taskTextViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var actionTextViewHeightConstraint: NSLayoutConstraint!
@@ -33,8 +37,14 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var resultBkgdView: UIView!
     
     @IBOutlet weak var situationLabel: UILabel!
+    @IBOutlet weak var clearSituationButton: UIButton!
+    @IBOutlet weak var taskLabel: UILabel!
+    @IBOutlet weak var clearTaskButton: UIButton!
+    @IBOutlet weak var actionLabel: UILabel!
+    @IBOutlet weak var clearActionButton: UIButton!
+    @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet weak var clearResultButton: UIButton!
     
-
     private var saveChoiceAsDefault = false {
         didSet {
             if saveChoiceAsDefault {
@@ -44,9 +54,7 @@ class StarStoryEntryController: UIViewController {
             }
         }
     }
-
     var isEditingStarSituation = false
-    
     private var guidedEntryPreference = GuidedStarSitutionInput.guided
     //Note: Default option for showing the user an option for guided/freeform is true
     private var showUserOption: ShowUserStarInputOption? {
@@ -60,7 +68,6 @@ class StarStoryEntryController: UIViewController {
             }
         }
     }
-    
     var starSituation: StarSituation?
     //MARK:- viewDidLoad
     override func viewDidLoad() {
@@ -71,21 +78,61 @@ class StarStoryEntryController: UIViewController {
         loadGuidedStarSituationPreference()
     }
     //MARK:- Private Functions
+    private func setUpAppUI() {
+        view.backgroundColor = AppColors.systemBackgroundColor
+        
+        starStoryButton.tintColor = AppColors.secondaryPurpleColor
+        starStoryButton.titleLabel?.font = AppFonts.primaryFont
+        freeFormButton.tintColor = AppColors.secondaryPurpleColor
+        freeFormButton.titleLabel?.font = AppFonts.primaryFont
+        saveAsDefaultButton.tintColor = AppColors.darkGrayHighlightColor
+        saveAsDefaultButton.titleLabel?.textColor = AppColors.darkGrayHighlightColor
+        saveAsDefaultButton.setTitleColor(AppColors.darkGrayHighlightColor, for: .normal)
+        freeFormButton.titleLabel?.font = AppFonts.secondaryFont
+        AppColors.colors.gradientBackground(view: purpleView)
+        
+        starStoryInputLabel.font = AppFonts.semiBoldLarge
+        starStoryInputLabel.textColor = AppColors.whiteTextColor
+        starStoryExplanation.font = AppFonts.primaryFont
+        starStoryExplanation.textColor = AppColors.primaryBlackColor
+        entryPromptLabel.font = AppFonts.semiBoldSmall
+        entryPromptLabel.textColor = AppColors.primaryBlackColor
+        
+        situationLabel.font = AppFonts.semiBoldSmall
+        situationLabel.textColor = AppColors.primaryBlackColor
+        situationBkgdView.backgroundColor = AppColors.complimentaryBackgroundColor
+        taskLabel.font = AppFonts.semiBoldSmall
+        taskLabel.textColor = AppColors.primaryBlackColor
+        taskBkgdView.backgroundColor = AppColors.complimentaryBackgroundColor
+        actionLabel.font = AppFonts.semiBoldSmall
+        actionLabel.textColor = AppColors.primaryBlackColor
+        actionBkgdView.backgroundColor = AppColors.complimentaryBackgroundColor
+        resultLabel.font = AppFonts.semiBoldSmall
+        resultLabel.textColor = AppColors.primaryBlackColor
+        resultBkgdView.backgroundColor = AppColors.complimentaryBackgroundColor
+    }
+    private func configureButtonUI() {
+        clearSituationButton.tintColor = AppColors.secondaryPurpleColor
+        clearTaskButton.tintColor = AppColors.secondaryPurpleColor
+        clearActionButton.tintColor = AppColors.secondaryPurpleColor
+        clearResultButton.tintColor = AppColors.secondaryPurpleColor
+    }
     private func configureView() {
 //        navigationController?.navigationBar.topItem?.title = "Back"
+        setUpAppUI()
+        configureButtonUI()
+        navigationItem.title = "Add a STAR Story"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "checkmark"),
             style: .plain,
             target: self,
             action: #selector(saveButtonPressed(_:)))
-        
-        starStoryButton.layer.borderWidth = CGFloat(1.0)
-        freeFormButton.layer.borderWidth = CGFloat(1.0)
-        starStoryButton.layer.cornerRadius = 4
+
+        starStoryButton.layer.cornerRadius = AppRoundedViews.cornerRadius
         starStoryButton.layer.masksToBounds = true
-        freeFormButton.layer.cornerRadius = 4
+        freeFormButton.layer.cornerRadius = AppRoundedViews.cornerRadius
         freeFormButton.layer.masksToBounds = true
-        inputOptionView.layer.cornerRadius = 4
+        inputOptionView.layer.cornerRadius = AppRoundedViews.cornerRadius
         inputOptionView.layer.masksToBounds = true
         
         situationTextView.delegate = self
@@ -93,10 +140,10 @@ class StarStoryEntryController: UIViewController {
         actionTextView.delegate = self
         resultTextView.delegate = self
         
-        situationTextView.layer.cornerRadius = 4
-        taskTextView.layer.cornerRadius = 4
-        actionTextView.layer.cornerRadius = 4
-        resultTextView.layer.cornerRadius = 4
+        situationTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        taskTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        actionTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        resultTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
         setTextViewHeights()
         
         configureTextViews(view: situationBkgdView)
@@ -106,7 +153,7 @@ class StarStoryEntryController: UIViewController {
         
     }
     private func configureTextViews(view: UIView) {
-        view.layer.cornerRadius = 4
+        view.layer.cornerRadius = AppRoundedViews.cornerRadius
     }
     private func setTextViewHeights() {
         situationTextView.sizeToFit()
@@ -157,6 +204,7 @@ class StarStoryEntryController: UIViewController {
     }
     //MARK:- Save STAR Situation Function
     @objc private func saveButtonPressed(_ sender: UIBarButtonItem) {
+        self.showIndicator()
         guard let situationText = situationTextView.text else {
             showAlert(title: "Missing Field", message: "Please enter a situation to save")
             return
@@ -172,38 +220,42 @@ class StarStoryEntryController: UIViewController {
             }
             starSituationID = starID
         }
-        let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: starSituationID, userJobID: nil, interviewQuestionsIDs: [""])
+        let guidedStarSituation = StarSituation(situation: situationText, task: taskText, action: actionText, result: resultText, id: starSituationID, userJobID: nil, interviewQuestionsIDs: nil)
         //Note: When user has selected to enter star situation freeForm, to allow Task, Action, and Result fields to be nil
-        let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: starSituationID, userJobID: nil, interviewQuestionsIDs: [""])
+        let freeFormStarSituation = StarSituation(situation: situationText, task: nil, action: nil, result: nil, id: starSituationID, userJobID: nil, interviewQuestionsIDs: nil)
         //TODO: Activity Indicators
         if guidedEntryPreference.rawValue == GuidedStarSitutionInput.guided.rawValue {
-            DatabaseService.shared.addToStarSituations(starSituation: guidedStarSituation, completion: { (result) in
+            DatabaseService.shared.addToStarSituations(starSituation: guidedStarSituation, completion: { [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Error", message: error.localizedDescription)
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Error", message: error.localizedDescription)
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Star Story Saved!", message: "Success")
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Star Story Saved!", message: "Success")
                         
                     }
-                    self.navigationController?.popToRootViewController(animated: true)
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }
             })
         } else {
-            DatabaseService.shared.addToStarSituations(starSituation: freeFormStarSituation, completion: { (result) in
+            DatabaseService.shared.addToStarSituations(starSituation: freeFormStarSituation, completion: { [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Error", message: error.localizedDescription)
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Error", message: error.localizedDescription)
                     }
                 case .success:
                     DispatchQueue.main.async {
-                        self.showAlert(title: "Star Story Saved!", message: "Success")
+                        self?.removeIndicator()
+                        self?.showAlert(title: "Star Story Saved!", message: "Success")
                         
                     }
-                    self.navigationController?.popToRootViewController(animated: true)
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }
             })
         }
@@ -211,8 +263,11 @@ class StarStoryEntryController: UIViewController {
     private func loadFreeFormView() {
         //TODO: Animate views leaving screen
         taskBkgdView.isHidden = true
+        taskTextView.text = nil
         actionBkgdView.isHidden = true
+        actionTextView.text = nil
         resultBkgdView.isHidden = true
+        resultTextView.text = nil
     }
     private func transitionFromOptionToMainView() {
         let duration = 0.3
