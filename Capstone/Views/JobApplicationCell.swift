@@ -13,7 +13,6 @@ class JobApplicationCell: UICollectionViewCell {
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var submittedDateLabel: UILabel!
-    @IBOutlet weak var staticStatusLabel: UILabel!
     @IBOutlet weak var currentStatusIndicatorLabel: UILabel!
     @IBOutlet weak var progressBar: ProgressBar!
     
@@ -47,21 +46,9 @@ class JobApplicationCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         self.layer.cornerRadius = AppRoundedViews.cornerRadius
-        setupAppUI()
+        setupCellUI()
     }
-    private func setupAppUI(){
-        self.backgroundColor = AppColors.systemBackgroundColor
-        positionLabel.textColor = AppColors.primaryBlackColor
-        companyNameLabel.textColor = AppColors.primaryBlackColor
-        submittedDateLabel.textColor = AppColors.primaryBlackColor
-        staticStatusLabel.textColor = AppColors.primaryPurpleColor //AppColors.primaryBlackColor
-        
-//        situationLabel.font = AppFonts.semiBoldSmall
-//        situationLabel.textColor = AppColors.primaryBlackColor
-//        editButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
-//        editButton.tintColor = AppColors.secondaryPurpleColor
-//        cellFooterView.backgroundColor = AppColors.primaryPurpleColor
-    }
+    
     
     
     // FIXME: understand public - private - internal
@@ -69,7 +56,7 @@ class JobApplicationCell: UICollectionViewCell {
         
         positionLabel.text = application.positionTitle.capitalized
         companyNameLabel.text = ("@\(application.companyName.capitalized)")
-        configureLabels()
+    
         if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
             submittedDateLabel.text = "Applied \(submittedDate)"
         } else {
@@ -94,18 +81,20 @@ class JobApplicationCell: UICollectionViewCell {
         } else {
             progressBar.progress = 0.0
         }
-        
     }
-    private func configureLabels() {
-        positionLabel.font = AppFonts.boldFont
+    
+    private func setupCellUI(){
+        self.backgroundColor = AppColors.systemBackgroundColor
+        positionLabel.textColor = AppColors.primaryBlackColor
+        companyNameLabel.textColor = AppColors.primaryBlackColor
+        submittedDateLabel.textColor = AppColors.primaryBlackColor
+        currentStatusIndicatorLabel.textColor = AppColors.secondaryPurpleColor
+        
+        positionLabel.font = AppFonts.semiBoldLarge
         companyNameLabel.font = AppFonts.semiBoldSmall
-        submittedDateLabel.font = AppFonts.secondaryFont
-        staticStatusLabel.font = AppFonts.primaryFont
+        submittedDateLabel.font = AppFonts.primaryFont
         currentStatusIndicatorLabel.font = AppFonts.primaryFont
         
         
-        currentStatusIndicatorLabel.tintColor = AppColors.secondaryPurpleColor
     }
-    
-    
 }
