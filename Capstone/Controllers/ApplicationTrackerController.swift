@@ -150,12 +150,12 @@ extension ApplicationTrackerController: UICollectionViewDataSource {
 
 extension ApplicationTrackerController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let maxsize: CGSize = UIScreen.main.bounds.size
-        let itemWidth: CGFloat = maxsize.width * 0.9
-        let itemHeight: CGFloat = maxsize.height * 0.15
-        return CGSize(width: itemWidth, height: itemHeight)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let maxsize: CGSize = UIScreen.main.bounds.size
+//        let itemWidth: CGFloat = maxsize.width * 0.9
+//        let itemHeight: CGFloat = maxsize.height * 0.15
+//        return CGSize(width: itemWidth, height: itemHeight)
+//    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
     }

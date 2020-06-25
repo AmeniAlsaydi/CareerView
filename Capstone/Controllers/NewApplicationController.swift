@@ -43,6 +43,14 @@ class NewApplicationController: UIViewController {
     @IBOutlet weak var isRemoteButton: UIButton!
     @IBOutlet weak var hasAppliedButton: UIButton!
     @IBOutlet weak var hasRecievedReplyButton: UIButton!
+    @IBOutlet weak var addInterviewButton: UIButton!
+    @IBOutlet weak var addInterviewIconButton: UIButton!
+    
+    
+    //MARK: Views
+    
+    //@IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     public var editingApplication = false
     private var activeTextField = UITextField()
@@ -116,7 +124,20 @@ class NewApplicationController: UIViewController {
         listenForKeyboardEvents()
         setUpTextFieldsReturnType()
         setUpDelegateForTextFields()
+        setUpUI()
         scrollView.delegate = self
+    }
+    
+    private func setUpUI() {
+        contentView.backgroundColor = AppColors.systemBackgroundColor
+        scrollView.backgroundColor = AppColors.systemBackgroundColor
+        view.backgroundColor = AppColors.systemBackgroundColor
+        isRemoteButton.tintColor = AppColors.primaryBlackColor
+        hasAppliedButton.tintColor = AppColors.primaryBlackColor
+        hasRecievedReplyButton.tintColor = AppColors.primaryBlackColor
+        addInterviewButton.titleLabel?.tintColor = AppColors.primaryBlackColor
+        addInterviewIconButton.tintColor = AppColors.primaryBlackColor
+    
     }
     
     // MARK: Keyboard handling

@@ -24,6 +24,6 @@ extension Interview {
         self.id = dictionary["id"] as? String ?? "No ID"
         self.interviewDate = dictionary["interviewDate"] as? Timestamp ?? nil
         self.thankYouSent = dictionary["thankYouSent"] as? Bool ?? false
-        self.notes = dictionary["notes"] as? String ?? "no notes"
+        self.notes = dictionary["notes"] as? String? ?? nil
     }
 }
