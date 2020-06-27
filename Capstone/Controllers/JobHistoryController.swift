@@ -115,7 +115,9 @@ extension JobHistoryController: JobHistoryExpandableCellDelegate {
         let destinationViewController = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
         destinationViewController.filterByJob = true
         destinationViewController.userJob = userJob
-        navigationController?.pushViewController(destinationViewController, animated: true)
+        destinationViewController.modalTransitionStyle = .crossDissolve
+        destinationViewController.modalPresentationStyle = .overFullScreen
+        present(UINavigationController(rootViewController: destinationViewController), animated: true)
     }
     func contextButtonPressed(userJob: UserJob) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
