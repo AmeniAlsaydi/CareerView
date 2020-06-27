@@ -85,7 +85,7 @@ class JobHistoryExpandableCell: FoldingCell {
         companyNameLabel2.textColor = AppColors.primaryBlackColor
         jobDescriptionLabel2.font = AppFonts.primaryFont
         jobDescriptionLabel2.textColor = AppColors.primaryBlackColor
-        responsibilitesPromptLabel.font = AppFonts.secondaryFont
+        responsibilitesPromptLabel.font = AppFonts.subtitleFont
         responsibilitesPromptLabel.textColor = AppColors.darkGrayHighlightColor
         responsibilityOne.font = AppFonts.primaryFont
         responsibilityTwo.font = AppFonts.primaryFont
@@ -94,10 +94,10 @@ class JobHistoryExpandableCell: FoldingCell {
         unfoldedEditButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
         editButton.tintColor = AppColors.secondaryPurpleColor
         unfoldedEditButton.tintColor = AppColors.secondaryPurpleColor
-        starsPromptLable.font = AppFonts.secondaryFont
-        starsPromptLable.tintColor = AppColors.darkGrayHighlightColor
-        contactsPromptLable.font = AppFonts.secondaryFont
-        contactsPromptLable.tintColor = AppColors.darkGrayHighlightColor
+        starsPromptLable.font = AppFonts.subtitleFont
+        starsPromptLable.textColor = AppColors.darkGrayHighlightColor
+        contactsPromptLable.font = AppFonts.subtitleFont
+        contactsPromptLable.textColor = AppColors.darkGrayHighlightColor
         starSituationButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
         purpleViewUnFolded.backgroundColor = AppColors.primaryPurpleColor
     }
