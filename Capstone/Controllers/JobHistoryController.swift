@@ -30,7 +30,7 @@ class JobHistoryController: UIViewController {
     
     enum Const {
         static let closeCellHeight: CGFloat = 200
-        static let openCellHeight: CGFloat = 640
+        static let openCellHeight: CGFloat = 630
     }
     
     var cellHeights = [CGFloat]()
