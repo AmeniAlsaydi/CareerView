@@ -11,11 +11,9 @@ import UIKit
 class UserContactCVCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     
-    
     public func configureCell(contact: Contact) {
-      
         nameLabel.text = (" \(contact.firstName) \(contact.lastName) ")
-        
+        nameLabel.textColor = AppColors.secondaryPurpleColor
     }
     
 }

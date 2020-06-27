@@ -35,6 +35,7 @@ class JobHistoryExpandableCell: FoldingCell {
     @IBOutlet weak var starsPromptLable: UILabel!
     @IBOutlet weak var contactsPromptLable: UILabel!
     @IBOutlet weak var purpleView: UIView!
+    @IBOutlet weak var purpleViewUnFolded: UIView!
     
     weak var delegate: JobHistoryExpandableCellDelegate?
     private var userJobForDelegate: UserJob?
@@ -42,7 +43,9 @@ class JobHistoryExpandableCell: FoldingCell {
     var currentUserJob: UserJob?
     var contacts: [Contact]? {
         didSet {
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
     @objc private func contextButtonPressed(_ sender: UIButton) {
@@ -57,6 +60,8 @@ class JobHistoryExpandableCell: FoldingCell {
         collectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = AppColors.complimentaryBackgroundColor
+        collectionView.layer.cornerRadius = AppRoundedViews.cornerRadius
     }
     private func setUpAppUI() {
         //Closed
@@ -94,7 +99,7 @@ class JobHistoryExpandableCell: FoldingCell {
         contactsPromptLable.font = AppFonts.secondaryFont
         contactsPromptLable.tintColor = AppColors.darkGrayHighlightColor
         starSituationButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
-        collectionView.backgroundColor = AppColors.complimentaryBackgroundColor
+        purpleViewUnFolded.backgroundColor = AppColors.primaryPurpleColor
     }
     func updateGeneralInfo(userJob: UserJob) {
         currentUserJob = userJob
@@ -123,6 +128,7 @@ class JobHistoryExpandableCell: FoldingCell {
         }
         starSituationButton.setTitle(userJob.starSituationIDs.count.description, for: .normal)
         setUpAppUI()
+        configureCollectionView()
     }
     func loadUserContacts(userJob: UserJob) {
         let userJobID = userJob.id
@@ -159,7 +165,11 @@ extension Date {
 
 extension JobHistoryExpandableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return contacts?.count ?? 0
+        if let contacts = contacts {
+            return contacts.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -167,7 +177,6 @@ extension JobHistoryExpandableCell: UICollectionViewDataSource {
             fatalError("failed to dequeue contact cell")
         }
         guard let contact = contacts?[indexPath.row] else {
-            print("failed to load contact for cell")
             return cell
         }
         cell.configureCell(contact: contact)
