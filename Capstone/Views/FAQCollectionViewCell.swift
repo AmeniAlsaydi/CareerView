@@ -26,7 +26,7 @@ class FAQCollectionViewCell: UICollectionViewCell {
     }
     
     public func configureCell(faq: FAQInfo?, userInfo: UserInfo.userInfoSection?) {
-        self.layer.cornerRadius = 4
+        self.layer.cornerRadius = AppRoundedViews.cornerRadius
         self.layer.masksToBounds = true
         if faq != nil {
         titleLabel.text = faq?.title
