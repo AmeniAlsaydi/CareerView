@@ -39,12 +39,14 @@ class NewApplicationController: UIViewController {
     
     @IBOutlet weak var recievedRelpyStackHeight: NSLayoutConstraint!
     
+    
     // MARK: Buttons
     @IBOutlet weak var isRemoteButton: UIButton!
     @IBOutlet weak var hasAppliedButton: UIButton!
     @IBOutlet weak var hasRecievedReplyButton: UIButton!
     @IBOutlet weak var addInterviewButton: UIButton!
     @IBOutlet weak var addInterviewIconButton: UIButton!
+    @IBOutlet weak var receivedOfferButton: UIButton!
     
     
     //MARK: Views
@@ -106,6 +108,18 @@ class NewApplicationController: UIViewController {
         }
     }
     
+    private var hasReceivedOffer = false {
+        didSet {
+            if hasReceivedOffer {
+                receivedOfferButton.backgroundColor = AppColors.secondaryPurpleColor
+                // button filled
+            } else {
+                // button not filled
+                receivedOfferButton.backgroundColor = .clear
+            }
+        }
+    }
+    
     private var date: Date?
     
     private var interviewViewHeight: NSLayoutConstraint!
@@ -116,6 +130,7 @@ class NewApplicationController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        receivedOfferButton.isHidden = true
         styleAllTextFields()
         configureNavBar()
         createDatePicker()
@@ -126,6 +141,7 @@ class NewApplicationController: UIViewController {
         setUpDelegateForTextFields()
         setUpUI()
         scrollView.delegate = self
+        
     }
     
     private func setUpUI() {
@@ -137,6 +153,10 @@ class NewApplicationController: UIViewController {
         hasRecievedReplyButton.tintColor = AppColors.primaryBlackColor
         addInterviewButton.titleLabel?.tintColor = AppColors.primaryBlackColor
         addInterviewIconButton.tintColor = AppColors.primaryBlackColor
+        receivedOfferButton.setTitleColor(AppColors.primaryBlackColor, for: .normal)
+        receivedOfferButton.layer.cornerRadius = AppRoundedViews.cornerRadius
+        receivedOfferButton.layer.borderWidth = 1.0
+        receivedOfferButton.layer.borderColor = AppColors.secondaryPurpleColor.cgColor
     
     }
     
@@ -174,6 +194,7 @@ class NewApplicationController: UIViewController {
         
         if editingApplication {
             // update UI - Ameni
+            receivedOfferButton.isHidden = false
             
             guard let application = jobApplication else {fatalError("no application was passed")}
             companyNameTextField.text = application.companyName
@@ -196,7 +217,13 @@ class NewApplicationController: UIViewController {
             isRemote = application.remoteStatus
             positionURLTextField.text = application.positionURL
             notesTextField.text = application.notes
+            
+            if application.receivedOffer {
+//                receivedOfferButton.backgroundColor = AppColors.secondaryPurpleColor
+                hasReceivedOffer = true
+            }
         }
+        
         
         editingInterviewViews()
     }
@@ -310,6 +337,11 @@ class NewApplicationController: UIViewController {
         hasRecievedReply.toggle()
     }
     
+    @IBAction func receivedButtonPressed(_ sender: UIButton) {
+        hasReceivedOffer.toggle()
+    }
+    
+    
     @IBAction func addInterviewButtonPressed(_ sender: UIButton) {
         interviewCount += 1
         
@@ -403,9 +435,7 @@ class NewApplicationController: UIViewController {
     
     private func createNewApplication(id: String , companyName: String, positionTitle: String, positionURL: String?, notes: String?, city: String?, deadline: Timestamp?, dateApplied: Timestamp?, isInterviewing: Bool) {
         
-        
-        // FIXME: this assumes that first time application means they have not recieved offer - should this be handled differently?
-        let jobApplication = JobApplication(id: id, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, remoteStatus: isRemote, city: city, notes: notes, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: false)
+        let jobApplication = JobApplication(id: id, companyName: companyName, positionTitle: positionTitle, positionURL: positionURL, remoteStatus: isRemote, city: city, notes: notes, applicationDeadline: deadline, dateApplied: dateApplied, interested: true, didApply: hasApplied, currentlyInterviewing: isInterviewing, receivedReply: hasRecievedReply, receivedOffer: hasReceivedOffer)
         
         DatabaseService.shared.addApplication(application: jobApplication) { [weak self] (result) in
             switch result {

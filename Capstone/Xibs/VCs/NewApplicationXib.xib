@@ -28,6 +28,7 @@
                 <outlet property="notesTextField" destination="VUz-fQ-HdT" id="DqZ-LZ-rI1"/>
                 <outlet property="positionTitleTextField" destination="sRR-Rf-gqU" id="Bgb-aa-w0k"/>
                 <outlet property="positionURLTextField" destination="pfd-LL-FcK" id="bxj-2n-KYg"/>
+                <outlet property="receivedOfferButton" destination="Pp3-KN-nhg" id="poj-SE-LJu"/>
                 <outlet property="recievedRelpyStackHeight" destination="Aqg-kb-vr6" id="bon-p8-3dM"/>
                 <outlet property="scrollView" destination="kDr-2P-7Dy" id="Y2m-Pf-P6T"/>
                 <outlet property="view" destination="iN0-l3-epB" id="NNj-6a-xWg"/>
@@ -42,7 +43,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fZd-Yj-lRt" userLabel="ContentView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="860"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="919"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="General Information:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TM4-Nz-7mR">
                                     <rect key="frame" x="20" y="117.5" width="374" height="21.5"/>
@@ -222,10 +223,24 @@
                                         <constraint firstAttribute="height" id="Aqg-kb-vr6"/>
                                     </constraints>
                                 </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pp3-KN-nhg">
+                                    <rect key="frame" x="124" y="855" width="166" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="pWv-zx-vJq"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                    <state key="normal" title="RECEIVED OFFER">
+                                        <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="receivedButtonPressed:" destination="-1" eventType="touchUpInside" id="F5c-iZ-amL"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstItem="Pp3-KN-nhg" firstAttribute="centerX" secondItem="fZd-Yj-lRt" secondAttribute="centerX" id="2gR-ri-hbA"/>
                                 <constraint firstItem="pQM-tE-bM3" firstAttribute="top" secondItem="aB0-bY-ybp" secondAttribute="bottom" constant="30" id="2wx-YJ-slZ"/>
                                 <constraint firstItem="TM4-Nz-7mR" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="32Q-ak-Ag7"/>
                                 <constraint firstAttribute="trailing" secondItem="D0r-JB-rI5" secondAttribute="trailing" constant="20" id="4KV-JV-uBc"/>
@@ -246,6 +261,7 @@
                                 <constraint firstItem="ss2-lD-jYt" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="KWW-hA-6tZ"/>
                                 <constraint firstAttribute="trailing" secondItem="utz-wf-tbd" secondAttribute="trailing" constant="20" id="L4q-Dn-xuL"/>
                                 <constraint firstItem="utz-wf-tbd" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="LK5-a9-T39"/>
+                                <constraint firstAttribute="bottom" secondItem="Pp3-KN-nhg" secondAttribute="bottom" constant="20" id="NCD-fg-5mF"/>
                                 <constraint firstItem="upx-nj-9sa" firstAttribute="top" secondItem="pQM-tE-bM3" secondAttribute="bottom" constant="20" id="NeU-Xv-Blz"/>
                                 <constraint firstAttribute="trailing" secondItem="sRR-Rf-gqU" secondAttribute="trailing" constant="20" id="Pdi-gz-Bg0"/>
                                 <constraint firstItem="sRR-Rf-gqU" firstAttribute="leading" secondItem="fZd-Yj-lRt" secondAttribute="leading" constant="20" id="UVg-kF-jX7"/>
@@ -255,7 +271,8 @@
                                 <constraint firstItem="c9D-U3-bqx" firstAttribute="top" secondItem="ss2-lD-jYt" secondAttribute="bottom" constant="30" id="Xcc-VI-KhN"/>
                                 <constraint firstAttribute="trailing" secondItem="pfd-LL-FcK" secondAttribute="trailing" constant="20" id="Z8c-g0-LGE"/>
                                 <constraint firstItem="8F9-WL-qyr" firstAttribute="top" secondItem="vID-G1-Od9" secondAttribute="bottom" constant="10" id="afL-h0-fCg"/>
-                                <constraint firstAttribute="bottom" secondItem="5bb-nj-ZZ4" secondAttribute="bottom" constant="25" id="bz6-xz-pfp"/>
+                                <constraint firstItem="Pp3-KN-nhg" firstAttribute="width" secondItem="fZd-Yj-lRt" secondAttribute="width" multiplier="0.4" id="b8B-Un-QBj"/>
+                                <constraint firstItem="Pp3-KN-nhg" firstAttribute="top" secondItem="5bb-nj-ZZ4" secondAttribute="bottom" constant="20" id="bz6-xz-pfp"/>
                                 <constraint firstItem="5bb-nj-ZZ4" firstAttribute="top" secondItem="Hhc-cq-NK7" secondAttribute="bottom" constant="5" id="c0f-QV-VRg"/>
                                 <constraint firstItem="pfd-LL-FcK" firstAttribute="top" secondItem="sRR-Rf-gqU" secondAttribute="bottom" constant="40" id="cwY-6R-fR0"/>
                                 <constraint firstAttribute="trailing" secondItem="VUz-fQ-HdT" secondAttribute="trailing" constant="20" id="czG-9E-c0z"/>
