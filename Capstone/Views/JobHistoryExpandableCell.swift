@@ -34,6 +34,7 @@ class JobHistoryExpandableCell: FoldingCell {
     @IBOutlet weak var responsibilitesPromptLabel: UILabel!
     @IBOutlet weak var starsPromptLable: UILabel!
     @IBOutlet weak var contactsPromptLable: UILabel!
+    @IBOutlet weak var purpleView: UIView!
     
     weak var delegate: JobHistoryExpandableCellDelegate?
     private var userJobForDelegate: UserJob?
@@ -67,6 +68,8 @@ class JobHistoryExpandableCell: FoldingCell {
         companyNameLabel.textColor = AppColors.darkGrayHighlightColor
         jobDescriptionLabel.font = AppFonts.secondaryFont
         jobDescriptionLabel.textColor = AppColors.darkGrayHighlightColor
+        purpleView.backgroundColor = AppColors.primaryPurpleColor
+        purpleView.clipsToBounds = true
         
         //Opened
         jobTitleLabel2.font = AppFonts.boldFont

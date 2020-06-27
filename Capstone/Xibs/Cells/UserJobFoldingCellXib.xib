@@ -19,13 +19,13 @@
                         <rect key="frame" x="8" y="8" width="999" height="180"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khx-HK-dvT">
-                                <rect key="frame" x="8" y="8" width="919" height="44"/>
+                                <rect key="frame" x="8" y="16" width="919" height="28"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EvA-DL-Tix">
-                                <rect key="frame" x="8" y="118" width="983" height="20.5"/>
+                                <rect key="frame" x="8" y="110" width="983" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -39,36 +39,46 @@
                                 <state key="normal" image="ellipsis.circle.fill" catalog="system"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owg-Cm-oSR">
-                                <rect key="frame" x="8" y="88" width="983" height="20"/>
+                                <rect key="frame" x="8" y="80" width="983" height="20"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jI1-Y5-EHa">
-                                <rect key="frame" x="8" y="60" width="983" height="20"/>
+                                <rect key="frame" x="8" y="52" width="983" height="20"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jaZ-Tc-tPg">
+                                <rect key="frame" x="0.0" y="0.0" width="999" height="8"/>
+                                <color key="backgroundColor" red="0.70895537279999998" green="0.47858221020000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="8" id="fQw-cR-27q"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="EvA-DL-Tix" firstAttribute="leading" secondItem="7Cu-SG-ELW" secondAttribute="leading" constant="8" id="2Hy-0x-rdx"/>
+                            <constraint firstItem="jaZ-Tc-tPg" firstAttribute="top" secondItem="7Cu-SG-ELW" secondAttribute="top" id="3Ee-mi-Ufe"/>
                             <constraint firstAttribute="trailing" secondItem="ad1-Nc-t7p" secondAttribute="trailing" constant="8" id="3Xq-Da-hNF"/>
                             <constraint firstAttribute="trailing" secondItem="jI1-Y5-EHa" secondAttribute="trailing" constant="8" id="5qp-42-iMS"/>
                             <constraint firstAttribute="trailing" secondItem="EvA-DL-Tix" secondAttribute="trailing" constant="8" id="6GP-nx-BVm"/>
                             <constraint firstAttribute="trailing" secondItem="owg-Cm-oSR" secondAttribute="trailing" constant="8" id="8jy-oQ-EJH"/>
+                            <constraint firstAttribute="trailing" secondItem="jaZ-Tc-tPg" secondAttribute="trailing" id="EX6-s2-tQN"/>
                             <constraint firstItem="ad1-Nc-t7p" firstAttribute="leading" secondItem="Khx-HK-dvT" secondAttribute="trailing" constant="20" id="Iua-FT-TsT"/>
                             <constraint firstItem="owg-Cm-oSR" firstAttribute="leading" secondItem="7Cu-SG-ELW" secondAttribute="leading" constant="8" id="QVZ-JR-iUg"/>
                             <constraint firstAttribute="height" constant="180" id="Qf9-GM-iZB"/>
                             <constraint firstItem="Khx-HK-dvT" firstAttribute="leading" secondItem="7Cu-SG-ELW" secondAttribute="leading" constant="8" id="V92-tG-hTh"/>
                             <constraint firstItem="Khx-HK-dvT" firstAttribute="centerY" secondItem="ad1-Nc-t7p" secondAttribute="centerY" id="YDk-ay-lqT"/>
                             <constraint firstItem="jI1-Y5-EHa" firstAttribute="top" secondItem="Khx-HK-dvT" secondAttribute="bottom" constant="8" id="YLM-Mv-DVq"/>
+                            <constraint firstItem="ad1-Nc-t7p" firstAttribute="top" secondItem="7Cu-SG-ELW" secondAttribute="top" constant="8" id="Zha-cr-dhE"/>
                             <constraint firstItem="owg-Cm-oSR" firstAttribute="top" secondItem="jI1-Y5-EHa" secondAttribute="bottom" constant="8" id="aTO-qT-hYI"/>
-                            <constraint firstItem="ad1-Nc-t7p" firstAttribute="top" secondItem="7Cu-SG-ELW" secondAttribute="top" constant="8" id="cRn-yu-WWP"/>
-                            <constraint firstItem="Khx-HK-dvT" firstAttribute="top" secondItem="7Cu-SG-ELW" secondAttribute="top" constant="8" id="fp6-q9-upt"/>
+                            <constraint firstItem="jaZ-Tc-tPg" firstAttribute="leading" secondItem="7Cu-SG-ELW" secondAttribute="leading" id="e36-4N-Q0O"/>
                             <constraint firstItem="jI1-Y5-EHa" firstAttribute="leading" secondItem="7Cu-SG-ELW" secondAttribute="leading" constant="8" id="pzT-WB-YaQ"/>
                             <constraint firstItem="EvA-DL-Tix" firstAttribute="top" secondItem="owg-Cm-oSR" secondAttribute="bottom" constant="10" id="v1w-Ha-9E4"/>
+                            <constraint firstItem="Khx-HK-dvT" firstAttribute="top" secondItem="jaZ-Tc-tPg" secondAttribute="bottom" constant="8" id="xW3-fj-SJF"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WU1-Uy-BLZ" userLabel="Container">
@@ -281,6 +291,7 @@
                 <outlet property="jobDescriptionLabel2" destination="fyn-VA-Lg3" id="u1Q-dY-8Oq"/>
                 <outlet property="jobTitleLabel" destination="Khx-HK-dvT" id="9XJ-um-CXY"/>
                 <outlet property="jobTitleLabel2" destination="xYj-kp-8Vb" id="pfF-BM-R5P"/>
+                <outlet property="purpleView" destination="jaZ-Tc-tPg" id="c7O-uV-I3E"/>
                 <outlet property="responsibilitesPromptLabel" destination="jTS-2r-seJ" id="JE9-Ya-wvZ"/>
                 <outlet property="responsibilityOne" destination="Bob-Lc-65F" id="0Ft-RW-PM3"/>
                 <outlet property="responsibilityThree" destination="UKB-7L-Uo3" id="GoW-PF-LCr"/>
