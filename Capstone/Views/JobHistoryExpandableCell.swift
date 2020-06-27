@@ -85,19 +85,19 @@ class JobHistoryExpandableCell: FoldingCell {
         companyNameLabel2.textColor = AppColors.primaryBlackColor
         jobDescriptionLabel2.font = AppFonts.primaryFont
         jobDescriptionLabel2.textColor = AppColors.primaryBlackColor
-        responsibilitesPromptLabel.font = AppFonts.secondaryFont
+        responsibilitesPromptLabel.font = AppFonts.subtitleFont
         responsibilitesPromptLabel.textColor = AppColors.darkGrayHighlightColor
-        responsibilityOne.font = AppFonts.semiBoldSmall
-        responsibilityTwo.font = AppFonts.semiBoldSmall
-        responsibilityThree.font = AppFonts.semiBoldSmall
+        responsibilityOne.font = AppFonts.primaryFont
+        responsibilityTwo.font = AppFonts.primaryFont
+        responsibilityThree.font = AppFonts.primaryFont
         editButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
         unfoldedEditButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
         editButton.tintColor = AppColors.secondaryPurpleColor
         unfoldedEditButton.tintColor = AppColors.secondaryPurpleColor
-        starsPromptLable.font = AppFonts.secondaryFont
-        starsPromptLable.tintColor = AppColors.darkGrayHighlightColor
-        contactsPromptLable.font = AppFonts.secondaryFont
-        contactsPromptLable.tintColor = AppColors.darkGrayHighlightColor
+        starsPromptLable.font = AppFonts.subtitleFont
+        starsPromptLable.textColor = AppColors.darkGrayHighlightColor
+        contactsPromptLable.font = AppFonts.subtitleFont
+        contactsPromptLable.textColor = AppColors.darkGrayHighlightColor
         starSituationButton.setTitleColor(AppColors.secondaryPurpleColor, for: .normal)
         purpleViewUnFolded.backgroundColor = AppColors.primaryPurpleColor
     }
@@ -183,7 +183,16 @@ extension JobHistoryExpandableCell: UICollectionViewDataSource {
         return cell
     }
 }
-extension JobHistoryExpandableCell: UICollectionViewDelegate {
+extension JobHistoryExpandableCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let maxsize: CGSize = self.frame.size
+        let itemWidth: CGFloat = maxsize.width * 0.3
+        let itemHeight: CGFloat = maxsize.height * 0.3
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let contact = contacts?[indexPath.row] else {
             return
