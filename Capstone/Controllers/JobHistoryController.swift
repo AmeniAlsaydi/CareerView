@@ -29,8 +29,8 @@ class JobHistoryController: UIViewController {
     }
     
     enum Const {
-        static let closeCellHeight: CGFloat = 180
-        static let openCellHeight: CGFloat = 620
+        static let closeCellHeight: CGFloat = 200
+        static let openCellHeight: CGFloat = 640
     }
     
     var cellHeights = [CGFloat]()
@@ -44,6 +44,7 @@ class JobHistoryController: UIViewController {
         //checkFirstTimeLogin()
         loadUserJobs()
         setup()
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         loadUserJobs()
