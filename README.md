@@ -1,10 +1,13 @@
 # CareerView
 
 ## Contributors
-##### **Ameni Alsaydi** - https://github.com/AmeniAlsaydi
-##### **Casandra Grullon** - https://github.com/CasandraGrullon
-##### **Greg Keeley** - https://github.com/GregKeeley
-##### **Tsering Lama** - https://github.com/tseringlamanyc
+[Ameni Alsaydi](https://github.com/AmeniAlsaydi)
+
+[Casandra Grullon](https://github.com/CasandraGrullon)
+
+[Greg Keeley](https://github.com/GregKeeley)
+
+[Tsering Lama](https://github.com/tseringlamanyc)
 
 ## Description
 **CareerView** is the organizational tool for job seekers. Record all your past / present work experiences and use it as an easy reference for future potential employers. 
