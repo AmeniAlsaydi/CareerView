@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, UIAdaptivePresentationControllerDelegate {
 
    
     private lazy var jobHistoryController: UINavigationController = {
@@ -45,16 +45,60 @@ class MainTabBarController: UITabBarController {
     }()
     
     private lazy var settingsController: UINavigationController = {
-       let navController = UINavigationController(rootViewController: SettingsController(nibName: "SettingsXib", bundle: nil))
+       let navController = UINavigationController(rootViewController: ProfileViewController(nibName: "ProfileViewControllerXib", bundle: nil))
         
-      navController.tabBarItem = UITabBarItem(title: "Settings",
-                                               image: UIImage(systemName: "gear"), selectedImage: UIImage(systemName: "gear"))
+      navController.tabBarItem = UITabBarItem(title: "Profile",
+                                               image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
            return navController
     }()
     
+    private var userData: User?
+    
+    private var defaultIndex: Int = 0
+    private func loadDefaultLaunchScreen() {
+        let defaultLaunchScreen = UserPreference.shared.getDefaultLaunchScreen()
+        switch defaultLaunchScreen {
+        case .jobHistory:
+            defaultIndex = 0
+        case .starStories:
+            defaultIndex = 1
+        case .interviewQuestions:
+            defaultIndex = 2
+        case .applicationTracker:
+            defaultIndex = 3
+        default:
+            defaultIndex = 0
+        }
+    }
     override func viewDidLoad() {
            super.viewDidLoad()
-           viewControllers = [jobHistoryController, starSituationController, interviewQuestionsController, applicationTrackerController, settingsController]
+        
+        self.tabBar.tintColor = AppColors.primaryBlackColor
+           viewControllers = [jobHistoryController, applicationTrackerController, starSituationController, interviewQuestionsController, settingsController]
+        loadDefaultLaunchScreen()
+        selectedIndex = defaultIndex
+        getUserData()
+    }
+    private func getUserData() {
+           DatabaseService.shared.fetchUserData { [weak self] (result) in
+               switch result {
+               case .failure(let error):
+                   DispatchQueue.main.async {
+                       print("Error fetching user Data: \(error.localizedDescription)")
+                   }
+               case .success(let userData):
+                   DispatchQueue.main.async {
+                       self?.userData = userData
+                       self?.checkFirstTimeLogin()
+                   }
+               }
+           }
        }
-       
+    private func checkFirstTimeLogin() {
+        guard let user = userData else { return }
+        if user.firstTimeLogin {
+            let welcomeScreenViewController = WelcomeScreenViewController(nibName: "WelcomeScreenXib", bundle: nil)
+            present(welcomeScreenViewController, animated: true, completion: nil)
+        }
+    }
 }

@@ -13,45 +13,93 @@ class JobApplicationCell: UICollectionViewCell {
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var submittedDateLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var currentStatusIndicatorLabel: UILabel!
     @IBOutlet weak var progressBar: ProgressBar!
     
-    override func layoutSubviews() {
-        backgroundColor = .white
-        layer.cornerRadius = 12
+    @IBOutlet private var maxWidthConstraint: NSLayoutConstraint! {
+        didSet {
+            maxWidthConstraint.isActive = false
+        }
     }
+    var maxWidth: CGFloat? = nil {
+        didSet {
+            guard let maxWidth = maxWidth else {
+                return
+            }
+            maxWidthConstraint.isActive = true
+            maxWidthConstraint.constant = maxWidth * 0.95
+        }
+    }
+    
+    override func prepareForReuse() {
+      super.prepareForReuse()
+      progressBar.layer.sublayers?.removeAll()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            contentView.leftAnchor.constraint(equalTo: leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: rightAnchor),
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    override func layoutSubviews() {
+        self.layer.cornerRadius = AppRoundedViews.cornerRadius
+        setupCellUI()
+    }
+    
     
     
     // FIXME: understand public - private - internal
     public func configureCell(application: JobApplication) {
         
         positionLabel.text = application.positionTitle.capitalized
-        companyNameLabel.text = application.companyName.capitalized
-        let submittedDate = application.dateApplied.dateValue().dateString("MMM d, yyyy")
-        submittedDateLabel.text = "Date Applied: \(submittedDate)"
-        
+        companyNameLabel.text = ("@\(application.companyName.capitalized)")
+    
+        if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
+            submittedDateLabel.text = "Applied \(submittedDate)"
+        } else {
+            submittedDateLabel.text = "Not applied"
+        }
         
         if application.receivedOffer {
             progressBar.progress = 1.0
-            statusLabel.text = "Recieved Offer 💵 🥳"
+            currentStatusIndicatorLabel.text = "Recieved Offer"
         } else if application.currentlyInterviewing {
             progressBar.progress = 0.8
-            statusLabel.text = "Interviewing 🗣"
+            currentStatusIndicatorLabel.text = "Interviewing"
         } else if application.receivedReply {
             progressBar.progress = 0.6
-            statusLabel.text = "Rcieved Reply 📨"
+            currentStatusIndicatorLabel.text = "Recieved Reply"
         } else if application.didApply {
             progressBar.progress = 0.4
-            statusLabel.text = "Applied 📝"
+            currentStatusIndicatorLabel.text = "Applied"
         } else if application.interested {
             progressBar.progress = 0.2
-            statusLabel.text = "Interested 👀"
+            currentStatusIndicatorLabel.text = "Interested"
         } else {
             progressBar.progress = 0.0
         }
-        
     }
     
-    
-    
+    private func setupCellUI(){
+        self.backgroundColor = AppColors.systemBackgroundColor
+        positionLabel.textColor = AppColors.primaryBlackColor
+        companyNameLabel.textColor = AppColors.primaryBlackColor
+        submittedDateLabel.textColor = AppColors.primaryBlackColor
+        currentStatusIndicatorLabel.textColor = AppColors.secondaryPurpleColor
+        
+        positionLabel.font = AppFonts.semiBoldLarge
+        companyNameLabel.font = AppFonts.semiBoldSmall
+        submittedDateLabel.font = AppFonts.primaryFont
+        currentStatusIndicatorLabel.font = AppFonts.primaryFont
+        
+        
+    }
 }

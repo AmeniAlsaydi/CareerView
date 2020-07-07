@@ -13,8 +13,9 @@ class FirstTimeUserExperienceViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var screenshots = ["screenshot1", "screenshot2", "screenshot3", "screenshot4"]
-    
+//    private var screenshots = ["screenshot1", "screenshot2", "screenshot3", "screenshot4"]
+    private var screenshots = ["CareerViewlogo"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -49,7 +50,6 @@ class FirstTimeUserExperienceViewController: UIViewController {
     }
 
     @IBAction func skipForNowButtonPressed(_ sender: UIButton) {
-        print("skip for now pressed")
         UIViewController.showMainAppView()
     }
 }
@@ -57,14 +57,10 @@ class FirstTimeUserExperienceViewController: UIViewController {
 extension FirstTimeUserExperienceViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxWidth: CGFloat = collectionView.frame.width
-        let itemWidth: CGFloat = maxWidth * 0.95
         let maxHeight: CGFloat = collectionView.frame.height
-        let itemHeight: CGFloat = maxHeight * 0.95
+
         return CGSize(width: maxWidth, height: maxHeight)
     }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-//    }
 }
 extension FirstTimeUserExperienceViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -131,7 +127,5 @@ extension FirstTimeUserExperienceViewController: UICollectionViewDataSource {
             return cell
         }
     }
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        pageControl.currentPage = indexPath.section
-    }
+
 }

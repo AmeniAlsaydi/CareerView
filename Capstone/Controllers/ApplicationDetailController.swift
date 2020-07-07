@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class ApplicationDetailController: UIViewController {
     
@@ -18,12 +19,46 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var applicationStatusLabel: UILabel!
     @IBOutlet weak var appliedAsLabel: UILabel!
     @IBOutlet weak var remoteLabel: UILabel!
-    @IBOutlet weak var hyperlinkLabel: UILabel!
+    @IBOutlet weak var addressOrCityLabel: UILabel!
+    @IBOutlet weak var notesLabel: UILabel!
+    
     @IBOutlet weak var dateAppliedLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var websiteButton: UIButton!
+    @IBOutlet weak var view1: ApplicationDetailView!
+    @IBOutlet weak var view1Height: NSLayoutConstraint!
     
-    var jobApplication: JobApplication
+    @IBOutlet weak var view2: ApplicationDetailView!
+    @IBOutlet weak var view2Height: NSLayoutConstraint!
     
+    @IBOutlet weak var view3: ApplicationDetailView!
+    @IBOutlet weak var view3Height: NSLayoutConstraint!
+    
+    @IBOutlet weak var mapHeight: NSLayoutConstraint!
+    
+    // icons
+    @IBOutlet weak var mapIcon: UIImageView!
+    @IBOutlet weak var notesIcon: UIImageView!
+    @IBOutlet weak var interviewIcon: UIImageView!
+    
+    // titles
+    @IBOutlet weak var locationTitle: UILabel!
+    @IBOutlet weak var notesTitle: UILabel!
+    @IBOutlet weak var interviewTitle: UILabel!
+    @IBOutlet weak var noInterviewsLabel: UILabel!
+    
+    // button height
+    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
+    
+    
+    var jobApplication: JobApplication 
+    
+    private var interviewCount = 0
+    
+    private var interviewData = [Interview]()
+    
+    private var interviewViewHeight: NSLayoutConstraint!
+        
     init(_ jobApplication: JobApplication) {
         self.jobApplication = jobApplication
         super.init(nibName: "ApplicationDetailXib", bundle: nil)
@@ -36,13 +71,62 @@ class ApplicationDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureDetailVC(application: jobApplication)
+        getInterview(application: jobApplication)
         configureMapView()
-        loadMap()
+        loadMapAnnotations()
+        configureNavBar()
+        setUpViewUI()
+        
+    }
+    
+    private func configureNavBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.optionsIcon, style: .plain, target: self, action: #selector(moreOptionsButtonPressed(_:)))
+    }
+    
+    private func setUpViewUI() {
+        //icons
+        mapIcon.tintColor = AppColors.secondaryPurpleColor
+        notesIcon.tintColor = AppColors.secondaryPurpleColor
+        interviewIcon.tintColor = AppColors.secondaryPurpleColor
+        
+        //labels
+        appliedToLabel.font = AppFonts.boldFont
+        appliedAsLabel.font = AppFonts.semiBoldSmall
+        dateAppliedLabel.font = AppFonts.subtitleFont
+        websiteButton.titleLabel?.font = AppFonts.semiBoldSmall
+        applicationStatusLabel.font = AppFonts.subtitleFont
+        
+        // Titles
+        locationTitle.font = AppFonts.mediumBoldFont
+        notesTitle.font = AppFonts.mediumBoldFont
+        interviewTitle.font = AppFonts.mediumBoldFont
+        
+        
+    }
+    
+    public func getInterview(application: JobApplication) {
+        self.showIndicator()
+        DatabaseService.shared.getApplicationInterview(applicationID: application.id) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print("couldnt get any interviews \(error.localizedDescription)")
+            case .success(let interviews):
+                DispatchQueue.main.async {
+                    self?.removeIndicator()
+                    self?.interviewCount = interviews.count
+                    self?.interviewData = interviews
+                    self?.updateInterview()
+                    print("This is the interview count \(self?.interviewCount ?? 0)")
+                }
+            }
+        }
     }
     
     public func configureDetailVC(application: JobApplication) {
         
-        appliedAsLabel.text = "Applied as: \(application.positionTitle)"
+        websiteButton.setTitleColor(.systemBlue, for: .normal)
+        
+        appliedAsLabel.text = application.positionTitle.capitalized
         appliedToLabel.text = application.companyName.capitalized
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
@@ -50,19 +134,19 @@ class ApplicationDetailController: UIViewController {
             DispatchQueue.main.async {
                 if application.receivedOffer {
                     self.progressBar.progress = 1.0
-                    self.applicationStatusLabel.text = "Recieved Offer 🥳"
+                    self.applicationStatusLabel.text = "Recieved Offer"
                 } else if application.currentlyInterviewing {
                     self.progressBar.progress = 0.8
-                    self.applicationStatusLabel.text = "Interviewing 🗣"
+                    self.applicationStatusLabel.text = "Interviewing"
                 } else if application.receivedReply {
                     self.progressBar.progress = 0.6
-                    self.applicationStatusLabel.text = "Rcieved Reply 📨"
+                    self.applicationStatusLabel.text = "Recieved Reply"
                 } else if application.didApply {
                     self.progressBar.progress = 0.4
-                    self.applicationStatusLabel.text = "Applied 📝"
+                    self.applicationStatusLabel.text = "Applied"
                 } else if application.interested {
                     self.progressBar.progress = 0.2
-                    self.applicationStatusLabel.text = "Interested 👀"
+                    self.applicationStatusLabel.text = "Interested"
                 } else {
                     self.progressBar.progress = 0.0
                 }
@@ -73,36 +157,179 @@ class ApplicationDetailController: UIViewController {
             }
         }
         
-        switch application.remoteStatus {
-        case true:
-            remoteLabel.text = "Remote: Yes"
-        case false:
-            remoteLabel.text = "Remote: No"
+        if application.remoteStatus {
+            addressOrCityLabel.text = "Remote"
         }
         
-        let submittedDate = application.dateApplied.dateValue().dateString("MMM d, yyyy")
-        dateAppliedLabel.text = "Date Applied: \(submittedDate)"
+        if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
+            dateAppliedLabel.text = "Date Applied: \(submittedDate)"
+        } else {
+            dateAppliedLabel.text = "Date Applied: N/A"
+        }
+        
+        if let notes = application.notes, !notes.isEmpty {
+            notesLabel.text = notes
+        } else {
+            notesLabel.text = "No notes for this application."
+        }
+        
+        guard let url = application.positionURL, !url.isEmpty else {
+            buttonHeight.constant = 0
+            websiteButton.isHidden = true
+            return
+        }
+        
+        
     }
+    
     
     private func configureMapView() {
         mapView.delegate = self
+        mapView.isUserInteractionEnabled = false 
     }
     
-    private func loadMap() {
-        let annotations = makeAnnotations()
-        mapView.addAnnotations(annotations)
-        mapView.showAnnotations(annotations, animated: true)
-    }
-    
-    private func makeAnnotations() -> [MKPointAnnotation] {
-        var annotations = [MKPointAnnotation]()
+    private func loadMapAnnotations()  {
+        self.showIndicator()
+        
         let annotation = MKPointAnnotation()
         annotation.title = jobApplication.companyName
-        let coordinate = CLLocationCoordinate2DMake(Double(jobApplication.location.latitude), Double(jobApplication.location.longitude))
-        annotation.coordinate = coordinate
-        annotations.append(annotation)
-        return annotations
+        
+        if let city = jobApplication.city {
+            
+            addressOrCityLabel.text = city
+            
+            getCoordinateFrom(address: city) { [weak self] (coordinate, error) in
+                guard let coordinate = coordinate, error == nil else { return }
+                let cityCoordinate = CLLocationCoordinate2DMake(Double(coordinate.latitude), Double(coordinate.longitude))
+                annotation.coordinate = cityCoordinate
+                self?.mapView.addAnnotation(annotation)
+                DispatchQueue.main.async {
+                    self?.removeIndicator()
+                     self?.mapView.showAnnotations([annotation], animated: true)
+                }
+            }
+            
+        } else {
+            mapHeight.constant = 0
+            mapView.isHidden = true
+        }
     }
+    
+    private func updateInterview() {
+        
+        switch interviewCount {
+        case 0 :
+            view1.isHidden = true
+            view2.isHidden = true
+            view3.isHidden = true
+            noInterviewsLabel.text = "No interviews for this application."
+        case 1:
+            view2.isHidden = true
+            view3.isHidden = true
+            view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
+            
+            if interviewData[0].thankYouSent {
+                view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            
+            if let notes = interviewData[0].notes {
+                view1.notesLabel.text = notes
+            }
+            
+        case 2:
+            view3.isHidden = true
+            
+            view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
+            
+            if interviewData[0].thankYouSent {
+                view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            
+            view2.interviewDateLabel.text = "Interview Date: \(interviewData[1].interviewDate?.dateValue().dateString() ?? "")"
+            if interviewData[1].thankYouSent {
+                view2.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            if let notes = interviewData[0].notes {
+                view1.notesLabel.text = notes
+            }
+            if let notes = interviewData[1].notes {
+                view2.notesLabel.text = notes
+            }
+            
+        case 3:
+            view1.interviewDateLabel.text = "Interview Date #1 - \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
+            if interviewData[0].thankYouSent {
+                view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            
+            view2.interviewDateLabel.text = "Interview Date #2 - \(interviewData[1].interviewDate?.dateValue().dateString() ?? "")"
+            if interviewData[1].thankYouSent {
+                view2.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            
+            view3.interviewDateLabel.text = "Interview Date #3 - \(interviewData[2].interviewDate?.dateValue().dateString() ?? "")"
+            if interviewData[2].thankYouSent {
+                view3.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            }
+            
+            if let notes = interviewData[0].notes {
+                view1.notesLabel.text = notes
+            }
+            if let notes = interviewData[1].notes {
+                view2.notesLabel.text = notes
+            }
+            if let notes = interviewData[2].notes {
+                view3.notesLabel.text = notes
+            }
+            
+        default:
+            print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
+        }
+        view.layoutIfNeeded()
+    }
+    
+    @objc
+    func moreOptionsButtonPressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (actionSheet) in
+            DatabaseService.shared.deleteJobApplication(applicationID: self.jobApplication.id) { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    self?.showAlert(title: "Fail", message: "Couldnt delete \(error.localizedDescription)")
+                case .success(_) :
+                    self?.showAlert(title: "Success", message: "Application Deleted", completion: { [weak self] (alertAction) in
+                        self?.navigationController?.popViewController(animated: true)
+                    })
+                }
+            }
+        }
+        
+        let editAction = UIAlertAction(title: "Edit", style: .default) { [weak self] (actionSheet) in
+            let applicationEntryVC = NewApplicationController(nibName: "NewApplicationXib", bundle: nil)
+            applicationEntryVC.editingApplication = true
+            applicationEntryVC.jobApplication = self?.jobApplication
+            applicationEntryVC.interviewData = self?.interviewData  
+            self?.show(applicationEntryVC, sender: nil)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(editAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func websitePressed(_ sender: UIButton) {
+        guard let url = URL(string: jobApplication.positionURL ?? "") else {
+            showAlert(title: "Error", message: "No website linked with the application")
+            return
+        }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
+    }
+    
 }
 
 extension ApplicationDetailController: MKMapViewDelegate {
@@ -120,6 +347,8 @@ extension ApplicationDetailController: MKMapViewDelegate {
         }
         return annotationView
     }
+    
+    private func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
+           CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
+       }
 }
-
-

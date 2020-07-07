@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct InterviewQuestion {
+struct InterviewQuestion: Hashable {
     var question: String
     var suggestion: String?
     var id: String

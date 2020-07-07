@@ -10,12 +10,20 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StarStoryEntryController" customModule="Capstone" customModuleProvider="target">
             <connections>
                 <outlet property="actionBkgdView" destination="gxS-HI-Ap0" id="1It-lL-VYI"/>
+                <outlet property="actionLabel" destination="9FR-K0-k1U" id="hvo-0J-Vvd"/>
                 <outlet property="actionTextView" destination="TGU-i0-aj6" id="he1-Qa-vKe"/>
                 <outlet property="actionTextViewHeightConstraint" destination="KTI-lz-V9I" id="rx4-8y-QkY"/>
                 <outlet property="blurEffect" destination="mDn-v1-nBd" id="VDX-w8-Wjq"/>
-                <outlet property="freeFormButton" destination="bKC-WY-elg" id="3pY-6C-WAh"/>
+                <outlet property="clearActionButton" destination="aVV-aU-ae7" id="KFP-5E-bOm"/>
+                <outlet property="clearResultButton" destination="kEp-dz-ipy" id="fcB-Ba-2vq"/>
+                <outlet property="clearSituationButton" destination="o8l-7J-eTN" id="gTO-LM-SMi"/>
+                <outlet property="clearTaskButton" destination="GLc-5L-jtd" id="70R-WU-Lag"/>
+                <outlet property="entryPromptLabel" destination="COh-Ke-7n9" id="TRO-ZJ-GR0"/>
+                <outlet property="freeFormButton" destination="bKC-WY-elg" id="AIM-l6-Yds"/>
                 <outlet property="inputOptionView" destination="uem-N7-VN9" id="nkD-5i-Om0"/>
+                <outlet property="purpleView" destination="qRS-s8-W6S" id="CLE-3u-9eA"/>
                 <outlet property="resultBkgdView" destination="i62-IV-dFe" id="Vqq-s0-7Q8"/>
+                <outlet property="resultLabel" destination="kua-fc-Nbv" id="9FA-y4-24U"/>
                 <outlet property="resultTextView" destination="LhX-G2-Sp6" id="3fx-5W-nvN"/>
                 <outlet property="resultTextViewHeightConstraint" destination="DVt-iF-rmi" id="Lak-xj-2C8"/>
                 <outlet property="saveAsDefaultButton" destination="ayn-O8-VCt" id="tql-B1-bVd"/>
@@ -24,7 +32,10 @@
                 <outlet property="situationTextView" destination="Xr7-YU-UeQ" id="xaN-Qy-ErV"/>
                 <outlet property="situationTextViewHeightConstraint" destination="vYk-ia-ZnK" id="c0H-XM-TER"/>
                 <outlet property="starStoryButton" destination="b1i-AJ-V1k" id="eXd-th-CbY"/>
+                <outlet property="starStoryExplanation" destination="mmW-qr-yhf" id="77E-Wj-wdi"/>
+                <outlet property="starStoryInputLabel" destination="8iu-os-Q3F" id="6In-MA-xTX"/>
                 <outlet property="taskBkgdView" destination="o3y-aE-uj4" id="yeN-v7-38H"/>
+                <outlet property="taskLabel" destination="bFh-2I-b8F" id="zUo-KI-ufH"/>
                 <outlet property="taskTextView" destination="x0U-KQ-0lb" id="xJU-VD-Sci"/>
                 <outlet property="taskTextViewHeightContraint" destination="2m3-sS-Ce1" id="s7X-dO-ncr"/>
                 <outlet property="view" destination="iN0-l3-epB" id="NJZ-Mm-3zk"/>
@@ -60,9 +71,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8l-7J-eTN">
-                                            <rect key="frame" x="354" y="8" width="36" height="30"/>
-                                            <state key="normal" title="Clear"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8l-7J-eTN">
+                                            <rect key="frame" x="368.5" y="8" width="21.5" height="30"/>
+                                            <state key="normal" image="delete.left.fill" catalog="system"/>
                                             <connections>
                                                 <action selector="clearSituationButtonPressed:" destination="-1" eventType="touchUpInside" id="nH2-44-28e"/>
                                             </connections>
@@ -100,9 +111,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLc-5L-jtd">
-                                            <rect key="frame" x="354" y="8" width="36" height="30"/>
-                                            <state key="normal" title="Clear"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLc-5L-jtd">
+                                            <rect key="frame" x="368.5" y="8" width="21.5" height="30"/>
+                                            <state key="normal" image="delete.left.fill" catalog="system"/>
                                             <connections>
                                                 <action selector="clearTaskButtonPressed:" destination="-1" eventType="touchUpInside" id="B4y-ri-0cR"/>
                                             </connections>
@@ -140,9 +151,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVV-aU-ae7">
-                                            <rect key="frame" x="354" y="8" width="36" height="30"/>
-                                            <state key="normal" title="Clear"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVV-aU-ae7">
+                                            <rect key="frame" x="368.5" y="8" width="21.5" height="30"/>
+                                            <state key="normal" image="delete.left.fill" catalog="system"/>
                                             <connections>
                                                 <action selector="clearActionButtonPressed:" destination="-1" eventType="touchUpInside" id="mXk-Nc-Zf0"/>
                                             </connections>
@@ -180,9 +191,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEp-dz-ipy">
-                                            <rect key="frame" x="354" y="8" width="36" height="30"/>
-                                            <state key="normal" title="Clear"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEp-dz-ipy">
+                                            <rect key="frame" x="368.5" y="8" width="21.5" height="30"/>
+                                            <state key="normal" image="delete.left.fill" catalog="system"/>
                                             <connections>
                                                 <action selector="clearResultButtonPressed:" destination="-1" eventType="touchUpInside" id="eZA-X4-Al4"/>
                                             </connections>
@@ -236,17 +247,17 @@
                     <blurEffect style="systemUltraThinMaterial"/>
                 </visualEffectView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uem-N7-VN9" userLabel="InputOptionView">
-                    <rect key="frame" x="72.5" y="157" width="269" height="582"/>
+                    <rect key="frame" x="41.5" y="157" width="331" height="582"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRS-s8-W6S">
-                            <rect key="frame" x="0.0" y="0.0" width="269" height="87"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRS-s8-W6S" userLabel="Purple View">
+                            <rect key="frame" x="0.0" y="0.0" width="331" height="87"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightbulb.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xje-1D-v7S">
-                                    <rect key="frame" x="125" y="6.5" width="19" height="21.5"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xje-1D-v7S">
+                                    <rect key="frame" x="154.5" y="8" width="22" height="20"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STAR Story Input" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iu-os-Q3F">
-                                    <rect key="frame" x="8" y="36" width="253" height="20.5"/>
+                                    <rect key="frame" x="8" y="36" width="315" height="20.5"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -262,44 +273,53 @@
                                 <constraint firstAttribute="trailing" secondItem="8iu-os-Q3F" secondAttribute="trailing" constant="8" id="rbq-0e-aix"/>
                             </constraints>
                         </view>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3DQ-7Y-Jkk">
-                            <rect key="frame" x="8" y="479.5" width="253" height="94.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like a guided STAR story entry form or enter them free form?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COh-Ke-7n9">
+                            <rect key="frame" x="10" y="381" width="311" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="3DQ-7Y-Jkk">
+                            <rect key="frame" x="8" y="430" width="315" height="132"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayn-O8-VCt">
-                                    <rect key="frame" x="0.0" y="0.0" width="253" height="18.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title="Do not show this message again" image="square" catalog="system">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="saveAsDefaultButtonPressed:" destination="-1" eventType="touchUpInside" id="CYC-FV-RFX"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKC-WY-elg">
-                                    <rect key="frame" x="0.0" y="26.5" width="253" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="vpb-G8-DDg"/>
+                                    </constraints>
                                     <state key="normal" title="Free form"/>
                                     <connections>
                                         <action selector="freeFormButtonPressed:" destination="-1" eventType="touchUpInside" id="oKB-ig-4zN"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1i-AJ-V1k">
-                                    <rect key="frame" x="0.0" y="64.5" width="253" height="30"/>
+                                    <rect key="frame" x="0.0" y="44" width="315" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="8fd-9J-aIM"/>
+                                    </constraints>
                                     <state key="normal" title="STAR Story"/>
                                     <connections>
                                         <action selector="starStoryButtonPressed:" destination="-1" eventType="touchUpInside" id="clu-yw-c6P"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayn-O8-VCt">
+                                    <rect key="frame" x="0.0" y="88" width="315" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="NUF-K0-UWX"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" title=" Always hide this message" image="square" catalog="system">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="saveAsDefaultButtonPressed:" destination="-1" eventType="touchUpInside" id="CYC-FV-RFX"/>
+                                    </connections>
+                                </button>
                             </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmW-qr-yhf">
-                            <rect key="frame" x="8" y="95" width="253" height="122"/>
+                            <rect key="frame" x="8" y="107" width="315" height="81.5"/>
                             <string key="text">The STAR story  interview technique offers a straightforward way to answer behavioral interview questions. You can keep track of these STAR stories here</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like assistance in entering your STAR stories, or enter them free form?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COh-Ke-7n9">
-                            <rect key="frame" x="8" y="233" width="253" height="61"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -309,15 +329,15 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="3DQ-7Y-Jkk" secondAttribute="trailing" constant="8" id="0H3-gh-Vn2"/>
                         <constraint firstItem="3DQ-7Y-Jkk" firstAttribute="leading" secondItem="uem-N7-VN9" secondAttribute="leading" constant="8" id="0Tn-Tw-qVy"/>
-                        <constraint firstItem="COh-Ke-7n9" firstAttribute="top" secondItem="mmW-qr-yhf" secondAttribute="bottom" constant="16" id="DN6-Wh-jRl"/>
+                        <constraint firstItem="3DQ-7Y-Jkk" firstAttribute="top" secondItem="COh-Ke-7n9" secondAttribute="bottom" constant="8" id="Avt-cw-rCe"/>
                         <constraint firstItem="mmW-qr-yhf" firstAttribute="leading" secondItem="uem-N7-VN9" secondAttribute="leading" constant="8" id="JDC-Bk-EEh"/>
                         <constraint firstItem="qRS-s8-W6S" firstAttribute="height" secondItem="uem-N7-VN9" secondAttribute="height" multiplier="0.15" id="PFO-nQ-5Zn"/>
                         <constraint firstAttribute="trailing" secondItem="qRS-s8-W6S" secondAttribute="trailing" id="VDA-eN-hf8"/>
-                        <constraint firstAttribute="trailing" secondItem="COh-Ke-7n9" secondAttribute="trailing" constant="8" id="ZBb-QZ-4ZP"/>
-                        <constraint firstItem="mmW-qr-yhf" firstAttribute="top" secondItem="qRS-s8-W6S" secondAttribute="bottom" constant="8" id="bB4-yL-u84"/>
-                        <constraint firstItem="COh-Ke-7n9" firstAttribute="leading" secondItem="uem-N7-VN9" secondAttribute="leading" constant="8" id="nwP-3B-8l1"/>
+                        <constraint firstItem="COh-Ke-7n9" firstAttribute="leading" secondItem="uem-N7-VN9" secondAttribute="leading" constant="10" id="VZo-Kv-RWU"/>
+                        <constraint firstAttribute="trailing" secondItem="COh-Ke-7n9" secondAttribute="trailing" constant="10" id="YEf-6B-TSG"/>
+                        <constraint firstItem="mmW-qr-yhf" firstAttribute="top" secondItem="qRS-s8-W6S" secondAttribute="bottom" constant="20" id="bB4-yL-u84"/>
                         <constraint firstItem="qRS-s8-W6S" firstAttribute="top" secondItem="uem-N7-VN9" secondAttribute="top" id="pyP-V2-UGO"/>
-                        <constraint firstAttribute="bottom" secondItem="3DQ-7Y-Jkk" secondAttribute="bottom" constant="8" id="tHe-Xp-0xe"/>
+                        <constraint firstAttribute="bottom" secondItem="3DQ-7Y-Jkk" secondAttribute="bottom" constant="20" id="tHe-Xp-0xe"/>
                         <constraint firstItem="qRS-s8-W6S" firstAttribute="leading" secondItem="uem-N7-VN9" secondAttribute="leading" id="vPM-CD-t0E"/>
                         <constraint firstAttribute="trailing" secondItem="mmW-qr-yhf" secondAttribute="trailing" constant="8" id="zaP-tP-M5g"/>
                     </constraints>
@@ -329,7 +349,7 @@
                 <constraint firstItem="3SD-By-Oku" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-8" id="1hl-jV-BW1"/>
                 <constraint firstItem="mDn-v1-nBd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="9E1-Fi-dau"/>
                 <constraint firstItem="uem-N7-VN9" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.65" id="JNw-xY-pO6"/>
-                <constraint firstItem="uem-N7-VN9" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.65" id="Joj-LF-qM5"/>
+                <constraint firstItem="uem-N7-VN9" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.8" id="Joj-LF-qM5"/>
                 <constraint firstAttribute="bottom" secondItem="mDn-v1-nBd" secondAttribute="bottom" id="f6I-Os-KkT"/>
                 <constraint firstItem="mDn-v1-nBd" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="h9Z-nz-S8l"/>
                 <constraint firstItem="3SD-By-Oku" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="hCG-0u-ip9"/>
@@ -343,7 +363,8 @@
         </view>
     </objects>
     <resources>
-        <image name="lightbulb.fill" catalog="system" width="113" height="128"/>
+        <image name="delete.left.fill" catalog="system" width="128" height="104"/>
         <image name="square" catalog="system" width="128" height="114"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
     </resources>
 </document>

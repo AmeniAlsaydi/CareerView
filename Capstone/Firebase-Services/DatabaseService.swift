@@ -23,12 +23,9 @@ class DatabaseService {
     static let customQuestionsCollection = "customInterviewQuestions"
     static let answeredQuestionsCollection = "answeredQuestions"
     static let starSituationsCollection = "starSituations"
+    static let bookmarkedQuestionsCollection = "bookmarkedQuestions"
     
     internal let db = Firestore.firestore()
-    
-    // TODO: create CRUD functions for interview data to application (is its own collection
-     
-    
 }
 
 
