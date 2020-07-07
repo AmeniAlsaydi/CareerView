@@ -33,7 +33,11 @@ class StarStoryMainController: UIViewController {
             }
             collectionView.reloadData()
             if starSituations.isEmpty {
-                collectionView.backgroundView = EmptyView.init(title: "Enter Your STAR Stories", message: "Add a STAR Story to your collection by pressing the plus button above", imageName: "star.fill")
+                if filterByJob {
+                    collectionView.backgroundView = EmptyView.init(title: "This job has no STAR Stories", message: "You can connect a STAR Story to this job by pressing the ... button and selecting EDIT", imageName: "star.fill")
+                } else {
+                    collectionView.backgroundView = EmptyView.init(title: "Enter Your STAR Stories", message: "Add a STAR Story to your collection by pressing the plus button above", imageName: "star.fill")
+                }
             } else {
                 collectionView.reloadData()
                 collectionView.backgroundView = nil
@@ -75,7 +79,10 @@ class StarStoryMainController: UIViewController {
             navigationItem.title = "Add a STAR Story to your Job"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.checkmarkIcon, style: .plain, target: self, action: #selector(addStarStoriesToUserJob(_:)))
             navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.xmarkIcon, style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
-        } else {
+        } else if filterByJob {
+            navigationItem.title = "Attached STAR Stories"
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.xmarkIcon, style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
+        }else {
             navigationItem.title = "STAR Stories"
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.plusIcon, style: .plain, target: self, action: #selector(segueToAddStarStoryViewController(_:)))
             navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.infoIcon, style: .plain, target: self, action: #selector(segueToSTARStoryInfoVC(_:)))
@@ -121,7 +128,7 @@ class StarStoryMainController: UIViewController {
         dismiss(animated: true)
     }
     private func addAnswerIDToSTARStory(answerID: String, starID: String) {
-        DatabaseService.shared.addAnswerIDToSTARSituation(answerID: answerID, starSituationID: starID) { [weak self] (result) in
+        DatabaseService.shared.addAnswerIDToSTARSituation(answerID: answerID, starSituationID: starID) { (result) in
             switch result {
             case .failure(let error):
                 print("could not add id to star story: \(error.localizedDescription)")

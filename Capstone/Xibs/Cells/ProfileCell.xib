@@ -50,6 +50,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="iconImageView" destination="zIk-IL-5MD" id="RtH-tZ-QOp"/>
                 <outlet property="settingsImage" destination="zIk-IL-5MD" id="96i-b0-lkj"/>
                 <outlet property="settingsName" destination="avc-t0-s2r" id="dlw-Sd-IhA"/>
             </connections>

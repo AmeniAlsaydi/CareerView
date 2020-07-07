@@ -34,7 +34,6 @@ class FoldingCell: UITableViewCell {
         case open
         case close
     }
-    
     // MARK: Life Cycle
     open override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,6 +48,7 @@ class FoldingCell: UITableViewCell {
         selectionStyle = .none
         contentView.backgroundColor = AppColors.complimentaryBackgroundColor
         foregroundView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        foregroundView.clipsToBounds = true
         containerView.layer.cornerRadius = foregroundView.layer.cornerRadius
         containerView.layer.masksToBounds = true
         containerView.backgroundColor = AppColors.systemBackgroundColor
