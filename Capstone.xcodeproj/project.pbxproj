@@ -71,7 +71,6 @@
 		B7976E35247D52A0001AE3B3 /* InterviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E34247D52A0001AE3B3 /* InterviewData.swift */; };
 		B7976E37247D537A001AE3B3 /* UIViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */; };
 		B7976E39247D57F1001AE3B3 /* JobHistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E38247D57F1001AE3B3 /* JobHistoryController.swift */; };
-		B7976E3B247D580A001AE3B3 /* JobEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E3A247D580A001AE3B3 /* JobEntryController.swift */; };
 		B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E3C247D582C001AE3B3 /* StarStoryMainController.swift */; };
 		B7976E3F247D77FA001AE3B3 /* StarStoryEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E3E247D77FA001AE3B3 /* StarStoryEntryController.swift */; };
 		B7976E41247D7834001AE3B3 /* InterviewQuestionsMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7976E40247D7834001AE3B3 /* InterviewQuestionsMainController.swift */; };
@@ -122,7 +121,6 @@
 		C6AC37A02485EF4200957B61 /* StarSituationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC379F2485EF4200957B61 /* StarSituationCell.swift */; };
 		C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E214E32488066B0054CC3C /* FilterMenuViewControllerXib.xib */; };
 		C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */; };
-		C6E214EA248941E50054CC3C /* InterviewAnswerSuggestionXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E214E9248941E50054CC3C /* InterviewAnswerSuggestionXib.xib */; };
 		C6E214EC2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E214EB2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift */; };
 		C6E623B724A2B27700A15808 /* IndicatorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623B624A2B27700A15808 /* IndicatorExt.swift */; };
 		C6E623C024A2B35000A15808 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BB24A2B34F00A15808 /* CGRectExtension.swift */; };
@@ -214,7 +212,6 @@
 		B7976E34247D52A0001AE3B3 /* InterviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewData.swift; sourceTree = "<group>"; };
 		B7976E36247D537A001AE3B3 /* UIViewControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExt.swift; sourceTree = "<group>"; };
 		B7976E38247D57F1001AE3B3 /* JobHistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobHistoryController.swift; sourceTree = "<group>"; };
-		B7976E3A247D580A001AE3B3 /* JobEntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobEntryController.swift; sourceTree = "<group>"; };
 		B7976E3C247D582C001AE3B3 /* StarStoryMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarStoryMainController.swift; sourceTree = "<group>"; };
 		B7976E3E247D77FA001AE3B3 /* StarStoryEntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarStoryEntryController.swift; sourceTree = "<group>"; };
 		B7976E40247D7834001AE3B3 /* InterviewQuestionsMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionsMainController.swift; sourceTree = "<group>"; };
@@ -266,7 +263,6 @@
 		C6AC379F2485EF4200957B61 /* StarSituationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarSituationCell.swift; sourceTree = "<group>"; };
 		C6E214E32488066B0054CC3C /* FilterMenuViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterMenuViewControllerXib.xib; sourceTree = "<group>"; };
 		C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMenuViewController.swift; sourceTree = "<group>"; };
-		C6E214E9248941E50054CC3C /* InterviewAnswerSuggestionXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterviewAnswerSuggestionXib.xib; sourceTree = "<group>"; };
 		C6E214EB2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAnswerSuggestionViewController.swift; sourceTree = "<group>"; };
 		C6E623B624A2B27700A15808 /* IndicatorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorExt.swift; sourceTree = "<group>"; };
 		C6E623BB24A2B34F00A15808 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
@@ -351,7 +347,6 @@
 				88440C0824B51B1A005441D5 /* ViewControllerXibs */,
 				88440C0924B51B28005441D5 /* CellXibs */,
 				B7976E38247D57F1001AE3B3 /* JobHistoryController.swift */,
-				B7976E3A247D580A001AE3B3 /* JobEntryController.swift */,
 				B78EE8372497EAB700F7E973 /* NewJobEntryController.swift */,
 				884E555F2485542100BA180F /* JobHistoryExpandableCell.swift */,
 				884E555D2484094100BA180F /* UserContactCVCell.swift */,
@@ -370,6 +365,7 @@
 				B7976E4A247D9A07001AE3B3 /* ApplicationDetailController.swift */,
 				B74108C0248E120900EEFBA8 /* ProgressBar.swift */,
 				52D4D19524981140004FD7EE /* ApplicationDetailView.swift */,
+				B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */,
 			);
 			path = ApplicationTrackerTab;
 			sourceTree = "<group>";
@@ -400,7 +396,6 @@
 				C6E214E5248808B10054CC3C /* FilterMenuViewController.swift */,
 				C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */,
 				C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */,
-				B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */,
 			);
 			path = InterviewQuestionTab;
 			sourceTree = "<group>";
@@ -429,6 +424,7 @@
 			children = (
 				88440C0724B51ADC005441D5 /* ViewControllerXibs */,
 				884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */,
+				884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */,
 				88784D7F24A288E300EE9852 /* WelcomeScreenViewController.swift */,
 			);
 			path = FirstTimeUserExperience;
@@ -513,7 +509,6 @@
 			isa = PBXGroup;
 			children = (
 				C6E214E32488066B0054CC3C /* FilterMenuViewControllerXib.xib */,
-				C6E214E9248941E50054CC3C /* InterviewAnswerSuggestionXib.xib */,
 				B7976E9A24805D2B001AE3B3 /* InterviewAnswerDetailXib.xib */,
 				B7976E9824805D02001AE3B3 /* InterviewQuestionEntryXib.xib */,
 				B7976E9E24805E21001AE3B3 /* NewApplicationXib.xib */,
@@ -683,7 +678,6 @@
 			children = (
 				B7976E55247EA2D9001AE3B3 /* EmptyView.swift */,
 				B7A865C32490EB1300AC456F /* FloatingLabelTextField.swift */,
-				884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */,
 				B79F4B8224905536009523EE /* HairlineView.swift */,
 			);
 			path = Views;
@@ -792,7 +786,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6E214EA248941E50054CC3C /* InterviewAnswerSuggestionXib.xib in Resources */,
 				88784D7E24A288CF00EE9852 /* WelcomeScreenXib.xib in Resources */,
 				B7976E9924805D02001AE3B3 /* InterviewQuestionEntryXib.xib in Resources */,
 				B7976EAB2480609F001AE3B3 /* InterviewQuestionCellXib.xib in Resources */,
@@ -1006,7 +999,6 @@
 				B7976E2F247D50FF001AE3B3 /* StarSituation.swift in Sources */,
 				B79F4B42248F6281009523EE /* UserJobsDatabaseServices.swift in Sources */,
 				C6E623C424A2B35000A15808 /* FadeTransition.swift in Sources */,
-				B7976E3B247D580A001AE3B3 /* JobEntryController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
