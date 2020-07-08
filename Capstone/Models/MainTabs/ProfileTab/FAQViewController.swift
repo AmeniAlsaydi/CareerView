@@ -43,7 +43,7 @@ class FAQViewController: UIViewController {
     private func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "FAQCollectionViewCellXib", bundle: nil), forCellWithReuseIdentifier: "FAQCell")
+        collectionView.register(UINib(nibName: "BasicInfoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "basicInfoCell")
         
         if let flowLayout = collectionViewLayout,
            let collectionView = collectionView {
@@ -77,8 +77,8 @@ extension FAQViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FAQCell", for: indexPath) as? FAQCollectionViewCell else {
-            fatalError("Failed to dequeue FAQCollectionViewCell")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicInfoCell", for: indexPath) as? BasicInfoCollectionViewCell else {
+            fatalError("Failed to dequeue basicInfoCell")
         }
         let faq = FAQs[indexPath.row]
         cell.layer.cornerRadius = 4

@@ -1,5 +1,5 @@
 //
-//  FAQCollectionViewCell.swift
+//  BasicInfoCollectionViewCell.swift
 //  Capstone
 //
 //  Created by Gregory Keeley on 6/16/20.
@@ -9,8 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-//TODO: Update FAQCollectionViewCell and its files to basicTitleDescriptionCollectionViewCell or something
-class FAQCollectionViewCell: UICollectionViewCell {
+class BasicInfoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var answerLabel: UILabel!

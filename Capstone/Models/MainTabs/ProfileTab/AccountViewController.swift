@@ -47,7 +47,7 @@ class AccountViewController: UIViewController {
     private func configureCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(UINib(nibName: "FAQCollectionViewCellXib", bundle: nil), forCellWithReuseIdentifier: "FAQCell")
+        collectionView.register(UINib(nibName: "BasicInfoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "basicInfoCell")
         
         if let flowLayout = collectionViewLayout,
            let collectionView = collectionView {
@@ -80,8 +80,8 @@ extension AccountViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FAQCell", for: indexPath) as? FAQCollectionViewCell else {
-            fatalError("Failed to dequeue FAQCollectionViewCell")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicInfoCell", for: indexPath) as? BasicInfoCollectionViewCell else {
+            fatalError("Failed to dequeue BasicInfoCollectionViewCell")
         }
         let userInfoSection = userInfo?[indexPath.row]
         cell.configureCell(faq: nil, userInfo: userInfoSection)
