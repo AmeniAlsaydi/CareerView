@@ -15,7 +15,6 @@
 Use **CareerView** to:
   *Save Your Entire Job History:*
   - Navigate through your job history with ease - whether reflecting on a specific job history, contact information or a situation to help aid you with your job applications.
-  -
   
   *Log STAR Stories to practice for a real interview:*
   - Practice answering interview questions by using the STAR method to log any relevant experience you could potentially bring up during an interview.
