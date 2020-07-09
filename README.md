@@ -10,7 +10,7 @@
 [Tsering Lama](https://github.com/tseringlamanyc)
 
 ## Description
-**CareerView** is the organizational tool for job seekers. Record all your past / present work experiences and use it as an easy reference for future potential employers. 
+**CareerView** is the organizational tool for job seekers. Record all your past/present work experiences and use it as an easy reference for future potential employers. 
 
 Use **CareerView** to:
   *Save Your Entire Job History:*
