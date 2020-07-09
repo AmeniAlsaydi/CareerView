@@ -35,6 +35,7 @@ class SignUpController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         setUpUI()
         registerForKeyBoardNotifications()
+        originalState = positionYConstraint
     }
     
     override func viewWillDisappear(_ animated: Bool) {
