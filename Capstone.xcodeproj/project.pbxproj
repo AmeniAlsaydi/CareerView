@@ -14,6 +14,7 @@
 		52F81DBB249260300052532B /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F81DBA249260300052532B /* ProfileCell.xib */; };
 		52F81DBD249260710052532B /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F81DBC249260710052532B /* ProfileCell.swift */; };
 		8809883D24956537006EA9D0 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8809883C24956537006EA9D0 /* UIViewExt.swift */; };
+		8813648924BCEA0F0022F705 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813648824BCEA0F0022F705 /* DateExtension.swift */; };
 		881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */; };
 		881CD33E2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */; };
 		881CD3402499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881CD33F2499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib */; };
@@ -150,6 +151,7 @@
 		52F81DBC249260710052532B /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8809883C24956537006EA9D0 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
+		8813648824BCEA0F0022F705 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellSwitch.swift; sourceTree = "<group>"; };
 		881CD33F2499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicInfoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 				8828B97024981F0E00151F10 /* ArrayExt.swift */,
 				C61E0EBE249904EA00AA7A9E /* UIStyleGuide.swift */,
 				C6E623B624A2B27700A15808 /* IndicatorExt.swift */,
+				8813648824BCEA0F0022F705 /* DateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -953,6 +956,7 @@
 				B79F4B46248F633E009523EE /* JobApplicationsDatabaseServices.swift in Sources */,
 				B78EE840249A6F4300F7E973 /* BasicStarSituationCell.swift in Sources */,
 				B7976E2D247D500B001AE3B3 /* UserJob.swift in Sources */,
+				8813648924BCEA0F0022F705 /* DateExtension.swift in Sources */,
 				C6AC379C248592DA00957B61 /* InterviewQuestionCell.swift in Sources */,
 				881CD33E2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift in Sources */,
 				B7976E45247D8F40001AE3B3 /* InterviewAnswerDetailController.swift in Sources */,

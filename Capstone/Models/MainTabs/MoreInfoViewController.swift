@@ -17,7 +17,7 @@ enum EnterFromViewController {
 }
 
 class MoreInfoViewController: UIViewController {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var instructionsLabel: UILabel!
@@ -26,21 +26,20 @@ class MoreInfoViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var infoIconImageView: UIImageView!
-    
+    //MARK:- Variables
     var enterFrom: EnterFromViewController = .jobHistory
     var interviewQuestion: InterviewQuestion?
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpAppFonts()
         applicationInfoUI()
         setUpViewUI()
     }
-    
     override func viewDidDisappear(_ animated: Bool) {
         dismiss(animated: true, completion: nil)
     }
-    
+    //MARK:- Private Funcs
     private func setUpViewUI() {
         contentView.layer.cornerRadius = AppRoundedViews.cornerRadius
         scrollView.layer.cornerRadius = AppRoundedViews.cornerRadius
@@ -48,22 +47,16 @@ class MoreInfoViewController: UIViewController {
         scrollView.backgroundColor = AppColors.systemBackgroundColor
         infoIconImageView.tintColor = AppColors.primaryPurpleColor
     }
-    
     private func setUpAppFonts() {
         promptLabel.font = AppFonts.boldFont
         promptLabel.textColor = AppColors.primaryBlackColor
-        
         descriptionLabel.textColor = AppColors.primaryBlackColor
-        
         instructionsLabel.font = AppFonts.secondaryFont
         instructionsLabel.textColor = AppColors.darkGrayHighlightColor
-        
         signatureLabel.textColor = AppColors.primaryBlackColor
-        
         dismissButton.setImage(AppButtonIcons.xmarkIcon, for: .normal)
         dismissButton.tintColor = AppColors.secondaryPurpleColor
     }
-    
     private func applicationInfoUI() {
         switch enterFrom {
         case .jobHistory:
@@ -92,11 +85,9 @@ class MoreInfoViewController: UIViewController {
             instructionsLabel.text = "Tap on ➕ icon on the top right, fill out the application info and update as you go!"
             signatureLabel.text = "Happy Job Hunting! \n \n - CV Team"
         }
-        
     }
-    
+    //MARK:- IBAction funcs
     @IBAction func dismissButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
 }

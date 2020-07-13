@@ -9,11 +9,10 @@
 import UIKit
 
 class JobHistoryController: UIViewController {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    
+    //MARK:- Variables
     private var displayContactCollectionView = false
-    
     var userJobHistory = [UserJob]() {
         didSet {
             tableView.reloadData()
@@ -27,35 +26,31 @@ class JobHistoryController: UIViewController {
             }
         }
     }
-    
+    // Used to set the height for a closed/open cell for userJob on collectionView
     enum Const {
         static let closeCellHeight: CGFloat = 200
         static let openCellHeight: CGFloat = 640
     }
-    
     var cellHeights = [CGFloat]()
-        
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         configureNavBar()
         view.backgroundColor = AppColors.complimentaryBackgroundColor
-        //getUserData()
-        //checkFirstTimeLogin()
         loadUserJobs()
         setup()
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         loadUserJobs()
     }
+    //MARK:- Private Funcs
     private func configureTableView() {
         tableView.backgroundColor = AppColors.complimentaryBackgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "UserJobFoldingCellXib", bundle: nil), forCellReuseIdentifier: "foldingCell")
     }
-    
     private func setup() {
         cellHeights = Array(repeating: Const.closeCellHeight, count: userJobHistory.count)
     }
@@ -93,12 +88,11 @@ class JobHistoryController: UIViewController {
         }
     }
 }
-
+//MARK:- Extensions
 extension JobHistoryController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userJobHistory.count
     }
-        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "foldingCell", for: indexPath) as? JobHistoryExpandableCell else {
             fatalError("could not cast to jobHistoryBasicCell")
@@ -144,7 +138,7 @@ extension JobHistoryController: JobHistoryExpandableCellDelegate {
             return }
         DispatchQueue.main.async {
             DatabaseService.shared.removeUserJob(userJobId: userJob.id) {
-               [weak self] (result) in
+                [weak self] (result) in
                 switch result {
                 case .failure(let error):
                     self?.removeIndicator()
@@ -162,7 +156,6 @@ extension JobHistoryController: UITableViewDelegate {
     func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeights[indexPath.row]
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! JobHistoryExpandableCell
         displayContactCollectionView.toggle()
@@ -184,11 +177,9 @@ extension JobHistoryController: UITableViewDelegate {
             cell.unfold(false, animated: true, completion: nil)
             duration = 0.8
         }
-        
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: { () -> Void in
             tableView.beginUpdates()
             tableView.endUpdates()
-            
             if cell.frame.maxY > tableView.frame.maxY {
                 tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.bottom, animated: true)
             }
@@ -199,17 +190,13 @@ extension JobHistoryController: UITableViewDelegate {
         guard case let cell as JobHistoryExpandableCell = cell else {
             return
         }
-        
         cell.backgroundColor = .clear
-        
         if cellHeights[indexPath.row] == Const.closeCellHeight {
             cell.unfold(false, animated: false, completion: nil)
         } else {
             cell.unfold(true, animated: false, completion: nil)
         }
-        
         let aUserJobHistory = userJobHistory[indexPath.row]
         cell.updateGeneralInfo(userJob: aUserJobHistory)
     }
 }
-

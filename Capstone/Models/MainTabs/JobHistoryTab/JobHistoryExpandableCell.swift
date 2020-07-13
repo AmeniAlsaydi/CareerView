@@ -15,7 +15,7 @@ protocol JobHistoryExpandableCellDelegate: AnyObject {
 }
 
 class JobHistoryExpandableCell: FoldingCell {
-    
+//MARK:- IBOutlets
     @IBOutlet weak var jobTitleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var companyNameLabel: UILabel!
@@ -36,10 +36,9 @@ class JobHistoryExpandableCell: FoldingCell {
     @IBOutlet weak var contactsPromptLable: UILabel!
     @IBOutlet weak var purpleView: UIView!
     @IBOutlet weak var purpleViewUnFolded: UIView!
-    
+    //MARK:- Variables
     weak var delegate: JobHistoryExpandableCellDelegate?
     private var userJobForDelegate: UserJob?
-    
     var currentUserJob: UserJob?
     var contacts: [Contact]? {
         didSet {
@@ -48,6 +47,7 @@ class JobHistoryExpandableCell: FoldingCell {
             }
         }
     }
+    //MARK:- Functions
     @objc private func contextButtonPressed(_ sender: UIButton) {
         guard let userJob = userJobForDelegate else { return }
         delegate?.contextButtonPressed(userJob: userJob)
@@ -75,7 +75,6 @@ class JobHistoryExpandableCell: FoldingCell {
         jobDescriptionLabel.textColor = AppColors.darkGrayHighlightColor
         purpleView.backgroundColor = AppColors.primaryPurpleColor
         purpleView.clipsToBounds = true
-        
         //Opened
         jobTitleLabel2.font = AppFonts.boldFont
         jobTitleLabel2.textColor = AppColors.primaryBlackColor
@@ -115,7 +114,6 @@ class JobHistoryExpandableCell: FoldingCell {
         companyNameLabel2.text = "\(userJob.companyName) |"
         jobDescriptionLabel2.text = userJob.description
         dateLabel2.text = "\(userJob.beginDate.dateValue().dateString()) - \(userJob.endDate.dateValue().dateString()) "
-        
         if userJob.responsibilities.count == 3 {
             responsibilityOne.text = "- \(userJob.responsibilities[0])"
             responsibilityTwo.text = "- \(userJob.responsibilities[1])"
@@ -152,17 +150,7 @@ class JobHistoryExpandableCell: FoldingCell {
         let durations = [0.26, 0.2, 0.2]
         return durations[itemIndex]
     }
-    
 }
-//TODO: Move this extension to extensions folder
-extension Date {
-    public func dateString(_ format: String = "MMM yyyy") -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self)
-    }
-}
-
 extension JobHistoryExpandableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let contacts = contacts {
@@ -171,7 +159,6 @@ extension JobHistoryExpandableCell: UICollectionViewDataSource {
             return 0
         }
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userContactCell", for: indexPath) as? UserContactCVCell else {
             fatalError("failed to dequeue contact cell")
