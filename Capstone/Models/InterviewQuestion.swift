@@ -13,9 +13,7 @@ struct InterviewQuestion: Hashable {
     var suggestion: String?
     var id: String
 }
-
 extension InterviewQuestion {
-    
     init(_ dictionary: [String: Any]) {
         self.id = dictionary["id"] as? String ?? "No ID"
         self.suggestion = dictionary["suggestion"] as? String ?? "Suggestion NA"

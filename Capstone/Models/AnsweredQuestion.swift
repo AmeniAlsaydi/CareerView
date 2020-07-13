@@ -8,13 +8,12 @@
 
 import Foundation
 
-struct AnsweredQuestion { // FIXME: Should we rename this to InterviewAnswer ???
+struct AnsweredQuestion {
     var id: String
     var question: String
     var answers: [String]
     var starSituationIDs: [String]
 }
-
 extension AnsweredQuestion {
     init(_ dictionary: [String: Any]) {
         self.id = dictionary["id"] as? String ?? "no id for answered question"

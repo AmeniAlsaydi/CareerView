@@ -17,23 +17,13 @@ class Contact {
     var id: String
     var storedContact: CNMutableContact?
     var phoneNumberField: (CNLabeledValue<CNPhoneNumber>)?
-//    var phoneNumber: String
-    
     init(_ dictionary: [String: Any]) {
         self.firstName = dictionary["firstName"] as? String ?? "No First Name"
         self.lastName = dictionary["lastName"] as? String ?? "No Last Name"
         self.workEmail = dictionary["email"] as? String ?? "No Email address"
         self.id = dictionary["id"] as? String ?? "No ID"
-//        self.phoneNumber = dictionary["phoneNumber"] as? String ?? "No Phone Number"
     }
-//    init(firstName: String, lastName: String, email: String, id: String) {
-//        self.firstName = firstName
-//        self.lastName = lastName
-//        self.workEmail = email
-//        self.id = id
-//    }
 }
-
 extension Contact: Equatable {
     static func ==(lhs: Contact, rhs: Contact) -> Bool{
         return lhs.firstName == rhs.firstName &&
@@ -64,7 +54,4 @@ extension Contact {
             phoneNumberField = contactPhone
         }
     }
-    
 }
-
-

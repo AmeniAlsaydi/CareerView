@@ -16,7 +16,6 @@ struct JobApplication {
     var positionURL: String?
     var remoteStatus: Bool
     var city: String?
-    //var location: GeoPoint? //CLLocation?
     var notes: String?
     var applicationDeadline: Timestamp?
     var dateApplied: Timestamp?
@@ -26,8 +25,6 @@ struct JobApplication {
     var receivedReply: Bool
     var receivedOffer: Bool
 }
-
-
 extension JobApplication {
     init(_ dictionary: [String: Any]) {
         self.id = dictionary["id"] as? String ?? "No ID found"

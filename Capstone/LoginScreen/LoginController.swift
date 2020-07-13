@@ -47,7 +47,7 @@ class LoginController: UIViewController {
     private var isKeyboardThere = false
     private var originalState: NSLayoutConstraint!
     private var originalStack: NSLayoutConstraint!
-
+    
     private func registerForKeyBoardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
