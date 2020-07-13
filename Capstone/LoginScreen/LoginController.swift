@@ -9,7 +9,7 @@
 import UIKit
 
 class LoginController: UIViewController {
-    
+
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: TransitionButton!
@@ -30,7 +30,6 @@ class LoginController: UIViewController {
         super.viewDidAppear(true)
         registerForKeyBoardNotifications()
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
@@ -38,7 +37,6 @@ class LoginController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         setUpUI()
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         unregisterForKeyBoardNotifications()
@@ -107,7 +105,6 @@ class LoginController: UIViewController {
     //MARK:- Login functions
     @IBAction func loginButtonPressed(_ sender: TransitionButton) {
         sender.startAnimation()
-        
         guard let email = emailTextField.text, !email.isEmpty else {
             let animation = CABasicAnimation(keyPath: "position")
             animation.duration = 0.07
@@ -115,27 +112,22 @@ class LoginController: UIViewController {
             animation.autoreverses = true
             animation.fromValue = NSValue(cgPoint: CGPoint(x: emailTextField.center.x - 10, y: emailTextField.center.y))
             animation.toValue = NSValue(cgPoint: CGPoint(x: emailTextField.center.x + 10, y: emailTextField.center.y))
-            
             emailTextField.layer.add(animation, forKey: "position")
             emailTextField.setBorder(color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), width: 1.0)
             emailTextField.placeholder = "Please enter an email"
-            
             sender.stopAnimation()
             return
         }
         guard let password = passwordTextField.text, !password.isEmpty else {
-            
             let animation1 = CABasicAnimation(keyPath: "position")
             animation1.duration = 0.07
             animation1.repeatCount = 4
             animation1.autoreverses = true
             animation1.fromValue = NSValue(cgPoint: CGPoint(x: passwordTextField.center.x - 10, y: passwordTextField.center.y))
             animation1.toValue = NSValue(cgPoint: CGPoint(x: passwordTextField.center.x + 10, y: passwordTextField.center.y))
-            
             passwordTextField.layer.add(animation1, forKey: "position")
             passwordTextField.setBorder(color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), width: 1.0)
             passwordTextField.placeholder = "Please enter a password"
-            
             sender.stopAnimation()
             return
         }
