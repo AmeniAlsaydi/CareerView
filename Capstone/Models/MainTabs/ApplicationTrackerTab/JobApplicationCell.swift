@@ -9,18 +9,18 @@
 import UIKit
 
 class JobApplicationCell: UICollectionViewCell {
-    
+    //MARK:- IBOutkets
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var submittedDateLabel: UILabel!
     @IBOutlet weak var currentStatusIndicatorLabel: UILabel!
     @IBOutlet weak var progressBar: ProgressBar!
-    
     @IBOutlet private var maxWidthConstraint: NSLayoutConstraint! {
         didSet {
             maxWidthConstraint.isActive = false
         }
     }
+    //MARK:- Variables
     var maxWidth: CGFloat? = nil {
         didSet {
             guard let maxWidth = maxWidth else {
@@ -31,16 +31,9 @@ class JobApplicationCell: UICollectionViewCell {
         }
     }
     
-    override func prepareForReuse() {
-      super.prepareForReuse()
-      progressBar.layer.sublayers?.removeAll()
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             contentView.leftAnchor.constraint(equalTo: leftAnchor),
             contentView.rightAnchor.constraint(equalTo: rightAnchor),
@@ -48,26 +41,23 @@ class JobApplicationCell: UICollectionViewCell {
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-    
     override func layoutSubviews() {
         self.layer.cornerRadius = AppRoundedViews.cornerRadius
         setupCellUI()
     }
-    
-    
-    
-    // FIXME: understand public - private - internal
+    //MARK:- Prepare For Reuse
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        progressBar.layer.sublayers?.removeAll()
+    }
     public func configureCell(application: JobApplication) {
-        
         positionLabel.text = application.positionTitle.capitalized
         companyNameLabel.text = ("@\(application.companyName.capitalized)")
-    
         if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
             submittedDateLabel.text = "Applied \(submittedDate)"
         } else {
             submittedDateLabel.text = "Not applied"
         }
-        
         if application.receivedOffer {
             progressBar.progress = 1.0
             currentStatusIndicatorLabel.text = "Recieved Offer"
@@ -87,19 +77,15 @@ class JobApplicationCell: UICollectionViewCell {
             progressBar.progress = 0.0
         }
     }
-    
     private func setupCellUI(){
         self.backgroundColor = AppColors.systemBackgroundColor
         positionLabel.textColor = AppColors.primaryBlackColor
         companyNameLabel.textColor = AppColors.primaryBlackColor
         submittedDateLabel.textColor = AppColors.primaryBlackColor
         currentStatusIndicatorLabel.textColor = AppColors.secondaryPurpleColor
-        
         positionLabel.font = AppFonts.semiBoldLarge
         companyNameLabel.font = AppFonts.semiBoldSmall
         submittedDateLabel.font = AppFonts.primaryFont
         currentStatusIndicatorLabel.font = AppFonts.primaryFont
-        
-        
     }
 }
