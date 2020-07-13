@@ -124,7 +124,7 @@
 		C6E214EC2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E214EB2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift */; };
 		C6E623B724A2B27700A15808 /* IndicatorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623B624A2B27700A15808 /* IndicatorExt.swift */; };
 		C6E623C024A2B35000A15808 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BB24A2B34F00A15808 /* CGRectExtension.swift */; };
-		C6E623C124A2B35000A15808 /* SpinerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BC24A2B34F00A15808 /* SpinerLayer.swift */; };
+		C6E623C124A2B35000A15808 /* SpinnerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BC24A2B34F00A15808 /* SpinnerLayer.swift */; };
 		C6E623C224A2B35000A15808 /* TransitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BD24A2B34F00A15808 /* TransitionButton.swift */; };
 		C6E623C324A2B35000A15808 /* CustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BE24A2B34F00A15808 /* CustomTransitionViewController.swift */; };
 		C6E623C424A2B35000A15808 /* FadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E623BF24A2B35000A15808 /* FadeTransition.swift */; };
@@ -266,7 +266,7 @@
 		C6E214EB2489439F0054CC3C /* InterviewAnswerSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAnswerSuggestionViewController.swift; sourceTree = "<group>"; };
 		C6E623B624A2B27700A15808 /* IndicatorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorExt.swift; sourceTree = "<group>"; };
 		C6E623BB24A2B34F00A15808 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
-		C6E623BC24A2B34F00A15808 /* SpinerLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinerLayer.swift; sourceTree = "<group>"; };
+		C6E623BC24A2B34F00A15808 /* SpinnerLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerLayer.swift; sourceTree = "<group>"; };
 		C6E623BD24A2B34F00A15808 /* TransitionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionButton.swift; sourceTree = "<group>"; };
 		C6E623BE24A2B34F00A15808 /* CustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTransitionViewController.swift; sourceTree = "<group>"; };
 		C6E623BF24A2B35000A15808 /* FadeTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeTransition.swift; sourceTree = "<group>"; };
@@ -689,7 +689,7 @@
 				C6E623BB24A2B34F00A15808 /* CGRectExtension.swift */,
 				C6E623BE24A2B34F00A15808 /* CustomTransitionViewController.swift */,
 				C6E623BF24A2B35000A15808 /* FadeTransition.swift */,
-				C6E623BC24A2B34F00A15808 /* SpinerLayer.swift */,
+				C6E623BC24A2B34F00A15808 /* SpinnerLayer.swift */,
 				C6E623BD24A2B34F00A15808 /* TransitionButton.swift */,
 			);
 			path = ButtonExt;
@@ -935,7 +935,7 @@
 				52D4D19624981141004FD7EE /* ApplicationDetailView.swift in Sources */,
 				521402182493F01900ADF7BE /* ApplicationInfo.swift in Sources */,
 				B7976E4B247D9A07001AE3B3 /* ApplicationDetailController.swift in Sources */,
-				C6E623C124A2B35000A15808 /* SpinerLayer.swift in Sources */,
+				C6E623C124A2B35000A15808 /* SpinnerLayer.swift in Sources */,
 				C6E214E6248808B10054CC3C /* FilterMenuViewController.swift in Sources */,
 				881CD3422499CCA3008AB0C8 /* BasicInfoCollectionViewCell.swift in Sources */,
 				B79F4B4A248F6573009523EE /* StarSituationDatabaseServices.swift in Sources */,
