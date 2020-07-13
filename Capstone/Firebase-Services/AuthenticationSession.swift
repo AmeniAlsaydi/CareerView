@@ -10,9 +10,7 @@ import Foundation
 import FirebaseAuth
 
 class AuthenticationSession {
-    
     static let shared = AuthenticationSession()
-    
     public func createNewUser(email: String, password: String, completion: @escaping (Result<AuthDataResult, Error>)-> ()) {
         Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
             if let error = error {
@@ -21,9 +19,7 @@ class AuthenticationSession {
                 completion(.success(authDataResult))
             }
         }
-        
     }
-    
     public func signExisitingUser(email: String, password: String,  completion: @escaping (Result<AuthDataResult, Error>)-> ()) {
         Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
             if let error = error {
@@ -33,5 +29,4 @@ class AuthenticationSession {
             }
         }
     }
-    
 }

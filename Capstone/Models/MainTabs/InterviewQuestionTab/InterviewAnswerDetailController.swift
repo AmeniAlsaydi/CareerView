@@ -257,7 +257,7 @@ class InterviewAnswerDetailController: UIViewController {
     
     private func isQuestionBookmarked(question: InterviewQuestion?) {
         guard let question = question else {return}
-        DatabaseService.shared.isQuestioninBookmarks(question: question) { [weak self] (result) in
+        DatabaseService.shared.isQuestionInBookmarks(question: question) { [weak self] (result) in
             switch result {
             case.failure(let error):
                 print("could not check bookmarks collection error: \(error.localizedDescription)")

@@ -13,7 +13,7 @@ import FirebaseAuth
 class DatabaseService {
     public static let shared = DatabaseService()
     private init() {}
-
+    
     static let userCollection = "users"
     static let userJobCollection = "userJobs"
     static let commonQuestionCollection = "commonInterviewQuestions"
