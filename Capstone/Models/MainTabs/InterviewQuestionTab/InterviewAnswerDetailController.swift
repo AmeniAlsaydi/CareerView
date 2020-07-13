@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class InterviewAnswerDetailController: UIViewController {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answersCollectionView: UICollectionView!
     @IBOutlet weak var starStoriesCollectionView: UICollectionView!
@@ -24,11 +24,9 @@ class InterviewAnswerDetailController: UIViewController {
     @IBOutlet weak var answersLabel: UILabel!
     @IBOutlet weak var starstoriesLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
-    
+    //MARK:- Variables
     private var listener: ListenerRegistration?
-    
     public var question: InterviewQuestion?
-    
     private var isBookmarked = false {
         didSet {
             if isBookmarked {
@@ -38,11 +36,8 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
-    //MARK:- User Answer
     private var isEditingAnswer = false
-    
     private var answerBeingEdited: AnsweredQuestion?
-    
     public var answers = [AnsweredQuestion]() {
         didSet {
             answersCollectionView.reloadData()
@@ -56,14 +51,9 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
-    
     public var answerStrings = [String]()
-    
     private var newAnswers = [String]()
-    
-    //MARK:- Star Stories
     private var newStarStoryIDs = [String]()
-    
     public var starStories = [StarSituation]() {
         didSet {
             starStoriesCollectionView.reloadData()
@@ -75,8 +65,7 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
-    
-    //MARK:- ViewDidLoad/ViewWillAppear/ViewDidDisappear
+    //MARK:- ViewLifeCycles
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         guard let user = Auth.auth().currentUser else {return}
@@ -90,7 +79,6 @@ class InterviewAnswerDetailController: UIViewController {
             }
         })
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         getUserSTARS()
@@ -98,19 +86,17 @@ class InterviewAnswerDetailController: UIViewController {
         updateUI()
         enterAnswerTextfield.delegate = self
     }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         listener?.remove()
     }
-    //MARK:- UI
+    //MARK:- Functions
     private func appFonts() {
         questionLabel.font = AppFonts.semiBoldLarge
         promptLabel.font = AppFonts.secondaryFont
         answersLabel.font = AppFonts.secondaryFont
         starstoriesLabel.font = AppFonts.secondaryFont
     }
-    
     private func appColors() {
         promptLabel.textColor = AppColors.primaryBlackColor
         answersLabel.textColor = AppColors.darkGrayHighlightColor
@@ -122,7 +108,6 @@ class InterviewAnswerDetailController: UIViewController {
         cancelAnswerButton.tintColor = AppColors.secondaryPurpleColor
         confirmAddAnswerButton.tintColor = AppColors.secondaryPurpleColor
     }
-    
     private func updateUI() {
         appFonts()
         appColors()
@@ -133,20 +118,17 @@ class InterviewAnswerDetailController: UIViewController {
         questionLabel.text = question?.question
         scrollView.keyboardDismissMode = .onDrag
     }
-    
     //MARK:- Collection View Config
     private func configureCollectionViews() {
         answersCollectionView.keyboardDismissMode = .onDrag
         answersCollectionView.delegate = self
         answersCollectionView.dataSource = self
         answersCollectionView.register(UINib(nibName: "QuestionAnswerDetailCellXib", bundle: nil), forCellWithReuseIdentifier: "interviewAnswerCell")
-        
         starStoriesCollectionView.keyboardDismissMode = .onDrag
         starStoriesCollectionView.delegate = self
         starStoriesCollectionView.dataSource = self
         starStoriesCollectionView.register(UINib(nibName: "StarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "starSituationCell")
     }
-    
     //MARK:- Config NavBar & Nav Bar Button functions
     private func configureNavBar() {
         navigationItem.title = "Answer Question"
@@ -208,7 +190,6 @@ class InterviewAnswerDetailController: UIViewController {
         answersCollectionView.isHidden = false
         addAnswerButton.isHidden = false
     }
-    
     private func showAddAnswerElements() {
         cancelAnswerButton.isHidden = false
         confirmAddAnswerButton.isHidden = false
@@ -232,7 +213,6 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
-    
     private func getUserSTARS() {
         self.showIndicator()
         DatabaseService.shared.fetchStarSituations { [weak self] (result) in
@@ -254,7 +234,6 @@ class InterviewAnswerDetailController: UIViewController {
             }
         }
     }
-    
     private func isQuestionBookmarked(question: InterviewQuestion?) {
         guard let question = question else {return}
         DatabaseService.shared.isQuestionInBookmarks(question: question) { [weak self] (result) in
@@ -267,7 +246,6 @@ class InterviewAnswerDetailController: UIViewController {
                 } else {
                     self?.isEditing = false
                 }
-                
             }
         }
     }
@@ -275,20 +253,16 @@ class InterviewAnswerDetailController: UIViewController {
     @IBAction func addAnswerButtonPressed(_ sender: UIButton){
         showAddAnswerElements()
     }
-    
     @IBAction func cancelAddAnswerButtonPressed(_ sender: UIButton) {
         hideAddAnswerElements()
     }
-    
     @IBAction func confirmAddAnswerButtonPressed(_ sender: UIButton) {
         self.showIndicator()
         if isEditingAnswer == false {
-            
             guard let answer = enterAnswerTextfield.text, !answer.isEmpty else {
                 confirmAddAnswerButton.isEnabled = false
                 return
             }
-            
             newAnswers.append(answer)
             if answers.count == 0 {
                 let newAnswer = AnsweredQuestion(id: UUID().uuidString, question: question?.question ?? "could not pass question", answers: newAnswers, starSituationIDs: newStarStoryIDs)
@@ -350,7 +324,6 @@ class InterviewAnswerDetailController: UIViewController {
             }
             
         }
-        
         hideAddAnswerElements()
         isEditingAnswer = false
     }
@@ -363,18 +336,18 @@ class InterviewAnswerDetailController: UIViewController {
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
 }
-//MARK:- Textfield Delegate
+//MARK:- Extensions
+//MARK: TextFieldDelegate
 extension InterviewAnswerDetailController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         confirmAddAnswerButton.isEnabled = true
     }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
 }
-//MARK:- CollectionView Delegate & DataSource
+//MARK: CollectionView Delegate & DataSource
 extension InterviewAnswerDetailController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = UIScreen.main.bounds.size
@@ -387,9 +360,8 @@ extension InterviewAnswerDetailController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 }
-
+//MARK: CollectionViewDataSource
 extension InterviewAnswerDetailController: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == answersCollectionView {
             return answerStrings.count
@@ -397,9 +369,7 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             return starStories.count
         }
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if collectionView == answersCollectionView {
             guard let cell = answersCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewAnswerCell", for: indexPath) as? QuestionAnswerDetailCell else {
                 fatalError("could not cast to QuestionAnswerDetailCell")
@@ -416,7 +386,6 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
             return cell
         }
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == answersCollectionView {
             guard let answer = answers.first else {return}
@@ -432,7 +401,6 @@ extension InterviewAnswerDetailController: UICollectionViewDataSource {
 }
 //MARK:- Action sheets for editing/deleting from collections
 extension InterviewAnswerDetailController {
-    
     private func showAnswersActionSheet(answer: AnsweredQuestion) {
         self.showIndicator()
         let actionSheet = UIAlertController(title: "Options Menu", message: nil, preferredStyle: .actionSheet)
@@ -440,7 +408,6 @@ extension InterviewAnswerDetailController {
             self.showAddAnswerElements()
             self.isEditingAnswer = true
         }
-        
         let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { [weak self] (action) in
             DatabaseService.shared.removeAnswerFromAnswersArray(answerID: answer.id, answerString: answer.answers.first ?? "") { (result) in
                 switch result {
@@ -457,20 +424,15 @@ extension InterviewAnswerDetailController {
                 }
             }
         }
-        
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
         actionSheet.addAction(editAction)
         actionSheet.addAction(deleteAction)
         actionSheet.addAction(cancel)
         present(actionSheet, animated: true, completion: nil)
     }
-    
     private func showSTARActionSheet(answer: AnsweredQuestion, starStory: StarSituation) {
-        
         self.showIndicator()
-        
         self.showAddAnswerElements()
-        
         let actionSheet = UIAlertController(title: "Options Menu", message: nil, preferredStyle: .actionSheet)
         let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
             //present Star Story edit vc
@@ -479,7 +441,6 @@ extension InterviewAnswerDetailController {
             starStoryEditVC.starSituation = starStory
             self.navigationController?.pushViewController(starStoryEditVC, animated: true)
         }
-        
         let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { (action) in
             DatabaseService.shared.removeStarSituationFromAnswer(answerID: answer.id, starSolutionID: starStory.id) { [weak self] (result) in
                 switch result {
@@ -496,7 +457,6 @@ extension InterviewAnswerDetailController {
                 }
             }
         }
-        
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
         actionSheet.addAction(editAction)
         actionSheet.addAction(deleteAction)

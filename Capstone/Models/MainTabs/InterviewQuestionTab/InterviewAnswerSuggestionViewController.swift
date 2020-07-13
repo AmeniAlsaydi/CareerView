@@ -9,22 +9,23 @@
 import UIKit
 
 class InterviewAnswerSuggestionViewController: UIViewController {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var suggestionLabel: UILabel!
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var directionsLabel: UILabel!
     @IBOutlet weak var whiteView: UIView!
     @IBOutlet weak var purpleView: UIView!
     @IBOutlet weak var answeringMethodsLabel: UILabel!
-    
+    //MARK:- Variables
     var interviewQuestion: InterviewQuestion?
     var comingFromSTARSVC = false
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         setAppFonts()
         setAppColors()
         configureLabels(for: interviewQuestion)
     }
+    //MARK:- Functions
     private func setAppFonts() {
         suggestionLabel.font = AppFonts.primaryFont
         suggestionLabel.textColor = AppColors.primaryBlackColor

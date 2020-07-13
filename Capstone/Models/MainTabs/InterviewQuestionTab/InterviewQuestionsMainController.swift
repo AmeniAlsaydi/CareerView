@@ -10,6 +10,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
+//MARK:- Filter types for interview questions
 enum FilterState {
     case common
     case custom
@@ -18,7 +19,7 @@ enum FilterState {
 }
 
 class InterviewQuestionsMainController: UIViewController {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var questionsCollectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -28,7 +29,7 @@ class InterviewQuestionsMainController: UIViewController {
     @IBOutlet weak var commonButton: UIButton!
     @IBOutlet weak var customButton: UIButton!
     @IBOutlet weak var collectionViewTopAnchor: NSLayoutConstraint!
-    
+    //MARK:- Variables
     private var listener: ListenerRegistration?
     private var isFilterOn = false {
         didSet {
@@ -36,20 +37,18 @@ class InterviewQuestionsMainController: UIViewController {
                 collectionViewTopAnchor.constant = 8
                 filterButtonsStack.isHidden = false
             } else {
-                    self.collectionViewTopAnchor.constant = -44
-                    self.filterButtonsStack.isHidden = true
-                    self.getInterviewQuestions()
+                self.collectionViewTopAnchor.constant = -44
+                self.filterButtonsStack.isHidden = true
+                self.getInterviewQuestions()
             }
         }
     }
-    
     public var filterState: FilterState = .all {
         didSet {
             questionsCollectionView.reloadData()
             allQuestions = Array(allQuestions).removingDuplicates()
         }
     }
-    
     private var commonInterviewQuestions = [InterviewQuestion]() {
         didSet{
             if filterState == .common {
@@ -57,26 +56,22 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
-    
     private var customQuestions = [InterviewQuestion]() {
         didSet {
             questionsCollectionView.reloadData()
         }
     }
-    
     private var allQuestions = [InterviewQuestion]() {
         didSet {
-                allQuestions = Array(allQuestions).removingDuplicates()
-                questionsCollectionView.reloadData()
-                questionsCollectionView.backgroundView = nil
+            allQuestions = Array(allQuestions).removingDuplicates()
+            questionsCollectionView.reloadData()
+            questionsCollectionView.backgroundView = nil
         }
     }
-    
     private var bookmarkedQuestions = [InterviewQuestion]() {
         didSet {
         }
     }
-    
     private var searchQuery = String() {
         didSet {
             DispatchQueue.main.async {
@@ -93,16 +88,14 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
-    
-
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
         updateUI()
         configureCollectionView()
         configureNavBar()
-
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -125,8 +118,7 @@ class InterviewQuestionsMainController: UIViewController {
         allQuestions.removeAll()
         listener?.remove()
     }
-    
-    //MARK:- UI
+    //MARK:- Functions
     private func updateUI() {
         view.backgroundColor = AppColors.complimentaryBackgroundColor
         isFilterOn = false
@@ -134,7 +126,6 @@ class InterviewQuestionsMainController: UIViewController {
         buttonsUI()
         roundButtons()
     }
-    
     private func buttonsUI() {
         allButton.titleLabel?.font = AppFonts.subtitleFont
         bookmarksButton.titleLabel?.font = AppFonts.subtitleFont
@@ -149,15 +140,12 @@ class InterviewQuestionsMainController: UIViewController {
         customButton.tintColor = AppColors.whiteTextColor
         customButton.backgroundColor = AppColors.secondaryPurpleColor
     }
-    
     private func roundButtons() {
         allButton.layer.cornerRadius = 13
         bookmarksButton.layer.cornerRadius = 13
         commonButton.layer.cornerRadius = 13
         customButton.layer.cornerRadius = 13
     }
-    
-    //MARK:- Config NavBar and Bar Button Method
     private func configureNavBar() {
         navigationItem.title = "Interview Questions"
         AppButtonIcons.buttons.navBarBackButtonItem(navigationItem: navigationItem)
@@ -193,7 +181,6 @@ class InterviewQuestionsMainController: UIViewController {
             flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
         }
     }
-    
     //MARK:- Get Data
     private func getInterviewQuestions() {
         self.showIndicator()
@@ -212,7 +199,6 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
-    
     private func getUserCreatedQuestions() {
         DatabaseService.shared.fetchCustomInterviewQuestions { [weak self] (result) in
             switch result {
@@ -228,7 +214,6 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
-    
     private func getBookmarkedQuestions() {
         DatabaseService.shared.fetchBookmarkedQuestions { [weak self] (result) in
             switch result {
@@ -242,7 +227,7 @@ class InterviewQuestionsMainController: UIViewController {
             }
         }
     }
-    
+    //MARK:- IBActions
     @IBAction func allButtonPressed(_ sender: UIButton) {
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.primaryPurpleColor
@@ -257,7 +242,6 @@ class InterviewQuestionsMainController: UIViewController {
         getUserCreatedQuestions()
         getInterviewQuestions()
     }
-    
     @IBAction func bookmarksButtonPressed(_ sender: UIButton) {
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.secondaryPurpleColor
@@ -270,7 +254,6 @@ class InterviewQuestionsMainController: UIViewController {
         filterState = .bookmarked
         getBookmarkedQuestions()
     }
-    
     @IBAction func commonButtonPressed(_ sender: UIButton) {
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.secondaryPurpleColor
@@ -282,7 +265,6 @@ class InterviewQuestionsMainController: UIViewController {
         customButton.backgroundColor = AppColors.secondaryPurpleColor
         filterState = .common
     }
-    
     @IBAction func customButtomPressed(_ sender: UIButton) {
         allButton.tintColor = AppColors.whiteTextColor
         allButton.backgroundColor = AppColors.secondaryPurpleColor
@@ -318,11 +300,11 @@ class InterviewQuestionsMainController: UIViewController {
                 questionsCollectionView.backgroundView = nil
             }
         }
-
     }
 }
 
-//MARK:- CollectionView Delegate and DataSource
+//MARK:- Extensions
+//MARK: CollectionView Delegate and DataSource
 extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxsize: CGSize = view.frame.size
@@ -330,11 +312,9 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         let itemHeight: CGFloat = maxsize.height * 0.2
         return CGSize(width: itemWidth, height: itemHeight)
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let interviewAnswerVC = InterviewAnswerDetailController(nibName: "InterviewAnswerDetailXib", bundle: nil)
         switch filterState{
@@ -354,7 +334,6 @@ extension InterviewQuestionsMainController: UICollectionViewDelegateFlowLayout {
         navigationController?.pushViewController(interviewAnswerVC, animated: true)
     }
 }
-
 extension InterviewQuestionsMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch filterState {
@@ -368,12 +347,10 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
             return commonInterviewQuestions.count
         }
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = questionsCollectionView.dequeueReusableCell(withReuseIdentifier: "interviewQuestionCell", for: indexPath) as? InterviewQuestionCell else {
             fatalError("could not cast to interviewquestioncell")
         }
-        
         switch filterState {
         case .all:
             let question = allQuestions[indexPath.row]
@@ -415,7 +392,6 @@ extension InterviewQuestionsMainController: UICollectionViewDataSource {
         return cell
     }
 }
-
 //MARK:- Search Bar Delegate
 extension InterviewQuestionsMainController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -425,14 +401,11 @@ extension InterviewQuestionsMainController: UISearchBarDelegate {
             searchQuery = searchBar.text ?? ""
         }
     }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-    
 }
 extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
-    
     func presentMenu(cell: InterviewQuestionCell, question: InterviewQuestion) {
         self.showIndicator()
         guard let indexPath = questionsCollectionView.indexPath(for: cell) else {
@@ -446,7 +419,6 @@ extension InterviewQuestionsMainController: InterviewQuestionCellDelegate {
             customQuestion = allQuestions[indexPath.row]
             cell.currentQuestion = customQuestion
         }
-        
         let optionsMenu = UIAlertController(title: "Custom Question Options", message: nil, preferredStyle: .actionSheet)
         let edit = UIAlertAction(title: "Edit Custom Question", style: .default) { [weak self] (action) in
             let interviewQuestionEntryVC = InterviewQuestionEntryController(nibName: "InterviewQuestionEntryXib", bundle: nil)
@@ -509,4 +481,3 @@ extension InterviewQuestionsMainController: EditInterviewQuestionDelegate {
         questionsCollectionView.reloadData()
     }
 }
-
