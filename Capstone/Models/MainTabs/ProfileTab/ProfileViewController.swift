@@ -10,39 +10,15 @@ import UIKit
 import FirebaseAuth
 import MessageUI
 
-struct ProfileCells {
-    let title: String
-    let images: UIImage
-    let viewController: UIViewController
-    
-    static func loadProfileCells() -> [ProfileCells] {
-        return [
-            ProfileCells(title: profileCellType.account.rawValue, images: UIImage(systemName: "person.fill")!, viewController: AccountViewController(nibName: "AccountViewControllerXib", bundle: nil)),
-            ProfileCells(title: profileCellType.settings.rawValue, images: UIImage(systemName: "gear")!, viewController: SettingsViewController(nibName: "SettingsViewControllerXib", bundle: nil)),
-//            Settings(tabs: "Notifications", images: UIImage(systemName: "message")!),
-            ProfileCells(title: profileCellType.about.rawValue, images: UIImage(systemName: "info.circle")!, viewController: AboutThisAppViewController(nibName: "AboutThisAppViewControllerXib", bundle: nil)),
-            ProfileCells(title: profileCellType.faq.rawValue, images: UIImage(systemName: "questionmark.circle.fill")!, viewController: FAQViewController(nibName: "FAQViewControllerXib", bundle: nil)),
-            ProfileCells(title: profileCellType.contact.rawValue, images: UIImage(systemName: "bubble.middle.bottom")!, viewController: MFMailComposeViewController())
-        ]
-    }
-    public enum profileCellType: String {
-        case account = "Account"
-        case settings = "Settings"
-        case about = "About This App"
-        case faq = "FAQ"
-        case contact = "Contact Us"
-    }
-}
-
 class ProfileViewController: UIViewController {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var appLabel: UILabel!
-    
+    //MARK:- Variables
     private var allSettings = [ProfileCells]()
     private var appName = ApplicationInfo.getAppName()
     private var appVersion = ApplicationInfo.getVersionBuildNumber()
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -56,7 +32,7 @@ class ProfileViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
+    //MARK:- Functions
     private func configureTableView() {
         settingsTableView.dataSource = self
         settingsTableView.delegate = self
@@ -67,7 +43,7 @@ class ProfileViewController: UIViewController {
         return MFMailComposeViewController.canSendMail()
     }
 }
-
+//MARK:- Extensions
 extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allSettings.count
@@ -83,9 +59,7 @@ extension ProfileViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         return cell
     }
-    
 }
-
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
@@ -94,7 +68,7 @@ extension ProfileViewController: UITableViewDelegate {
         let profileCellSelected = allSettings[indexPath.row]
         let destinationViewController = allSettings[indexPath.row].viewController
         if profileCellSelected.title != ProfileCells.profileCellType.contact.rawValue {
-        navigationController?.pushViewController(destinationViewController, animated: true)
+            navigationController?.pushViewController(destinationViewController, animated: true)
         } else {
             if canSendMail() {
                 let composeVC = MFMailComposeViewController()
@@ -108,7 +82,6 @@ extension ProfileViewController: UITableViewDelegate {
         }
     }
 }
-
 extension ProfileViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)

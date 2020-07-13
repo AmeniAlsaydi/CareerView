@@ -7,27 +7,12 @@
 //
 
 import UIKit
-// Conflict amirite?
-struct SettingsCell: Equatable {
-    let title: String
-    
-    static func loadSettingsCells() -> [SettingsCell] {
-        return [
-            SettingsCell(title: settingsEnum.showUserSTARStoryOption.rawValue),
-            SettingsCell(title: settingsEnum.defaultLaunchScreen.rawValue)
-        ]
-    }
-    public enum settingsEnum: String {
-        case showUserSTARStoryOption = "Show User STAR Story Option"
-        case defaultLaunchScreen = "Default Launch Screen"
-    }
-}
 
 class SettingsViewController: UIViewController {
-    
-    private var settings = [SettingsCell]()
+    //MARK:- IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    
+    //MARK:- Variables
+    private var settings = [SettingsCell]()
     var toolbar = UIToolbar()
     var defaultLaunchScreenPicker = UIPickerView()
     var launchScreenOptions = [LaunchScreen]()
@@ -36,6 +21,7 @@ class SettingsViewController: UIViewController {
             tableView.reloadData()
         }
     }
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
@@ -45,10 +31,10 @@ class SettingsViewController: UIViewController {
         configurePickerView()
         loadDefaultLaunchScreen()
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
     }
+    //MARK:- Functions
     private func configureNavBar() {
         navigationItem.title = "Settings"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -98,7 +84,6 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settings.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let setting = settings[indexPath.row]
         switch setting {
@@ -124,11 +109,8 @@ extension SettingsViewController: UITableViewDataSource {
         }
     }
 }
-
 extension SettingsViewController: UITableViewDelegate {
-    
 }
-
 extension SettingsViewController: defaultLaunchScreenButtonDelegate {
     func changeDefaultLaunchScreenButtonPressed() {
         UIView.transition(with: self.view, duration: 3.0, options: [], animations: {
@@ -137,7 +119,6 @@ extension SettingsViewController: defaultLaunchScreenButtonDelegate {
         }, completion: nil)
     }
 }
-
 extension SettingsViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let launchScreenOption = launchScreenOptions[row]

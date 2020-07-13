@@ -10,10 +10,10 @@ import UIKit
 import FirebaseAuth
 
 class BasicInfoCollectionViewCell: UICollectionViewCell {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var answerLabel: UILabel!
-    
+    //MARK:- PreferredLayoutAttributesFitting
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         setNeedsLayout()
         layoutIfNeeded()
@@ -23,13 +23,13 @@ class BasicInfoCollectionViewCell: UICollectionViewCell {
         layoutAttributes.frame = frame
         return layoutAttributes
     }
-    
+    //MARK:- ConfigureCell
     public func configureCell(faq: FAQInfo?, userInfo: UserInfo.userInfoSection?) {
         self.layer.cornerRadius = AppRoundedViews.cornerRadius
         self.layer.masksToBounds = true
         if faq != nil {
-        titleLabel.text = faq?.title
-        answerLabel.text = faq?.description
+            titleLabel.text = faq?.title
+            answerLabel.text = faq?.description
         } else if userInfo != nil {
             switch userInfo {
             case userInfo where userInfo?.rawValue == UserInfo.userInfoSection.email.rawValue:

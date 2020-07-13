@@ -15,6 +15,10 @@
 		52F81DBD249260710052532B /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F81DBC249260710052532B /* ProfileCell.swift */; };
 		8809883D24956537006EA9D0 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8809883C24956537006EA9D0 /* UIViewExt.swift */; };
 		8813648924BCEA0F0022F705 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813648824BCEA0F0022F705 /* DateExtension.swift */; };
+		8813648B24BCF3E80022F705 /* ProfileCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813648A24BCF3E80022F705 /* ProfileCells.swift */; };
+		8813648D24BCF5650022F705 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813648C24BCF5650022F705 /* UserInfo.swift */; };
+		8813648F24BCF5D00022F705 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813648E24BCF5D00022F705 /* SettingsCell.swift */; };
+		8813649124BCF68B0022F705 /* FAQInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813649024BCF68B0022F705 /* FAQInfo.swift */; };
 		881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */; };
 		881CD33E2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */; };
 		881CD3402499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881CD33F2499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib */; };
@@ -46,7 +50,6 @@
 		889FCAB2249967E300CC9153 /* FAQViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */; };
 		889FCAB4249967F200CC9153 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAB3249967F200CC9153 /* FAQViewController.swift */; };
 		889FCAB6249969FD00CC9153 /* ContactUsViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAB5249969FD00CC9153 /* ContactUsViewControllerXib.xib */; };
-		889FCAB824996A0D00CC9153 /* ContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAB724996A0C00CC9153 /* ContactUsViewController.swift */; };
 		B7226CF8248DACA900D7F207 /* JobApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */; };
 		B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C2392476832F000811C5 /* AppDelegate.swift */; };
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
@@ -152,6 +155,10 @@
 		65E94D7A2BDF5195341B0F17 /* Pods_CapstoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapstoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8809883C24956537006EA9D0 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
 		8813648824BCEA0F0022F705 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		8813648A24BCF3E80022F705 /* ProfileCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCells.swift; sourceTree = "<group>"; };
+		8813648C24BCF5650022F705 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		8813648E24BCF5D00022F705 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		8813649024BCF68B0022F705 /* FAQInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQInfo.swift; sourceTree = "<group>"; };
 		881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellSwitch.swift; sourceTree = "<group>"; };
 		881CD33F2499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicInfoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -184,7 +191,6 @@
 		889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQViewControllerXib.xib; sourceTree = "<group>"; };
 		889FCAB3249967F200CC9153 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		889FCAB5249969FD00CC9153 /* ContactUsViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactUsViewControllerXib.xib; sourceTree = "<group>"; };
-		889FCAB724996A0C00CC9153 /* ContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewController.swift; sourceTree = "<group>"; };
 		B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationCell.swift; sourceTree = "<group>"; };
 		B725C2362476832F000811C5 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B725C2392476832F000811C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -412,7 +418,6 @@
 				889FCAAB2499672C00CC9153 /* SettingsViewController.swift */,
 				889FCAAF2499678800CC9153 /* AboutThisAppViewController.swift */,
 				889FCAB3249967F200CC9153 /* FAQViewController.swift */,
-				889FCAB724996A0C00CC9153 /* ContactUsViewController.swift */,
 				881CD3412499CCA3008AB0C8 /* BasicInfoCollectionViewCell.swift */,
 				52F81DBC249260710052532B /* ProfileCell.swift */,
 				881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */,
@@ -621,6 +626,10 @@
 				B7976E5B247EAD84001AE3B3 /* Contact.swift */,
 				B737DF352486A1740052F375 /* AnsweredQuestion.swift */,
 				884E556F24873F3700BA180F /* User.swift */,
+				8813648A24BCF3E80022F705 /* ProfileCells.swift */,
+				8813648C24BCF5650022F705 /* UserInfo.swift */,
+				8813648E24BCF5D00022F705 /* SettingsCell.swift */,
+				8813649024BCF68B0022F705 /* FAQInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -949,6 +958,7 @@
 				B7976E51247E9D16001AE3B3 /* MainTabBarController.swift in Sources */,
 				C6E623C024A2B35000A15808 /* CGRectExtension.swift in Sources */,
 				C6E623C324A2B35000A15808 /* CustomTransitionViewController.swift in Sources */,
+				8813649124BCF68B0022F705 /* FAQInfo.swift in Sources */,
 				B7976E1A24777593001AE3B3 /* JobApplication.swift in Sources */,
 				C6E623C224A2B35000A15808 /* TransitionButton.swift in Sources */,
 				B7976E2B247D4AD8001AE3B3 /* DatabaseService.swift in Sources */,
@@ -982,7 +992,6 @@
 				B737DF362486A1740052F375 /* AnsweredQuestion.swift in Sources */,
 				8809883D24956537006EA9D0 /* UIViewExt.swift in Sources */,
 				B7976E47247D9423001AE3B3 /* ApplicationTrackerController.swift in Sources */,
-				889FCAB824996A0D00CC9153 /* ContactUsViewController.swift in Sources */,
 				B7976E5C247EAD84001AE3B3 /* Contact.swift in Sources */,
 				B7976E43247D8F10001AE3B3 /* InterviewQuestionEntryController.swift in Sources */,
 				C6E623B724A2B27700A15808 /* IndicatorExt.swift in Sources */,
@@ -993,14 +1002,17 @@
 				884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */,
 				B7976E3D247D582C001AE3B3 /* StarStoryMainController.swift in Sources */,
 				B7976E56247EA2D9001AE3B3 /* EmptyView.swift in Sources */,
+				8813648D24BCF5650022F705 /* UserInfo.swift in Sources */,
 				889FCAB02499678800CC9153 /* AboutThisAppViewController.swift in Sources */,
 				B7A865D22491C58B00AC456F /* InterviewEntryView.swift in Sources */,
 				B79F4B44248F62F7009523EE /* InterviewQuestionsDatabaseServices.swift in Sources */,
 				B78EE8382497EAB700F7E973 /* NewJobEntryController.swift in Sources */,
 				52F81DBD249260710052532B /* ProfileCell.swift in Sources */,
+				8813648F24BCF5D00022F705 /* SettingsCell.swift in Sources */,
 				B7A865BE2490D60F00AC456F /* UITextFieldExt.swift in Sources */,
 				884E557024873F3700BA180F /* User.swift in Sources */,
 				B7976E2F247D50FF001AE3B3 /* StarSituation.swift in Sources */,
+				8813648B24BCF3E80022F705 /* ProfileCells.swift in Sources */,
 				B79F4B42248F6281009523EE /* UserJobsDatabaseServices.swift in Sources */,
 				C6E623C424A2B35000A15808 /* FadeTransition.swift in Sources */,
 			);
