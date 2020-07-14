@@ -407,6 +407,24 @@ class NewJobEntryController: UIViewController {
                 })
             }
         }
+        
+        // add this job id to all the selected the star stories:
+        
+        //logic: loop through the uniqueStarIDs and add the job id to the user job field of each of the star stories, because when each star story is originally created it is created w/o a user id
+        
+        // userJobId
+        // uniqueStarIDs
+        
+        for starID in uniqueStarIDs {
+            DatabaseService.shared.updateStarSituationWithUserJobId(userJobID: userJobId, starSitutationID: starID) { (result) in
+                switch result {
+                case .failure(let error):
+                    print("error adding starID to userID: \(error)")
+                case .success:
+                    print("starID was added to userjob")
+                }
+            }
+        }
     }
     
     
@@ -583,6 +601,15 @@ extension NewJobEntryController: BasicSituationDelegate {
             return
         }
         uniqueStarIDs.remove(at: index)
+        
+        DatabaseService.shared.removeUserJobFromStarStory(starSitutationID: starSituation.id) { (result) in
+            switch result {
+            case .failure(let error):
+                print("could not remove user job from star story: \(error)")
+            case .success:
+                print("successfully removed user job from star story")
+            }
+        }
     }
 }
 
