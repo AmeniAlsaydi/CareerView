@@ -19,7 +19,6 @@ extension UIViewController {
         self.view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
     }
-    
     func removeIndicator() {
         activityIndicator.removeFromSuperview()
     }

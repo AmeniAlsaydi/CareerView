@@ -27,7 +27,7 @@ class SignUpController: UIViewController {
         gesture.addTarget(self, action: #selector(didTap(_:)))
         return gesture
     }()
-    
+    //MARK:- View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
@@ -37,7 +37,6 @@ class SignUpController: UIViewController {
         registerForKeyBoardNotifications()
         originalState = positionYConstraint
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         unregisterForKeyBoardNotifications()
@@ -65,22 +64,19 @@ class SignUpController: UIViewController {
     private var originalStack: NSLayoutConstraint!
     private func registerForKeyBoardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     private func unregisterForKeyBoardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    @objc
-    private func keyboardWillShow(notification: NSNotification) {
+    @objc private func keyboardWillShow(notification: NSNotification) {
         guard let keyboardFrame = notification.userInfo?["UIKeyboardFrameBeginUserInfoKey"] as? CGRect else {
             return
         }
         moveKeyboardUp(height: keyboardFrame.size.height / 2)
     }
-    @objc
-    private func keyboardWillHide(notification: NSNotification) {
+    @objc private func keyboardWillHide(notification: NSNotification) {
         resetUI()
     }
     private func resetUI() {
@@ -107,7 +103,6 @@ class SignUpController: UIViewController {
         // reset border
         emailTextField.setBorder(color: nil, width: 0)
         passwordTextField.setBorder(color: nil, width: 0)
-        
         // check fields
         guard let email = emailTextField.text, !email.isEmpty else {
             let animation = CABasicAnimation(keyPath: "position")
@@ -116,15 +111,12 @@ class SignUpController: UIViewController {
             animation.autoreverses = true
             animation.fromValue = NSValue(cgPoint: CGPoint(x: emailTextField.center.x - 10, y: emailTextField.center.y))
             animation.toValue = NSValue(cgPoint: CGPoint(x: emailTextField.center.x + 10, y: emailTextField.center.y))
-            
             emailTextField.layer.add(animation, forKey: "position")
             emailTextField.setBorder(color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), width: 1.0)
             alertLabel.text = "please enter email to sign up"
-            
             sender.stopAnimation()
             return
         }
-        
         guard let password = passwordTextField.text, !password.isEmpty else {
             let animation1 = CABasicAnimation(keyPath: "position")
             animation1.duration = 0.07
@@ -132,15 +124,12 @@ class SignUpController: UIViewController {
             animation1.autoreverses = true
             animation1.fromValue = NSValue(cgPoint: CGPoint(x: passwordTextField.center.x - 10, y: passwordTextField.center.y))
             animation1.toValue = NSValue(cgPoint: CGPoint(x: passwordTextField.center.x + 10, y: passwordTextField.center.y))
-            
             passwordTextField.layer.add(animation1, forKey: "position")
             passwordTextField.setBorder(color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), width: 1.0)
             alertLabel.text = "please enter password to sign up"
-            
             sender.stopAnimation()
             return
         }
-        
         // create user
         AuthenticationSession.shared.createNewUser(email: email, password: password) { [weak self] (result) in
             switch result {
@@ -185,18 +174,5 @@ extension SignUpController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         emailTextField.setBorder(color: AppColors.lightGrayHighlightColor.cgColor, width: 0)
         passwordTextField.setBorder(color: AppColors.lightGrayHighlightColor.cgColor, width: 0)
-    }
-}
-
-
-extension UITextField {
-    public func setBorder(color: CGColor?, width: CGFloat) {
-        self.layer.borderWidth = width
-        
-        if color != nil {
-            self.layer.borderColor = color
-        } else {
-            self.layer.borderColor = nil
-        }
     }
 }

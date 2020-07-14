@@ -17,7 +17,6 @@ class ApplicationInfo {
         }
         return "\(version)(\(build))"
     }
-    
     class func getAppName() -> String {
         guard let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String else {
             fatalError("what? no app name")
@@ -25,4 +24,3 @@ class ApplicationInfo {
         return appName
     }
 }
-

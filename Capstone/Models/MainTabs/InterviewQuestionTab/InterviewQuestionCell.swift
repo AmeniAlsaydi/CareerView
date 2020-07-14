@@ -7,11 +7,13 @@
 //
 
 import UIKit
-
+//MARK:- Protocols
 protocol InterviewQuestionCellDelegate: AnyObject  {
     func presentMenu(cell: InterviewQuestionCell, question: InterviewQuestion)
 }
+
 class InterviewQuestionCell: UICollectionViewCell {
+    //MARK:- IBOutlets
     @IBOutlet weak var numberOfStarsLabel: UILabel!
     @IBOutlet weak var answerCheckBox: UIImageView!
     @IBOutlet weak var interviewQuestionLabel: UILabel!
@@ -19,9 +21,10 @@ class InterviewQuestionCell: UICollectionViewCell {
     @IBOutlet weak var answeredLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var cellHeaderView: UIView!
-    
+    //MARK:- Variables
     weak var delegate: InterviewQuestionCellDelegate?
     var currentQuestion: InterviewQuestion?
+    //MARK:- Override funcs
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         setNeedsLayout()
         layoutIfNeeded()
@@ -36,6 +39,7 @@ class InterviewQuestionCell: UICollectionViewCell {
         self.backgroundColor = AppColors.systemBackgroundColor
         setAppColorsandFonts()
     }
+    //MARK:- Functions
     private func setAppColorsandFonts() {
         interviewQuestionLabel.font = AppFonts.semiBoldSmall
         connectedStarsLabel.font = AppFonts.subtitleFont
@@ -48,12 +52,6 @@ class InterviewQuestionCell: UICollectionViewCell {
         cellHeaderView.backgroundColor = AppColors.primaryPurpleColor
         editButton.tintColor = AppColors.secondaryPurpleColor
     }
-    
-    @IBAction func editButtonPressed(_ sender: UIButton) {
-        print("edit button pressed")
-        delegate?.presentMenu(cell: self, question: currentQuestion!)
-    }
-    
     public func configureCell(interviewQ: InterviewQuestion) {
         interviewQuestionLabel.text = interviewQ.question
         getUserAnswers(for: interviewQ)
@@ -77,11 +75,13 @@ class InterviewQuestionCell: UICollectionViewCell {
                     } else {
                         self?.numberOfStarsLabel.text = "0"
                     }
-                    
-                    
                 }
             }
         }
     }
-    
+    //MARK:- IBActions
+    @IBAction func editButtonPressed(_ sender: UIButton) {
+        print("edit button pressed")
+        delegate?.presentMenu(cell: self, question: currentQuestion!)
+    }
 }

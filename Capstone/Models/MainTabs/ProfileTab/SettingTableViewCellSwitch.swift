@@ -9,10 +9,10 @@
 import UIKit
 
 class SettingTableViewCellSwitch: UITableViewCell {
-    
+    //MARK:- IBOulets
     @IBOutlet weak var settingSwitch: UISwitch!
     @IBOutlet weak var settingLabel: UILabel!
-    
+    //MARK:- Variables
     private var showUserStarSituationInputOption: ShowUserStarInputOption? {
         didSet {
             if showUserStarSituationInputOption?.rawValue == ShowUserStarInputOption.off.rawValue {
@@ -23,7 +23,7 @@ class SettingTableViewCellSwitch: UITableViewCell {
             UserPreference.shared.updatePreferenceShowUserInputOption(with: showUserStarSituationInputOption ?? ShowUserStarInputOption.on)
         }
     }
-    
+    //MARK:- Functions
     public func configureCell(setting: SettingsCell) {
         settingSwitch.onTintColor = AppColors.primaryPurpleColor
         settingLabel.text = setting.title

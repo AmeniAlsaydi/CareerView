@@ -9,33 +9,17 @@
 import UIKit
 import FirebaseAuth
 
-struct UserInfo: Equatable {
-    let primaryEmail: String = userInfoSection.email.rawValue
-    let jobHistoryCount: String = userInfoSection.jobHistoryCount.rawValue
-    let starStoryCount: String = userInfoSection.starStoryCount.rawValue
-    let jobApplicationCount: String = userInfoSection.jobApplicationCount.rawValue
-    static func setupUserSectionArray() -> [userInfoSection] {
-        return [userInfoSection.email, userInfoSection.jobApplicationCount, userInfoSection.jobHistoryCount, userInfoSection.starStoryCount]
-    }
-    public enum userInfoSection: String {
-        case email = "Email Address"
-        case jobHistoryCount = "Job History Count"
-        case starStoryCount = "STAR Story Count"
-        case jobApplicationCount = "Job Applications Being Tracked"
-    }
-}
-
 class AccountViewController: UIViewController {
-
+    //MARK:- IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
-    
+    //MARK:- Variables
     private var userInfo: [UserInfo.userInfoSection]? {
         didSet {
             collectionView.reloadData()
         }
     }
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
@@ -43,14 +27,13 @@ class AccountViewController: UIViewController {
         loadUserInfo()
     }
     
-
+    //MARK:- Functions
     private func configureCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UINib(nibName: "BasicInfoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "basicInfoCell")
-        
         if let flowLayout = collectionViewLayout,
-           let collectionView = collectionView {
+            let collectionView = collectionView {
             let w = collectionView.frame.width
             flowLayout.estimatedItemSize = CGSize(width: w, height: 200)
         }
@@ -71,14 +54,12 @@ class AccountViewController: UIViewController {
     private func loadUserInfo() {
         userInfo = UserInfo.setupUserSectionArray()
     }
-    
 }
-
+//MARK:- Extensions
 extension AccountViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicInfoCell", for: indexPath) as? BasicInfoCollectionViewCell else {
             fatalError("Failed to dequeue BasicInfoCollectionViewCell")
@@ -87,8 +68,6 @@ extension AccountViewController: UICollectionViewDataSource {
         cell.configureCell(faq: nil, userInfo: userInfoSection)
         return cell
     }
-    
-    
 }
 extension AccountViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

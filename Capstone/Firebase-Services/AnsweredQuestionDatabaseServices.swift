@@ -11,15 +11,11 @@ import FirebaseFirestore
 import FirebaseAuth
 
 extension DatabaseService {
-    
     // to get interview question answers we will filter answeredQuestions collection using the question string
-    
     public func addToAnsweredQuestions(answeredQuestion: AnsweredQuestion, completion: @escaping (Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
-        
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answeredQuestion.id).setData(["id": answeredQuestion.id, "question": answeredQuestion.question, "answers": answeredQuestion.answers, "starSituationIDs": answeredQuestion.starSituationIDs ]) { (error) in
-            
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -27,14 +23,10 @@ extension DatabaseService {
             }
         }
     }
-    
-    
     // FIXME: the following returns an array of AnsweredQuestion, do we want to return just one (the first) ?
     public func fetchAnsweredQuestions(questionString: String, completion: @escaping (Result<[AnsweredQuestion], Error>)->()) {
-        
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
-        
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).whereField("question", isEqualTo: questionString).getDocuments { (snapShot, error) in
             if let error = error {
                 completion(.failure(error))
@@ -44,15 +36,11 @@ extension DatabaseService {
             }
         }
     }
-    
     //MARK:- Remove/Add STAR Story to answer
     public func removeStarSituationFromAnswer(answerID: String, starSolutionID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
-        
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
-        
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["starSituationIDs" : FieldValue.arrayRemove(["\(starSolutionID)"])]) { (error) in
-            
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -60,14 +48,10 @@ extension DatabaseService {
             }
         }
     }
-    
     public func addStarSituationToAnswer(answerID: String, starSolutionID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
-        
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
-        
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["starSituationIDs" : FieldValue.arrayUnion(["\(starSolutionID)"])]) { (error) in
-            
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -75,11 +59,9 @@ extension DatabaseService {
             }
         }
     }
-    
     public func addAnswerIDToSTARSituation(answerID: String, starSituationID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
-        
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(starSituationID).updateData(["interviewQuestionsIDs": FieldValue.arrayUnion(["\(answerID)"])]) { (error) in
             if let error = error {
                 completion(.failure(error))
@@ -88,15 +70,11 @@ extension DatabaseService {
             }
         }
     }
-    
     //MARK:- Adding/Updating/Removing answers
     public func addAnswerToAnswersArray(answerID: String, answerString: String, completion: @escaping (Result<Bool, Error>) -> ()) {
-        
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
-        
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["answers" : FieldValue.arrayUnion(["\(answerString)"])]) { (error) in
-            
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -104,14 +82,10 @@ extension DatabaseService {
             }
         }
     }
-    
     public func removeAnswerFromAnswersArray(answerID: String, answerString: String, completion: @escaping (Result<Bool, Error>) -> ()) {
-        
         guard let user = Auth.auth().currentUser else {return}
         let userID = user.uid
-        
         db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.answeredQuestionsCollection).document(answerID).updateData(["answers" : FieldValue.arrayRemove(["\(answerString)"])]) { (error) in
-            
             if let error = error {
                 completion(.failure(error))
             } else {

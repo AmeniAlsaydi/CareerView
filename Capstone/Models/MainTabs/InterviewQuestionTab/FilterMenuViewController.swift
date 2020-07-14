@@ -8,13 +8,14 @@
 
 import UIKit
 
+//MARK:- Protocols
 protocol FilterStateDelegate: AnyObject {
     func didAddFilter(_ filterState: FilterState, child: FilterMenuViewController)
     func pressedCancel(child: FilterMenuViewController)
 }
 
 class FilterMenuViewController: UIViewController {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var allButton: UIButton!
     @IBOutlet weak var bookmarkedButton: UIButton!
     @IBOutlet weak var commonButton: UIButton!
@@ -27,18 +28,19 @@ class FilterMenuViewController: UIViewController {
     @IBOutlet weak var bookmarkedLabel: UILabel!
     @IBOutlet weak var commonLabel: UILabel!
     @IBOutlet weak var customLabel: UILabel!
-    
+    //MARK:- Variables
     public var filterState: FilterState? {
         didSet {
             updateUI()
         }
     }
     public weak var delegate: FilterStateDelegate?
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         updateUI()
         setAppColors()
     }
+    //MARK:- Functiopns
     private func setAppColors() {
         //labels
         filterByLabel.textColor = AppColors.darkGrayHighlightColor

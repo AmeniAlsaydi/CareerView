@@ -8,14 +8,16 @@
 
 import UIKit
 
+//MARK:- Protocols
 protocol StarStoryMainControllerDelegate {
     func starStoryMainViewControllerDismissed(starSituations: [String])
 }
 
 class StarStoryMainController: UIViewController {
+    //MARK:- IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
-    
+    //MARK:- Variables
     public var filterByJob = false
     public var userJob: UserJob?
     public var isAddingToAnswer = false
@@ -44,9 +46,7 @@ class StarStoryMainController: UIViewController {
             }
         }
     }
-    
     var delegate: StarStoryMainControllerDelegate?
-    
     //MARK:- ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,7 +144,6 @@ class StarStoryMainController: UIViewController {
             sender.isEnabled = false
         } else {
             if let answerID = answerId {
-                
                 DatabaseService.shared.addStarSituationToAnswer(answerID: answerID, starSolutionID: starID) { [weak self] (result) in
                     switch result {
                     case .failure(let error):
@@ -188,15 +187,12 @@ extension StarStoryMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return starSituations.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "starSituationCell", for: indexPath) as? StarSituationCell else {
             fatalError("Failed to dequeue starSituationCell")
         }
         let starSituation = starSituations[indexPath.row]
-        
         cell.configureCell(starSituation: starSituation)
-        
         if starSituationIDs.contains(starSituation.id) {
             cell.starSituationIsSelected = true
             cell.backgroundColor = AppColors.primaryPurpleColor
@@ -204,7 +200,6 @@ extension StarStoryMainController: UICollectionViewDataSource {
             cell.layer.borderWidth = 2
             cell.layer.borderColor = AppColors.whiteTextColor.cgColor
         }
-        
         if isAddingToAnswer || isAddingToUserJob {
             cell.editButton.isHidden = true
         } else {
@@ -218,10 +213,8 @@ extension StarStoryMainController: UICollectionViewDataSource {
         guard let cell = collectionView.cellForItem(at: indexPath) as? StarSituationCell else {
             fatalError("could not cast to StarSituationCell")
         }
-        
         if isAddingToUserJob {
             cell.starSituationIsSelected.toggle()
-            
             if cell.starSituationIsSelected {
                 cell.backgroundColor = AppColors.primaryPurpleColor
                 cell.situationLabel.textColor = AppColors.whiteTextColor
@@ -235,9 +228,7 @@ extension StarStoryMainController: UICollectionViewDataSource {
                 cell.backgroundColor = .systemBackground
                 starSituationIDs.remove(at: indexPathForStarStorySelected)
             }
-            
         } else if isAddingToAnswer {
-            
             cell.starSituationIsSelected.toggle()
             if cell.starSituationIsSelected {
                 cell.backgroundColor = AppColors.primaryPurpleColor
@@ -250,7 +241,6 @@ extension StarStoryMainController: UICollectionViewDataSource {
             selectedSTARStory = starStory
         }
     }
-    
 }
 //MARK:- CollectionView Delegate
 extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
@@ -267,9 +257,7 @@ extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
 }
 //MARK:- StarSituationCell Delegate
 extension StarStoryMainController: StarSituationCellDelegate {
-    
     func editStarSituationPressed(starSituation: StarSituation, starSituationCell: StarSituationCell) {
-        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteStarSituation(starSituation: starSituation, starSituationCell: starSituationCell)
@@ -283,14 +271,12 @@ extension StarStoryMainController: StarSituationCellDelegate {
         alertController.addAction(deleteAction)
         present(alertController, animated: true, completion: nil)
     }
-    
     private func editStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
         let destinationViewController = StarStoryEntryController(nibName: "StarStoryEntryXib", bundle: nil)
         destinationViewController.starSituation = starSituation
         destinationViewController.isEditingStarSituation = true
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
-    
     private func deleteStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
         
         self.showIndicator()
@@ -330,6 +316,5 @@ extension StarStoryMainController: StarSituationCellDelegate {
                 }
             }
         }
-        
     }
 }

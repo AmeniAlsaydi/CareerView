@@ -22,7 +22,6 @@ struct UserJob: Equatable {
     var starSituationIDs: [String]
     var interviewQuestionIDs: [String]
 }
-
 extension UserJob {
     init(_ dictionary: [String: Any]) {
         self.id = dictionary["id"] as? String ?? "Job ID NA"

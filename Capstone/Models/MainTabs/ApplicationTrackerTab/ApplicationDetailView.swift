@@ -9,13 +9,12 @@
 import UIKit
 
 class ApplicationDetailView: UIView {
-    
+    //MARK:- Variables
     public lazy var interviewDateLabel: UILabel = {
         let label = UILabel()
         label.font = AppFonts.semiBoldSmall
         return label
     }()
-    
     public lazy var thankYouLabel: UILabel = {
         let label = UILabel()
         label.text = "Thank you note sent"
@@ -29,7 +28,6 @@ class ApplicationDetailView: UIView {
         label.numberOfLines = 0
         return label
     }()
-    
     public lazy var thankYouButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "square")
@@ -37,22 +35,22 @@ class ApplicationDetailView: UIView {
         button.setImage(image, for: .normal)
         return button
     }()
-    
+    //MARK:- ViewLifeCycles
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layer.cornerRadius = AppRoundedViews.cornerRadius
         backgroundColor = AppColors.complimentaryBackgroundColor
     }
+    //MARK:- Inits
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
     }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
-    
+    //MARK:- Common Init
     private func commonInit() {
         constrainInterviewLabel()
         constrainThankYouLabel()
@@ -69,7 +67,6 @@ class ApplicationDetailView: UIView {
             interviewDateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
-    
     private func constrainThankYouLabel() {
         addSubview(thankYouLabel)
         thankYouLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +75,6 @@ class ApplicationDetailView: UIView {
             thankYouLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
         ])
     }
-    
     private func constrainThankyouButton() {
         addSubview(thankYouButton)
         thankYouButton.translatesAutoresizingMaskIntoConstraints = false
@@ -88,11 +84,9 @@ class ApplicationDetailView: UIView {
             thankYouButton.leadingAnchor.constraint(equalTo: thankYouLabel.trailingAnchor, constant: 10),
         ])
     }
-    
     private func constrainNotesLabel() {
         addSubview(notesLabel)
         notesLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             notesLabel.topAnchor.constraint(equalTo: thankYouLabel.bottomAnchor, constant: 10),
             notesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -101,6 +95,3 @@ class ApplicationDetailView: UIView {
         ])
     }
 }
-
-
-

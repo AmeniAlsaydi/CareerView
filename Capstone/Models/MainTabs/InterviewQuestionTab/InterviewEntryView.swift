@@ -9,7 +9,7 @@
 import UIKit
 
 class InterviewEntryView: UIView {
-    
+    //MARK:- Variables
     public var thankYouSent: Bool = false {
         didSet {
             if thankYouSent {
@@ -19,15 +19,11 @@ class InterviewEntryView: UIView {
             }
         }
     }
-    
     public var date: Date? = nil
-    
     private let datePicker = UIDatePicker()
-    
-    public var hasInterviewData: Bool = false // should be made true when interview is added
-    
+    public var hasInterviewData: Bool = false
     public var interview: Interview?
-    
+    //MARK:- Lazy Variables
     public lazy var dateTextField: UITextField = {
         let textfield = UITextField()
         textfield.setPadding()
@@ -37,13 +33,11 @@ class InterviewEntryView: UIView {
         textfield.placeholder = "Interview date"
         return textfield
     }()
-    
     public lazy var thankYouLabel: UILabel = {
         let label = UILabel()
         label.text = "Thank you note sent?"
         return label
     }()
-    
     public lazy var thankYouButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "square")
@@ -51,7 +45,6 @@ class InterviewEntryView: UIView {
         button.setImage(image, for: .normal)
         return button
     }()
-    
     public lazy var notesTextField: UITextField = {
         let textfield = UITextField()
         textfield.setPadding()
@@ -61,7 +54,6 @@ class InterviewEntryView: UIView {
         textfield.placeholder = "Interview notes"
         return textfield
     }()
-    
     public lazy var deleteButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "x.circle.fill")
@@ -69,22 +61,20 @@ class InterviewEntryView: UIView {
         button.setImage(image, for: .normal)
         return button
     }()
-    
-    
+    //MARK:- Inits
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
     }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
-    
+    //MARK:- LayoutSubViews
     override func layoutSubviews() {
         backgroundColor = AppColors.systemBackgroundColor
     }
-    
+    //MARK:- CommonInit
     private func commonInit() {
         constrainDateTextField()
         constrainNotesTextField()
@@ -94,37 +84,30 @@ class InterviewEntryView: UIView {
         createDatePicker()
         thankYouButton.addTarget(self, action: #selector(toggleThankYou), for: .touchUpInside)
     }
-    
+    //MARK:- Function
     @objc private func toggleThankYou() {
         thankYouSent.toggle()
     }
-    
     func createDatePicker() {
         // toolbar
         let toolbar = UIToolbar()
-        
         toolbar.sizeToFit()
-        
         // bar button
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
         toolbar.setItems([doneButton], animated: true)
-        
         // assign toolbar
         dateTextField.inputAccessoryView = toolbar
-        
         // assign date picker to text feild
         dateTextField.inputView = datePicker
-        
         // date picker mode
         datePicker.datePickerMode = .date
     }
-    
+    // Done Button for datePicker
     @objc func doneButtonPressed() {
         dateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
         date = datePicker.date
         endEditing(true)
     }
-    
     private func constrainDateTextField() {
         addSubview(dateTextField)
         dateTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -135,20 +118,17 @@ class InterviewEntryView: UIView {
             dateTextField.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25)
         ])
     }
-    
+    //MARK:- Constraint Functions
     private func constrainNotesTextField() {
         addSubview(notesTextField)
         notesTextField.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             notesTextField.topAnchor.constraint(equalTo: dateTextField.bottomAnchor, constant: 10),
             notesTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             notesTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             notesTextField.heightAnchor.constraint(equalTo: dateTextField.heightAnchor)
         ])
-        
     }
-    
     private func constainThankyouButton() {
         addSubview(thankYouButton)
         thankYouButton.translatesAutoresizingMaskIntoConstraints = false
@@ -159,7 +139,6 @@ class InterviewEntryView: UIView {
             thankYouButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
         ])
     }
-    
     private func constrainDeleteButton() {
         addSubview(deleteButton)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -170,9 +149,7 @@ class InterviewEntryView: UIView {
             deleteButton.topAnchor.constraint(equalTo: notesTextField.bottomAnchor, constant: 10),
             deleteButton.widthAnchor.constraint(equalToConstant: 44)
         ])
-
     }
-    
     private func constrainThankYouLabel() {
         addSubview(thankYouLabel)
         thankYouLabel.translatesAutoresizingMaskIntoConstraints = false

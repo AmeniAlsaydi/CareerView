@@ -8,34 +8,19 @@
 
 import UIKit
 
+//MARK:- Protocols
 protocol defaultLaunchScreenButtonDelegate: AnyObject {
     func changeDefaultLaunchScreenButtonPressed()
 }
 
-//struct LaunchScreen {
-//    let title: String
-//    static func getLaunchScreens() -> [LaunchScreen] {
-//        return [LaunchScreen(title: "Job History"),
-//                LaunchScreen(title: "STAR Stories"),
-//                LaunchScreen(title: "Interview Questions"),
-//                LaunchScreen(title: "Application Tracker")]
-//    }
-//    public enum launchScreens: String {
-//        case jobHistory = "Job History"
-//        case starStories = "STAR Stories"
-//        case interviewQuestions = "Interview Questions"
-//        case applicationTracker = "Application Tracker"
-//    }
-//}
 class SettingTableViewCellButton: UITableViewCell {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var defaultLabel: UILabel!
     @IBOutlet weak var defaultButton: UIButton!
-    
+    //MARK:- Variables
     weak var delegate: defaultLaunchScreenButtonDelegate?
-    
     private var defaultLaunchScreenPreference: DefaultLaunchScreen?
-    
+    //MARK:- Functions
     public func configureCell(setting: SettingsCell) {
         loadDefaultLaunchScreen()
         defaultButton.tintColor = AppColors.secondaryPurpleColor

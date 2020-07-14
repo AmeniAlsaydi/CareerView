@@ -9,9 +9,9 @@
 import UIKit
 
 class StarStoryEntryController: UIViewController {
-    
+
+    //MARK:- IBOutlets
     @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet weak var starStoryButton: UIButton!
     @IBOutlet weak var freeFormButton: UIButton!
     @IBOutlet weak var saveAsDefaultButton: UIButton!
@@ -19,25 +19,20 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var starStoryInputLabel: UILabel!
     @IBOutlet weak var starStoryExplanation: UILabel!
     @IBOutlet weak var entryPromptLabel: UILabel!
-    
     @IBOutlet weak var inputOptionView: UIView!
     @IBOutlet weak var blurEffect: UIVisualEffectView!
-    
     @IBOutlet weak var situationTextView: UITextView!
     @IBOutlet weak var taskTextView: UITextView!
     @IBOutlet weak var actionTextView: UITextView!
     @IBOutlet weak var resultTextView: UITextView!
-
     @IBOutlet weak var situationTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var taskTextViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var actionTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var resultTextViewHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var situationBkgdView: UIView!
     @IBOutlet weak var taskBkgdView: UIView!
     @IBOutlet weak var actionBkgdView: UIView!
     @IBOutlet weak var resultBkgdView: UIView!
-    
     @IBOutlet weak var situationLabel: UILabel!
     @IBOutlet weak var clearSituationButton: UIButton!
     @IBOutlet weak var taskLabel: UILabel!
@@ -46,7 +41,7 @@ class StarStoryEntryController: UIViewController {
     @IBOutlet weak var clearActionButton: UIButton!
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var clearResultButton: UIButton!
-    
+    //MARK:- Variables
     private var saveChoiceAsDefault = false {
         didSet {
             if saveChoiceAsDefault {
@@ -71,7 +66,7 @@ class StarStoryEntryController: UIViewController {
         }
     }
     var starSituation: StarSituation?
-    //MARK:- viewDidLoad
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         loadStarSiuationWhenEditing()
@@ -107,7 +102,6 @@ class StarStoryEntryController: UIViewController {
     //MARK:- Private Functions
     private func setUpAppUI() {
         view.backgroundColor = AppColors.systemBackgroundColor
-        
         starStoryButton.tintColor = AppColors.secondaryPurpleColor
         starStoryButton.titleLabel?.font = AppFonts.primaryFont
         freeFormButton.tintColor = AppColors.secondaryPurpleColor
@@ -117,14 +111,12 @@ class StarStoryEntryController: UIViewController {
         saveAsDefaultButton.setTitleColor(AppColors.darkGrayHighlightColor, for: .normal)
         freeFormButton.titleLabel?.font = AppFonts.secondaryFont
         AppColors.colors.gradientBackground(view: purpleView)
-        
         starStoryInputLabel.font = AppFonts.semiBoldLarge
         starStoryInputLabel.textColor = AppColors.whiteTextColor
         starStoryExplanation.font = AppFonts.primaryFont
         starStoryExplanation.textColor = AppColors.primaryBlackColor
         entryPromptLabel.font = AppFonts.semiBoldSmall
         entryPromptLabel.textColor = AppColors.primaryBlackColor
-        
         situationLabel.font = AppFonts.semiBoldSmall
         situationLabel.textColor = AppColors.primaryBlackColor
         situationBkgdView.backgroundColor = AppColors.complimentaryBackgroundColor
@@ -145,7 +137,6 @@ class StarStoryEntryController: UIViewController {
         clearResultButton.tintColor = AppColors.secondaryPurpleColor
     }
     private func configureView() {
-//        navigationController?.navigationBar.topItem?.title = "Back"
         setUpAppUI()
         configureButtonUI()
         navigationItem.title = "Add a STAR Story"
@@ -154,30 +145,25 @@ class StarStoryEntryController: UIViewController {
             style: .plain,
             target: self,
             action: #selector(saveButtonPressed(_:)))
-
         starStoryButton.layer.cornerRadius = AppRoundedViews.cornerRadius
         starStoryButton.layer.masksToBounds = true
         freeFormButton.layer.cornerRadius = AppRoundedViews.cornerRadius
         freeFormButton.layer.masksToBounds = true
         inputOptionView.layer.cornerRadius = AppRoundedViews.cornerRadius
         inputOptionView.layer.masksToBounds = true
-        
         situationTextView.delegate = self
         taskTextView.delegate = self
         actionTextView.delegate = self
         resultTextView.delegate = self
-        
         situationTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
         taskTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
         actionTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
         resultTextView.layer.cornerRadius = AppRoundedViews.cornerRadius
         setTextViewHeights()
-        
         configureTextViews(view: situationBkgdView)
         configureTextViews(view: taskBkgdView)
         configureTextViews(view: actionBkgdView)
         configureTextViews(view: resultBkgdView)
-        
     }
     private func configureTextViews(view: UIView) {
         view.layer.cornerRadius = AppRoundedViews.cornerRadius
@@ -185,13 +171,10 @@ class StarStoryEntryController: UIViewController {
     private func setTextViewHeights() {
         situationTextView.sizeToFit()
         situationTextViewHeightConstraint.constant = situationTextView.contentSize.height
-        
         taskTextView.sizeToFit()
         taskTextViewHeightContraint.constant = taskTextView.contentSize.height
-        
         actionTextView.sizeToFit()
         actionTextViewHeightConstraint.constant = actionTextView.contentSize.height
-        
         resultTextView.sizeToFit()
         resultTextViewHeightConstraint.constant = resultTextView.contentSize.height
     }
@@ -204,7 +187,6 @@ class StarStoryEntryController: UIViewController {
             print(guidedPreference.rawValue)
             guidedEntryPreference = guidedPreference
         }
-
     }
     // Note: This function is used when editing a starSituation, to load their respective textViews
     private func loadStarSiuationWhenEditing() {
@@ -240,7 +222,6 @@ class StarStoryEntryController: UIViewController {
         let actionText = actionTextView.text
         let resultText = resultTextView.text
         var starSituationID = UUID().uuidString
-        
         if isEditingStarSituation {
             guard let starID = starSituation?.id else {
                 return
@@ -263,7 +244,6 @@ class StarStoryEntryController: UIViewController {
                     DispatchQueue.main.async {
                         self?.removeIndicator()
                         self?.showAlert(title: "Star Story Saved!", message: "Success")
-                        
                     }
                     self?.navigationController?.popToRootViewController(animated: true)
                 }
@@ -280,7 +260,6 @@ class StarStoryEntryController: UIViewController {
                     DispatchQueue.main.async {
                         self?.removeIndicator()
                         self?.showAlert(title: "Star Story Saved!", message: "Success")
-                        
                     }
                     self?.navigationController?.popToRootViewController(animated: true)
                 }
@@ -319,11 +298,9 @@ class StarStoryEntryController: UIViewController {
         }
         transitionFromOptionToMainView()
     }
-    
     @IBAction func saveAsDefaultButtonPressed(_ sender: UIButton) {
         saveChoiceAsDefault.toggle()
     }
-    
     @IBAction func clearSituationButtonPressed(_ sender: UIButton) {
         situationTextView.text = ""
         setTextViewHeights()
@@ -340,9 +317,7 @@ class StarStoryEntryController: UIViewController {
         resultTextView.text = ""
         setTextViewHeights()
     }
-    
 }
-
 //MARK:- TextView Delegate
 extension StarStoryEntryController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {

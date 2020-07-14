@@ -12,10 +12,8 @@ import Contacts
 import ContactsUI
 
 class NewJobEntryController: UIViewController {
-    
     // MARK: ScrollView
     @IBOutlet weak var scrollView: UIScrollView!
-    
     //MARK: TextFields
     @IBOutlet weak var positionTitleTextField: FloatingLabelInput!
     @IBOutlet weak var companyNameTextField: FloatingLabelInput!
@@ -28,37 +26,28 @@ class NewJobEntryController: UIViewController {
     @IBOutlet weak var responsibility3TextField: FloatingLabelInput!
     @IBOutlet weak var addAnotherJobLabel: UILabel!
     @IBOutlet weak var promptLabel: UILabel!
-    
-    lazy var textFields: [FloatingLabelInput] = [positionTitleTextField, companyNameTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
-    private var currentTextFieldIndex = 0
-    
     //MARK: CollectionViews
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     @IBOutlet weak var starSituationsCollectionView: UICollectionView!
-    
     //MARK: Buttons
     @IBOutlet weak var currentEmployerButton: UIButton!
-    
     // MARK: Constraints
-    
     @IBOutlet weak var situationsCVHeight: NSLayoutConstraint!
     @IBOutlet weak var contactsCVHeight: NSLayoutConstraint!
-    
-    
+    //MARK:- Variables
+    lazy var textFields: [FloatingLabelInput] = [positionTitleTextField, companyNameTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
+    private var currentTextFieldIndex = 0
     private var activeTextField = UITextField()
-    
     public var uniqueStarIDs = [String]() {
         didSet {
             getStarSituations()
         }
     }
-    
     public var starSituationIDsToAdd = [String]() {
         didSet {
             uniqueStarIDs = starSituationIDsToAdd.removingDuplicates()
         }
     }
-    
     public var starSituations = [StarSituation]() {
         didSet {
             if starSituations.count > 0 {
@@ -67,7 +56,6 @@ class NewJobEntryController: UIViewController {
                     self.view.layoutIfNeeded()
                 })
             }
-            
             if starSituations.count == 0 {
                 UIView.animate(withDuration: 0.3, animations: { () -> Void in
                     self.situationsCVHeight.constant = 0
@@ -77,26 +65,6 @@ class NewJobEntryController: UIViewController {
             self.starSituationsCollectionView.reloadData()
         }
     }
-    
-    private func configureStarSituationCollectionView() {
-        starSituationsCollectionView.backgroundColor = .secondarySystemBackground
-    }
-    
-    private func configureContactsCollectionView() {
-        contactsCollectionView.delegate = self
-        contactsCollectionView.dataSource = self
-        contactsCollectionView.isUserInteractionEnabled = true
-        //self.contactsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // ??? ****
-        contactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
-        contactsCollectionView.backgroundColor = .secondarySystemBackground
-    }
-    
-    private func configureSituationsCollectionView() {
-        starSituationsCollectionView.delegate = self
-        starSituationsCollectionView.dataSource = self
-        starSituationsCollectionView.register(UINib(nibName: "BasicStarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "basicSituationCell")
-    }
-    
     private var contacts = [CNContact]()
     private var userContacts = [Contact]() {
         didSet {
@@ -130,15 +98,12 @@ class NewJobEntryController: UIViewController {
             }
         }
     }
-    
     private let datePicker = UIDatePicker()
-    
     private var beginDate: Date?
     private var endDate: Date?
     public var editingJob = false
-    
     public var userJob: UserJob?
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         currentEmployerButton.tintColor = AppColors.primaryBlackColor
@@ -154,36 +119,41 @@ class NewJobEntryController: UIViewController {
         setUpTextFieldsReturnType()
         scrollView.delegate = self
     }
-    
+    //MARK:- Funcs
+    private func configureStarSituationCollectionView() {
+        starSituationsCollectionView.backgroundColor = .secondarySystemBackground
+    }
+    private func configureContactsCollectionView() {
+        contactsCollectionView.delegate = self
+        contactsCollectionView.dataSource = self
+        contactsCollectionView.isUserInteractionEnabled = true
+        contactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
+        contactsCollectionView.backgroundColor = .secondarySystemBackground
+    }
+    private func configureSituationsCollectionView() {
+        starSituationsCollectionView.delegate = self
+        starSituationsCollectionView.dataSource = self
+        starSituationsCollectionView.register(UINib(nibName: "BasicStarSituationCellXib", bundle: nil), forCellWithReuseIdentifier: "basicSituationCell")
+    }
     private func listenForKeyboardEvents() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
-    
     @objc func keyboardWillChange(notification: Notification) {
         let userInfo = notification.userInfo!
-        
         let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
-        
         if notification.name == UIResponder.keyboardWillShowNotification {
             scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
         } else {
             scrollView.contentInset = UIEdgeInsets.zero
         }
-        
         scrollView.scrollIndicatorInsets = scrollView.contentInset
     }
-    
-    
     private func loadUserJob() {
-        
         if editingJob {
-            
             addAnotherJobLabel.text = "Edit Job"
             promptLabel.text = "Edit and update changes to this job below"
-            
             guard let job = userJob else { return }
             positionTitleTextField.text = job.title
             companyNameTextField.text = job.companyName
@@ -193,10 +163,8 @@ class NewJobEntryController: UIViewController {
             beginDateTextField.text = job.beginDate.dateValue().dateString()
             endDateTextField.text = job.endDate.dateValue().dateString()
             starSituationIDsToAdd = job.starSituationIDs
-            
             beginDate = job.beginDate.dateValue()
             endDate = job.endDate.dateValue()
-            
             // handle optional responsibilities
             switch job.responsibilities.count {
             case 1:
@@ -209,13 +177,11 @@ class NewJobEntryController: UIViewController {
             default:
                 print("no responsibilties")
             }
-            
             // handle contacts
             loadUserContacts(job)
         }
     }
-    
-    func loadUserContacts(_ userJob: UserJob) {
+    private func loadUserContacts(_ userJob: UserJob) {
         let userJobID = userJob.id
         DatabaseService.shared.fetchContactsForJob(userJobId: userJobID) { [weak self](result) in
             switch result {
@@ -228,16 +194,13 @@ class NewJobEntryController: UIViewController {
             }
         }
     }
-    
     private func setUpTextFieldsReturnType() {
         let _ = textFields.map { $0.returnKeyType = .next }
         responsibility3TextField.returnKeyType = .done
     }
-    
     private func setUpDelegateForTextFields() {
         let _ = textFields.map { $0.delegate = self }
     }
-    
     private func getStarSituations() {
         DatabaseService.shared.fetchStarSituations { [weak self] (result) in
             switch result {
@@ -250,33 +213,25 @@ class NewJobEntryController: UIViewController {
             }
         }
     }
-    
-    
     // FIXME: this function is used if both forms - make it reusable
     private func createDatePicker() {
         // toolbar
         let toolbar = UIToolbar()
-        
         toolbar.sizeToFit()
-        
         // bar button
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
         toolbar.setItems([doneButton], animated: true)
-        
         // assign toolbar
         beginDateTextField.inputAccessoryView = toolbar
         endDateTextField.inputAccessoryView = toolbar
-        
         // assign date picker to text feild
         beginDateTextField.inputView = datePicker
         endDateTextField.inputView = datePicker
-        
         // date picker mode
         datePicker.datePickerMode = .date
     }
     
     @objc func doneButtonPressed() {
-        
         if activeTextField == beginDateTextField {
             beginDateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
             beginDate = datePicker.date
@@ -284,37 +239,23 @@ class NewJobEntryController: UIViewController {
             endDateTextField.text = "\(datePicker.date.dateString("MM/dd/yyyy"))"
             endDate = datePicker.date
         }
-        
         currentTextFieldIndex += 1
         textFields[currentTextFieldIndex].becomeFirstResponder()
     }
-    
     private func configureNavBar() {
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveJobButtonPressed(_:)))
     }
-    
     private func styleAllTextFields() {
-        
         let textFields = [companyNameTextField, positionTitleTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
-        
         let _ = textFields.map { $0?.styleTextField()}
-        
     }
-    
-    
     @objc private func saveJobButtonPressed(_ sender: UIBarButtonItem) {
-        
         self.showIndicator()
-        
         var userJobId = UUID().uuidString
-        
         if editingJob {
             userJobId = userJob?.id ?? UUID().uuidString
         }
-        
         // guard for mandatory fields
-        
         guard let jobTitle = positionTitleTextField.text,
             !jobTitle.isEmpty,
             let companyName = companyNameTextField.text,
@@ -324,47 +265,33 @@ class NewJobEntryController: UIViewController {
                 self.showAlert(title: "Missing fields", message: "Check all mandatory fields.")
                 return
         }
-        
         let location = locationTextField.text
-        
         guard let beginDate = beginDate else {
             self.showAlert(title: "Missing fields", message: "Please enter the date you began this position.")
             return
         }
-        
         // handle responsibilities:
         var responsibilties = [String]()
-        
         guard let responsibility1 = responsibility1TextField.text else {
             self.showAlert(title: "Responsibilities?", message: "Please enter at least one of ypur responsibilites at this position.")
             return
         }
-        
         responsibilties.append(responsibility1)
-        
         // optional responsibilties
         if let responsibility2 = responsibility2TextField.text {
             responsibilties.append(responsibility2)
         }
-        
         if let responsibility3 = responsibility3TextField.text {
             responsibilties.append(responsibility3)
         }
-        
-        
         let beginTimeStamp = Timestamp(date: beginDate)
         var endTimeStamp: Timestamp? = nil
-        
         if isCurrentEmployer {
             endTimeStamp = Timestamp(date: Date())
         } else if let endDate = endDate {
             endTimeStamp = Timestamp(date: endDate)
         }
-        
-        
-        
         let userJobToSave = UserJob(id: userJobId, title: jobTitle, companyName: companyName, location: location ?? "", beginDate: beginTimeStamp, endDate: endTimeStamp!, currentEmployer: isCurrentEmployer, description: description, responsibilities: responsibilties, starSituationIDs: uniqueStarIDs, interviewQuestionIDs: [])
-        
         DatabaseService.shared.addToUserJobs(userJob: userJobToSave, completion: { [weak self] (result) in
             switch result {
             case .failure(let error):
@@ -389,7 +316,6 @@ class NewJobEntryController: UIViewController {
                 }
             }
         })
-        
         // send contacts to contacts collection for user job
         if userContacts.count != 0 {
             for contact in userContacts {
@@ -426,13 +352,9 @@ class NewJobEntryController: UIViewController {
             }
         }
     }
-    
-    
     @IBAction func currentEmployerButtonPressed(_ sender: UIButton) {
         isCurrentEmployer.toggle()
-        
     }
-    
     @IBAction func addStarSituationButtonPressed(_ sender: UIButton) {
         let starStoryVC = StarStoryMainController(nibName: "StarStoryMainXib", bundle: nil)
         starStoryVC.starSituationIDs = starSituationIDsToAdd
@@ -440,9 +362,7 @@ class NewJobEntryController: UIViewController {
         starStoryVC.delegate = self
         present(UINavigationController(rootViewController: starStoryVC), animated: true)
     }
-    
     @IBAction func addContactsButtonPressed(_ sender: UIButton) {
-        
         //Note: This will check for access to contact permission and if not determined, ask again
         // If the user denied permission, they will directed to settings where they can give permission to the app
         // TODO: Determine, do we want to ask permission again in the app if they denied? Or show alert?
@@ -460,15 +380,13 @@ class NewJobEntryController: UIViewController {
             retrieveContacts()
         }
     }
-    
     private func retrieveContacts() {
         let contactPicker = CNContactPickerViewController()
         contactPicker.delegate = self
         present(contactPicker, animated: true)
     }
 }
-
-//MARK:- CNContactPickerDelegate
+//MARK:- Extensions
 extension NewJobEntryController: CNContactPickerDelegate {
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
         self.contacts = contacts
@@ -481,22 +399,17 @@ extension NewJobEntryController: CNContactPickerDelegate {
         }
     }
 }
-
-
 extension NewJobEntryController: StarStoryMainControllerDelegate {
     func starStoryMainViewControllerDismissed(starSituations: [String]) {
         starSituationIDsToAdd = starSituations
     }
 }
-
 //MARK: TextField Delegate
 extension NewJobEntryController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField as! FloatingLabelInput
         currentTextFieldIndex = textFields.firstIndex(of: activeTextField as! FloatingLabelInput)!
-
     }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.returnKeyType == .next {
             currentTextFieldIndex += 1
@@ -507,19 +420,15 @@ extension NewJobEntryController: UITextFieldDelegate {
         return true
     }
 }
-
 //MARK:- CollectionView Extension
 extension NewJobEntryController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         if collectionView == contactsCollectionView {
             return CGSize(width: 150, height: 45) // FIXME: hardcoded values - this is no good
         } else if collectionView == starSituationsCollectionView {
-            
             let maxsize: CGSize = UIScreen.main.bounds.size
             let width: CGFloat = maxsize.width * 0.9
             return CGSize(width: width, height: 90) // FIXME: hardcoded values - this is no good
@@ -527,36 +436,27 @@ extension NewJobEntryController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 0, height: 0)
     }
 }
-
 extension NewJobEntryController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         if collectionView == contactsCollectionView {
-            
             let contact = userContacts[indexPath.row]
             let contactViewController = CNContactViewController(forUnknownContact: contact.contactValue)
             navigationController?.pushViewController(contactViewController, animated: true)
-            
         } else if collectionView == starSituationsCollectionView {
             // if star situation is selected - do we want/need this?
         }
     }
 }
-
 extension NewJobEntryController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         if collectionView == contactsCollectionView {
             return userContacts.count
         } else if collectionView == starSituationsCollectionView {
             return starSituations.count
         }
-        
         return 1
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if collectionView == contactsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userContactCell", for: indexPath) as? UserContactCVCell else {
                 fatalError("failed to dequeue userContactCell")
@@ -565,37 +465,29 @@ extension NewJobEntryController: UICollectionViewDataSource {
             cell.configureCell(contact: contact)
             return cell
         }
-            
         else if collectionView == starSituationsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basicSituationCell", for: indexPath) as? BasicStarSituationCell else {
                 fatalError("could not down cast to BasicStarSituationCell")
             }
-            
             let situation = starSituations[indexPath.row]
             cell.configureCell(situation)
             cell.delegate = self
             cell.backgroundColor = .white
             return cell
         }
-        
         return UICollectionViewCell()
     }
 }
-
-
 extension NewJobEntryController: BasicSituationDelegate {
     func didPressMoreButton(starSituation: StarSituation, starSituationCell: BasicStarSituationCell) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { alertaction in self.deleteSituationID(starSituation: starSituation) }
-        
         alertController.addAction(cancelAction)
         alertController.addAction(deleteAction)
         present(alertController, animated: true, completion: nil)
     }
-    
     private func deleteSituationID(starSituation: StarSituation) {
-        
         guard let index = uniqueStarIDs.firstIndex(of: starSituation.id) else {
             print("star situation id not found")
             return
@@ -612,7 +504,6 @@ extension NewJobEntryController: BasicSituationDelegate {
         }
     }
 }
-
 extension NewJobEntryController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0){

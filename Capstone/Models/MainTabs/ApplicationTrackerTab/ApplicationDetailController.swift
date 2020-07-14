@@ -11,7 +11,7 @@ import MapKit
 import SafariServices
 
 class ApplicationDetailController: UIViewController {
-    
+    //MARK:- IBOutlet
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var appliedToLabel: UILabel!
@@ -21,53 +21,41 @@ class ApplicationDetailController: UIViewController {
     @IBOutlet weak var remoteLabel: UILabel!
     @IBOutlet weak var addressOrCityLabel: UILabel!
     @IBOutlet weak var notesLabel: UILabel!
-    
     @IBOutlet weak var dateAppliedLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var websiteButton: UIButton!
     @IBOutlet weak var view1: ApplicationDetailView!
     @IBOutlet weak var view1Height: NSLayoutConstraint!
-    
     @IBOutlet weak var view2: ApplicationDetailView!
     @IBOutlet weak var view2Height: NSLayoutConstraint!
-    
     @IBOutlet weak var view3: ApplicationDetailView!
     @IBOutlet weak var view3Height: NSLayoutConstraint!
-    
     @IBOutlet weak var mapHeight: NSLayoutConstraint!
-    
     // icons
     @IBOutlet weak var mapIcon: UIImageView!
     @IBOutlet weak var notesIcon: UIImageView!
     @IBOutlet weak var interviewIcon: UIImageView!
-    
     // titles
     @IBOutlet weak var locationTitle: UILabel!
     @IBOutlet weak var notesTitle: UILabel!
     @IBOutlet weak var interviewTitle: UILabel!
     @IBOutlet weak var noInterviewsLabel: UILabel!
-    
     // button height
     @IBOutlet weak var buttonHeight: NSLayoutConstraint!
-    
-    
-    var jobApplication: JobApplication 
-    
+    //MARK:- Variables
+    var jobApplication: JobApplication
     private var interviewCount = 0
-    
     private var interviewData = [Interview]()
-    
     private var interviewViewHeight: NSLayoutConstraint!
-        
+    
     init(_ jobApplication: JobApplication) {
         self.jobApplication = jobApplication
         super.init(nibName: "ApplicationDetailXib", bundle: nil)
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         configureDetailVC(application: jobApplication)
@@ -78,32 +66,26 @@ class ApplicationDetailController: UIViewController {
         setUpViewUI()
         
     }
-    
+    //MARK:- Functions
     private func configureNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.optionsIcon, style: .plain, target: self, action: #selector(moreOptionsButtonPressed(_:)))
     }
-    
     private func setUpViewUI() {
         //icons
         mapIcon.tintColor = AppColors.secondaryPurpleColor
         notesIcon.tintColor = AppColors.secondaryPurpleColor
         interviewIcon.tintColor = AppColors.secondaryPurpleColor
-        
         //labels
         appliedToLabel.font = AppFonts.boldFont
         appliedAsLabel.font = AppFonts.semiBoldSmall
         dateAppliedLabel.font = AppFonts.subtitleFont
         websiteButton.titleLabel?.font = AppFonts.semiBoldSmall
         applicationStatusLabel.font = AppFonts.subtitleFont
-        
         // Titles
         locationTitle.font = AppFonts.mediumBoldFont
         notesTitle.font = AppFonts.mediumBoldFont
         interviewTitle.font = AppFonts.mediumBoldFont
-        
-        
     }
-    
     public func getInterview(application: JobApplication) {
         self.showIndicator()
         DatabaseService.shared.getApplicationInterview(applicationID: application.id) { [weak self] (result) in
@@ -121,16 +103,11 @@ class ApplicationDetailController: UIViewController {
             }
         }
     }
-    
     public func configureDetailVC(application: JobApplication) {
-        
         websiteButton.setTitleColor(.systemBlue, for: .normal)
-        
         appliedAsLabel.text = application.positionTitle.capitalized
         appliedToLabel.text = application.companyName.capitalized
-        
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
-            
             DispatchQueue.main.async {
                 if application.receivedOffer {
                     self.progressBar.progress = 1.0
@@ -150,54 +127,40 @@ class ApplicationDetailController: UIViewController {
                 } else {
                     self.progressBar.progress = 0.0
                 }
-                
                 if self.progressBar.progress == 1 {
                     timer.invalidate() 
                 }
             }
         }
-        
         if application.remoteStatus {
             addressOrCityLabel.text = "Remote"
         }
-        
         if let submittedDate = application.dateApplied?.dateValue().dateString("MMM d, yyyy") {
             dateAppliedLabel.text = "Date Applied: \(submittedDate)"
         } else {
             dateAppliedLabel.text = "Date Applied: N/A"
         }
-        
         if let notes = application.notes, !notes.isEmpty {
             notesLabel.text = notes
         } else {
             notesLabel.text = "No notes for this application."
         }
-        
         guard let url = application.positionURL, !url.isEmpty else {
             buttonHeight.constant = 0
             websiteButton.isHidden = true
             return
         }
-        
-        
     }
-    
-    
     private func configureMapView() {
         mapView.delegate = self
         mapView.isUserInteractionEnabled = false 
     }
-    
     private func loadMapAnnotations()  {
         self.showIndicator()
-        
         let annotation = MKPointAnnotation()
         annotation.title = jobApplication.companyName
-        
         if let city = jobApplication.city {
-            
             addressOrCityLabel.text = city
-            
             getCoordinateFrom(address: city) { [weak self] (coordinate, error) in
                 guard let coordinate = coordinate, error == nil else { return }
                 let cityCoordinate = CLLocationCoordinate2DMake(Double(coordinate.latitude), Double(coordinate.longitude))
@@ -205,18 +168,15 @@ class ApplicationDetailController: UIViewController {
                 self?.mapView.addAnnotation(annotation)
                 DispatchQueue.main.async {
                     self?.removeIndicator()
-                     self?.mapView.showAnnotations([annotation], animated: true)
+                    self?.mapView.showAnnotations([annotation], animated: true)
                 }
             }
-            
         } else {
             mapHeight.constant = 0
             mapView.isHidden = true
         }
     }
-    
     private func updateInterview() {
-        
         switch interviewCount {
         case 0 :
             view1.isHidden = true
@@ -227,24 +187,18 @@ class ApplicationDetailController: UIViewController {
             view2.isHidden = true
             view3.isHidden = true
             view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
-            
             if interviewData[0].thankYouSent {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
-            
             if let notes = interviewData[0].notes {
                 view1.notesLabel.text = notes
             }
-            
         case 2:
             view3.isHidden = true
-            
             view1.interviewDateLabel.text = "Interview Date: \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
-            
             if interviewData[0].thankYouSent {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
-            
             view2.interviewDateLabel.text = "Interview Date: \(interviewData[1].interviewDate?.dateValue().dateString() ?? "")"
             if interviewData[1].thankYouSent {
                 view2.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
@@ -255,23 +209,19 @@ class ApplicationDetailController: UIViewController {
             if let notes = interviewData[1].notes {
                 view2.notesLabel.text = notes
             }
-            
         case 3:
             view1.interviewDateLabel.text = "Interview Date #1 - \(interviewData[0].interviewDate?.dateValue().dateString() ?? "")"
             if interviewData[0].thankYouSent {
                 view1.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
-            
             view2.interviewDateLabel.text = "Interview Date #2 - \(interviewData[1].interviewDate?.dateValue().dateString() ?? "")"
             if interviewData[1].thankYouSent {
                 view2.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
-            
             view3.interviewDateLabel.text = "Interview Date #3 - \(interviewData[2].interviewDate?.dateValue().dateString() ?? "")"
             if interviewData[2].thankYouSent {
                 view3.thankYouButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             }
-            
             if let notes = interviewData[0].notes {
                 view1.notesLabel.text = notes
             }
@@ -281,18 +231,14 @@ class ApplicationDetailController: UIViewController {
             if let notes = interviewData[2].notes {
                 view3.notesLabel.text = notes
             }
-            
         default:
             print("sorry no more than 3 interviews: this should be an alert controller -> suggest for user to get rid of old interviews")
         }
         view.layoutIfNeeded()
     }
-    
-    @objc
-    func moreOptionsButtonPressed(_ sender: UIButton) {
+    @objc func moreOptionsButtonPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (actionSheet) in
             DatabaseService.shared.deleteJobApplication(applicationID: self.jobApplication.id) { [weak self] (result) in
                 switch result {
@@ -305,7 +251,6 @@ class ApplicationDetailController: UIViewController {
                 }
             }
         }
-        
         let editAction = UIAlertAction(title: "Edit", style: .default) { [weak self] (actionSheet) in
             let applicationEntryVC = NewApplicationController(nibName: "NewApplicationXib", bundle: nil)
             applicationEntryVC.editingApplication = true
@@ -313,27 +258,21 @@ class ApplicationDetailController: UIViewController {
             applicationEntryVC.interviewData = self?.interviewData  
             self?.show(applicationEntryVC, sender: nil)
         }
-        
         alertController.addAction(cancelAction)
         alertController.addAction(deleteAction)
         alertController.addAction(editAction)
         present(alertController, animated: true, completion: nil)
     }
-    
     @IBAction func websitePressed(_ sender: UIButton) {
         guard let url = URL(string: jobApplication.positionURL ?? "") else {
             showAlert(title: "Error", message: "No website linked with the application")
             return
         }
-        
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true)
     }
-    
 }
-
 extension ApplicationDetailController: MKMapViewDelegate {
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKPointAnnotation else {return nil}
         let identifier = "annotationView"
@@ -347,8 +286,7 @@ extension ApplicationDetailController: MKMapViewDelegate {
         }
         return annotationView
     }
-    
     private func getCoordinateFrom(address: String, completion: @escaping(_ coordinate: CLLocationCoordinate2D?, _ error: Error?) -> () ) {
-           CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
-       }
+        CLGeocoder().geocodeAddressString(address) { completion($0?.first?.location?.coordinate, $1) }
+    }
 }

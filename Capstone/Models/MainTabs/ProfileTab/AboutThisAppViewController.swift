@@ -9,22 +9,22 @@
 import UIKit
 
 class AboutThisAppViewController: UIViewController {
-
+    //MARK:- IBOutlets
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         configureNavBar()
     }
+    //MARK:- Functions
     private func configureNavBar() {
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.sizeToFit()
     }
     private func setupView() {
         imageView.layer.cornerRadius = 4
-        
         textView.text = """
         This app was developed at Pursuit.org, over the course of 6 weeks by a team of 4 iOS developers for their capstone project. This app marks the completion of their 10 month training, to become developers.
         

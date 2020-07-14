@@ -8,28 +8,27 @@
 
 import UIKit
 
+//MARK:- Protocols
 protocol EditInterviewQuestionDelegate: AnyObject {
     func didEditInterviewQuestion()
 }
 
 class InterviewQuestionEntryController: UIViewController {
-    
+    //MARK:- IBOutlets
     @IBOutlet weak var questionTextfield: UITextField!
-    
+    //MARK:- Variables
     var editingMode = false
     var wasEdited = false
     var customQuestion: InterviewQuestion?
     var createdQuestion: InterviewQuestion?
-    
     weak var delegate: EditInterviewQuestionDelegate?
-    
+    //MARK:- ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
         configureNavBar()
-        
     }
-    
+    //MARK:- Functions
     private func updateUI() {
         if editingMode {
             questionTextfield.text = customQuestion?.question
@@ -39,17 +38,14 @@ class InterviewQuestionEntryController: UIViewController {
             navigationItem.title = "Add A Custom Question"
         }
     }
-    
     private func configureNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppButtonIcons.checkmarkIcon, style: .plain, target: self, action: #selector(createQuestionButtonPressed(_:)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: AppButtonIcons.xmarkIcon, style: .plain, target: self, action: #selector(cancelButtonPressed(_:)) )
     }
-    
     @objc private func cancelButtonPressed(_ sender: UIBarButtonItem) {
         wasEdited = false
         dismiss(animated: true)
     }
-    
     @objc private func createQuestionButtonPressed(_ sender: UIBarButtonItem) {
         self.showIndicator()
         if editingMode {
@@ -104,4 +100,3 @@ class InterviewQuestionEntryController: UIViewController {
         }
     }
 }
-
