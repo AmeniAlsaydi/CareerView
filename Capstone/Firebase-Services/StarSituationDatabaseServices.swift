@@ -137,7 +137,5 @@ extension DatabaseService {
                 completion(.success(true))
             }
         }
-        
-        
     }
 }
