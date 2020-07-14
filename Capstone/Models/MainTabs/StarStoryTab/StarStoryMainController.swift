@@ -278,6 +278,7 @@ extension StarStoryMainController: StarSituationCellDelegate {
         navigationController?.pushViewController(destinationViewController, animated: true)
     }
     private func deleteStarSituation(starSituation: StarSituation, starSituationCell: StarSituationCell) {
+        
         self.showIndicator()
         guard let index = starSituations.firstIndex(of: starSituation) else { return }
         DispatchQueue.main.async {
@@ -291,6 +292,15 @@ extension StarStoryMainController: StarSituationCellDelegate {
                     self?.showAlert(title: "Success", message: "STAR Situation deleted")
                     self?.starSituations.remove(at: index)
                 }
+            }
+        }
+        
+        DatabaseService.shared.removeStarSituationfromUserJob(situation: starSituation) { (result) in
+            switch result {
+            case .failure(let error):
+                print("error removing a deleted star story from a user job: \(error)")
+            case .success:
+                print("star story deleted from user job")
             }
         }
     }

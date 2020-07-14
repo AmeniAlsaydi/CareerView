@@ -34,7 +34,6 @@
 		884E5572248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 884E5571248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib */; };
 		884E55742488061100BA180F /* FirstTimeUserExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */; };
 		884E557A2488298B00BA180F /* ScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */; };
-		8862585C24B50FD600A3D7DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8862585B24B50FD600A3D7DE /* GoogleService-Info.plist */; };
 		886B5134248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */; };
 		88784D7E24A288CF00EE9852 /* WelcomeScreenXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88784D7D24A288CF00EE9852 /* WelcomeScreenXib.xib */; };
 		88784D8024A288E300EE9852 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88784D7F24A288E300EE9852 /* WelcomeScreenViewController.swift */; };
@@ -60,6 +59,7 @@
 		B737DF362486A1740052F375 /* AnsweredQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B737DF352486A1740052F375 /* AnsweredQuestion.swift */; };
 		B74108C1248E120900EEFBA8 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74108C0248E120900EEFBA8 /* ProgressBar.swift */; };
 		B74108C7248EDC8200EEFBA8 /* JobApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74108C6248EDC8200EEFBA8 /* JobApplicationTests.swift */; };
+		B767DF5424BD1ECC00084C11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B767DF5324BD1ECC00084C11 /* GoogleService-Info.plist */; };
 		B78EE8362497EA8B00F7E973 /* NewJobEntryXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B78EE8352497EA8B00F7E973 /* NewJobEntryXib.xib */; };
 		B78EE8382497EAB700F7E973 /* NewJobEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78EE8372497EAB700F7E973 /* NewJobEntryController.swift */; };
 		B78EE83E249A6C9100F7E973 /* BasicStarSituationCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B78EE83D249A6C9000F7E973 /* BasicStarSituationCellXib.xib */; };
@@ -173,7 +173,6 @@
 		884E5571248805FA00BA180F /* FirstTimeUserExperienceViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstTimeUserExperienceViewControllerXib.xib; sourceTree = "<group>"; };
 		884E55732488061100BA180F /* FirstTimeUserExperienceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeUserExperienceViewController.swift; sourceTree = "<group>"; };
 		884E55792488298B00BA180F /* ScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
-		8862585B24B50FD600A3D7DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		886B5133248832A6006EF56A /* ScreenshotCollectionViewCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshotCollectionViewCellXib.xib; sourceTree = "<group>"; };
 		88784D7924A1858900EE9852 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		88784D7D24A288CF00EE9852 /* WelcomeScreenXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeScreenXib.xib; sourceTree = "<group>"; };
@@ -203,6 +202,7 @@
 		B737DF352486A1740052F375 /* AnsweredQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnsweredQuestion.swift; sourceTree = "<group>"; };
 		B74108C0248E120900EEFBA8 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		B74108C6248EDC8200EEFBA8 /* JobApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationTests.swift; sourceTree = "<group>"; };
+		B767DF5324BD1ECC00084C11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B78EE8352497EA8B00F7E973 /* NewJobEntryXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewJobEntryXib.xib; sourceTree = "<group>"; };
 		B78EE8372497EAB700F7E973 /* NewJobEntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewJobEntryController.swift; sourceTree = "<group>"; };
 		B78EE83D249A6C9000F7E973 /* BasicStarSituationCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicStarSituationCellXib.xib; sourceTree = "<group>"; };
@@ -598,8 +598,8 @@
 				B7976E54247EA2C1001AE3B3 /* Views */,
 				88440BFF24B514C3005441D5 /* MainTabs */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
-				8862585B24B50FD600A3D7DE /* GoogleService-Info.plist */,
 				B725C24724768331000811C5 /* Info.plist */,
+				B767DF5324BD1ECC00084C11 /* GoogleService-Info.plist */,
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -809,6 +809,7 @@
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
 				B7976E8524805085001AE3B3 /* JobHistoryXib.xib in Resources */,
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
+				B767DF5424BD1ECC00084C11 /* GoogleService-Info.plist in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
@@ -823,7 +824,6 @@
 				889FCAAA2499671D00CC9153 /* SettingsViewControllerXib.xib in Resources */,
 				881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */,
 				B7976E9524805C9B001AE3B3 /* StarStoryEntryXib.xib in Resources */,
-				8862585C24B50FD600A3D7DE /* GoogleService-Info.plist in Resources */,
 				889FCAAE2499677100CC9153 /* AboutThisAppViewControllerXib.xib in Resources */,
 				887851E024A0F415008966A9 /* SettingTableViewCellButton.xib in Resources */,
 				881CD3402499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib in Resources */,

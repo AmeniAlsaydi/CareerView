@@ -96,4 +96,23 @@ extension DatabaseService {
             }
         }
     }
+    
+    // remove user job from star situation
+    
+    public func removeUserJobFromStarStory(starSitutationID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+        guard let user = Auth.auth().currentUser else {return}
+        let userID = user.uid
+        
+        let id: String? = nil 
+        
+        db.collection(DatabaseService.userCollection).document(userID).collection(DatabaseService.starSituationsCollection).document(starSitutationID).updateData(["userJobID": id as Any]) { (error) in
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
 }

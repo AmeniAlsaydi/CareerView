@@ -9,7 +9,9 @@
 import UIKit
 
 class StarStoryEntryController: UIViewController {
+
     //MARK:- IBOutlets
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var starStoryButton: UIButton!
     @IBOutlet weak var freeFormButton: UIButton!
     @IBOutlet weak var saveAsDefaultButton: UIButton!
@@ -71,7 +73,32 @@ class StarStoryEntryController: UIViewController {
         updateStarSiuation()
         configureView()
         loadGuidedStarSituationPreference()
+        listenForKeyboardEvents()
     }
+    
+    //MARK: Keyboard handling
+    
+    private func listenForKeyboardEvents() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        let userInfo = notification.userInfo!
+        
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
+        
+        if notification.name == UIResponder.keyboardWillShowNotification {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
+        } else {
+            scrollView.contentInset = UIEdgeInsets.zero
+        }
+        
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+    }
+    
     //MARK:- Private Functions
     private func setUpAppUI() {
         view.backgroundColor = AppColors.systemBackgroundColor
