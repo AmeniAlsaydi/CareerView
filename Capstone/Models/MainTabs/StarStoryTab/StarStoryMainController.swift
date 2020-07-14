@@ -307,6 +307,8 @@ extension StarStoryMainController: StarSituationCellDelegate {
                 }
             }
         }
+        
+        //here is where i need to remove the star story from the user job
     }
     private func removeSTARStoryFromAnswer(starStory: StarSituation) {
         guard let answerIDs = starStory.interviewQuestionsIDs else { return }
