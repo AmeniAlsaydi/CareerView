@@ -17,4 +17,3 @@ struct LaunchScreen {
                 LaunchScreen(title: DefaultLaunchScreen.applicationTracker.rawValue)]
     }
 }
-

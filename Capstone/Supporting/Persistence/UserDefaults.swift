@@ -8,20 +8,25 @@
 
 import Foundation
 
+
 enum GuidedStarSitutionInput: String {
+    /// This default selects between a "guided" or "free form" input of the STAR Story
     case guided = "guided"
     case freeForm = "freeForm"
 }
 enum ShowUserStarInputOption: String {
+    /// This default determines whether the user will be prompted with the choice or not ("Do not show again")
     case on = "on"
     case off = "off"
 }
 enum DefaultLaunchScreen: String {
+    /// Determines what tab will be presented at launch
     case jobHistory = "Job History"
     case starStories = "STAR Stories"
     case interviewQuestions = "Interview Questions"
     case applicationTracker = "Application Tracker"
 }
+
 struct UserPreferenceKey {
     static let GuidedInputPreference = "GuidedInputPreference"
     static let ShowUserStarInputOption = "ShowUserStarInputOption"
@@ -29,11 +34,10 @@ struct UserPreferenceKey {
 }
 
 class UserPreference {
-    
     private init() {}
     private let standard = UserDefaults.standard
     static let shared = UserPreference()
-    
+    //MARK:- Default Launch Screen
     func updateDefaultLaunchScreen(with preference: String) {
         print("default launch screen set to: \(preference)")
         standard.set(preference, forKey: UserPreferenceKey.defaultLaunchScreen)
@@ -44,7 +48,7 @@ class UserPreference {
         }
         return DefaultLaunchScreen(rawValue: preference)
     }
-    // Note: Guided or freeform preference
+    //MARK:- Guided or freeform default
     func updateShowGuidedStarSituationInput(with preference: GuidedStarSitutionInput) {
         standard.set(preference.rawValue, forKey: UserPreferenceKey.GuidedInputPreference)
     }
@@ -54,7 +58,7 @@ class UserPreference {
         }
         return GuidedStarSitutionInput(rawValue: preference)
     }
-    // Note: This will determine whether or not to show the option for guided or freeform
+    //MARK:- STAR Story input ption default
     func updatePreferenceShowUserInputOption(with preference: ShowUserStarInputOption) {
         standard.set(preference.rawValue, forKey: UserPreferenceKey.ShowUserStarInputOption)
     }
