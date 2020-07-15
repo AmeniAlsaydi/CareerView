@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -14,6 +14,7 @@
                 <outlet property="companyNameTextField" destination="X3u-Xd-YlK" id="wna-H6-wlL"/>
                 <outlet property="contactsCVHeight" destination="OAU-wM-bVU" id="QPb-R9-khn"/>
                 <outlet property="contactsCollectionView" destination="dOy-nq-266" id="lrh-Po-eqR"/>
+                <outlet property="contactsPromptLabel" destination="MG3-Wu-MU6" id="Kj3-Du-vox"/>
                 <outlet property="currentEmployerButton" destination="Wno-rf-MbO" id="14Z-gg-gjs"/>
                 <outlet property="descriptionTextField" destination="qub-8J-lcb" id="Ng6-1B-QKt"/>
                 <outlet property="endDateTextField" destination="77o-g7-Jd2" id="Jhs-ND-bwn"/>
@@ -38,7 +39,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anl-Vr-wkA" userLabel="Content View">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="1023.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1036.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add another job" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Lj-RJ-vnm">
                                     <rect key="frame" x="20" y="20" width="374" height="29"/>
@@ -182,7 +183,7 @@
                                     </connections>
                                 </button>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dOy-nq-266">
-                                    <rect key="frame" x="0.0" y="993.5" width="414" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="988.5" width="414" height="0.0"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" id="OAU-wM-bVU"/>
@@ -194,6 +195,12 @@
                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </collectionViewFlowLayout>
                                 </collectionView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* to remove a contact press and hold it until the menu appears" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MG3-Wu-MU6">
+                                    <rect key="frame" x="8" y="987.5" width="398" height="41"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
@@ -209,18 +216,19 @@
                                 <constraint firstItem="0df-Od-mN3" firstAttribute="top" secondItem="Exm-6B-qlI" secondAttribute="bottom" constant="15" id="5Dj-EJ-MHV"/>
                                 <constraint firstItem="UYM-Y3-ZfP" firstAttribute="top" secondItem="qub-8J-lcb" secondAttribute="bottom" constant="30" id="6tx-jW-NI2"/>
                                 <constraint firstItem="sgL-06-x2q" firstAttribute="top" secondItem="f8I-d9-hN1" secondAttribute="bottom" constant="25" id="7zI-Mp-mmi"/>
-                                <constraint firstAttribute="bottom" secondItem="dOy-nq-266" secondAttribute="bottom" constant="30" id="8Jc-70-FtO"/>
+                                <constraint firstAttribute="bottom" secondItem="dOy-nq-266" secondAttribute="bottom" constant="48" id="8Jc-70-FtO"/>
                                 <constraint firstAttribute="trailing" secondItem="dOy-nq-266" secondAttribute="trailing" id="9ZN-BD-vPw"/>
                                 <constraint firstItem="77o-g7-Jd2" firstAttribute="top" secondItem="eop-AS-ov7" secondAttribute="bottom" constant="40" id="Bbu-tN-tef"/>
                                 <constraint firstAttribute="trailing" secondItem="mM0-hX-0l4" secondAttribute="trailing" constant="20" id="BxT-N7-RBv"/>
                                 <constraint firstItem="Urj-X4-Vq7" firstAttribute="leading" secondItem="anl-Vr-wkA" secondAttribute="leading" constant="20" id="BzD-qB-Zwy"/>
+                                <constraint firstItem="MG3-Wu-MU6" firstAttribute="leading" secondItem="anl-Vr-wkA" secondAttribute="leading" constant="8" id="G8H-Tj-jxE"/>
                                 <constraint firstAttribute="trailing" secondItem="9FQ-W9-wEm" secondAttribute="trailing" constant="20" id="Gj4-kr-iLZ"/>
                                 <constraint firstItem="Urj-X4-Vq7" firstAttribute="top" secondItem="3Lj-RJ-vnm" secondAttribute="bottom" constant="10" id="Gr1-Fd-MZn"/>
                                 <constraint firstAttribute="trailing" secondItem="eop-AS-ov7" secondAttribute="trailing" constant="20" id="KCm-R2-hNu"/>
                                 <constraint firstAttribute="trailing" secondItem="qyJ-at-csv" secondAttribute="trailing" constant="20" id="Ks7-lx-va5"/>
                                 <constraint firstItem="Hoy-iJ-xEG" firstAttribute="leading" secondItem="anl-Vr-wkA" secondAttribute="leading" constant="20" id="Mg4-DI-i9h"/>
                                 <constraint firstItem="eop-AS-ov7" firstAttribute="top" secondItem="UYM-Y3-ZfP" secondAttribute="bottom" constant="40" id="NQf-x4-Tdx"/>
-                                <constraint firstItem="dOy-nq-266" firstAttribute="top" secondItem="Hoy-iJ-xEG" secondAttribute="bottom" constant="15" id="Nef-zM-TaL"/>
+                                <constraint firstItem="dOy-nq-266" firstAttribute="top" secondItem="Hoy-iJ-xEG" secondAttribute="bottom" constant="10" id="Nef-zM-TaL"/>
                                 <constraint firstItem="gt0-X7-POk" firstAttribute="top" secondItem="Sbx-cA-VI2" secondAttribute="bottom" constant="40" id="Nqc-dZ-RA7"/>
                                 <constraint firstItem="0df-Od-mN3" firstAttribute="leading" secondItem="anl-Vr-wkA" secondAttribute="leading" id="P16-lW-0Rf"/>
                                 <constraint firstItem="X3u-Xd-YlK" firstAttribute="leading" secondItem="anl-Vr-wkA" secondAttribute="leading" constant="20" id="ROc-aZ-wfA"/>
@@ -233,8 +241,10 @@
                                 <constraint firstItem="gt0-X7-POk" firstAttribute="leading" secondItem="anl-Vr-wkA" secondAttribute="leading" constant="20" id="Yld-6r-txp"/>
                                 <constraint firstAttribute="trailing" secondItem="Urj-X4-Vq7" secondAttribute="trailing" constant="20" id="Yml-nZ-DZW"/>
                                 <constraint firstAttribute="trailing" secondItem="Exm-6B-qlI" secondAttribute="trailing" constant="20" id="bFG-pO-uN4"/>
+                                <constraint firstItem="MG3-Wu-MU6" firstAttribute="bottom" secondItem="dOy-nq-266" secondAttribute="bottom" constant="40" id="c0H-gU-2YG"/>
                                 <constraint firstItem="eop-AS-ov7" firstAttribute="leading" secondItem="anl-Vr-wkA" secondAttribute="leading" constant="20" id="cIK-lg-eDC"/>
                                 <constraint firstItem="9FQ-W9-wEm" firstAttribute="top" secondItem="X3u-Xd-YlK" secondAttribute="bottom" constant="40" id="dbu-7j-1ny"/>
+                                <constraint firstAttribute="trailing" secondItem="MG3-Wu-MU6" secondAttribute="trailing" constant="8" id="e3s-LA-FEg"/>
                                 <constraint firstItem="qyJ-at-csv" firstAttribute="centerY" secondItem="Hoy-iJ-xEG" secondAttribute="centerY" id="eXX-kU-Ida"/>
                                 <constraint firstAttribute="trailing" secondItem="0df-Od-mN3" secondAttribute="trailing" id="eZE-75-nif"/>
                                 <constraint firstItem="3Lj-RJ-vnm" firstAttribute="top" secondItem="anl-Vr-wkA" secondAttribute="top" constant="20" id="f4U-TC-XaC"/>

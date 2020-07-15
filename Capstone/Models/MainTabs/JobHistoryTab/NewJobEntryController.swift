@@ -26,6 +26,7 @@ class NewJobEntryController: UIViewController {
     @IBOutlet weak var responsibility3TextField: FloatingLabelInput!
     @IBOutlet weak var addAnotherJobLabel: UILabel!
     @IBOutlet weak var promptLabel: UILabel!
+    @IBOutlet weak var contactsPromptLabel: UILabel!
     //MARK: CollectionViews
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     @IBOutlet weak var starSituationsCollectionView: UICollectionView!
@@ -73,6 +74,8 @@ class NewJobEntryController: UIViewController {
                     self.contactsCVHeight.constant = 50
                     self.view.layoutIfNeeded()
                 })
+                contactsPromptLabel.text = "* to remove a contact press and hold it until the menu appears"
+                contactsPromptLabel.isHidden = false
             }
             
             if userContacts.count == 0 {
@@ -80,6 +83,7 @@ class NewJobEntryController: UIViewController {
                     self.contactsCVHeight.constant = 0
                     self.view.layoutIfNeeded()
                 })
+                contactsPromptLabel.isHidden = true
             }
             self.contactsCollectionView.reloadData()
         }
@@ -117,6 +121,7 @@ class NewJobEntryController: UIViewController {
         loadUserJob()
         listenForKeyboardEvents()
         setUpTextFieldsReturnType()
+        setUpContactsPromptLabel()
         scrollView.delegate = self
     }
     //MARK:- Funcs
@@ -194,6 +199,11 @@ class NewJobEntryController: UIViewController {
             }
         }
     }
+    private func setUpContactsPromptLabel() {
+        contactsPromptLabel.text = "* to remove a contact press and hold it until the menu appears"
+        contactsPromptLabel.textColor = AppColors.darkGrayHighlightColor
+        contactsPromptLabel.font = AppFonts.subtitleFont
+    }
     private func setUpTextFieldsReturnType() {
         let _ = textFields.map { $0.returnKeyType = .next }
         responsibility3TextField.returnKeyType = .done
@@ -244,6 +254,11 @@ class NewJobEntryController: UIViewController {
     }
     private func configureNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveJobButtonPressed(_:)))
+        if editingJob {
+            navigationItem.title = "Edit Job History Details"
+        } else {
+            navigationItem.title = "Enter New Job History Details"
+        }
     }
     private func styleAllTextFields() {
         let textFields = [companyNameTextField, positionTitleTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
