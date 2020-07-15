@@ -88,7 +88,12 @@ class NewJobEntryController: UIViewController {
             self.contactsCollectionView.reloadData()
         }
     }
-    
+    private lazy var longPressGesture: UILongPressGestureRecognizer = {
+       let longPress = UILongPressGestureRecognizer()
+        longPress.minimumPressDuration = 0.3
+        longPress.addTarget(self, action: #selector(didLongPress(_:)))
+        return longPress
+    }()
     private var isCurrentEmployer = false {
         didSet {
             if isCurrentEmployer {
@@ -134,6 +139,7 @@ class NewJobEntryController: UIViewController {
         contactsCollectionView.isUserInteractionEnabled = true
         contactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
         contactsCollectionView.backgroundColor = .secondarySystemBackground
+        contactsCollectionView.addGestureRecognizer(longPressGesture)
     }
     private func configureSituationsCollectionView() {
         starSituationsCollectionView.delegate = self
@@ -399,6 +405,36 @@ class NewJobEntryController: UIViewController {
         let contactPicker = CNContactPickerViewController()
         contactPicker.delegate = self
         present(contactPicker, animated: true)
+    }
+    @objc private func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        showMenu()
+    }
+    private func showMenu() {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            if let job = self.userJob {
+                self.deleteContact(userJob: job)
+                self.contactsCollectionView.reloadData()
+            }
+        }
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(cancelAction)
+        present(actionSheet, animated: true)
+    }
+    private func deleteContact(userJob: UserJob) {
+        DatabaseService.shared.deleteContactFromJob(userJobId: userJob.id) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Error", message: "Unable to remove contact at this time error: \(error.localizedDescription)")
+                }
+            case .success:
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Contact Removed", message: "Successfully removed contact from this job")
+                }
+            }
+        }
     }
 }
 //MARK:- Extensions
