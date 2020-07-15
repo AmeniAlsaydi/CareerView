@@ -135,7 +135,8 @@ class SignUpController: UIViewController {
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self?.showAlert(title: "Error Signing up", message: "\(error.localizedDescription)")
+                    self?.alertLabel.text = "\(error.localizedDescription)"
+                    sender.stopAnimation()
                 }
             case .success(let authDataResult):
                 DispatchQueue.main.async {

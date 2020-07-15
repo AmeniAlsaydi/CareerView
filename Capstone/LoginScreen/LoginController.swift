@@ -140,6 +140,7 @@ class LoginController: UIViewController {
                 }
             case .success:
                 DispatchQueue.main.async {
+                    self?.emailTextField.isHidden = true
                     sender.stopAnimation(animationStyle: .expand, completion: {
                         UIViewController.showMainAppView()
                     })
