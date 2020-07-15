@@ -26,6 +26,7 @@ class NewJobEntryController: UIViewController {
     @IBOutlet weak var responsibility3TextField: FloatingLabelInput!
     @IBOutlet weak var addAnotherJobLabel: UILabel!
     @IBOutlet weak var promptLabel: UILabel!
+    @IBOutlet weak var contactsPromptLabel: UILabel!
     //MARK: CollectionViews
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     @IBOutlet weak var starSituationsCollectionView: UICollectionView!
@@ -73,6 +74,8 @@ class NewJobEntryController: UIViewController {
                     self.contactsCVHeight.constant = 50
                     self.view.layoutIfNeeded()
                 })
+                contactsPromptLabel.text = "* to remove a contact press and hold it until the menu appears"
+                contactsPromptLabel.isHidden = false
             }
             
             if userContacts.count == 0 {
@@ -80,11 +83,17 @@ class NewJobEntryController: UIViewController {
                     self.contactsCVHeight.constant = 0
                     self.view.layoutIfNeeded()
                 })
+                contactsPromptLabel.isHidden = true
             }
             self.contactsCollectionView.reloadData()
         }
     }
-    
+    private lazy var longPressGesture: UILongPressGestureRecognizer = {
+       let longPress = UILongPressGestureRecognizer()
+        longPress.minimumPressDuration = 0.3
+        longPress.addTarget(self, action: #selector(didLongPress(_:)))
+        return longPress
+    }()
     private var isCurrentEmployer = false {
         didSet {
             if isCurrentEmployer {
@@ -117,6 +126,7 @@ class NewJobEntryController: UIViewController {
         loadUserJob()
         listenForKeyboardEvents()
         setUpTextFieldsReturnType()
+        setUpContactsPromptLabel()
         scrollView.delegate = self
     }
     //MARK:- Funcs
@@ -129,6 +139,7 @@ class NewJobEntryController: UIViewController {
         contactsCollectionView.isUserInteractionEnabled = true
         contactsCollectionView.register(UINib(nibName: "UserContactCVCell", bundle: nil), forCellWithReuseIdentifier: "userContactCell")
         contactsCollectionView.backgroundColor = .secondarySystemBackground
+        contactsCollectionView.addGestureRecognizer(longPressGesture)
     }
     private func configureSituationsCollectionView() {
         starSituationsCollectionView.delegate = self
@@ -194,6 +205,11 @@ class NewJobEntryController: UIViewController {
             }
         }
     }
+    private func setUpContactsPromptLabel() {
+        contactsPromptLabel.text = "* to remove a contact press and hold it until the menu appears"
+        contactsPromptLabel.textColor = AppColors.darkGrayHighlightColor
+        contactsPromptLabel.font = AppFonts.subtitleFont
+    }
     private func setUpTextFieldsReturnType() {
         let _ = textFields.map { $0.returnKeyType = .next }
         responsibility3TextField.returnKeyType = .done
@@ -244,6 +260,11 @@ class NewJobEntryController: UIViewController {
     }
     private func configureNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveJobButtonPressed(_:)))
+        if editingJob {
+            navigationItem.title = "Edit Job History Details"
+        } else {
+            navigationItem.title = "Enter New Job History Details"
+        }
     }
     private func styleAllTextFields() {
         let textFields = [companyNameTextField, positionTitleTextField, locationTextField, descriptionTextField, beginDateTextField, endDateTextField, responsibility1TextField, responsibility2TextField, responsibility3TextField]
@@ -385,6 +406,49 @@ class NewJobEntryController: UIViewController {
         contactPicker.delegate = self
         present(contactPicker, animated: true)
     }
+    @objc private func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        let collection = gesture.location(in: contactsCollectionView)
+        let indexPath = self.contactsCollectionView.indexPathForItem(at: collection)
+
+        if let index = indexPath {
+            let cell = contactsCollectionView.cellForItem(at: index)
+            showMenu(cell: cell as! UserContactCVCell)
+        }
+        
+    }
+    private func showMenu(cell: UserContactCVCell) {
+        guard let indexPath = contactsCollectionView.indexPath(for: cell) else {
+            return
+        }
+        let contact = self.userContacts[indexPath.row]
+        
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            if let job = self.userJob {
+                self.deleteContact(userJob: job, contact: contact)
+                self.userContacts.remove(at: indexPath.row)
+                self.contactsCollectionView.reloadData()
+            }
+        }
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(cancelAction)
+        present(actionSheet, animated: true)
+    }
+    private func deleteContact(userJob: UserJob, contact: Contact) {
+        DatabaseService.shared.deleteContactFromJob(userJobID: userJob.id, contactID: contact.id) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Error", message: "Unable to remove contact at this time error: \(error.localizedDescription)")
+                }
+            case .success:
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Contact Removed", message: "Successfully removed contact from this job")
+                }
+            }
+        }
+    }
 }
 //MARK:- Extensions
 extension NewJobEntryController: CNContactPickerDelegate {
@@ -511,3 +575,4 @@ extension NewJobEntryController: UIScrollViewDelegate {
         }
     }
 }
+
