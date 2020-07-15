@@ -36,10 +36,10 @@ extension DatabaseService {
             }
         })
     }
-    public func deleteContactFromJob(userJobId: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+    public func deleteContactFromJob(userJobID: String, contactID: String, completion: @escaping (Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else { return }
         
-        db.collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.contactsCollection).document(userJobId).delete { (error) in
+        db.collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.userJobCollection).document(userJobID).collection(DatabaseService.contactsCollection).document(contactID).delete { (error) in
             if let error = error {
                 completion(.failure(error))
             } else {

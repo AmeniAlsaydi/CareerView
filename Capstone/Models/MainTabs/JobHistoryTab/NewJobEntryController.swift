@@ -420,11 +420,13 @@ class NewJobEntryController: UIViewController {
         guard let indexPath = contactsCollectionView.indexPath(for: cell) else {
             return
         }
+        let contact = self.userContacts[indexPath.row]
+        
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
             if let job = self.userJob {
-                self.deleteContact(userJob: job)
+                self.deleteContact(userJob: job, contact: contact)
                 self.userContacts.remove(at: indexPath.row)
                 self.contactsCollectionView.reloadData()
             }
@@ -433,8 +435,8 @@ class NewJobEntryController: UIViewController {
         actionSheet.addAction(cancelAction)
         present(actionSheet, animated: true)
     }
-    private func deleteContact(userJob: UserJob) {
-        DatabaseService.shared.deleteContactFromJob(userJobId: userJob.id) { [weak self] (result) in
+    private func deleteContact(userJob: UserJob, contact: Contact) {
+        DatabaseService.shared.deleteContactFromJob(userJobID: userJob.id, contactID: contact.id) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
