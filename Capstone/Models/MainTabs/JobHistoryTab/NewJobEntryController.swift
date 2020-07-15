@@ -407,14 +407,25 @@ class NewJobEntryController: UIViewController {
         present(contactPicker, animated: true)
     }
     @objc private func didLongPress(_ gesture: UILongPressGestureRecognizer) {
-        showMenu()
+        let collection = gesture.location(in: contactsCollectionView)
+        let indexPath = self.contactsCollectionView.indexPathForItem(at: collection)
+
+        if let index = indexPath {
+            let cell = contactsCollectionView.cellForItem(at: index)
+            showMenu(cell: cell as! UserContactCVCell)
+        }
+        
     }
-    private func showMenu() {
+    private func showMenu(cell: UserContactCVCell) {
+        guard let indexPath = contactsCollectionView.indexPath(for: cell) else {
+            return
+        }
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
             if let job = self.userJob {
                 self.deleteContact(userJob: job)
+                self.userContacts.remove(at: indexPath.row)
                 self.contactsCollectionView.reloadData()
             }
         }
@@ -562,3 +573,4 @@ extension NewJobEntryController: UIScrollViewDelegate {
         }
     }
 }
+
