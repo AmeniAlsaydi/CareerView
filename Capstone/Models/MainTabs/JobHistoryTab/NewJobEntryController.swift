@@ -283,18 +283,21 @@ class NewJobEntryController: UIViewController {
             !companyName.isEmpty,
             let description = descriptionTextField.text,
             !description.isEmpty else {
+                self.removeIndicator()
                 self.showAlert(title: "Missing fields", message: "Check all mandatory fields.")
                 return
         }
         let location = locationTextField.text
         guard let beginDate = beginDate else {
+            self.removeIndicator()
             self.showAlert(title: "Missing fields", message: "Please enter the date you began this position.")
             return
         }
         // handle responsibilities:
         var responsibilties = [String]()
-        guard let responsibility1 = responsibility1TextField.text else {
-            self.showAlert(title: "Responsibilities?", message: "Please enter at least one of ypur responsibilites at this position.")
+        guard let responsibility1 = responsibility1TextField.text, !responsibility1.isEmpty else {
+            self.removeIndicator()
+            self.showAlert(title: "Responsibilities?", message: "Please enter at least one of your responsibilites at this position.")
             return
         }
         responsibilties.append(responsibility1)
@@ -354,13 +357,6 @@ class NewJobEntryController: UIViewController {
                 })
             }
         }
-        
-        // add this job id to all the selected the star stories:
-        
-        //logic: loop through the uniqueStarIDs and add the job id to the user job field of each of the star stories, because when each star story is originally created it is created w/o a user id
-        
-        // userJobId
-        // uniqueStarIDs
         
         for starID in uniqueStarIDs {
             DatabaseService.shared.updateStarSituationWithUserJobId(userJobID: userJobId, starSitutationID: starID) { (result) in
