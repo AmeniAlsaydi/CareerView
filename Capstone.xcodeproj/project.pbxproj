@@ -19,6 +19,7 @@
 		8813648D24BCF5650022F705 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813648C24BCF5650022F705 /* UserInfo.swift */; };
 		8813648F24BCF5D00022F705 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813648E24BCF5D00022F705 /* SettingsCell.swift */; };
 		8813649124BCF68B0022F705 /* FAQInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813649024BCF68B0022F705 /* FAQInfo.swift */; };
+		8813649324BE09610022F705 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8813649224BE09610022F705 /* GoogleService-Info.plist */; };
 		881CD33C2499AAF7008AB0C8 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */; };
 		881CD33E2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */; };
 		881CD3402499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 881CD33F2499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib */; };
@@ -160,6 +161,7 @@
 		8813648C24BCF5650022F705 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		8813648E24BCF5D00022F705 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		8813649024BCF68B0022F705 /* FAQInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQInfo.swift; sourceTree = "<group>"; };
+		8813649224BE09610022F705 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		881CD33B2499AAF7008AB0C8 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		881CD33D2499AB6F008AB0C8 /* SettingTableViewCellSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellSwitch.swift; sourceTree = "<group>"; };
 		881CD33F2499CBA2008AB0C8 /* BasicInfoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicInfoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -600,8 +602,8 @@
 				B7976E54247EA2C1001AE3B3 /* Views */,
 				88440BFF24B514C3005441D5 /* MainTabs */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
+				8813649224BE09610022F705 /* GoogleService-Info.plist */,
 				B725C24724768331000811C5 /* Info.plist */,
-				C65A50C524BF898E00AE2832 /* GoogleService-Info.plist */,
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -812,7 +814,6 @@
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
 				B7976E8524805085001AE3B3 /* JobHistoryXib.xib in Resources */,
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
-				C65A50C624BF898E00AE2832 /* GoogleService-Info.plist in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
