@@ -47,11 +47,11 @@ class MainTabBarController: UITabBarController, UIAdaptivePresentationController
         switch defaultLaunchScreen {
         case .jobHistory:
             defaultIndex = 0
-        case .starStories:
-            defaultIndex = 1
-        case .interviewQuestions:
-            defaultIndex = 2
         case .applicationTracker:
+            defaultIndex = 1
+        case .starStories:
+            defaultIndex = 2
+        case .interviewQuestions:
             defaultIndex = 3
         default:
             defaultIndex = 0
