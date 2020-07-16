@@ -140,7 +140,14 @@ class LoginController: UIViewController {
                 }
             case .success:
                 DispatchQueue.main.async {
-                    self?.emailTextField.isHidden = true
+                    UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowAnimatedContent, .layoutSubviews], animations: {
+                        self?.emailTextField.alpha = 0.0
+                        self?.passwordTextField.alpha = 0.0
+                        self?.careerViewLabel.alpha = 0.0
+                        self?.logoImageView.alpha = 0.0
+                        self?.signUpButton.alpha = 0.0
+                        self?.signUpPrompt.alpha = 0.0
+                    }, completion: nil)
                     sender.stopAnimation(animationStyle: .expand, completion: {
                         UIViewController.showMainAppView()
                     })
