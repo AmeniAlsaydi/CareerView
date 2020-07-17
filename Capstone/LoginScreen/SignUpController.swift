@@ -135,10 +135,19 @@ class SignUpController: UIViewController {
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self?.showAlert(title: "Error Signing up", message: "\(error.localizedDescription)")
+                    self?.alertLabel.text = "\(error.localizedDescription)"
+                    sender.stopAnimation()
                 }
             case .success(let authDataResult):
                 DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowAnimatedContent, .layoutSubviews], animations: {
+                        self?.emailTextField.alpha = 0.0
+                        self?.passwordTextField.alpha = 0.0
+                        self?.careerViewLabel.alpha = 0.0
+                        self?.logoImageView.alpha = 0.0
+                        self?.signUpButton.alpha = 0.0
+                        self?.loginPrompt.alpha = 0.0
+                    }, completion: nil)
                     //create a data base user and navigate to app view:
                     self?.createDatabaseUser(authDataResult: authDataResult)
                     sender.stopAnimation(animationStyle: .expand, completion: {
