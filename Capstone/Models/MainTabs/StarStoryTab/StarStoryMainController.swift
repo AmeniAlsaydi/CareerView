@@ -247,12 +247,12 @@ extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxWidth = view.frame.width
         let maxHeight = view.frame.height
-        let adjustedWidth = CGFloat(maxWidth * 0.9)
+        let adjustedWidth = CGFloat(maxWidth * 0.95)
         let adjustedHeight = CGFloat(maxHeight / 4)
         return CGSize(width: adjustedWidth, height: adjustedHeight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
     }
 }
 //MARK:- StarSituationCell Delegate

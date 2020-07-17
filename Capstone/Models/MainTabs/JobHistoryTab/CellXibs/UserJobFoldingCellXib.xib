@@ -26,7 +26,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4AC-ZO-fGS">
-                                <rect key="frame" x="1" y="8" width="1001" height="171"/>
+                                <rect key="frame" x="0.5" y="8" width="1002.5" height="172"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khx-HK-dvT">
@@ -71,7 +71,7 @@
                             <constraint firstAttribute="trailing" secondItem="EvA-DL-Tix" secondAttribute="trailing" constant="8" id="6GP-nx-BVm"/>
                             <constraint firstAttribute="trailing" secondItem="owg-Cm-oSR" secondAttribute="trailing" constant="8" id="8jy-oQ-EJH"/>
                             <constraint firstAttribute="trailing" secondItem="jaZ-Tc-tPg" secondAttribute="trailing" id="EX6-s2-tQN"/>
-                            <constraint firstAttribute="trailing" secondItem="4AC-ZO-fGS" secondAttribute="trailing" constant="1" id="FFW-gU-AEj"/>
+                            <constraint firstAttribute="trailing" secondItem="4AC-ZO-fGS" secondAttribute="trailing" constant="0.25" id="FFW-gU-AEj"/>
                             <constraint firstItem="ad1-Nc-t7p" firstAttribute="leading" secondItem="Khx-HK-dvT" secondAttribute="trailing" constant="20" id="Iua-FT-TsT"/>
                             <constraint firstItem="4AC-ZO-fGS" firstAttribute="top" secondItem="jaZ-Tc-tPg" secondAttribute="bottom" constant="-14" id="M7o-mk-WLA"/>
                             <constraint firstItem="owg-Cm-oSR" firstAttribute="leading" secondItem="7Cu-SG-ELW" secondAttribute="leading" constant="8" id="QVZ-JR-iUg"/>
@@ -84,8 +84,8 @@
                             <constraint firstItem="jI1-Y5-EHa" firstAttribute="leading" secondItem="7Cu-SG-ELW" secondAttribute="leading" constant="8" id="pzT-WB-YaQ"/>
                             <constraint firstItem="EvA-DL-Tix" firstAttribute="top" secondItem="owg-Cm-oSR" secondAttribute="bottom" constant="10" id="v1w-Ha-9E4"/>
                             <constraint firstItem="Khx-HK-dvT" firstAttribute="top" secondItem="jaZ-Tc-tPg" secondAttribute="bottom" constant="-6" id="xW3-fj-SJF"/>
-                            <constraint firstAttribute="bottom" secondItem="4AC-ZO-fGS" secondAttribute="bottom" constant="1" id="zes-tF-rJK"/>
-                            <constraint firstItem="4AC-ZO-fGS" firstAttribute="leading" secondItem="7Cu-SG-ELW" secondAttribute="leading" constant="1" id="zkY-jb-yNO"/>
+                            <constraint firstAttribute="bottom" secondItem="4AC-ZO-fGS" secondAttribute="bottom" constant="0.25" id="zes-tF-rJK"/>
+                            <constraint firstItem="4AC-ZO-fGS" firstAttribute="leading" secondItem="7Cu-SG-ELW" secondAttribute="leading" constant="0.25" id="zkY-jb-yNO"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WU1-Uy-BLZ" userLabel="Container">
@@ -265,7 +265,7 @@
                                 <rect key="frame" x="0.0" y="535.5" width="1003" height="94.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Am-oq-U9f" userLabel="fourthBkgdBottomView">
-                                        <rect key="frame" x="1" y="37" width="1001" height="57"/>
+                                        <rect key="frame" x="1" y="37" width="1001" height="56.5"/>
                                         <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ANr-my-rbl" userLabel="fourthBkgdView">
