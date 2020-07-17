@@ -18,13 +18,13 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fNr-nQ-gFq">
                         <rect key="frame" x="0.0" y="0.0" width="891" height="28"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="3nT-qh-SgE"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IUy-Zu-IFK">
-                        <rect key="frame" x="1" y="8" width="889" height="488"/>
+                        <rect key="frame" x="0.5" y="8" width="890.5" height="489"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Situation" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-Rh-tp3">
@@ -50,13 +50,13 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="IUy-Zu-IFK" secondAttribute="trailing" constant="1" id="1Wg-Wb-yFq"/>
+                    <constraint firstAttribute="trailing" secondItem="IUy-Zu-IFK" secondAttribute="trailing" constant="0.25" id="1Wg-Wb-yFq"/>
                     <constraint firstItem="vq9-AP-Qwq" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="-12" id="1XN-c2-Muf"/>
                     <constraint firstAttribute="bottom" secondItem="T6V-Rh-tp3" secondAttribute="bottom" constant="8" id="624-Yz-Pks"/>
                     <constraint firstItem="fNr-nQ-gFq" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" id="C1N-01-BNg"/>
-                    <constraint firstAttribute="bottom" secondItem="IUy-Zu-IFK" secondAttribute="bottom" constant="1" id="CrU-zE-9tC"/>
+                    <constraint firstAttribute="bottom" secondItem="IUy-Zu-IFK" secondAttribute="bottom" constant="0.25" id="CrU-zE-9tC"/>
                     <constraint firstItem="IUy-Zu-IFK" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="-20" id="ZCP-xX-Jkb"/>
-                    <constraint firstItem="IUy-Zu-IFK" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="1" id="ece-l8-1MR"/>
+                    <constraint firstItem="IUy-Zu-IFK" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="0.25" id="ece-l8-1MR"/>
                     <constraint firstItem="vq9-AP-Qwq" firstAttribute="leading" secondItem="T6V-Rh-tp3" secondAttribute="trailing" constant="10" id="i1S-12-L5V"/>
                     <constraint firstAttribute="trailing" secondItem="vq9-AP-Qwq" secondAttribute="trailing" constant="8" id="mVn-KT-6RK"/>
                     <constraint firstItem="T6V-Rh-tp3" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="-10" id="nXl-f2-0Hf"/>
