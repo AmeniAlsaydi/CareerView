@@ -21,6 +21,7 @@ class InterviewQuestionCell: UICollectionViewCell {
     @IBOutlet weak var answeredLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var cellHeaderView: UIView!
+    @IBOutlet weak var bkgdView: UIView!
     //MARK:- Variables
     weak var delegate: InterviewQuestionCellDelegate?
     var currentQuestion: InterviewQuestion?
@@ -51,6 +52,9 @@ class InterviewQuestionCell: UICollectionViewCell {
         answerCheckBox.tintColor = AppColors.darkGrayHighlightColor
         cellHeaderView.backgroundColor = AppColors.primaryPurpleColor
         editButton.tintColor = AppColors.secondaryPurpleColor
+        bkgdView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        bkgdView.backgroundColor = AppColors.systemBackgroundColor
+        backgroundColor = AppColors.primaryPurpleColor
     }
     public func configureCell(interviewQ: InterviewQuestion) {
         interviewQuestionLabel.text = interviewQ.question
