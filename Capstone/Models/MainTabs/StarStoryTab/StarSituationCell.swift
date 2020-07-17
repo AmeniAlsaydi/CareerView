@@ -39,12 +39,10 @@ class StarSituationCell: UICollectionViewCell {
         setupAppUI()
     }
     private func setupAppUI(){
-        self.backgroundColor = AppColors.systemBackgroundColor
         situationLabel.textColor = AppColors.primaryBlackColor
         editButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
         editButton.tintColor = AppColors.secondaryPurpleColor
         cellFooterView.backgroundColor = AppColors.primaryPurpleColor
-        backgroundColor = AppColors.primaryPurpleColor
         bkgdView.layer.cornerRadius = AppRoundedViews.cornerRadius
         bkgdView.backgroundColor = AppColors.systemBackgroundColor
     }
