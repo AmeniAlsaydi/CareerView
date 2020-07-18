@@ -89,7 +89,7 @@ class NewJobEntryController: UIViewController {
         }
     }
     private lazy var longPressGesture: UILongPressGestureRecognizer = {
-       let longPress = UILongPressGestureRecognizer()
+        let longPress = UILongPressGestureRecognizer()
         longPress.minimumPressDuration = 0.3
         longPress.addTarget(self, action: #selector(didLongPress(_:)))
         return longPress
@@ -312,7 +312,12 @@ class NewJobEntryController: UIViewController {
         var endTimeStamp: Timestamp? = nil
         if isCurrentEmployer {
             endTimeStamp = Timestamp(date: Date())
-        } else if let endDate = endDate {
+        } else {
+            guard let endDate = endDate else {
+                self.removeIndicator()
+                self.showAlert(title: "End date?", message: "If this is your current job please check the 'current employer' box, otherwise please provide an end date.")
+                return
+            }
             endTimeStamp = Timestamp(date: endDate)
         }
         let userJobToSave = UserJob(id: userJobId, title: jobTitle, companyName: companyName, location: location ?? "", beginDate: beginTimeStamp, endDate: endTimeStamp!, currentEmployer: isCurrentEmployer, description: description, responsibilities: responsibilties, starSituationIDs: uniqueStarIDs, interviewQuestionIDs: [])
@@ -405,7 +410,7 @@ class NewJobEntryController: UIViewController {
     @objc private func didLongPress(_ gesture: UILongPressGestureRecognizer) {
         let collection = gesture.location(in: contactsCollectionView)
         let indexPath = self.contactsCollectionView.indexPathForItem(at: collection)
-
+        
         if let index = indexPath {
             let cell = contactsCollectionView.cellForItem(at: index)
             showMenu(cell: cell as! UserContactCVCell)
