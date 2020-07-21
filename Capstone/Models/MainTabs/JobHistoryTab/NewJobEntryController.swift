@@ -89,7 +89,7 @@ class NewJobEntryController: UIViewController {
         }
     }
     private lazy var longPressGesture: UILongPressGestureRecognizer = {
-       let longPress = UILongPressGestureRecognizer()
+        let longPress = UILongPressGestureRecognizer()
         longPress.minimumPressDuration = 0.3
         longPress.addTarget(self, action: #selector(didLongPress(_:)))
         return longPress
@@ -283,18 +283,21 @@ class NewJobEntryController: UIViewController {
             !companyName.isEmpty,
             let description = descriptionTextField.text,
             !description.isEmpty else {
+                self.removeIndicator()
                 self.showAlert(title: "Missing fields", message: "Check all mandatory fields.")
                 return
         }
         let location = locationTextField.text
         guard let beginDate = beginDate else {
+            self.removeIndicator()
             self.showAlert(title: "Missing fields", message: "Please enter the date you began this position.")
             return
         }
         // handle responsibilities:
         var responsibilties = [String]()
-        guard let responsibility1 = responsibility1TextField.text else {
-            self.showAlert(title: "Responsibilities?", message: "Please enter at least one of ypur responsibilites at this position.")
+        guard let responsibility1 = responsibility1TextField.text, !responsibility1.isEmpty else {
+            self.removeIndicator()
+            self.showAlert(title: "Responsibilities?", message: "Please enter at least one of your responsibilites at this position.")
             return
         }
         responsibilties.append(responsibility1)
@@ -309,7 +312,12 @@ class NewJobEntryController: UIViewController {
         var endTimeStamp: Timestamp? = nil
         if isCurrentEmployer {
             endTimeStamp = Timestamp(date: Date())
-        } else if let endDate = endDate {
+        } else {
+            guard let endDate = endDate else {
+                self.removeIndicator()
+                self.showAlert(title: "End date?", message: "If this is your current job please check the 'current employer' box, otherwise please provide an end date.")
+                return
+            }
             endTimeStamp = Timestamp(date: endDate)
         }
         let userJobToSave = UserJob(id: userJobId, title: jobTitle, companyName: companyName, location: location ?? "", beginDate: beginTimeStamp, endDate: endTimeStamp!, currentEmployer: isCurrentEmployer, description: description, responsibilities: responsibilties, starSituationIDs: uniqueStarIDs, interviewQuestionIDs: [])
@@ -354,13 +362,6 @@ class NewJobEntryController: UIViewController {
                 })
             }
         }
-        
-        // add this job id to all the selected the star stories:
-        
-        //logic: loop through the uniqueStarIDs and add the job id to the user job field of each of the star stories, because when each star story is originally created it is created w/o a user id
-        
-        // userJobId
-        // uniqueStarIDs
         
         for starID in uniqueStarIDs {
             DatabaseService.shared.updateStarSituationWithUserJobId(userJobID: userJobId, starSitutationID: starID) { (result) in
@@ -409,7 +410,7 @@ class NewJobEntryController: UIViewController {
     @objc private func didLongPress(_ gesture: UILongPressGestureRecognizer) {
         let collection = gesture.location(in: contactsCollectionView)
         let indexPath = self.contactsCollectionView.indexPathForItem(at: collection)
-
+        
         if let index = indexPath {
             let cell = contactsCollectionView.cellForItem(at: index)
             showMenu(cell: cell as! UserContactCVCell)
