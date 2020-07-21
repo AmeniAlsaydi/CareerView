@@ -14,10 +14,18 @@ class FoldingCell: UITableViewCell {
     @IBOutlet weak var foregroundViewTop: NSLayoutConstraint!
     @IBOutlet weak var thirdView: UIView!
     @IBOutlet weak var secondView: UIView!
-    @IBOutlet weak var forthView: UIView!
+    @IBOutlet weak var fourthView: UIView!
     @IBOutlet weak var firstView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var containerViewTop: NSLayoutConstraint!
+    
+    @IBOutlet weak var closedBkgdView: UIView!
+    @IBOutlet weak var openFirstBkgdTopView: UIView!
+    @IBOutlet weak var openFirstBkgdBottomView: UIView!
+    @IBOutlet weak var openSecondBkgdView: UIView!
+    @IBOutlet weak var openThirdBkgdView: UIView!
+    @IBOutlet weak var openFourthBkgdBottomView: UIView!
+    @IBOutlet weak var openFourthBkgdView: UIView!
     
     var animationView: UIView?
     
@@ -56,7 +64,25 @@ class FoldingCell: UITableViewCell {
         firstView.backgroundColor = AppColors.systemBackgroundColor
         secondView.backgroundColor = AppColors.systemBackgroundColor
         thirdView.backgroundColor = AppColors.systemBackgroundColor
-        forthView.backgroundColor = AppColors.systemBackgroundColor
+        fourthView.backgroundColor = AppColors.systemBackgroundColor
+        
+        backgroundColor = AppColors.primaryPurpleColor
+        foregroundView.backgroundColor = AppColors.primaryPurpleColor
+        firstView.backgroundColor = AppColors.primaryPurpleColor
+        secondView.backgroundColor = AppColors.primaryPurpleColor
+        thirdView.backgroundColor = AppColors.primaryPurpleColor
+        fourthView.backgroundColor = AppColors.primaryPurpleColor
+        
+        openFirstBkgdTopView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        openFourthBkgdBottomView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        openFirstBkgdBottomView.backgroundColor = AppColors.systemBackgroundColor
+        openSecondBkgdView.backgroundColor = AppColors.systemBackgroundColor
+        openThirdBkgdView.backgroundColor = AppColors.systemBackgroundColor
+        openFourthBkgdBottomView.backgroundColor = AppColors.systemBackgroundColor
+        openFirstBkgdTopView.backgroundColor = AppColors.systemBackgroundColor
+        closedBkgdView.backgroundColor = AppColors.systemBackgroundColor
+        closedBkgdView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        openFirstBkgdTopView.layer.cornerRadius = AppRoundedViews.cornerRadius
     }
     
     // MARK: configure

@@ -198,5 +198,6 @@ extension JobHistoryController: UITableViewDelegate {
         }
         let aUserJobHistory = userJobHistory[indexPath.row]
         cell.updateGeneralInfo(userJob: aUserJobHistory)
+        
     }
 }

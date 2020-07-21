@@ -49,6 +49,7 @@
 		889FCAB2249967E300CC9153 /* FAQViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */; };
 		889FCAB4249967F200CC9153 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889FCAB3249967F200CC9153 /* FAQViewController.swift */; };
 		889FCAB6249969FD00CC9153 /* ContactUsViewControllerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889FCAB5249969FD00CC9153 /* ContactUsViewControllerXib.xib */; };
+		88C0319724C0744500D81794 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88C0319624C0744400D81794 /* GoogleService-Info.plist */; };
 		B7226CF8248DACA900D7F207 /* JobApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */; };
 		B725C23A2476832F000811C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C2392476832F000811C5 /* AppDelegate.swift */; };
 		B725C23C2476832F000811C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B725C23B2476832F000811C5 /* SceneDelegate.swift */; };
@@ -191,6 +192,7 @@
 		889FCAB1249967E300CC9153 /* FAQViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQViewControllerXib.xib; sourceTree = "<group>"; };
 		889FCAB3249967F200CC9153 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		889FCAB5249969FD00CC9153 /* ContactUsViewControllerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactUsViewControllerXib.xib; sourceTree = "<group>"; };
+		88C0319624C0744400D81794 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7226CF7248DACA900D7F207 /* JobApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationCell.swift; sourceTree = "<group>"; };
 		B725C2362476832F000811C5 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B725C2392476832F000811C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -572,7 +574,6 @@
 			isa = PBXGroup;
 			children = (
 				B725C2382476832F000811C5 /* Capstone */,
-				B7976E20247D4A15001AE3B3 /* CapstoneTests */,
 				B725C2372476832F000811C5 /* Products */,
 				5956DD7DDBAFC9F24FDEE2CA /* Pods */,
 				4249468C7066E63C865B619C /* Frameworks */,
@@ -600,8 +601,8 @@
 				B7976E54247EA2C1001AE3B3 /* Views */,
 				88440BFF24B514C3005441D5 /* MainTabs */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
+				B7976E20247D4A15001AE3B3 /* CapstoneTests */,
 				B725C24724768331000811C5 /* Info.plist */,
-				B7ADCE8F24C0BEF8002EE7F1 /* GoogleService-Info.plist */,
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -812,7 +813,6 @@
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
 				B7976E8524805085001AE3B3 /* JobHistoryXib.xib in Resources */,
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
-				B7ADCE9024C0BEF8002EE7F1 /* GoogleService-Info.plist in Resources */,
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,
