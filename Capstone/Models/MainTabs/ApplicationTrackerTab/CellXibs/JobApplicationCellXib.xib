@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -16,6 +16,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="433" height="155"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1lM-It-jrX">
+                        <rect key="frame" x="0.0" y="0.0" width="433" height="26"/>
+                        <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLZ-ci-3Yy">
+                        <rect key="frame" x="0.5" y="8" width="432.5" height="147"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zjM-4k-6xL">
                         <rect key="frame" x="0.0" y="0.0" width="433" height="155"/>
                         <subviews>
@@ -72,18 +80,28 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="zjM-4k-6xL" secondAttribute="trailing" id="EtT-od-2I1"/>
                     <constraint firstItem="zjM-4k-6xL" firstAttribute="top" secondItem="Hdt-XS-5Ul" secondAttribute="top" id="HKV-CL-3je"/>
+                    <constraint firstAttribute="trailing" secondItem="zLZ-ci-3Yy" secondAttribute="trailing" constant="0.25" id="JfP-DN-i4S"/>
+                    <constraint firstItem="1lM-It-jrX" firstAttribute="leading" secondItem="Hdt-XS-5Ul" secondAttribute="leading" id="Kwu-z1-iAF"/>
+                    <constraint firstAttribute="trailing" secondItem="1lM-It-jrX" secondAttribute="trailing" id="Sao-Sh-6e2"/>
                     <constraint firstItem="zjM-4k-6xL" firstAttribute="leading" secondItem="Hdt-XS-5Ul" secondAttribute="leading" id="Uwv-BP-dAl"/>
+                    <constraint firstAttribute="bottom" secondItem="1lM-It-jrX" secondAttribute="bottom" constant="129" id="Xu7-kS-XwD"/>
+                    <constraint firstItem="zLZ-ci-3Yy" firstAttribute="leading" secondItem="Hdt-XS-5Ul" secondAttribute="leading" constant="0.25" id="YhA-SL-IQO"/>
+                    <constraint firstItem="1lM-It-jrX" firstAttribute="top" secondItem="Hdt-XS-5Ul" secondAttribute="top" id="ep6-en-W0S"/>
+                    <constraint firstItem="zLZ-ci-3Yy" firstAttribute="top" secondItem="Hdt-XS-5Ul" secondAttribute="top" constant="8" id="frv-zD-JVv"/>
                     <constraint firstAttribute="bottom" secondItem="zjM-4k-6xL" secondAttribute="bottom" id="hiX-Fd-TSa"/>
+                    <constraint firstAttribute="bottom" secondItem="zLZ-ci-3Yy" secondAttribute="bottom" constant="0.25" id="qaB-C3-Z5r"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="433" height="155"/>
             <connections>
+                <outlet property="bkgdView" destination="zLZ-ci-3Yy" id="bdY-Vx-DCp"/>
                 <outlet property="companyNameLabel" destination="VCt-Zw-WOK" id="nWd-Q8-Xfa"/>
                 <outlet property="currentStatusIndicatorLabel" destination="hrj-i6-v8Q" id="SUD-Br-7WK"/>
                 <outlet property="maxWidthConstraint" destination="sju-oM-NM3" id="lRB-cf-qkd"/>
                 <outlet property="positionLabel" destination="D0q-Mk-FxT" id="oLO-2f-Scg"/>
                 <outlet property="progressBar" destination="a4e-nD-XCM" id="Gav-ZI-CBu"/>
                 <outlet property="submittedDateLabel" destination="KH8-zK-jLg" id="rey-Cc-v09"/>
+                <outlet property="topBarView" destination="1lM-It-jrX" id="Kvp-Ck-OR7"/>
             </connections>
             <point key="canvasLocation" x="-307.97101449275362" y="-67.299107142857139"/>
         </collectionViewCell>

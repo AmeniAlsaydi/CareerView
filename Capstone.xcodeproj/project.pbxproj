@@ -266,7 +266,7 @@
 		BDD163FC47D21D55BFC1C1D1 /* Pods_Capstone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capstone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60BDFCD2481B3C200CD9875 /* JobFoldingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFoldingView.swift; sourceTree = "<group>"; };
 		C61E0EB82497D6F500AA7A9E /* BookmarkQuestionsDatabaseServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkQuestionsDatabaseServices.swift; sourceTree = "<group>"; };
-		C61E0EBE249904EA00AA7A9E /* UIStyleGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyleGuide.swift; sourceTree = "<group>"; };
+		C61E0EBE249904EA00AA7A9E /* UIStyleGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyleGuide.swift; sourceTree = "<group>"; };d
 		C65B1FB224BE4124000EF577 /* ContactsDatabaseSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsDatabaseSession.swift; sourceTree = "<group>"; };
 		C6AC379B248592DA00957B61 /* InterviewQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionCell.swift; sourceTree = "<group>"; };
 		C6AC379D2485DACC00957B61 /* QuestionAnswerDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnswerDetailCell.swift; sourceTree = "<group>"; };
@@ -572,7 +572,6 @@
 			isa = PBXGroup;
 			children = (
 				B725C2382476832F000811C5 /* Capstone */,
-				B7976E20247D4A15001AE3B3 /* CapstoneTests */,
 				B725C2372476832F000811C5 /* Products */,
 				5956DD7DDBAFC9F24FDEE2CA /* Pods */,
 				4249468C7066E63C865B619C /* Frameworks */,
@@ -601,7 +600,8 @@
 				88440BFF24B514C3005441D5 /* MainTabs */,
 				B7976E0D24768806001AE3B3 /* Supporting */,
 				B725C24724768331000811C5 /* Info.plist */,
-				B7ADCE8F24C0BEF8002EE7F1 /* GoogleService-Info.plist */,
+				B7976E20247D4A15001AE3B3 /* CapstoneTests */,
+
 			);
 			path = Capstone;
 			sourceTree = "<group>";
@@ -812,7 +812,7 @@
 				B725C24624768331000811C5 /* LaunchScreen.storyboard in Resources */,
 				B7976E8524805085001AE3B3 /* JobHistoryXib.xib in Resources */,
 				B7976EA52480601A001AE3B3 /* UserJobFoldingCellXib.xib in Resources */,
-				B7ADCE9024C0BEF8002EE7F1 /* GoogleService-Info.plist in Resources */,
+
 				B725C24324768331000811C5 /* Assets.xcassets in Resources */,
 				B7976EA724806047001AE3B3 /* UserJobBasicCellXib.xib in Resources */,
 				C6E214E42488066B0054CC3C /* FilterMenuViewControllerXib.xib in Resources */,

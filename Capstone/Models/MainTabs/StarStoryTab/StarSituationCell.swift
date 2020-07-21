@@ -18,6 +18,7 @@ class StarSituationCell: UICollectionViewCell {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var situationLabel: UILabel!
     @IBOutlet weak var cellFooterView: UIView!
+    @IBOutlet weak var bkgdView: UIView!
     //MARK:- Variables
     weak var delegate: StarSituationCellDelegate?
     private var starSituationForDelegate: StarSituation?
@@ -38,11 +39,12 @@ class StarSituationCell: UICollectionViewCell {
         setupAppUI()
     }
     private func setupAppUI(){
-        self.backgroundColor = AppColors.systemBackgroundColor
         situationLabel.textColor = AppColors.primaryBlackColor
         editButton.setImage(AppButtonIcons.optionsIcon, for: .normal)
         editButton.tintColor = AppColors.secondaryPurpleColor
         cellFooterView.backgroundColor = AppColors.primaryPurpleColor
+        bkgdView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        bkgdView.backgroundColor = AppColors.systemBackgroundColor
     }
     public func configureCell(starSituation: StarSituation) {
         editButton.addTarget(self, action: #selector(contextButtonPressed(_:)), for: .touchUpInside)

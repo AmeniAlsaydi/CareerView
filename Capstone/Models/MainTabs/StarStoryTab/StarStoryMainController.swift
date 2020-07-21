@@ -216,7 +216,7 @@ extension StarStoryMainController: UICollectionViewDataSource {
         if isAddingToUserJob {
             cell.starSituationIsSelected.toggle()
             if cell.starSituationIsSelected {
-                cell.backgroundColor = AppColors.primaryPurpleColor
+                cell.bkgdView.backgroundColor = AppColors.primaryPurpleColor
                 cell.situationLabel.textColor = AppColors.whiteTextColor
                 cell.layer.borderWidth = 2
                 cell.layer.borderColor = AppColors.whiteTextColor.cgColor
@@ -225,18 +225,18 @@ extension StarStoryMainController: UICollectionViewDataSource {
                 guard let indexPathForStarStorySelected = starSituationIDs.firstIndex(where: {$0 == starStory.id }) else {
                     print("No stary story index Path was found")
                     return }
-                cell.backgroundColor = .systemBackground
+                cell.bkgdView.backgroundColor = AppColors.systemBackgroundColor
                 starSituationIDs.remove(at: indexPathForStarStorySelected)
             }
         } else if isAddingToAnswer {
             cell.starSituationIsSelected.toggle()
             if cell.starSituationIsSelected {
-                cell.backgroundColor = AppColors.primaryPurpleColor
+                cell.bkgdView.backgroundColor = AppColors.primaryPurpleColor
                 cell.situationLabel.textColor = AppColors.whiteTextColor
                 cell.layer.borderWidth = 2
                 cell.layer.borderColor = AppColors.whiteTextColor.cgColor
             } else {
-                cell.backgroundColor = AppColors.systemBackgroundColor
+                cell.bkgdView.backgroundColor = AppColors.systemBackgroundColor
             }
             selectedSTARStory = starStory
         }
@@ -247,12 +247,12 @@ extension StarStoryMainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let maxWidth = view.frame.width
         let maxHeight = view.frame.height
-        let adjustedWidth = CGFloat(maxWidth * 0.9)
+        let adjustedWidth = CGFloat(maxWidth * 0.95)
         let adjustedHeight = CGFloat(maxHeight / 4)
         return CGSize(width: adjustedWidth, height: adjustedHeight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
     }
 }
 //MARK:- StarSituationCell Delegate

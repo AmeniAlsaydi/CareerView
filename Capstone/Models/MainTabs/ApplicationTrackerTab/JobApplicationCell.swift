@@ -15,6 +15,8 @@ class JobApplicationCell: UICollectionViewCell {
     @IBOutlet weak var submittedDateLabel: UILabel!
     @IBOutlet weak var currentStatusIndicatorLabel: UILabel!
     @IBOutlet weak var progressBar: ProgressBar!
+    @IBOutlet weak var bkgdView: UIView!
+    @IBOutlet weak var topBarView: UIView!
     @IBOutlet private var maxWidthConstraint: NSLayoutConstraint! {
         didSet {
             maxWidthConstraint.isActive = false
@@ -87,5 +89,8 @@ class JobApplicationCell: UICollectionViewCell {
         companyNameLabel.font = AppFonts.semiBoldSmall
         submittedDateLabel.font = AppFonts.primaryFont
         currentStatusIndicatorLabel.font = AppFonts.primaryFont
+        backgroundColor = AppColors.primaryPurpleColor
+        bkgdView.layer.cornerRadius = AppRoundedViews.cornerRadius
+        topBarView.backgroundColor = AppColors.primaryPurpleColor
     }
 }
