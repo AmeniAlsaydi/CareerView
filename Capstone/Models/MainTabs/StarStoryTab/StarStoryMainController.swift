@@ -195,7 +195,7 @@ extension StarStoryMainController: UICollectionViewDataSource {
         cell.configureCell(starSituation: starSituation)
         if starSituationIDs.contains(starSituation.id) {
             cell.starSituationIsSelected = true
-            cell.backgroundColor = AppColors.primaryPurpleColor
+            cell.bkgdView.backgroundColor = AppColors.primaryPurpleColor
             cell.situationLabel.textColor = AppColors.whiteTextColor
             cell.layer.borderWidth = 2
             cell.layer.borderColor = AppColors.whiteTextColor.cgColor
@@ -226,6 +226,7 @@ extension StarStoryMainController: UICollectionViewDataSource {
                     print("No stary story index Path was found")
                     return }
                 cell.bkgdView.backgroundColor = AppColors.systemBackgroundColor
+                cell.situationLabel.textColor = AppColors.primaryBlackColor
                 starSituationIDs.remove(at: indexPathForStarStorySelected)
             }
         } else if isAddingToAnswer {
@@ -237,6 +238,7 @@ extension StarStoryMainController: UICollectionViewDataSource {
                 cell.layer.borderColor = AppColors.whiteTextColor.cgColor
             } else {
                 cell.bkgdView.backgroundColor = AppColors.systemBackgroundColor
+                cell.situationLabel.textColor = AppColors.primaryBlackColor
             }
             selectedSTARStory = starStory
         }
