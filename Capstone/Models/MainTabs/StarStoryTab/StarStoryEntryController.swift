@@ -74,6 +74,7 @@ class StarStoryEntryController: UIViewController {
         configureView()
         loadGuidedStarSituationPreference()
         listenForKeyboardEvents()
+        scrollView.delegate = self
     }
     
     //MARK: Keyboard handling
@@ -322,5 +323,15 @@ class StarStoryEntryController: UIViewController {
 extension StarStoryEntryController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         setTextViewHeights()
+    }
+}
+extension StarStoryEntryController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0){
+            situationTextView.resignFirstResponder()
+            taskTextView.resignFirstResponder()
+            actionTextView.resignFirstResponder()
+            resultTextView.resignFirstResponder()
+        }
     }
 }
