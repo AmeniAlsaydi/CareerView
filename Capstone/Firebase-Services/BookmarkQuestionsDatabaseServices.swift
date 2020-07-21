@@ -32,7 +32,7 @@ extension DatabaseService {
             }
         }
     }
-    public func isQuestioninBookmarks(question: InterviewQuestion, completion: @escaping (Result<Bool, Error>) -> ()) {
+    public func isQuestionInBookmarks(question: InterviewQuestion, completion: @escaping (Result<Bool, Error>) -> ()) {
         guard let user = Auth.auth().currentUser else { return }
         db.collection(DatabaseService.userCollection).document(user.uid).collection(DatabaseService.bookmarkedQuestionsCollection).whereField("id", isEqualTo: question.id).getDocuments { (snapshot, error) in
             if let error = error {

@@ -9,7 +9,6 @@
 import UIKit
 
 class EmptyView: UIView {
-    
     private lazy var image: UIImageView = {
         let iv = UIImageView()
         iv.tintColor = AppColors.darkGrayHighlightColor
@@ -36,7 +35,6 @@ class EmptyView: UIView {
         titleLabel.text = title
         msgLabel.text = message
         image.image = UIImage(systemName: imageName)
-        
         commonInit()
     }
     required init?(coder: NSCoder) {
@@ -79,4 +77,3 @@ class EmptyView: UIView {
         ])
     }
 }
-

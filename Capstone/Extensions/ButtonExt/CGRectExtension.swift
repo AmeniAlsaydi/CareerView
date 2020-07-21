@@ -9,7 +9,6 @@
 import UIKit
 
 extension CGRect {
-    
     var x: CGFloat {
         get {
             return self.origin.x
@@ -18,7 +17,6 @@ extension CGRect {
             self = CGRect(x: newValue, y: self.y, width: self.width, height: self.height)
         }
     }
-    
     var y: CGFloat {
         get {
             return self.origin.y
@@ -27,8 +25,6 @@ extension CGRect {
             self = CGRect(x: self.x, y: newValue, width: self.width, height: self.height)
         }
     }
-    
-    
     var width: CGFloat {
         get {
             return self.size.width
@@ -37,7 +33,6 @@ extension CGRect {
             self = CGRect(x: self.x, y: self.y, width: newValue, height: self.height)
         }
     }
-    
     var height: CGFloat {
         get {
             return self.size.height
@@ -46,8 +41,6 @@ extension CGRect {
             self = CGRect(x: self.x, y: self.y, width: self.width, height: newValue)
         }
     }
-    
-    
     var top: CGFloat {
         get {
             return self.origin.y
@@ -56,7 +49,6 @@ extension CGRect {
             y = newValue
         }
     }
-    
     var bottom: CGFloat {
         get {
             return self.origin.y + self.size.height
@@ -65,7 +57,6 @@ extension CGRect {
             self = CGRect(x: x, y: newValue - height, width: width, height: height)
         }
     }
-    
     var left: CGFloat {
         get {
             return self.origin.x
@@ -74,7 +65,6 @@ extension CGRect {
             self.x = newValue
         }
     }
-    
     var right: CGFloat {
         get {
             return x + width
@@ -83,8 +73,6 @@ extension CGRect {
             self = CGRect(x: newValue - width, y: y, width: width, height: height)
         }
     }
-    
-    
     var midX: CGFloat {
         get {
             return self.x + self.width / 2
@@ -93,7 +81,6 @@ extension CGRect {
             self = CGRect(x: newValue - width / 2, y: y, width: width, height: height)
         }
     }
-    
     var midY: CGFloat {
         get {
             return self.y + self.height / 2
@@ -102,8 +89,6 @@ extension CGRect {
             self = CGRect(x: x, y: newValue - height / 2, width: width, height: height)
         }
     }
-    
-
     var center: CGPoint {
         get {
             return CGPoint(x: self.midX, y: self.midY)

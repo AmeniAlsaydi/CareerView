@@ -13,21 +13,17 @@ import FirebaseAuth
 extension DatabaseService {
     
     public func createDatabaseUser(authDataResult: AuthDataResult, completion: @escaping (Result<Bool, Error>)-> ()) {
-        
         guard let email = authDataResult.user.email else {
             return
         }
         db.collection(DatabaseService.userCollection).document(authDataResult.user.uid).setData(["email": email, "createdDate": Timestamp(date: Date()), "id": authDataResult.user.uid, "firstTimeLogin": true]) { error in
-            
             if let error = error {
                 completion(.failure(error))
             } else {
                 completion(.success(true))
             }
-            
         }
     }
-    
     // Get data associated with a user
     public func fetchUserData(completion: @escaping (Result<User, Error>)-> ()) {
         guard let user = Auth.auth().currentUser else { return }
@@ -42,18 +38,15 @@ extension DatabaseService {
             }
         }
     }
-    
     public func updateUserFirstTimeLogin(firstTimeLogin: Bool, completion: @escaping (Result<Bool, Error>)-> ()) {
-           guard let user = Auth.auth().currentUser else { return }
-           let userID = user.uid
-           db.collection(DatabaseService.userCollection).document(userID).updateData(["firstTimeLogin": firstTimeLogin]) { (error) in
-               if let error = error {
-                   completion(.failure(error))
-               } else {
-                   completion(.success(true))
-               }
-           }
-           
-       }
-    
+        guard let user = Auth.auth().currentUser else { return }
+        let userID = user.uid
+        db.collection(DatabaseService.userCollection).document(userID).updateData(["firstTimeLogin": firstTimeLogin]) { (error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
 }

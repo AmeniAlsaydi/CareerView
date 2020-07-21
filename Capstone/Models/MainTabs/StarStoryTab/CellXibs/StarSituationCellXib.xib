@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="starSituationCell" id="taH-0Q-BiL" customClass="StarSituationCell" customModule="Capstone" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="891" height="497"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wbv-Hu-H1f">
+                <rect key="frame" x="0.0" y="0.0" width="891" height="497"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fNr-nQ-gFq">
+                        <rect key="frame" x="0.0" y="0.0" width="891" height="28"/>
+                        <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="3nT-qh-SgE"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IUy-Zu-IFK">
+                        <rect key="frame" x="0.5" y="8" width="890.5" height="489"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Situation" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6V-Rh-tp3">
+                        <rect key="frame" x="10" y="18" width="819" height="471"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vq9-AP-Qwq">
+                        <rect key="frame" x="839" y="16" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="6PP-Xn-waH"/>
+                            <constraint firstAttribute="width" constant="44" id="b0R-lc-1e7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" image="ellipsis.circle" catalog="system">
+                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="light"/>
+                        </state>
+                        <connections>
+                            <action selector="contextButtonPressed:" destination="taH-0Q-BiL" eventType="touchUpInside" id="65l-2Y-j8d"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="IUy-Zu-IFK" secondAttribute="trailing" constant="0.25" id="1Wg-Wb-yFq"/>
+                    <constraint firstItem="vq9-AP-Qwq" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="-12" id="1XN-c2-Muf"/>
+                    <constraint firstAttribute="bottom" secondItem="T6V-Rh-tp3" secondAttribute="bottom" constant="8" id="624-Yz-Pks"/>
+                    <constraint firstItem="fNr-nQ-gFq" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" id="C1N-01-BNg"/>
+                    <constraint firstAttribute="bottom" secondItem="IUy-Zu-IFK" secondAttribute="bottom" constant="0.25" id="CrU-zE-9tC"/>
+                    <constraint firstItem="IUy-Zu-IFK" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="-20" id="ZCP-xX-Jkb"/>
+                    <constraint firstItem="IUy-Zu-IFK" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="0.25" id="ece-l8-1MR"/>
+                    <constraint firstItem="vq9-AP-Qwq" firstAttribute="leading" secondItem="T6V-Rh-tp3" secondAttribute="trailing" constant="10" id="i1S-12-L5V"/>
+                    <constraint firstAttribute="trailing" secondItem="vq9-AP-Qwq" secondAttribute="trailing" constant="8" id="mVn-KT-6RK"/>
+                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="top" secondItem="fNr-nQ-gFq" secondAttribute="bottom" constant="-10" id="nXl-f2-0Hf"/>
+                    <constraint firstAttribute="trailing" secondItem="fNr-nQ-gFq" secondAttribute="trailing" id="rR8-uJ-ZMY"/>
+                    <constraint firstItem="fNr-nQ-gFq" firstAttribute="top" secondItem="wbv-Hu-H1f" secondAttribute="top" id="y7E-qi-Vjg"/>
+                    <constraint firstItem="T6V-Rh-tp3" firstAttribute="leading" secondItem="wbv-Hu-H1f" secondAttribute="leading" constant="10" id="zax-F3-uAT"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="891" height="497"/>
+            <connections>
+                <outlet property="bkgdView" destination="IUy-Zu-IFK" id="ZHc-dQ-adY"/>
+                <outlet property="cellFooterView" destination="fNr-nQ-gFq" id="nKK-g2-Vxm"/>
+                <outlet property="editButton" destination="vq9-AP-Qwq" id="01j-SR-Z2R"/>
+                <outlet property="situationLabel" destination="T6V-Rh-tp3" id="IOZ-h5-ZEM"/>
+            </connections>
+            <point key="canvasLocation" x="-118.11594202898551" y="-55.245535714285715"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+    </resources>
+</document>

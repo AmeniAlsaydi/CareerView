@@ -8,10 +8,6 @@
 
 import Foundation
 
-// when user inputs star situation theyll have the option of guided or freeform
-// if freefrom -> only situation
-// if guided -> uses STAR methods 
-
 struct StarSituation: Equatable & Hashable {
     var situation: String
     var task: String?
@@ -21,7 +17,6 @@ struct StarSituation: Equatable & Hashable {
     var userJobID: String?
     var interviewQuestionsIDs: [String]?
 }
-
 extension StarSituation {
     init(_ dictionary: [String: Any]) {
         self.situation = dictionary["situation"] as? String ?? "Situation NA"

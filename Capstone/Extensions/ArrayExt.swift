@@ -18,5 +18,4 @@ extension Array where Element: Hashable {
     mutating func removeDuplicates() {
         self = self.removingDuplicates()
     }
-
 }
