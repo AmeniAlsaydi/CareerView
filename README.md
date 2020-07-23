@@ -4,7 +4,7 @@ Learn more on our website [here](https://careerviewapp.wixsite.com/home)
 
 Download [here](https://apps.apple.com/us/app/id1517829055)
 
-## Contributors
+### Contributors
 [Ameni Alsaydi](https://github.com/AmeniAlsaydi)
 
 [Casandra Grullon](https://github.com/CasandraGrullon)
@@ -13,7 +13,7 @@ Download [here](https://apps.apple.com/us/app/id1517829055)
 
 [Tsering Lama](https://github.com/tseringlamanyc)
 
-## Description
+### Description
 **CareerView** is the organizational tool for job seekers. Record all your past/present work experiences and use it as an easy reference for future potential employers. 
 
 Use **CareerView** to:
@@ -34,7 +34,7 @@ Use **CareerView** to:
  - Update the status of an application, save any interview dates and notes of your interviewing experience
 
 
-## Job History
+### Job History
 View the details of a job in your job history
 
 <img src="Media/CareerViewAppImages/Screen Shot 2020-06-24 at 4.30.26 PM.png" alt="JobHistory" width="300" height="600" />
@@ -43,7 +43,7 @@ Add a job to your job history
 
 <img src="Media/CareerViewAppImages/Screen Shot 2020-06-24 at 4.30.53 PM.png" alt="JobEntry" width="300" height="600" />
 
-## STAR Stories
+### STAR Stories
 View all logged STAR Stories in the STARS tab
 
 <img src="Media/CareerViewAppImages/Screen Shot 2020-06-24 at 4.31.44 PM.png" alt="JobHistory" width="300" height="600" /> 
@@ -53,7 +53,7 @@ Information pages like this one are provided in each part of the app for a bette
 
 <img src="Media/CareerViewAppImages/Screen Shot 2020-06-24 at 4.31.58 PM.png" alt="JobHistory" width="300" height="600" />
 
-## Interview Questions
+### Interview Questions
 
 Access a collection of common interview questions
 
@@ -65,14 +65,14 @@ Answer questions or attach STAR Stories to them
 
 <img src="Media/CareerViewAppImages/Screen Shot 2020-06-24 at 4.33.22 PM.png" alt="JobHistory" width="300" height="600" />
 
-## Job Applications Tracker
+### Job Applications Tracker
 Enter information of any job application you have or will be applying to
 
 <img src="Media/CareerViewAppImages/Screen Shot 2020-06-24 at 4.35.51 PM.png" alt="JobHistory" width="300" height="600" />
 
 (more to come)
 
-## Profile Tab
+### Profile Tab
 Access your profile and app settings on the Profile Tab
 
 <img src="Media/CareerViewAppImages/Screen Shot 2020-06-24 at 4.36.09 PM.png" alt="JobHistory" width="300" height="600" />
@@ -85,8 +85,8 @@ Read more about the CareerView Team in the About This App page
 
 <img src="Media/CareerViewAppImages/Screen Shot 2020-06-24 at 4.36.43 PM.png" alt="JobHistory" width="300" height="600" />
 
-## Tools & Frameworks used
+### Tools & Frameworks used
 Xcode 11, Swift 5, UIKit, Foundation, Firebase, MFMailComposer, MessageUI, Contacts, MapKit
 
-## UI Inspirations
+### UI Inspirations
 [Folding Cell by Ramotion](https://github.com/Ramotion/folding-cell)
