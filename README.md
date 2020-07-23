@@ -1,5 +1,9 @@
 # CareerView
 
+Learn more on our website [here](https://careerviewapp.wixsite.com/home)
+
+Download [here](https://apps.apple.com/us/app/id1517829055)
+
 ## Contributors
 [Ameni Alsaydi](https://github.com/AmeniAlsaydi)
 
@@ -81,14 +85,8 @@ Read more about the CareerView Team in the About This App page
 
 <img src="Media/CareerViewAppImages/Screen Shot 2020-06-24 at 4.36.43 PM.png" alt="JobHistory" width="300" height="600" />
 
-## Frameworks used
-#### - UIKit 
-#### - Foundation
-#### - Firebase  
-#### - MFMailComposer
-#### - MessageUI
-#### - Contacts
-#### - MapKit
+## Tools & Frameworks used
+Xcode 11, Swift 5, UIKit, Foundation, Firebase, MFMailComposer, MessageUI, Contacts, MapKit
 
 ## UI Inspirations
-#### Folding Cell by Ramotion - https://github.com/Ramotion/folding-cell
+[Folding Cell by Ramotion](https://github.com/Ramotion/folding-cell)
