@@ -1,8 +1,8 @@
 # CareerView
 
-Learn more on our website [here](https://careerviewapp.wixsite.com/home)
+**Learn more on our website [here](https://careerviewapp.wixsite.com/home)**
 
-Download [here](https://apps.apple.com/us/app/id1517829055)
+**Download [here](https://apps.apple.com/us/app/id1517829055)**
 
 ### Contributors
 [Ameni Alsaydi](https://github.com/AmeniAlsaydi)
